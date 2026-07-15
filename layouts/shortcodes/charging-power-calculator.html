@@ -1,0 +1,124 @@
+<div class="tool-container" id="cp-tool">
+  <style>
+    #cp-tool { max-width: 720px; margin: 24px auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    #cp-tool .cp-card { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; }
+    #cp-tool .cp-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    #cp-tool .cp-input-group { margin-bottom: 16px; }
+    #cp-tool label { display: block; font-weight: 600; margin-bottom: 6px; color: #1f2937; font-size: 14px; }
+    #cp-tool input, #cp-tool select { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; box-sizing: border-box; background: white; }
+    #cp-tool input:focus, #cp-tool select:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    #cp-tool .cp-presets { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0 16px 0; }
+    #cp-tool .cp-preset { padding: 6px 12px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; cursor: pointer; font-size: 13px; transition: all 0.2s; }
+    #cp-tool .cp-preset:hover { background: #2563eb; color: white; border-color: #2563eb; }
+    #cp-tool .cp-result { background: #f0fdf4; border: 1px solid #86efac; border-radius: 10px; padding: 18px; margin-top: 18px; display: none; }
+    #cp-tool .cp-result.active { display: block; }
+    #cp-tool .cp-result h3 { margin: 0 0 12px 0; color: #15803d; font-size: 18px; }
+    #cp-tool .cp-power-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #86efac; }
+    #cp-tool .cp-power-row:last-child { border-bottom: none; }
+    #cp-tool .cp-power-label { color: #475569; }
+    #cp-tool .cp-power-val { font-weight: 700; color: #14532d; font-size: 17px; }
+    #cp-tool .cp-tip { font-size: 13px; color: #475569; margin-top: 14px; padding: 10px; background: #f8fafc; border-radius: 6px; }
+    #cp-tool .cp-rec { background: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 12px; margin-top: 12px; font-size: 14px; color: #78350f; }
+    @media (prefers-color-scheme: dark) {
+      #cp-tool .cp-card { background: #1e293b; border-color: #334155; }
+      #cp-tool label, #cp-tool .cp-power-label { color: #cbd5e1; }
+      #cp-tool input, #cp-tool select { background: #0f172a; color: #e2e8f0; border-color: #334155; }
+      #cp-tool .cp-result { background: #052e16; border-color: #14532d; }
+      #cp-tool .cp-power-val { color: #86efac; }
+      #cp-tool .cp-rec { background: #422006; border-color: #78350f; color: #fde68a; }
+    }
+  </style>
+
+  <div class="cp-card">
+    <div class="cp-input-group">
+      <label>相数 / 电压 (V)</label>
+      <select id="cp-phase">
+        <option value="1">单相 220V (家用)</option>
+        <option value="3" selected>三相 380V (工业)</option>
+      </select>
+    </div>
+    <div class="cp-row">
+      <div class="cp-input-group">
+        <label>电压 U (V)</label>
+        <input type="number" id="cp-volt" value="380" min="110" max="1000" step="10">
+      </div>
+      <div class="cp-input-group">
+        <label>电流 I (A)</label>
+        <input type="number" id="cp-curr" value="32" min="1" max="500" step="1">
+      </div>
+      <div class="cp-input-group">
+        <label>功率因数 cosΦ</label>
+        <input type="number" id="cp-cos" value="0.98" min="0.5" max="1.0" step="0.01">
+      </div>
+    </div>
+    <div class="cp-presets">
+      <span class="cp-preset" data-v="220" data-c="32" data-pf="0.98" data-ph="1">家用 7kW 慢充 (220V/32A)</span>
+      <span class="cp-preset" data-v="380" data-c="16" data-pf="0.98" data-ph="3">三相 11kW (380V/16A)</span>
+      <span class="cp-preset" data-v="380" data-c="32" data-pf="0.98" data-ph="3">三相 22kW (380V/32A)</span>
+      <span class="cp-preset" data-v="380" data-c="63" data-pf="0.98" data-ph="3">三相 43kW (380V/63A)</span>
+    </div>
+
+    <div class="cp-result" id="cp-result">
+      <h3>功率计算结果</h3>
+      <div class="cp-power-row"><span class="cp-power-label">有功功率 P (kW)</span><span class="cp-power-val" id="cp-p">--</span></div>
+      <div class="cp-power-row"><span class="cp-power-label">无功功率 Q (kVar)</span><span class="cp-power-val" id="cp-q">--</span></div>
+      <div class="cp-power-row"><span class="cp-power-label">视在功率 S (kVA)</span><span class="cp-power-val" id="cp-s">--</span></div>
+      <div class="cp-rec" id="cp-rec"></div>
+      <div class="cp-tip" id="cp-tip"></div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    function calc() {
+      var phase = parseInt(document.getElementById('cp-phase').value);
+      var U = parseFloat(document.getElementById('cp-volt').value);
+      var I = parseFloat(document.getElementById('cp-curr').value);
+      var cos = parseFloat(document.getElementById('cp-cos').value);
+      if (!U || !I || !cos || U <= 0 || I <= 0 || cos <= 0 || cos > 1) return;
+      var P, S;
+      if (phase === 3) {
+        S = Math.sqrt(3) * U * I / 1000;
+        P = S * cos;
+      } else {
+        S = U * I / 1000;
+        P = S * cos;
+      }
+      var sin = Math.sqrt(1 - cos * cos);
+      var Q = S * sin;
+      document.getElementById('cp-p').textContent = P.toFixed(2);
+      document.getElementById('cp-q').textContent = Q.toFixed(2);
+      document.getElementById('cp-s').textContent = S.toFixed(2);
+      // 选型推荐
+      var rec = '';
+      if (P < 7) rec = '推荐:7kW 家用慢充桩,适用 220V 单相电表,无三相申请。';
+      else if (P >= 7 && P < 11) rec = '推荐:7kW 单相桩已能满足此功率需求;若需更快可升级三相 11kW 桩。';
+      else if (P >= 11 && P < 22) rec = '推荐:11kW 三相 380V 桩,适用主流电动车,适合通勤频繁场景。';
+      else if (P >= 22 && P < 43) rec = '推荐:22kW 三相桩,充电速度最快,需确认车型支持(部分车载充电机限 11kW)。';
+      else rec = '推荐:商用三相快充桩,适合 30kW+ 直流场景。';
+      document.getElementById('cp-rec').textContent = rec;
+      var tip = '';
+      if (phase === 1 && P > 7) tip = '提示:单相 220V 实际功率上限约 7kW(32A),更高功率必须用三相 380V。';
+      else if (phase === 3 && I > 32) tip = '提示:电流大于 32A 需配置三相漏保 + 5×6mm² 五芯电缆,配电容量按 1.25 倍预留。';
+      else if (cos < 0.95) tip = '提示:功率因数低于 0.95 会导致电网罚款,建议加装 SVG 无功补偿装置。';
+      document.getElementById('cp-tip').textContent = tip;
+      document.getElementById('cp-result').classList.add('active');
+    }
+    ['cp-phase','cp-volt','cp-curr','cp-cos'].forEach(function(id){
+      var el = document.getElementById(id);
+      el.addEventListener('input', calc);
+      el.addEventListener('change', calc);
+    });
+    document.querySelectorAll('#cp-tool .cp-preset').forEach(function(p){
+      p.addEventListener('click', function(){
+        document.getElementById('cp-phase').value = this.dataset.ph;
+        document.getElementById('cp-volt').value = this.dataset.v;
+        document.getElementById('cp-curr').value = this.dataset.c;
+        document.getElementById('cp-cos').value = this.dataset.pf;
+        calc();
+      });
+    });
+    calc();
+  })();
+  </script>
+</div>
