@@ -1,5 +1,4 @@
 public/
-themes/PaperMod/
 .DS_Store
 *.log
 .hugo_build.lock
