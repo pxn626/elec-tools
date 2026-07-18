@@ -1,0 +1,258 @@
+<div class="tool-container" id="ec-tool">
+  <style>
+    #ec-tool { max-width: 760px; margin: 24px auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    #ec-tool .ec-card { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; }
+    #ec-tool .ec-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    #ec-tool .ec-input-group { margin-bottom: 16px; }
+    #ec-tool label { display: block; font-weight: 600; margin-bottom: 6px; color: #1f2937; font-size: 14px; }
+    #ec-tool input, #ec-tool select { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; box-sizing: border-box; background: white; }
+    #ec-tool input:focus, #ec-tool select:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    #ec-tool .ec-mode-tabs { display: flex; gap: 8px; margin-bottom: 18px; border-bottom: 2px solid #e5e7eb; }
+    #ec-tool .ec-tab { padding: 10px 18px; cursor: pointer; font-weight: 600; color: #6b7280; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+    #ec-tool .ec-tab.active { color: #2563eb; border-bottom-color: #2563eb; }
+    #ec-tool .ec-tab:hover:not(.active) { color: #374151; }
+    #ec-tool .ec-panel { display: none; }
+    #ec-tool .ec-panel.active { display: block; }
+    #ec-tool .ec-presets { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0 16px 0; }
+    #ec-tool .ec-preset { padding: 6px 12px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; cursor: pointer; font-size: 13px; transition: all 0.2s; }
+    #ec-tool .ec-preset:hover { background: #2563eb; color: white; border-color: #2563eb; }
+    #ec-tool .ec-result { background: #fefce8; border: 1px solid #fde047; border-radius: 10px; padding: 18px; margin-top: 18px; display: none; }
+    #ec-tool .ec-result.active { display: block; }
+    #ec-tool .ec-result h3 { margin: 0 0 12px 0; color: #854d0e; font-size: 18px; }
+    #ec-tool .ec-cost-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #fde047; }
+    #ec-tool .ec-cost-row:last-child { border-bottom: none; }
+    #ec-tool .ec-cost-row.highlight { background: #fef9c3; margin: 4px -8px; padding: 8px; border-radius: 6px; border-bottom: none; }
+    #ec-tool .ec-cost-label { color: #475569; font-size: 14px; }
+    #ec-tool .ec-cost-val { font-weight: 700; color: #713f12; font-size: 17px; }
+    #ec-tool .ec-cost-row.highlight .ec-cost-val { color: #b45309; font-size: 20px; }
+    #ec-tool .ec-unit { font-size: 12px; color: #94a3b8; margin-left: 4px; }
+    #ec-tool .ec-tip { font-size: 13px; color: #475569; margin-top: 14px; padding: 10px; background: #fef9c3; border-radius: 6px; border-left: 3px solid #eab308; }
+    #ec-tool .ec-co2 { font-size: 13px; color: #475569; margin-top: 10px; padding: 10px; background: #f0fdf4; border-radius: 6px; border-left: 3px solid #22c55e; }
+    @media (prefers-color-scheme: dark) {
+      #ec-tool .ec-card { background: #1e293b; border-color: #334155; }
+      #ec-tool label, #ec-tool .ec-cost-label { color: #cbd5e1; }
+      #ec-tool input, #ec-tool select { background: #0f172a; color: #e2e8f0; border-color: #334155; }
+      #ec-tool .ec-mode-tabs { border-bottom-color: #334155; }
+      #ec-tool .ec-tab { color: #94a3b8; }
+      #ec-tool .ec-tab.active { color: #60a5fa; border-bottom-color: #60a5fa; }
+      #ec-tool .ec-result { background: #422006; border-color: #854d0e; }
+      #ec-tool .ec-result h3, .ec-cost-val { color: #fde68a; }
+      #ec-tool .ec-cost-row { border-bottom-color: #854d0e; }
+      #ec-tool .ec-cost-row.highlight { background: #78350f; }
+      #ec-tool .ec-cost-row.highlight .ec-cost-val { color: #fbbf24; }
+      #ec-tool .ec-tip { background: #422006; color: #fde68a; border-left-color: #eab308; }
+      #ec-tool .ec-co2 { background: #052e16; color: #86efac; border-left-color: #22c55e; }
+    }
+  </style>
+
+  <div class="ec-card">
+    <div class="ec-mode-tabs">
+      <div class="ec-tab active" data-mode="appliance">按电器功率</div>
+      <div class="ec-tab" data-mode="total">按总用电量</div>
+    </div>
+
+    <div class="ec-panel active" data-panel="appliance">
+      <div class="ec-input-group">
+        <label>电器名称(可选)</label>
+        <input type="text" id="ec-name" placeholder="如:空调 / 冰箱 / 热水器">
+      </div>
+      <div class="ec-row">
+        <div class="ec-input-group">
+          <label>额定功率 P (W)</label>
+          <input type="number" id="ec-watt" value="1000" min="1" max="50000" step="10">
+        </div>
+        <div class="ec-input-group">
+          <label>每天使用时长 (h)</label>
+          <input type="number" id="ec-hours" value="8" min="0.1" max="24" step="0.5">
+        </div>
+      </div>
+      <div class="ec-presets">
+        <span class="ec-preset" onclick="applyWattPreset(60)">LED 灯泡 60W</span>
+        <span class="ec-preset" onclick="applyWattPreset(150)">冰箱 150W</span>
+        <span class="ec-preset" onclick="applyWattPreset(2000)">空调 2000W</span>
+        <span class="ec-preset" onclick="applyWattPreset(2200)">电热水器 2200W</span>
+        <span class="ec-preset" onclick="applyWattPreset(3000)">即热式水龙头 3000W</span>
+        <span class="ec-preset" onclick="applyWattPreset(500)">台式电脑 500W</span>
+      </div>
+      <div class="ec-input-group">
+        <label><input type="checkbox" id="ec-standby" checked> 包含待机功耗(电器功率的 5%)</label>
+      </div>
+    </div>
+
+    <div class="ec-panel" data-panel="total">
+      <div class="ec-input-group">
+        <label>月用电量 (kWh)</label>
+        <input type="number" id="ec-monthly-kwh" value="300" min="1" max="100000" step="10">
+        <div class="ec-presets">
+          <span class="ec-preset" onclick="document.getElementById('ec-monthly-kwh').value=100">独居 100 kWh/月</span>
+          <span class="ec-preset" onclick="document.getElementById('ec-monthly-kwh').value=300">普通家庭 300 kWh/月</span>
+          <span class="ec-preset" onclick="document.getElementById('ec-monthly-kwh').value=600">多电器家庭 600 kWh/月</span>
+          <span class="ec-preset" onclick="document.getElementById('ec-monthly-kwh').value=1000">大功率家庭 1000 kWh/月</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ec-row">
+      <div class="ec-input-group">
+        <label>电价(¥ / kWh)</label>
+        <input type="number" id="ec-price" value="0.6" min="0.1" max="5" step="0.01">
+        <div class="ec-presets">
+          <span class="ec-preset" onclick="document.getElementById('ec-price').value=0.528">居民 0.528</span>
+          <span class="ec-preset" onclick="document.getElementById('ec-price').value=0.6">商用电 0.6</span>
+          <span class="ec-preset" onclick="document.getElementById('ec-price').value=1.2">高峰电价 1.2</span>
+        </div>
+      </div>
+      <div class="ec-input-group">
+        <label>使用天数 / 周期</label>
+        <input type="number" id="ec-days" value="30" min="1" max="365" step="1">
+      </div>
+    </div>
+
+    <div class="ec-result" id="ec-result">
+      <h3 id="ec-result-title">电费计算结果</h3>
+      <div class="ec-cost-row">
+        <span class="ec-cost-label">每天耗电</span>
+        <span class="ec-cost-val"><span id="ec-daily-kwh">--</span><span class="ec-unit">kWh</span></span>
+      </div>
+      <div class="ec-cost-row">
+        <span class="ec-cost-label">每天电费</span>
+        <span class="ec-cost-val">¥<span id="ec-daily-cost">--</span></span>
+      </div>
+      <div class="ec-cost-row highlight">
+        <span class="ec-cost-label" id="ec-period-label">月电费(按 30 天)</span>
+        <span class="ec-cost-val">¥<span id="ec-period-cost">--</span></span>
+      </div>
+      <div class="ec-cost-row">
+        <span class="ec-cost-label">年电费(估算)</span>
+        <span class="ec-cost-val">¥<span id="ec-yearly-cost">--</span></span>
+      </div>
+      <div class="ec-cost-row">
+        <span class="ec-cost-label">占家庭月支出比(假设 ¥3000 月收入)</span>
+        <span class="ec-cost-val"><span id="ec-percent">--</span>%</span>
+      </div>
+      <div class="ec-co2">
+        🌱 碳排放估算:<strong><span id="ec-co2">--</span> kg CO₂</strong>
+        <span style="font-size:11px;color:#94a3b8">(每 kWh ≈ 0.785 kg CO₂,中国电网均值)</span>
+      </div>
+      <div class="ec-tip" id="ec-tip"></div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    var currentMode = 'appliance';
+
+    function $(id) { return document.getElementById(id); }
+
+    function fmt(n, d) {
+      d = d || 2;
+      if (!isFinite(n)) return '--';
+      return n.toFixed(d);
+    }
+
+    function applyWattPreset(w) {
+      $('ec-watt').value = w;
+      $('ec-name').value = '';
+      $('ec-hours').value = 8;
+      calc();
+    }
+
+    function switchTab(mode) {
+      currentMode = mode;
+      document.querySelectorAll('#ec-tool .ec-tab').forEach(function(t){
+        t.classList.toggle('active', t.dataset.mode === mode);
+      });
+      document.querySelectorAll('#ec-tool .ec-panel').forEach(function(p){
+        p.classList.toggle('active', p.dataset.panel === mode);
+      });
+      calc();
+    }
+
+    function calc() {
+      var price = parseFloat($('ec-price').value);
+      var days = parseFloat($('ec-days').value);
+      var dailyKwh = 0;
+      var modeName = '';
+
+      if (currentMode === 'appliance') {
+        var watt = parseFloat($('ec-watt').value);
+        var hours = parseFloat($('ec-hours').value);
+        var standby = $('ec-standby').checked;
+        if (!watt || !hours || !price || !days) return;
+        // 待机功耗 = 额定功率 × 5% × (24 - 使用时长)
+        var activeKwh = (watt * hours) / 1000;
+        var standbyKwh = standby ? (watt * 0.05 * (24 - hours)) / 1000 : 0;
+        dailyKwh = activeKwh + standbyKwh;
+        var name = $('ec-name').value.trim();
+        modeName = name || '该电器';
+      } else {
+        var monthly = parseFloat($('ec-monthly-kwh').value);
+        if (!monthly || !price || !days) return;
+        // 按月用电量反推每天
+        dailyKwh = monthly / 30;
+        modeName = '家庭总用电';
+      }
+
+      if (dailyKwh <= 0 || price <= 0 || days <= 0) return;
+
+      var dailyCost = dailyKwh * price;
+      var periodCost = dailyCost * days;
+      var yearlyCost = dailyCost * 365;
+      var percent = (periodCost / 3000 * 100);
+      var co2Kg = dailyKwh * days * 0.785;
+
+      $('ec-daily-kwh').textContent = fmt(dailyKwh, 2);
+      $('ec-daily-cost').textContent = fmt(dailyCost, 2);
+      $('ec-period-cost').textContent = fmt(periodCost, 2);
+      $('ec-yearly-cost').textContent = fmt(yearlyCost, 0);
+      $('ec-percent').textContent = fmt(percent, 1);
+      $('ec-co2').textContent = fmt(co2Kg, 1);
+
+      $('ec-period-label').textContent = days + ' 天电费(共 ' + fmt(dailyKwh * days, 1) + ' kWh)';
+      $('ec-result-title').textContent = modeName + ' · 电费估算';
+
+      // 节能建议
+      var tip = '';
+      if (dailyKwh > 30) {
+        tip = '⚡ 该电器日耗电超过 30 kWh,建议:① 升级变频机型(可省 20-30%) ② 加装定时开关 ③ 检查是否长时间待机';
+      } else if (dailyKwh > 10) {
+        tip = '💡 大功率电器建议:① 错峰使用(谷电价时段) ② 配合智能插座定时关闭 ③ 定期除垢/清洁(电热水器可省 10%)';
+      } else if (dailyKwh > 1) {
+        tip = '✓ 中等用电。建议养成随手关机的习惯,长期可省 5-8% 电费。';
+      } else {
+        tip = '✓ 低耗电器,正常使用即可。注意待机功耗约占 5%,拔插头可进一步省电。';
+      }
+      if (currentMode === 'total') {
+        if (monthly > 600) {
+          tip = '🏠 月用电偏高(>' + monthly + ' kWh)。建议:① 排查待机功耗(可省 5-10%) ② 老旧空调/热水器升级换代 ③ 加装太阳能(中国户用回本 5-8 年)';
+        } else if (monthly < 200) {
+          tip = '✓ 用电较低。如想进一步节能,可:① 改用 LED 照明 ② 空调温度调高 1°C(省 6-8%) ③ 热水器加装保温层';
+        } else {
+          tip = '💡 普通家庭用电水平。建议夏季空调温度不低于 26°C,冬季电暖不高于 22°C,既省电又健康。';
+        }
+      }
+      $('ec-tip').textContent = tip;
+      $('ec-result').classList.add('active');
+    }
+
+    // 标签切换
+    document.querySelectorAll('#ec-tool .ec-tab').forEach(function(tab){
+      tab.addEventListener('click', function(){ switchTab(tab.dataset.mode); });
+    });
+
+    // 输入绑定
+    ['ec-watt','ec-hours','ec-name','ec-standby','ec-monthly-kwh','ec-price','ec-days'].forEach(function(id){
+      var el = $(id);
+      if (!el) return;
+      el.addEventListener('input', calc);
+      el.addEventListener('change', calc);
+    });
+
+    // 暴露给 preset
+    window.applyWattPreset = applyWattPreset;
+
+    // 首次计算
+    calc();
+  })();
+  </script>
+</div>
