@@ -22,6 +22,9 @@ date: 2026-07-19T00:00:00+00:00
 draft: false
 ---
 
+{{< transformer-capacity-selection >}}
+
+
 # 变压器容量选择计算器 - kVA 选型与 GB/T 17468 R10 国标容量推荐
 
 ## 引言
