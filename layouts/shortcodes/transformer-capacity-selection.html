@@ -1,0 +1,958 @@
+<div class="tcs-tool-container" id="tcs-tool">
+  <style>
+    #tcs-tool { max-width: 800px; margin: 24px auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    #tcs-tool .tcs-card { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; }
+    #tcs-tool .tcs-mode-tabs { display: flex; gap: 4px; margin-bottom: 18px; border-bottom: 2px solid #e5e7eb; overflow-x: auto; flex-wrap: nowrap; }
+    #tcs-tool .tcs-tab { padding: 10px 16px; cursor: pointer; font-weight: 600; color: #6b7280; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; font-size: 14px; white-space: nowrap; }
+    #tcs-tool .tcs-tab.active { color: #2563eb; border-bottom-color: #2563eb; }
+    #tcs-tool .tcs-tab:hover:not(.active) { color: #374151; }
+    #tcs-tool .tcs-panel { display: none; }
+    #tcs-tool .tcs-panel.active { display: block; }
+    #tcs-tool .tcs-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    #tcs-tool .tcs-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    #tcs-tool .tcs-row4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+    #tcs-tool .tcs-input-group { margin-bottom: 16px; }
+    #tcs-tool .tcs-section-title { font-size: 13px; font-weight: 700; color: #475569; margin: 18px 0 10px 0; padding-bottom: 6px; border-bottom: 1px solid #e5e7eb; }
+    #tcs-tool label { display: block; font-weight: 600; margin-bottom: 6px; color: #1f2937; font-size: 14px; }
+    #tcs-tool label .tcs-unit { font-weight: 400; color: #6b7280; font-size: 12px; margin-left: 4px; }
+    #tcs-tool input, #tcs-tool select { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 16px; box-sizing: border-box; background: white; }
+    #tcs-tool input:focus, #tcs-tool select:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    #tcs-tool .tcs-radio-group { display: flex; gap: 14px; flex-wrap: wrap; }
+    #tcs-tool .tcs-radio-group label { font-weight: 400; display: flex; align-items: center; gap: 4px; cursor: pointer; font-size: 14px; }
+    #tcs-tool .tcs-radio-group input[type="radio"] { width: auto; margin: 0; }
+    #tcs-tool .tcs-presets { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0 12px 0; }
+    #tcs-tool .tcs-preset { padding: 5px 10px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 6px; cursor: pointer; font-size: 12px; transition: all 0.2s; user-select: none; }
+    #tcs-tool .tcs-preset:hover { background: #2563eb; color: white; border-color: #2563eb; }
+    #tcs-tool .tcs-result { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 10px; padding: 18px; margin-top: 18px; display: none; }
+    #tcs-tool .tcs-result.active { display: block; }
+    #tcs-tool .tcs-result h3 { margin: 0 0 12px 0; color: #1e40af; font-size: 18px; }
+    #tcs-tool .tcs-r-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #93c5fd; align-items: baseline; gap: 12px; }
+    #tcs-tool .tcs-r-row:last-child { border-bottom: none; }
+    #tcs-tool .tcs-r-row.highlight { background: #dbeafe; margin: 4px -8px; padding: 8px; border-radius: 6px; border-bottom: none; }
+    #tcs-tool .tcs-r-label { color: #475569; font-size: 14px; flex: 1; }
+    #tcs-tool .tcs-r-val { font-weight: 700; color: #1e3a8a; font-size: 17px; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+    #tcs-tool .tcs-r-row.highlight .tcs-r-val { color: #1d4ed8; font-size: 22px; }
+    #tcs-tool .tcs-unit-inline { font-size: 12px; color: #64748b; margin-left: 4px; font-weight: 400; }
+    #tcs-tool .tcs-coeff-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; color: #475569; }
+    #tcs-tool .tcs-coeff-label { flex: 1; }
+    #tcs-tool .tcs-coeff-val { font-weight: 600; color: #1e40af; font-variant-numeric: tabular-nums; }
+    #tcs-tool .tcs-coeff-section { margin-top: 14px; padding-top: 10px; border-top: 1px dashed #93c5fd; }
+    #tcs-tool .tcs-coeff-section-title { font-size: 13px; font-weight: 600; color: #1e40af; margin-bottom: 6px; }
+    #tcs-tool .tcs-tip { font-size: 13px; color: #1e293b; margin-top: 14px; padding: 10px; background: #fef3c7; border-radius: 6px; border-left: 3px solid #f59e0b; }
+    #tcs-tool .tcs-warn { font-size: 13px; color: #7f1d1d; margin-top: 10px; padding: 10px; background: #fee2e2; border-radius: 6px; border-left: 3px solid #dc2626; display: none; }
+    #tcs-tool .tcs-warn.active { display: block; }
+    #tcs-tool .tcs-formula { font-size: 12px; color: #475569; margin-top: 10px; padding: 10px; background: #f8fafc; border-radius: 6px; border-left: 3px solid #94a3b8; font-family: "SF Mono", Monaco, Consolas, "Courier New", monospace; word-break: break-all; white-space: pre-wrap; }
+    #tcs-tool .tcs-standard { font-size: 12px; color: #475569; margin-top: 14px; padding: 12px; background: #f8fafc; border-radius: 6px; border-left: 3px solid #94a3b8; }
+    #tcs-tool .tcs-standard p { margin: 4px 0; font-weight: 600; }
+    #tcs-tool .tcs-standard ul { margin: 4px 0; padding-left: 18px; }
+    #tcs-tool .tcs-standard li { font-weight: 400; line-height: 1.6; }
+    #tcs-tool .tcs-disclaimer { font-size: 12px; color: #64748b; margin-top: 14px; padding: 12px; background: #f1f5f9; border-radius: 6px; border-left: 3px solid #cbd5e1; line-height: 1.6; }
+    #tcs-tool .tcs-disclaimer p { margin: 4px 0; font-weight: 600; }
+    #tcs-tool .tcs-disclaimer ul { margin: 4px 0; padding-left: 18px; }
+    #tcs-tool .tcs-disclaimer li { font-weight: 400; }
+    @media (prefers-color-scheme: dark) {
+      #tcs-tool .tcs-card { background: #1e293b; border-color: #334155; }
+      #tcs-tool .tcs-section-title { color: #94a3b8; border-bottom-color: #334155; }
+      #tcs-tool label { color: #cbd5e1; }
+      #tcs-tool label .tcs-unit { color: #94a3b8; }
+      #tcs-tool input, #tcs-tool select { background: #0f172a; color: #e2e8f0; border-color: #334155; }
+      #tcs-tool .tcs-mode-tabs { border-bottom-color: #334155; }
+      #tcs-tool .tcs-tab { color: #94a3b8; }
+      #tcs-tool .tcs-tab.active { color: #60a5fa; border-bottom-color: #60a5fa; }
+      #tcs-tool .tcs-tab:hover:not(.active) { color: #e2e8f0; }
+      #tcs-tool .tcs-radio-group label { color: #cbd5e1; }
+      #tcs-tool .tcs-preset { background: #334155; border-color: #475569; color: #cbd5e1; }
+      #tcs-tool .tcs-preset:hover { background: #2563eb; color: white; border-color: #2563eb; }
+      #tcs-tool .tcs-result { background: #0c1f3f; border-color: #1e3a8a; }
+      #tcs-tool .tcs-result h3 { color: #93c5fd; }
+      #tcs-tool .tcs-r-row { border-bottom-color: #1e3a8a; }
+      #tcs-tool .tcs-r-label { color: #cbd5e1; }
+      #tcs-tool .tcs-r-val { color: #93c5fd; }
+      #tcs-tool .tcs-r-row.highlight { background: #1e3a8a; }
+      #tcs-tool .tcs-r-row.highlight .tcs-r-val { color: #dbeafe; }
+      #tcs-tool .tcs-coeff-row { color: #cbd5e1; }
+      #tcs-tool .tcs-coeff-val { color: #93c5fd; }
+      #tcs-tool .tcs-unit-inline { color: #94a3b8; }
+      #tcs-tool .tcs-coeff-section { border-top-color: #1e3a8a; }
+      #tcs-tool .tcs-coeff-section-title { color: #93c5fd; }
+      #tcs-tool .tcs-tip { background: #422006; color: #fde68a; border-left-color: #f59e0b; }
+      #tcs-tool .tcs-warn { background: #450a0a; color: #fecaca; border-left-color: #dc2626; }
+      #tcs-tool .tcs-formula { background: #0f172a; color: #cbd5e1; border-left-color: #475569; }
+      #tcs-tool .tcs-standard { background: #0f172a; color: #94a3b8; border-left-color: #475569; }
+      #tcs-tool .tcs-disclaimer { background: #1f2937; color: #94a3b8; border-left-color: #475569; }
+    }
+    @media (max-width: 600px) {
+      #tcs-tool .tcs-row, #tcs-tool .tcs-row3, #tcs-tool .tcs-row4 { grid-template-columns: 1fr; }
+      #tcs-tool .tcs-mode-tabs { overflow-x: auto; flex-wrap: nowrap; }
+      #tcs-tool .tcs-tab { white-space: nowrap; }
+      #tcs-tool .tcs-radio-group { gap: 10px; }
+    }
+  </style>
+
+  <div class="tcs-card">
+    <div class="tcs-mode-tabs">
+      <div class="tcs-tab active" data-tab="factor">① 需要系数法(主推,GB 50054 推荐)</div>
+      <div class="tcs-tab" data-tab="total">② 按总功率法(快速估算)</div>
+    </div>
+
+    <!-- =========================================================== -->
+    <!-- Tab 1: 需要系数法 -->
+    <!-- =========================================================== -->
+    <div class="tcs-panel active" data-panel="factor">
+
+      <!-- 用户类型(决定 K_Σ 同时系数) -->
+      <div class="tcs-section-title">▶ 用户类型(决定同时系数 K_Σ)</div>
+      <div class="tcs-input-group">
+        <div class="tcs-radio-group">
+          <label><input type="radio" name="tcs-user-type" value="residential" checked onclick="tcsApplyUserType('residential')"> 住宅小区 (K_Σ=0.75)</label>
+          <label><input type="radio" name="tcs-user-type" value="commercial" onclick="tcsApplyUserType('commercial')"> 商业建筑 (K_Σ=0.85)</label>
+          <label><input type="radio" name="tcs-user-type" value="industrial" onclick="tcsApplyUserType('industrial')"> 工业厂房 (K_Σ=0.95)</label>
+          <label><input type="radio" name="tcs-user-type" value="public" onclick="tcsApplyUserType('public')"> 公共建筑 (K_Σ=0.85)</label>
+          <label><input type="radio" name="tcs-user-type" value="custom" onclick="tcsApplyUserType('custom')"> 自填</label>
+        </div>
+      </div>
+      <div class="tcs-row" id="tcs-Ksigma-custom-wrap" style="display:none;">
+        <div class="tcs-input-group">
+          <label>同时系数 K_Σ(自填)</label>
+          <input type="number" id="tcs-Ksigma-custom" value="0.85" min="0.50" max="1.00" step="0.05" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group"></div>
+      </div>
+
+      <!-- 设备分类输入 -->
+      <div class="tcs-section-title">▶ 设备分类输入(填 0 = 无该类负荷)</div>
+
+      <!-- ① 照明设备 -->
+      <div class="tcs-row3">
+        <div class="tcs-input-group">
+          <label>① 照明设备 总功率 P₁<span class="tcs-unit">(kW)</span></label>
+          <input type="number" id="tcs-power-lighting" value="0" min="0" max="10000" step="0.5" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group">
+          <label>需要系数 K_x1<span class="tcs-unit">(0.50~0.90)</span></label>
+          <input type="number" id="tcs-Kx-lighting" value="0.80" min="0.10" max="1.00" step="0.05" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group">
+          <label>功率因数 cosφ₁<span class="tcs-unit">(0.50~1.00)</span></label>
+          <input type="number" id="tcs-cos-lighting" value="0.90" min="0.50" max="1.00" step="0.01" inputmode="decimal">
+        </div>
+      </div>
+
+      <!-- ② 动力设备 -->
+      <div class="tcs-row3">
+        <div class="tcs-input-group">
+          <label>② 动力设备 总功率 P₂<span class="tcs-unit">(kW)</span></label>
+          <input type="number" id="tcs-power-motor" value="0" min="0" max="10000" step="0.5" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group">
+          <label>需要系数 K_x2<span class="tcs-unit">(0.50~0.85)</span></label>
+          <input type="number" id="tcs-Kx-motor" value="0.80" min="0.10" max="1.00" step="0.05" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group">
+          <label>功率因数 cosφ₂<span class="tcs-unit">(0.70~0.85)</span></label>
+          <input type="number" id="tcs-cos-motor" value="0.80" min="0.50" max="1.00" step="0.01" inputmode="decimal">
+        </div>
+      </div>
+
+      <!-- ③ 电热设备 -->
+      <div class="tcs-row3">
+        <div class="tcs-input-group">
+          <label>③ 电热设备 总功率 P₃<span class="tcs-unit">(kW)</span></label>
+          <input type="number" id="tcs-power-heating" value="0" min="0" max="10000" step="0.5" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group">
+          <label>需要系数 K_x3<span class="tcs-unit">(0.60~0.80)</span></label>
+          <input type="number" id="tcs-Kx-heating" value="0.70" min="0.10" max="1.00" step="0.05" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group">
+          <label>功率因数 cosφ₃<span class="tcs-unit">(0.95~1.00)</span></label>
+          <input type="number" id="tcs-cos-heating" value="1.00" min="0.50" max="1.00" step="0.01" inputmode="decimal">
+        </div>
+      </div>
+
+      <!-- ④ 其他设备 -->
+      <div class="tcs-row3">
+        <div class="tcs-input-group">
+          <label>④ 其他设备 总功率 P₄<span class="tcs-unit">(kW)</span></label>
+          <input type="number" id="tcs-power-other" value="0" min="0" max="10000" step="0.5" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group">
+          <label>需要系数 K_x4<span class="tcs-unit">(0.60~0.80)</span></label>
+          <input type="number" id="tcs-Kx-other" value="0.70" min="0.10" max="1.00" step="0.05" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group">
+          <label>功率因数 cosφ₄<span class="tcs-unit">(0.70~0.90)</span></label>
+          <input type="number" id="tcs-cos-other" value="0.85" min="0.50" max="1.00" step="0.01" inputmode="decimal">
+        </div>
+      </div>
+
+      <!-- 预设按钮:动力 -->
+      <div class="tcs-input-group">
+        <label>📋 动力设备预设(点击自动填 P₂)</label>
+        <div class="tcs-presets">
+          <span class="tcs-preset" onclick="tcsApplyPowerPreset('motor', 22.5, 0.75, 0.80)">7.5kW × 3 电动机</span>
+          <span class="tcs-preset" onclick="tcsApplyPowerPreset('motor', 22.0, 0.75, 0.80)">11kW × 2 电动机</span>
+          <span class="tcs-preset" onclick="tcsApplyPowerPreset('motor', 22.0, 1.00, 0.80)">22kW × 1 电动机</span>
+          <span class="tcs-preset" onclick="tcsApplyPowerPreset('motor', 50.0, 1.00, 0.82)">50kW × 1 电动机</span>
+          <span class="tcs-preset" onclick="tcsApplyPowerPreset('motor', 100.0, 0.65, 0.78)">100kW 混合动力</span>
+        </div>
+      </div>
+
+      <!-- 预设按钮:照明 -->
+      <div class="tcs-input-group">
+        <label>💡 照明设备预设(点击自动填 P₁)</label>
+        <div class="tcs-presets">
+          <span class="tcs-preset" onclick="tcsApplyPowerPreset('lighting', 2.0, 0.80, 0.90)">50m² 住宅</span>
+          <span class="tcs-preset" onclick="tcsApplyPowerPreset('lighting', 8.0, 0.85, 0.92)">200m² 商铺</span>
+          <span class="tcs-preset" onclick="tcsApplyPowerPreset('lighting', 20.0, 0.80, 0.90)">1000m² 厂房</span>
+          <span class="tcs-preset" onclick="tcsApplyPowerPreset('lighting', 100.0, 0.85, 0.92)">5000m² 商场</span>
+        </div>
+      </div>
+
+      <!-- 变压器选型 -->
+      <div class="tcs-section-title">▶ 变压器选型</div>
+      <div class="tcs-row">
+        <div class="tcs-input-group">
+          <label>变压器类型</label>
+          <div class="tcs-radio-group">
+            <label><input type="radio" name="tcs-tx-type" value="oil" checked onclick="tcsCalc()"> 油浸 (η≈0.97)</label>
+            <label><input type="radio" name="tcs-tx-type" value="dry" onclick="tcsCalc()"> 干式 (η≈0.96)</label>
+            <label><input type="radio" name="tcs-tx-type" value="custom" onclick="tcsCalc()"> 自填</label>
+          </div>
+        </div>
+        <div class="tcs-input-group" id="tcs-eta-wrap" style="display:none;">
+          <label>变压器效率 η(自填)<span class="tcs-unit">(0.90~0.99)</span></label>
+          <input type="number" id="tcs-eta-custom" value="0.97" min="0.90" max="0.99" step="0.005" inputmode="decimal">
+        </div>
+      </div>
+      <div class="tcs-row">
+        <div class="tcs-input-group">
+          <label>负载率 K_load<span class="tcs-unit">(经济区间 0.75~0.85)</span></label>
+          <input type="number" id="tcs-kload" value="0.85" min="0.30" max="1.00" step="0.05" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group">
+          <label>裕度系数 K_m<span class="tcs-unit">(GB 50052 推荐 1.10~1.25)</span></label>
+          <input type="number" id="tcs-km" value="1.20" min="1.00" max="1.50" step="0.05" inputmode="decimal">
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================== -->
+    <!-- Tab 2: 按总功率法 -->
+    <!-- =========================================================== -->
+    <div class="tcs-panel" data-panel="total">
+      <div class="tcs-section-title">▶ 总功率输入</div>
+      <div class="tcs-row">
+        <div class="tcs-input-group">
+          <label>总有功功率 P<span class="tcs-unit">(kW)</span></label>
+          <input type="number" id="tcs-total-p" value="50" min="1" max="100000" step="1" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group">
+          <label>设备类型</label>
+          <div class="tcs-radio-group">
+            <label><input type="radio" name="tcs-total-type" value="resistive" onclick="tcsApplyTotalType('resistive')"> 电阻性(cosφ≈1)</label>
+            <label><input type="radio" name="tcs-total-type" value="inductive" checked onclick="tcsApplyTotalType('inductive')"> 感性(cosφ&lt;1)</label>
+            <label><input type="radio" name="tcs-total-type" value="custom" onclick="tcsApplyTotalType('custom')"> 自填</label>
+          </div>
+        </div>
+      </div>
+      <div class="tcs-row">
+        <div class="tcs-input-group">
+          <label>总功率因数 cosφ<span class="tcs-unit">(0.50~1.00)</span></label>
+          <input type="number" id="tcs-total-cos" value="0.80" min="0.50" max="1.00" step="0.01" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group"></div>
+      </div>
+
+      <div class="tcs-input-group">
+        <label>📋 总功率预设(常见场景)</label>
+        <div class="tcs-presets">
+          <span class="tcs-preset" onclick="tcsApplyTotalPreset(50)">50 kW 小型作坊</span>
+          <span class="tcs-preset" onclick="tcsApplyTotalPreset(200)">200 kW 中型工厂</span>
+          <span class="tcs-preset" onclick="tcsApplyTotalPreset(500)">500 kW 大型工厂</span>
+          <span class="tcs-preset" onclick="tcsApplyTotalPreset(1000)">1000 kW 园区总配</span>
+          <span class="tcs-preset" onclick="tcsApplyTotalPreset(2000)">2000 kW 数据中心</span>
+        </div>
+      </div>
+
+      <div class="tcs-section-title">▶ 变压器选型</div>
+      <div class="tcs-row">
+        <div class="tcs-input-group">
+          <label>变压器类型</label>
+          <div class="tcs-radio-group">
+            <label><input type="radio" name="tcs-tx-type-2" value="oil" checked onclick="tcsCalc()"> 油浸 (η≈0.97)</label>
+            <label><input type="radio" name="tcs-tx-type-2" value="dry" onclick="tcsCalc()"> 干式 (η≈0.96)</label>
+            <label><input type="radio" name="tcs-tx-type-2" value="custom" onclick="tcsCalc()"> 自填</label>
+          </div>
+        </div>
+        <div class="tcs-input-group" id="tcs-eta-wrap-2" style="display:none;">
+          <label>变压器效率 η(自填)<span class="tcs-unit">(0.90~0.99)</span></label>
+          <input type="number" id="tcs-eta-2" value="0.97" min="0.90" max="0.99" step="0.005" inputmode="decimal">
+        </div>
+      </div>
+      <div class="tcs-row">
+        <div class="tcs-input-group">
+          <label>负载率 K_load<span class="tcs-unit">(经济区间 0.75~0.85)</span></label>
+          <input type="number" id="tcs-kload-2" value="0.85" min="0.30" max="1.00" step="0.05" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group">
+          <label>裕度系数 K_m<span class="tcs-unit">(GB 50052 推荐 1.10~1.25)</span></label>
+          <input type="number" id="tcs-km-2" value="1.20" min="1.00" max="1.50" step="0.05" inputmode="decimal">
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================== -->
+    <!-- Result area -->
+    <!-- =========================================================== -->
+    <div class="tcs-result" id="tcs-result">
+      <h3 id="tcs-result-title">变压器容量选型结果</h3>
+      <div id="tcs-result-body"></div>
+      <div class="tcs-formula" id="tcs-formula"></div>
+      <div class="tcs-tip" id="tcs-tip" style="display:none;"></div>
+      <div class="tcs-warn" id="tcs-warn"></div>
+    </div>
+
+    <!-- =========================================================== -->
+    <!-- 国标依据 + 免责声明 -->
+    <!-- =========================================================== -->
+    <div class="tcs-standard">
+      <p>📋 国标依据</p>
+      <ul>
+        <li>GB 50052-2009《供配电系统设计规范》§6.0.3(变压器容量选择)/ §6.0.4(留裕度)/ §6.0.5(单台 ≤ 1250 kVA)/ §6.0.7(负载率 ≤ 85%)</li>
+        <li>GB 50054-2011《低压配电设计规范》§3.4(负荷计算)+ 附录 B(需要系数、同时系数)</li>
+        <li>GB/T 17468-2019《电力变压器选用导则》§5.1(容量优先数系 R10)</li>
+        <li>GB 20052-2020《三相配电变压器能效限定值及能效等级》</li>
+        <li>GB 51348-2019《民用建筑电气设计标准》§3.5(负荷计算 + cosφ)</li>
+        <li>GB/T 10228-2015《干式电力变压器技术参数和要求》</li>
+      </ul>
+    </div>
+
+    <div class="tcs-disclaimer">
+      <p>⚠ 免责声明</p>
+      <ul>
+        <li>本工具基于 GB 50052-2009 / GB/T 17468-2019 标准简化实现,选型结果仅供设计参考。</li>
+        <li>正式施工图设计应以<strong>国家标准化管理委员会发布的现行版本</strong>为准,由注册电气工程师审核。</li>
+        <li>单台大功率电动机(≥ 30kW)需另核启动压降,本工具不涵盖启动校验。</li>
+        <li>并列运行 / 短路电流 / 电压降 / 经济电流密度法选型不在本工具范围内。</li>
+        <li>特殊场景(化工防腐 / 爆炸危险 / 海上风电 / 地铁)需参考专项标准。</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    'use strict';
+
+    // ===========================================================
+    // 1. 基准数据表(GB 50052-2009 / GB 50054-2011 / GB/T 17468-2019)
+    // ===========================================================
+
+    // 同时系数 K_Σ 数据表(GB 50054-2011 附录 B.0.4 + GB 51348-2019 §3.5.4)
+    var TABLE_KSIGMA = {
+      residential: { val: 0.75, label: '住宅小区' },
+      commercial:  { val: 0.85, label: '商业建筑' },
+      public:      { val: 0.85, label: '公共建筑' },
+      industrial:  { val: 0.95, label: '工业厂房' }
+    };
+
+    // R10 优先数系(GB/T 17468-2019 §5.1)10/0.4 kV 常用配电变压器
+    var R10_SERIES = [30, 50, 63, 80, 100, 125, 160, 200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600, 2000, 2500];
+
+    function selectStandardCapacity(S_N_required) {
+      for (var i = 0; i < R10_SERIES.length; i++) {
+        if (R10_SERIES[i] >= S_N_required) return R10_SERIES[i];
+      }
+      return 2500; // 上限警告
+    }
+
+    // 变压器效率 η(GB 20052-2020 + 主流系列参数)
+    // Tab 1 默认:油浸 S11 0.97 / 干式 SCB10 0.96
+    function getDefaultEta(type) {
+      return type === 'dry' ? 0.96 : 0.97;
+    }
+
+    // ===========================================================
+    // 2. DOM 工具
+    // ===========================================================
+
+    function $(id) { return document.getElementById(id); }
+    function $$(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
+
+    function val(id) {
+      var el = $(id);
+      if (!el) return null;
+      return el.value;
+    }
+    function numVal(id) {
+      var v = parseFloat(val(id));
+      return isFinite(v) && !isNaN(v) ? v : null;
+    }
+    function checkedRadio(name) {
+      var els = document.getElementsByName(name);
+      for (var i = 0; i < els.length; i++) if (els[i].checked) return els[i].value;
+      return null;
+    }
+
+    function fmt(n, d) {
+      d = d || 2;
+      if (!isFinite(n) || isNaN(n)) return '--';
+      return n.toFixed(d);
+    }
+
+    function rowHtml(label, val, unit, highlight, note) {
+      var cls = 'tcs-r-row' + (highlight ? ' highlight' : '');
+      var noteHtml = note ? ' <span style="color:#94a3b8; font-size:11px;">(' + note + ')</span>' : '';
+      return '<div class="' + cls + '">' +
+             '<span class="tcs-r-label">' + label + noteHtml + '</span>' +
+             '<span class="tcs-r-val">' + val + '<span class="tcs-unit-inline">' + (unit || '') + '</span></span>' +
+             '</div>';
+    }
+    function coeffRow(label, val, note) {
+      var noteHtml = note ? ' <span style="color:#94a3b8; font-size:11px;">' + note + '</span>' : '';
+      return '<div class="tcs-coeff-row">' +
+             '<span class="tcs-coeff-label">' + label + noteHtml + '</span>' +
+             '<span class="tcs-coeff-val">' + val + '</span>' +
+             '</div>';
+    }
+    function coeffSection(title, rows) {
+      return '<div class="tcs-coeff-section">' +
+             '<div class="tcs-coeff-section-title">' + title + '</div>' +
+             rows.join('') + '</div>';
+    }
+
+    // ===========================================================
+    // 3. 主计算 - Tab 1:需要系数法(GB 50054-2011)
+    // ===========================================================
+
+    function calcFactorMethod() {
+      var r = $('tcs-result');
+      var w = $('tcs-warn');
+      var t = $('tcs-tip');
+      var f = $('tcs-formula');
+      var body = $('tcs-result-body');
+      var titleEl = $('tcs-result-title');
+
+      var userType = checkedRadio('tcs-user-type');
+      var P_lighting = numVal('tcs-power-lighting');
+      var P_motor = numVal('tcs-power-motor');
+      var P_heating = numVal('tcs-power-heating');
+      var P_other = numVal('tcs-power-other');
+
+      var Kx_lighting = numVal('tcs-Kx-lighting');
+      var Kx_motor = numVal('tcs-Kx-motor');
+      var Kx_heating = numVal('tcs-Kx-heating');
+      var Kx_other = numVal('tcs-Kx-other');
+
+      var cos_lighting = numVal('tcs-cos-lighting');
+      var cos_motor = numVal('tcs-cos-motor');
+      var cos_heating = numVal('tcs-cos-heating');
+      var cos_other = numVal('tcs-cos-other');
+
+      var txType = checkedRadio('tcs-tx-type');
+      var eta = null;
+      if (txType === 'custom') {
+        eta = numVal('tcs-eta-custom');
+      } else {
+        eta = getDefaultEta(txType);
+      }
+
+      var Kload = numVal('tcs-kload');
+      var Km = numVal('tcs-km');
+
+      // K_Σ
+      var Ksigma = null;
+      var KsigmaNote = '';
+      if (userType === 'custom') {
+        Ksigma = numVal('tcs-Ksigma-custom');
+        KsigmaNote = '自填';
+      } else if (TABLE_KSIGMA[userType]) {
+        Ksigma = TABLE_KSIGMA[userType].val;
+        KsigmaNote = TABLE_KSIGMA[userType].label;
+      }
+
+      // 校验
+      var warns = [];
+      var fatal = false;
+
+      if (P_lighting === null) P_lighting = 0;
+      if (P_motor === null) P_motor = 0;
+      if (P_heating === null) P_heating = 0;
+      if (P_other === null) P_other = 0;
+
+      var allZero = (P_lighting + P_motor + P_heating + P_other) === 0;
+      if (allZero) {
+        fatal = true;
+        warns.push('请至少输入一类设备功率');
+      }
+
+      // K_x 校验
+      [Kx_lighting, Kx_motor, Kx_heating, Kx_other].forEach(function(kx, idx) {
+        if (kx === null || kx <= 0) warns.push('设备类' + (idx + 1) + ' 需要系数 K_x 无效');
+      });
+
+      // cosφ 校验
+      [cos_lighting, cos_motor, cos_heating, cos_other].forEach(function(cos, idx) {
+        if (cos === null || cos <= 0) warns.push('设备类' + (idx + 1) + ' 功率因数 cosφ 无效');
+      });
+
+      if (Ksigma === null || Ksigma <= 0) {
+        fatal = true;
+        warns.push('请填写有效的 K_Σ 同时系数');
+      }
+
+      if (eta === null || eta <= 0 || eta >= 1) {
+        fatal = true;
+        warns.push('请填写有效的变压器效率 η(0 < η < 1)');
+      }
+
+      if (Kload === null || Kload <= 0) {
+        fatal = true;
+        warns.push('请填写有效的负载率 K_load');
+      }
+
+      if (Km === null || Km < 1) {
+        fatal = true;
+        warns.push('裕度系数 K_m 必须 ≥ 1,工程不可小于 1');
+      }
+
+      if (fatal) {
+        r.classList.remove('active');
+        w.classList.add('active');
+        w.innerHTML = '⚠ ' + warns.join('<br>⚠ ');
+        return;
+      }
+
+      // === 主公式计算 ===
+      // 1) P_c_pre = Σ(P_i × K_xi)
+      var P_pre_lighting = P_lighting * Kx_lighting;
+      var P_pre_motor = P_motor * Kx_motor;
+      var P_pre_heating = P_heating * Kx_heating;
+      var P_pre_other = P_other * Kx_other;
+      var P_c_pre = P_pre_lighting + P_pre_motor + P_pre_heating + P_pre_other;
+
+      // 2) cosφ_avg = Σ(P_i × K_xi × cosφ_i) / P_c_pre (GB 50054-2011 §3.4.5)
+      var cos_num = P_pre_lighting * cos_lighting + P_pre_motor * cos_motor + P_pre_heating * cos_heating + P_pre_other * cos_other;
+      var cos_avg = P_c_pre > 0 ? cos_num / P_c_pre : 0;
+
+      // 边界:cos_avg 为 0 警告
+      if (cos_avg <= 0 || !isFinite(cos_avg)) {
+        warns.push('加权功率因数为 0,纯感性负载异常');
+        r.classList.remove('active');
+        w.classList.add('active');
+        w.innerHTML = '⚠ ' + warns.join('<br>⚠ ');
+        return;
+      }
+
+      // 3) P_c = P_c_pre × K_Σ
+      var P_c = P_c_pre * Ksigma;
+
+      // 4) S_c = P_c / cosφ_avg
+      var S_c = P_c / cos_avg;
+
+      // 5) S_N_min = (S_c / η) × (K_m / K_load)
+      var S_N_min = (S_c / eta) * (Km / Kload);
+
+      // 6) S_N_std = 就近选大 R10 系列
+      var S_N_std = selectStandardCapacity(S_N_min);
+
+      // 7) β_actual = S_c / S_N_std
+      var beta = S_c / S_N_std;
+
+      // 加权 K_x_avg(供明细)
+      var Kx_avg = P_lighting + P_motor + P_heating + P_other > 0
+        ? (P_pre_lighting + P_pre_motor + P_pre_heating + P_pre_other) / (P_lighting + P_motor + P_heating + P_other)
+        : 0;
+
+      // === 渲染 ===
+      var titleParts = [];
+      if (P_lighting > 0) titleParts.push('照明 ' + P_lighting + 'kW');
+      if (P_motor > 0) titleParts.push('动力 ' + P_motor + 'kW');
+      if (P_heating > 0) titleParts.push('电热 ' + P_heating + 'kW');
+      if (P_other > 0) titleParts.push('其他 ' + P_other + 'kW');
+      titleEl.textContent = '变压器容量选型结果 · ' + KsigmaNote + ' · ' + (txType === 'dry' ? '干式' : (txType === 'oil' ? '油浸' : '自填η'));
+
+      var bodyHtml = '';
+
+      // 主结果 5 项
+      bodyHtml += rowHtml('计算负荷 P_c', fmt(P_c, 2), ' kW');
+      bodyHtml += rowHtml('视在计算负荷 S_c', fmt(S_c, 2), ' kVA');
+      bodyHtml += rowHtml('所需最小容量 S_N_min', fmt(S_N_min, 2), ' kVA');
+      bodyHtml += rowHtml('★ 推荐标准容量 S_N_std', fmt(S_N_std, 0), ' kVA', true, 'GB/T 17468 R10');
+      bodyHtml += rowHtml('实际负载率 β', fmt(beta * 100, 2), '%', false, betaCheck(beta));
+
+      // 修正系数明细
+      var coeffRows = [
+        coeffRow('加权需要系数 K_x_avg', fmt(Kx_avg, 3)),
+        coeffRow('同时系数 K_Σ', fmt(Ksigma, 3), KsigmaNote),
+        coeffRow('加权功率因数 cosφ_avg', fmt(cos_avg, 3)),
+        coeffRow('变压器效率 η', fmt(eta, 3), txType === 'dry' ? '干式 SCB10' : (txType === 'oil' ? '油浸 S11' : '自填')),
+        coeffRow('负载率 K_load', fmt(Kload, 3), '目标'),
+        coeffRow('裕度系数 K_m', fmt(Km, 3))
+      ];
+      bodyHtml += coeffSection('📊 修正系数明细(GB 50054-2011)', coeffRows);
+
+      // 选型推荐
+      var modelLabel = txType === 'dry' ? 'SCB11' : 'S11-M';
+      bodyHtml += '<div class="tcs-coeff-section">' +
+                  '<div class="tcs-coeff-section-title">💡 选型推荐</div>' +
+                  '<div style="font-size:13px; color:#475569;">' + modelLabel + '-' + S_N_std + '/10 ' + (txType === 'dry' ? '干式铜芯' : '油浸铜芯') + '三相配电变压器</div>' +
+                  '</div>';
+
+      // 警告(负载率)
+      if (S_N_std >= 2500 && S_N_min > 2500) {
+        warns.push('⚠ 所需容量超过单台 R10 上限 2500 kVA,建议 2 台并列(GB 50052 §6.0.5)');
+      }
+
+      body.innerHTML = bodyHtml;
+
+      // 综合公式
+      var formulaStr = '─── Tab 1:需要系数法(GB 50054-2011)───\n';
+      formulaStr += 'P_c_pre = Σ(P_i × K_xi)\n';
+      formulaStr += '       = ' + P_pre_lighting.toFixed(2) + ' + ' + P_pre_motor.toFixed(2) + ' + ' + P_pre_heating.toFixed(2) + ' + ' + P_pre_other.toFixed(2) + '\n';
+      formulaStr += '       = ' + P_c_pre.toFixed(2) + ' kW\n';
+      formulaStr += 'cosφ_avg = Σ(P_i × K_xi × cosφ_i) / P_c_pre = ' + cos_num.toFixed(3) + ' / ' + P_c_pre.toFixed(2) + ' = ' + cos_avg.toFixed(3) + '\n';
+      formulaStr += 'P_c = P_c_pre × K_Σ = ' + P_c_pre.toFixed(2) + ' × ' + Ksigma.toFixed(3) + ' = ' + P_c.toFixed(2) + ' kW\n';
+      formulaStr += 'S_c = P_c / cosφ_avg = ' + P_c.toFixed(2) + ' / ' + cos_avg.toFixed(3) + ' = ' + S_c.toFixed(2) + ' kVA\n';
+      formulaStr += 'S_N_min = (S_c / η) × (K_m / K_load)\n';
+      formulaStr += '       = (' + S_c.toFixed(2) + ' / ' + eta.toFixed(3) + ') × (' + Km.toFixed(3) + ' / ' + Kload.toFixed(3) + ')\n';
+      formulaStr += '       = ' + (S_c / eta).toFixed(2) + ' × ' + (Km / Kload).toFixed(3) + ' = ' + S_N_min.toFixed(2) + ' kVA\n';
+      formulaStr += 'S_N_std = selectStandardCapacity(' + S_N_min.toFixed(2) + ') = ' + S_N_std + ' kVA (R10 就近选大)\n';
+      formulaStr += 'β_actual = S_c / S_N_std = ' + S_c.toFixed(2) + ' / ' + S_N_std + ' = ' + (beta * 100).toFixed(2) + '%';
+      f.textContent = formulaStr;
+
+      // 提示
+      var tips = [];
+      tips.push('ℹ 加权 cosφ 按"计算负荷"(K_x 加权后)再加权,符合 GB 50054-2011 §3.4.5 标准做法');
+      if (beta < 0.50) {
+        tips.push('⚠ 实际负载率 < 50%:变压器长期低负载运行,效率低、空载损耗占比大。建议选更小容量(R10 最小 30 kVA)或复核负荷计算');
+      } else if (beta < 0.75) {
+        tips.push('ℹ 实际负载率 50%~75%:偏低,可接受,长期低负载电价不经济');
+      } else if (beta <= 0.85) {
+        tips.push('✅ 实际负载率 ' + (beta * 100).toFixed(0) + '%:在 GB 50052-2009 §6.0.7 推荐的经济运行区间 75%~85% 内');
+      } else if (beta <= 1.00) {
+        tips.push('⚠ 实际负载率 85%~100%:满负载附近,可接受但无备用,峰值可能过载');
+      } else {
+        tips.push('⚠ 实际负载率 > 100%:过载,标准容量不足,选下一档');
+      }
+      if (P_motor >= 30) {
+        tips.push('ℹ 含大功率动力设备(单台 ≥ 30kW):需另核电动机启动压降,GB 50052-2009 §6.0.4');
+      }
+      if (S_N_std >= 1250) {
+        tips.push('ℹ 推荐容量 ≥ 1250 kVA:GB 50052-2009 §6.0.5 建议单台 ≤ 1250 kVA,长期应考虑 2 台并列');
+      }
+
+      t.style.display = 'block';
+      t.innerHTML = tips.join('<br>');
+
+      // 警告
+      if (warns.length > 0) {
+        w.classList.add('active');
+        w.innerHTML = '⚠ ' + warns.join('<br>⚠ ');
+      } else {
+        w.classList.remove('active');
+      }
+
+      r.classList.add('active');
+    }
+
+    // ===========================================================
+    // 4. 主计算 - Tab 2:按总功率法(GB 50052-2009 §6.0.3)
+    // ===========================================================
+
+    function calcTotalPowerMethod() {
+      var r = $('tcs-result');
+      var w = $('tcs-warn');
+      var t = $('tcs-tip');
+      var f = $('tcs-formula');
+      var body = $('tcs-result-body');
+      var titleEl = $('tcs-result-title');
+
+      var P = numVal('tcs-total-p');
+      var cos = numVal('tcs-total-cos');
+      var txType = checkedRadio('tcs-tx-type-2');
+      var eta = null;
+      if (txType === 'custom') {
+        eta = numVal('tcs-eta-2');
+      } else {
+        eta = getDefaultEta(txType);
+      }
+      var Kload = numVal('tcs-kload-2');
+      var Km = numVal('tcs-km-2');
+      var equipType = checkedRadio('tcs-total-type');
+
+      // 校验
+      var warns = [];
+      var fatal = false;
+
+      if (P === null || P <= 0) {
+        fatal = true;
+        warns.push('请填写有效的总有功功率 P(> 0)');
+      }
+      if (cos === null || cos <= 0 || cos > 1) {
+        fatal = true;
+        warns.push('请填写有效的总功率因数 cosφ(0 < cosφ ≤ 1)');
+      }
+      if (eta === null || eta <= 0 || eta >= 1) {
+        fatal = true;
+        warns.push('请填写有效的变压器效率 η(0 < η < 1)');
+      }
+      if (Kload === null || Kload <= 0) {
+        fatal = true;
+        warns.push('请填写有效的负载率 K_load');
+      }
+      if (Km === null || Km < 1) {
+        fatal = true;
+        warns.push('裕度系数 K_m 必须 ≥ 1,工程不可小于 1');
+      }
+
+      if (fatal) {
+        r.classList.remove('active');
+        w.classList.add('active');
+        w.innerHTML = '⚠ ' + warns.join('<br>⚠ ');
+        return;
+      }
+
+      // === 主公式 ===
+      // S = P / cosφ
+      var S = P / cos;
+      // S_N_min = S × K_m / (η × K_load)
+      var S_N_min = (S * Km) / (eta * Kload);
+      var S_N_std = selectStandardCapacity(S_N_min);
+      var beta = S / S_N_std;
+
+      // === 渲染 ===
+      var typeLabel = equipType === 'resistive' ? '电阻性' : (equipType === 'inductive' ? '感性' : '自填');
+      titleEl.textContent = '变压器容量选型结果 · Tab 2 按总功率法 · ' + typeLabel + ' · P=' + P + 'kW';
+
+      var bodyHtml = '';
+      bodyHtml += rowHtml('视在功率 S', fmt(S, 2), ' kVA', true, 'S = P / cosφ');
+      bodyHtml += rowHtml('所需最小容量 S_N_min', fmt(S_N_min, 2), ' kVA');
+      bodyHtml += rowHtml('★ 推荐标准容量 S_N_std', fmt(S_N_std, 0), ' kVA', true, 'GB/T 17468 R10');
+      bodyHtml += rowHtml('实际负载率 β', fmt(beta * 100, 2), '%', false, betaCheck(beta));
+
+      var coeffRows = [
+        coeffRow('总有功功率 P', fmt(P, 2) + ' kW'),
+        coeffRow('总功率因数 cosφ', fmt(cos, 3), typeLabel),
+        coeffRow('变压器效率 η', fmt(eta, 3), txType === 'dry' ? '干式 SCB10' : (txType === 'oil' ? '油浸 S11' : '自填')),
+        coeffRow('负载率 K_load', fmt(Kload, 3), '目标'),
+        coeffRow('裕度系数 K_m', fmt(Km, 3))
+      ];
+      bodyHtml += coeffSection('📊 修正系数明细(GB 50052-2009 §6.0.3)', coeffRows);
+
+      var modelLabel = txType === 'dry' ? 'SCB11' : 'S11-M';
+      bodyHtml += '<div class="tcs-coeff-section">' +
+                  '<div class="tcs-coeff-section-title">💡 选型推荐</div>' +
+                  '<div style="font-size:13px; color:#475569;">' + modelLabel + '-' + S_N_std + '/10 ' + (txType === 'dry' ? '干式铜芯' : '油浸铜芯') + '三相配电变压器</div>' +
+                  '</div>';
+
+      if (S_N_std >= 2500 && S_N_min > 2500) {
+        warns.push('⚠ 所需容量超过单台 R10 上限 2500 kVA,建议 2 台并列(GB 50052 §6.0.5)');
+      }
+
+      body.innerHTML = bodyHtml;
+
+      // 综合公式
+      var formulaStr = '─── Tab 2:按总功率法(GB 50052-2009 §6.0.3)───\n';
+      formulaStr += 'S = P / cosφ = ' + P.toFixed(2) + ' / ' + cos.toFixed(3) + ' = ' + S.toFixed(2) + ' kVA\n';
+      formulaStr += 'S_N_min = S × K_m / (η × K_load)\n';
+      formulaStr += '       = ' + S.toFixed(2) + ' × ' + Km.toFixed(3) + ' / (' + eta.toFixed(3) + ' × ' + Kload.toFixed(3) + ')\n';
+      formulaStr += '       = ' + (S * Km).toFixed(2) + ' / ' + (eta * Kload).toFixed(3) + ' = ' + S_N_min.toFixed(2) + ' kVA\n';
+      formulaStr += 'S_N_std = selectStandardCapacity(' + S_N_min.toFixed(2) + ') = ' + S_N_std + ' kVA (R10 就近选大)\n';
+      formulaStr += 'β_actual = S / S_N_std = ' + S.toFixed(2) + ' / ' + S_N_std + ' = ' + (beta * 100).toFixed(2) + '%';
+      f.textContent = formulaStr;
+
+      var tips = [];
+      tips.push('ℹ 按总功率法为简化算法,适用施工图设计阶段 / 单台大功率设备 / 工厂总负荷');
+      if (beta < 0.50) {
+        tips.push('⚠ 实际负载率 < 50%:变压器长期低负载运行,效率低、空载损耗占比大,建议选更小容量或复核负荷计算');
+      } else if (beta < 0.75) {
+        tips.push('ℹ 实际负载率 50%~75%:偏低,可接受');
+      } else if (beta <= 0.85) {
+        tips.push('✅ 实际负载率 ' + (beta * 100).toFixed(0) + '%:在 GB 50052-2009 §6.0.7 推荐的经济运行区间 75%~85% 内');
+      } else if (beta <= 1.00) {
+        tips.push('⚠ 实际负载率 85%~100%:满负载附近,可接受但无备用');
+      } else {
+        tips.push('⚠ 实际负载率 > 100%:过载,标准容量不足,选下一档');
+      }
+      if (S_N_std >= 1250) {
+        tips.push('ℹ 推荐容量 ≥ 1250 kVA:GB 50052-2009 §6.0.5 建议单台 ≤ 1250 kVA,长期应考虑 2 台并列');
+      }
+      if (Km > 1.25) {
+        tips.push('ℹ K_m > 1.25:高可靠场景(数据中心 / 医院)推荐配置');
+      }
+
+      t.style.display = 'block';
+      t.innerHTML = tips.join('<br>');
+
+      if (warns.length > 0) {
+        w.classList.add('active');
+        w.innerHTML = '⚠ ' + warns.join('<br>⚠ ');
+      } else {
+        w.classList.remove('active');
+      }
+
+      r.classList.add('active');
+    }
+
+    // 负载率校验提示文字
+    function betaCheck(beta) {
+      if (beta < 0.50) return '低负载警告';
+      if (beta < 0.75) return '偏低负载';
+      if (beta <= 0.85) return '经济运行区间 ✅';
+      if (beta <= 1.00) return '满负载附近';
+      return '过载警告';
+    }
+
+    // ===========================================================
+    // 5. Tab 切换
+    // ===========================================================
+
+    function switchTab(name) {
+      $$('.tcs-tab').forEach(function(t) { t.classList.toggle('active', t.dataset.tab === name); });
+      $$('.tcs-panel').forEach(function(p) { p.classList.toggle('active', p.dataset.panel === name); });
+      setTimeout(tcsCalc, 50);
+    }
+
+    function tcsCalc() {
+      var activeTab = $$('.tcs-tab.active')[0];
+      if (!activeTab) return;
+      var tab = activeTab.dataset.tab;
+      if (tab === 'factor') calcFactorMethod();
+      else if (tab === 'total') calcTotalPowerMethod();
+    }
+
+    // ===========================================================
+    // 6. 用户类型切换(自动填 K_Σ,同时显示自填框)
+    // ===========================================================
+
+    window.tcsApplyUserType = function(type) {
+      var wrap = $('tcs-Ksigma-custom-wrap');
+      if (type === 'custom') {
+        wrap.style.display = 'block';
+      } else {
+        wrap.style.display = 'none';
+      }
+      tcsCalc();
+    };
+
+    // ===========================================================
+    // 7. 设备类型切换(Tab 2)— 自动填 cosφ 默认值
+    // ===========================================================
+
+    window.tcsApplyTotalType = function(type) {
+      var cosEl = $('tcs-total-cos');
+      if (cosEl) {
+        if (type === 'resistive') cosEl.value = 0.98;
+        else if (type === 'inductive') cosEl.value = 0.80;
+        // 'custom' 留空让用户自填
+      }
+      tcsCalc();
+    };
+
+    // ===========================================================
+    // 8. 预设按钮(全局函数)
+    // ===========================================================
+
+    window.tcsApplyPowerPreset = function(category, totalP, kx, cos) {
+      var idPower = 'tcs-power-' + category;
+      var idKx = 'tcs-Kx-' + category;
+      var idCos = 'tcs-cos-' + category;
+      var elP = $(idPower);
+      var elKx = $(idKx);
+      var elCos = $(idCos);
+      if (elP) elP.value = totalP;
+      if (elKx) elKx.value = kx;
+      if (elCos) elCos.value = cos;
+      tcsCalc();
+    };
+
+    window.tcsApplyTotalPreset = function(p) {
+      var el = $('tcs-total-p');
+      if (el) {
+        el.value = p;
+        tcsCalc();
+      }
+    };
+
+    // ===========================================================
+    // 9. 事件绑定
+    // ===========================================================
+
+    // Tab 点击
+    $$('.tcs-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() { switchTab(tab.dataset.tab); });
+    });
+
+    // 输入框 + radio 事件绑定
+    function bindAll() {
+      // Tab 1 inputs
+      ['tcs-power-lighting','tcs-Kx-lighting','tcs-cos-lighting',
+       'tcs-power-motor','tcs-Kx-motor','tcs-cos-motor',
+       'tcs-power-heating','tcs-Kx-heating','tcs-cos-heating',
+       'tcs-power-other','tcs-Kx-other','tcs-cos-other',
+       'tcs-Ksigma-custom','tcs-eta-custom','tcs-kload','tcs-km'
+      ].forEach(function(id) {
+        var el = $(id);
+        if (!el) return;
+        el.addEventListener('input', tcsCalc);
+        el.addEventListener('change', tcsCalc);
+      });
+
+      // Tab 2 inputs
+      ['tcs-total-p','tcs-total-cos','tcs-eta-2','tcs-kload-2','tcs-km-2'
+      ].forEach(function(id) {
+        var el = $(id);
+        if (!el) return;
+        el.addEventListener('input', tcsCalc);
+        el.addEventListener('change', tcsCalc);
+      });
+
+      // radio groups(Tab 1)
+      ['tcs-user-type','tcs-tx-type'
+      ].forEach(function(name) {
+        var els = document.getElementsByName(name);
+        for (var i = 0; i < els.length; i++) {
+          els[i].addEventListener('change', tcsCalc);
+        }
+      });
+
+      // radio groups(Tab 2)
+      ['tcs-total-type','tcs-tx-type-2'
+      ].forEach(function(name) {
+        var els = document.getElementsByName(name);
+        for (var i = 0; i < els.length; i++) {
+          els[i].addEventListener('change', tcsCalc);
+        }
+      });
+    }
+
+    // 变压器类型自填联动
+    function bindTxCustomToggle() {
+      var groups = [
+        { name: 'tcs-tx-type', wrap: 'tcs-eta-wrap' },
+        { name: 'tcs-tx-type-2', wrap: 'tcs-eta-wrap-2' }
+      ];
+      groups.forEach(function(g) {
+        var els = document.getElementsByName(g.name);
+        var wrap = $(g.wrap);
+        function update() {
+          var checked = null;
+          for (var i = 0; i < els.length; i++) if (els[i].checked) checked = els[i].value;
+          if (wrap) wrap.style.display = (checked === 'custom') ? 'block' : 'none';
+        }
+        for (var i = 0; i < els.length; i++) els[i].addEventListener('change', function() { update(); tcsCalc(); });
+        update();
+      });
+    }
+
+    // ===========================================================
+    // 10. 启动
+    // ===========================================================
+
+    bindAll();
+    bindTxCustomToggle();
+    tcsCalc();
+  })();
+  </script>
+</div>
