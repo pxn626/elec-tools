@@ -1,0 +1,382 @@
+<div class="tool-container" id="tp-tool">
+  <style>
+    #tp-tool { max-width: 760px; margin: 24px auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    #tp-tool .tp-card { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; }
+    #tp-tool .tp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    #tp-tool .tp-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    #tp-tool .tp-input-group { margin-bottom: 16px; }
+    #tp-tool label { display: block; font-weight: 600; margin-bottom: 6px; color: #1f2937; font-size: 14px; }
+    #tp-tool label .tp-unit { font-weight: 400; color: #6b7280; font-size: 12px; margin-left: 4px; }
+    #tp-tool input, #tp-tool select { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; box-sizing: border-box; background: white; }
+    #tp-tool input:focus, #tp-tool select:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    #tp-tool .tp-mode-tabs { display: flex; gap: 4px; margin-bottom: 18px; border-bottom: 2px solid #e5e7eb; flex-wrap: wrap; }
+    #tp-tool .tp-tab { padding: 10px 16px; cursor: pointer; font-weight: 600; color: #6b7280; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; font-size: 14px; }
+    #tp-tool .tp-tab.active { color: #2563eb; border-bottom-color: #2563eb; }
+    #tp-tool .tp-tab:hover:not(.active) { color: #374151; }
+    #tp-tool .tp-panel { display: none; }
+    #tp-tool .tp-panel.active { display: block; }
+    #tp-tool .tp-presets { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0 16px 0; }
+    #tp-tool .tp-preset { padding: 6px 12px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; cursor: pointer; font-size: 13px; transition: all 0.2s; }
+    #tp-tool .tp-preset:hover { background: #2563eb; color: white; border-color: #2563eb; }
+    #tp-tool .tp-result { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 10px; padding: 18px; margin-top: 18px; display: none; }
+    #tp-tool .tp-result.active { display: block; }
+    #tp-tool .tp-result h3 { margin: 0 0 12px 0; color: #1e40af; font-size: 18px; }
+    #tp-tool .tp-power-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #93c5fd; align-items: baseline; }
+    #tp-tool .tp-power-row:last-child { border-bottom: none; }
+    #tp-tool .tp-power-row.highlight { background: #dbeafe; margin: 4px -8px; padding: 8px; border-radius: 6px; border-bottom: none; }
+    #tp-tool .tp-power-label { color: #475569; font-size: 14px; }
+    #tp-tool .tp-power-val { font-weight: 700; color: #1e3a8a; font-size: 17px; font-variant-numeric: tabular-nums; }
+    #tp-tool .tp-power-row.highlight .tp-power-val { color: #1d4ed8; font-size: 20px; }
+    #tp-tool .tp-unit-inline { font-size: 12px; color: #64748b; margin-left: 4px; font-weight: 400; }
+    #tp-tool .tp-tip { font-size: 13px; color: #1e293b; margin-top: 14px; padding: 10px; background: #fef3c7; border-radius: 6px; border-left: 3px solid #f59e0b; }
+    #tp-tool .tp-warn { font-size: 13px; color: #7f1d1d; margin-top: 10px; padding: 10px; background: #fee2e2; border-radius: 6px; border-left: 3px solid #dc2626; display: none; }
+    #tp-tool .tp-warn.active { display: block; }
+    #tp-tool .tp-formula { font-size: 12px; color: #475569; margin-top: 10px; padding: 10px; background: #f8fafc; border-radius: 6px; border-left: 3px solid #94a3b8; font-family: "SF Mono", Monaco, Consolas, "Courier New", monospace; }
+    @media (prefers-color-scheme: dark) {
+      #tp-tool .tp-card { background: #1e293b; border-color: #334155; }
+      #tp-tool label { color: #cbd5e1; }
+      #tp-tool label .tp-unit { color: #94a3b8; }
+      #tp-tool input, #tp-tool select { background: #0f172a; color: #e2e8f0; border-color: #334155; }
+      #tp-tool .tp-mode-tabs { border-bottom-color: #334155; }
+      #tp-tool .tp-tab { color: #94a3b8; }
+      #tp-tool .tp-tab.active { color: #60a5fa; border-bottom-color: #60a5fa; }
+      #tp-tool .tp-preset { background: #334155; border-color: #475569; color: #cbd5e1; }
+      #tp-tool .tp-preset:hover { background: #2563eb; color: white; border-color: #2563eb; }
+      #tp-tool .tp-result { background: #0c1f3f; border-color: #1e3a8a; }
+      #tp-tool .tp-result h3 { color: #93c5fd; }
+      #tp-tool .tp-power-row { border-bottom-color: #1e3a8a; }
+      #tp-tool .tp-power-label { color: #cbd5e1; }
+      #tp-tool .tp-power-val { color: #93c5fd; }
+      #tp-tool .tp-power-row.highlight { background: #1e3a8a; }
+      #tp-tool .tp-power-row.highlight .tp-power-val { color: #dbeafe; }
+      #tp-tool .tp-unit-inline { color: #94a3b8; }
+      #tp-tool .tp-tip { background: #422006; color: #fde68a; border-left-color: #f59e0b; }
+      #tp-tool .tp-warn { background: #450a0a; color: #fecaca; border-left-color: #dc2626; }
+      #tp-tool .tp-formula { background: #0f172a; color: #cbd5e1; border-left-color: #475569; }
+    }
+  </style>
+
+  <div class="tp-card">
+    <div class="tp-mode-tabs">
+      <div class="tp-tab active" data-mode="A">① 三相有功功率</div>
+      <div class="tp-tab" data-mode="B">② 视在/无功换算</div>
+      <div class="tp-tab" data-mode="C">③ 功率因数补偿</div>
+    </div>
+
+    <!-- Tab A: 三相有功功率 -->
+    <div class="tp-panel active" data-panel="A">
+      <div class="tp-row3">
+        <div class="tp-input-group">
+          <label>线电压 U<span class="tp-unit">(V)</span></label>
+          <input type="number" id="tp-u" value="380" min="110" max="1000" step="10">
+        </div>
+        <div class="tp-input-group">
+          <label>线电流 I<span class="tp-unit">(A)</span></label>
+          <input type="number" id="tp-i" value="50" min="0.1" max="2000" step="1">
+        </div>
+        <div class="tp-input-group">
+          <label>功率因数 cosφ</label>
+          <input type="number" id="tp-cosA" value="0.85" min="0.01" max="1.0" step="0.01">
+        </div>
+      </div>
+      <div class="tp-presets">
+        <span class="tp-preset" onclick="tpApplyPreset('A',380,50,0.85)">典型工业 380V/50A</span>
+        <span class="tp-preset" onclick="tpApplyPreset('A',380,100,0.9)">中压电机 380V/100A</span>
+        <span class="tp-preset" onclick="tpApplyPreset('A',380,200,0.88)">大功率负载 380V/200A</span>
+        <span class="tp-preset" onclick="tpApplyPreset('A',6600,50,0.85)">高压 6.6kV/50A</span>
+      </div>
+    </div>
+
+    <!-- Tab B: 视在/无功换算 -->
+    <div class="tp-panel" data-panel="B">
+      <div class="tp-row">
+        <div class="tp-input-group">
+          <label>有功功率 P<span class="tp-unit">(kW)</span></label>
+          <input type="number" id="tp-pB" value="50" min="0.1" max="10000" step="1">
+        </div>
+        <div class="tp-input-group">
+          <label>功率因数 cosφ</label>
+          <input type="number" id="tp-cosB" value="0.85" min="0.01" max="1.0" step="0.01">
+        </div>
+      </div>
+      <div class="tp-presets">
+        <span class="tp-preset" onclick="tpApplyPreset('B',50,0.85)">典型负载 50kW</span>
+        <span class="tp-preset" onclick="tpApplyPreset('B',200,0.9)">电机组 200kW</span>
+        <span class="tp-preset" onclick="tpApplyPreset('B',15,0.7)">感性负载 15kW</span>
+        <span class="tp-preset" onclick="tpApplyPreset('B',500,0.95)">补偿后 500kW</span>
+      </div>
+    </div>
+
+    <!-- Tab C: 功率因数补偿 -->
+    <div class="tp-panel" data-panel="C">
+      <div class="tp-row3">
+        <div class="tp-input-group">
+          <label>有功功率 P<span class="tp-unit">(kW)</span></label>
+          <input type="number" id="tp-pC" value="100" min="0.1" max="10000" step="1">
+        </div>
+        <div class="tp-input-group">
+          <label>补偿前 cosφ₁</label>
+          <input type="number" id="tp-cos1" value="0.7" min="0.01" max="1.0" step="0.01">
+        </div>
+        <div class="tp-input-group">
+          <label>补偿后 cosφ₂</label>
+          <input type="number" id="tp-cos2" value="0.95" min="0.01" max="1.0" step="0.01">
+        </div>
+      </div>
+      <div class="tp-presets">
+        <span class="tp-preset" onclick="tpApplyPreset('C',100,0.7,0.95)">从 0.7 提到 0.95</span>
+        <span class="tp-preset" onclick="tpApplyPreset('C',200,0.6,0.9)">从 0.6 提到 0.9</span>
+        <span class="tp-preset" onclick="tpApplyPreset('C',50,0.8,0.98)">从 0.8 提到 0.98</span>
+        <span class="tp-preset" onclick="tpApplyPreset('C',500,0.85,0.95)">大功率 500kW</span>
+      </div>
+    </div>
+
+    <!-- Result area -->
+    <div class="tp-result" id="tp-result">
+      <h3 id="tp-result-title">计算结果</h3>
+      <div id="tp-result-body"></div>
+      <div class="tp-formula" id="tp-formula"></div>
+      <div class="tp-tip" id="tp-tip"></div>
+      <div class="tp-warn" id="tp-warn"></div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    var currentMode = 'A';
+
+    function $(id) { return document.getElementById(id); }
+
+    function fmt(n, d) {
+      d = d || 2;
+      if (!isFinite(n) || isNaN(n)) return '--';
+      return n.toFixed(d);
+    }
+
+    function safeCos(c) {
+      // cosφ < 0.01 视为不可用,截断避免 acos 溢出
+      if (!isFinite(c) || isNaN(c) || c <= 0.01) return null;
+      if (c > 1) return 1;
+      return c;
+    }
+
+    function row(label, val, unit, highlight) {
+      var cls = 'tp-power-row' + (highlight ? ' highlight' : '');
+      return '<div class="' + cls + '">' +
+             '<span class="tp-power-label">' + label + '</span>' +
+             '<span class="tp-power-val">' + val + '<span class="tp-unit-inline">' + (unit || '') + '</span></span>' +
+             '</div>';
+    }
+
+    function switchTab(mode) {
+      currentMode = mode;
+      document.querySelectorAll('#tp-tool .tp-tab').forEach(function(t){
+        t.classList.toggle('active', t.dataset.mode === mode);
+      });
+      document.querySelectorAll('#tp-tool .tp-panel').forEach(function(p){
+        p.classList.toggle('active', p.dataset.panel === mode);
+      });
+      calc();
+    }
+
+    function calc() {
+      var body = '';
+      var title = '';
+      var formula = '';
+      var tip = '';
+      var warn = '';
+      var valid = true;
+
+      if (currentMode === 'A') {
+        // Tab A: 三相有功功率
+        // P = √3 × U × I × cosφ
+        // S = √3 × U × I  (视在功率,单位 VA;换算成 kVA 时除以 1000)
+        // Q = √3 × U × I × sinφ
+        // 注意:输入 U(V) I(A) → S(VA),P(W) — 工程实务通常 kW 输出,这里除以 1000
+        var U = parseFloat($('tp-u').value);
+        var I = parseFloat($('tp-i').value);
+        var cos = safeCos(parseFloat($('tp-cosA').value));
+        if (!U || !I || cos === null || U <= 0 || I <= 0) {
+          valid = false;
+        } else {
+          var phi = Math.acos(cos);
+          var sinPhi = Math.sin(phi);
+          // S 单位:VA;此处除以 1000 转 kVA,同步 P 转 kW、Q 转 kVAr
+          var S_kVA = Math.sqrt(3) * U * I / 1000;
+          var P_kW = S_kVA * cos;
+          var Q_kVAr = S_kVA * sinPhi;
+          var phiDeg = phi * 180 / Math.PI;
+
+          title = '三相功率 · U=' + U + 'V / I=' + I + 'A / cosφ=' + cos.toFixed(2);
+          body += row('有功功率 P', fmt(P_kW, 2), 'kW', true);
+          body += row('视在功率 S', fmt(S_kVA, 2), 'kVA');
+          body += row('无功功率 Q', fmt(Q_kVAr, 2), 'kVAr');
+          body += row('相位角 φ', fmt(phiDeg, 1), '°');
+          formula = 'P = √3 × U × I × cosφ = √3 × ' + U + ' × ' + I + ' × ' + cos.toFixed(3) +
+                    ' = ' + fmt(P_kW, 2) + ' kW';
+
+          // 工程建议
+          if (cos < 0.7) {
+            tip = '⚡ 功率因数过低(cosφ<' + cos.toFixed(2) + '),将受到供电公司力率电费罚款。建议加装 SVG/电容器无功补偿,目标提到 0.90 以上。';
+          } else if (cos < 0.9) {
+            tip = '💡 功率因数偏低(cosφ=' + cos.toFixed(2) + '),建议将 cosφ 补偿至 0.90~0.95,可减少线路损耗和变压器负载。';
+          } else if (cos >= 0.95 && cos < 1) {
+            tip = '✓ 功率因数良好(cosφ=' + cos.toFixed(2) + '),处于优质区间。无需补偿,注意过补偿导致无功反送。';
+          } else if (cos >= 1) {
+            warn = '⚠ cosφ=1 为纯阻性负载,实际工业现场极罕见;若为补偿后数据则合理。';
+          }
+
+          // 电流过载提醒
+          if (U === 380 && I >= 100) {
+            tip += '<br>🔌 大电流建议:380V/' + I + 'A 需配 5×' + Math.ceil(I * 1.25 / 100) * 10 + 'mm² 五芯铜电缆,断路器按 1.25 倍整定。';
+          }
+        }
+
+      } else if (currentMode === 'B') {
+        // Tab B: 视在/无功换算
+        // 输入 P(kW) + cosφ → 输出 S(kVA) + Q(kVAr) + φ(°)
+        // cosφ = P / S  →  S = P / cosφ
+        // Q = P × tanφ = P × tan(acos(cosφ))
+        // 单位契约:P 是 kW → S 是 kVA,Q 是 kVAr(直接对应,无需 /1000)
+        var P = parseFloat($('tp-pB').value);
+        var cos = safeCos(parseFloat($('tp-cosB').value));
+        if (!P || cos === null || P <= 0) {
+          valid = false;
+        } else {
+          var phi = Math.acos(cos);
+          var sinPhi = Math.sin(phi);
+          // 单位契约:输入 P 单位=kW → S 单位=kVA,Q 单位=kVAr,直接使用不除 1000
+          var S = P / cos;
+          var Q = P * Math.tan(phi);
+          var phiDeg = phi * 180 / Math.PI;
+
+          title = '视在/无功换算 · P=' + P + 'kW / cosφ=' + cos.toFixed(2);
+          body += row('有功功率 P', fmt(P, 2), 'kW');
+          body += row('视在功率 S', fmt(S, 2), 'kVA', true);
+          body += row('无功功率 Q', fmt(Q, 2), 'kVAr');
+          body += row('相位角 φ', fmt(phiDeg, 1), '°');
+          formula = 'S = P / cosφ = ' + P + ' / ' + cos.toFixed(3) + ' = ' + fmt(S, 2) + ' kVA  |  ' +
+                    'Q = P × tanφ = ' + P + ' × tan(acos(' + cos.toFixed(3) + ')) = ' + fmt(Q, 2) + ' kVAr';
+
+          if (cos < 0.7) {
+            tip = '⚡ 无功占比过高(Q/S=' + (Q/S*100).toFixed(0) + '%),变压器和线路需按 S=' + fmt(S,1) + 'kVA 配置而非 P=' + P + 'kW,容量需求大幅增加。';
+          } else if (cos < 0.9) {
+            tip = '💡 视在功率 S 比有功 P 多 ' + fmt((S-P)/P*100, 0) + '%,建议无功补偿后选型可缩小。';
+          } else {
+            tip = '✓ 功率因数良好,S 与 P 接近,配电容量利用率高。';
+          }
+        }
+
+      } else if (currentMode === 'C') {
+        // Tab C: 功率因数补偿
+        // 补偿电容容量 Qc = P × (tanφ1 − tanφ2)
+        //   = P × (tan(acos(cosφ1)) − tan(acos(cosφ2)))
+        // 单位契约:P 输入 kW → Qc 输出 kVAr,直接计算,NO /1000
+        var P = parseFloat($('tp-pC').value);
+        var cos1 = safeCos(parseFloat($('tp-cos1').value));
+        var cos2 = safeCos(parseFloat($('tp-cos2').value));
+        if (!P || cos1 === null || cos2 === null || P <= 0) {
+          valid = false;
+        } else if (cos2 <= cos1) {
+          // 目标 cosφ2 不大于现状 cosφ1 → 无需补偿 / 已是更差状态
+          var phi1 = Math.acos(cos1);
+          var S = P / cos1;
+          var Q = P * Math.tan(phi1);
+          title = '功率因数补偿 · 当前已达标';
+          body += row('有功功率 P', fmt(P, 2), 'kW');
+          body += row('当前 cosφ₁', cos1.toFixed(3), '');
+          body += row('目标 cosφ₂', cos2.toFixed(3), '');
+          body += row('当前视在 S', fmt(S, 2), 'kVA');
+          body += row('当前无功 Q', fmt(Q, 2), 'kVAr');
+          body += row('需补偿 Qc', '0.00', 'kVAr', true);
+          formula = 'Qc = P × (tanφ₁ − tanφ₂) = ' + P + ' × (tan(acos(' + cos1.toFixed(3) +
+                    ')) − tan(acos(' + cos2.toFixed(3) + '))) = 0 kVAr (cosφ₂ ≤ cosφ₁,无需补偿)';
+          warn = '⚠ 目标 cosφ₂(' + cos2.toFixed(2) + ')不大于当前 cosφ₁(' + cos1.toFixed(2) + '),不需要补偿电容。请调高 cosφ₂(例如 0.90~0.95)。';
+        } else {
+          // 正常补偿计算
+          // 单位契约:P 单位=kW → Qc 单位=kVAr,直接计算不除 1000
+          // P unit: kW → Qc unit: kVAr, NO /1000
+          var phi1 = Math.acos(cos1);
+          var phi2 = Math.acos(cos2);
+          var Qc = P * (Math.tan(phi1) - Math.tan(phi2));  // P unit: kW → Qc unit: kVAr, NO /1000
+          var S1 = P / cos1;
+          var S2 = P / cos2;
+          var reduction = (S1 - S2) / S1 * 100;
+
+          title = '功率因数补偿 · ' + cos1.toFixed(2) + ' → ' + cos2.toFixed(2);
+          body += row('有功功率 P', fmt(P, 2), 'kW');
+          body += row('补偿前视在 S₁', fmt(S1, 2), 'kVA');
+          body += row('补偿后视在 S₂', fmt(S2, 2), 'kVA');
+          body += row('视在功率下降', fmt(reduction, 1), '%');
+          body += row('需补偿电容 Qc', fmt(Qc, 2), 'kVAr', true);
+          formula = 'Qc = P × (tanφ₁ − tanφ₂) = ' + P + ' × (tan(acos(' + cos1.toFixed(3) +
+                    ')) − tan(acos(' + cos2.toFixed(3) + '))) = ' + fmt(Qc, 2) + ' kVAr';
+
+          // 工程建议
+          if (cos2 > 0.98) {
+            warn = '⚠ 目标 cosφ₂ 超过 0.98 容易出现"过补偿"(无功反送电网),导致力率电费罚款。建议目标 0.90~0.95 最经济。';
+          }
+          if (Qc > 1000) {
+            tip = '🏭 大容量补偿(' + fmt(Qc, 0) + ' kVAr),建议:① 分组自动投切(避免过补偿)② SVG 优先(响应快)③ 选用 480V 电容器组(避免 380V 直接补偿带来的谐波放大)。';
+          } else if (Qc > 100) {
+            tip = '⚙ 中容量补偿,推荐方案:① 优先 SVG(静止无功发生器,响应时间 <10ms)② 也可用晶闸管投切电容器(TSC)。';
+          } else {
+            tip = '✓ 小容量补偿,可选用普通电容器组(接触器投切)即可,成本低、维护简单。';
+          }
+        }
+      }
+
+      var r = $('tp-result');
+      var w = $('tp-warn');
+      if (!valid) {
+        r.classList.remove('active');
+        return;
+      }
+      $('tp-result-title').textContent = title;
+      $('tp-result-body').innerHTML = body;
+      $('tp-formula').textContent = formula;
+      $('tp-tip').innerHTML = tip;
+      $('tp-warn').textContent = warn;
+      if (warn) {
+        w.classList.add('active');
+      } else {
+        w.classList.remove('active');
+      }
+      r.classList.add('active');
+    }
+
+    // Tab 切换
+    document.querySelectorAll('#tp-tool .tp-tab').forEach(function(tab){
+      tab.addEventListener('click', function(){ switchTab(tab.dataset.mode); });
+    });
+
+    // 输入绑定
+    ['tp-u','tp-i','tp-cosA','tp-pB','tp-cosB','tp-pC','tp-cos1','tp-cos2'].forEach(function(id){
+      var el = $(id);
+      if (!el) return;
+      el.addEventListener('input', calc);
+      el.addEventListener('change', calc);
+    });
+
+    // 暴露给 preset
+    window.tpApplyPreset = function(mode, a, b, c) {
+      if (mode === 'A') {
+        $('tp-u').value = a;
+        $('tp-i').value = b;
+        $('tp-cosA').value = c;
+      } else if (mode === 'B') {
+        $('tp-pB').value = a;
+        $('tp-cosB').value = b;
+      } else if (mode === 'C') {
+        $('tp-pC').value = a;
+        $('tp-cos1').value = b;
+        $('tp-cos2').value = c;
+      }
+      calc();
+    };
+
+    // 首次计算
+    calc();
+  })();
+  </script>
+</div>
