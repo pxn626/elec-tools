@@ -1,0 +1,1058 @@
+<div class="cc-tool-container" id="cc-tool">
+  <style>
+    #cc-tool { max-width: 800px; margin: 24px auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    #cc-tool .cc-card { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; }
+    #cc-tool .cc-mode-tabs { display: flex; gap: 4px; margin-bottom: 18px; border-bottom: 2px solid #e5e7eb; overflow-x: auto; flex-wrap: nowrap; }
+    #cc-tool .cc-tab { padding: 10px 16px; cursor: pointer; font-weight: 600; color: #6b7280; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; font-size: 14px; white-space: nowrap; }
+    #cc-tool .cc-tab.active { color: #2563eb; border-bottom-color: #2563eb; }
+    #cc-tool .cc-tab:hover:not(.active) { color: #374151; }
+    #cc-tool .cc-panel { display: none; }
+    #cc-tool .cc-panel.active { display: block; }
+    #cc-tool .cc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    #cc-tool .cc-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    #cc-tool .cc-input-group { margin-bottom: 16px; }
+    #cc-tool label { display: block; font-weight: 600; margin-bottom: 6px; color: #1f2937; font-size: 14px; }
+    #cc-tool label .cc-unit { font-weight: 400; color: #6b7280; font-size: 12px; margin-left: 4px; }
+    #cc-tool input, #cc-tool select { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 16px; box-sizing: border-box; background: white; }
+    #cc-tool input:focus, #cc-tool select:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    #cc-tool .cc-radio-group { display: flex; gap: 14px; flex-wrap: wrap; }
+    #cc-tool .cc-radio-group label { font-weight: 400; display: flex; align-items: center; gap: 4px; cursor: pointer; font-size: 14px; }
+    #cc-tool .cc-radio-group input[type="radio"] { width: auto; margin: 0; }
+    #cc-tool .cc-presets { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0 12px 0; }
+    #cc-tool .cc-preset { padding: 5px 10px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 6px; cursor: pointer; font-size: 12px; transition: all 0.2s; user-select: none; }
+    #cc-tool .cc-preset:hover { background: #2563eb; color: white; border-color: #2563eb; }
+    #cc-tool .cc-preset-cs { font-weight: 600; }
+    #cc-tool .cc-result { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 10px; padding: 18px; margin-top: 18px; display: none; }
+    #cc-tool .cc-result.active { display: block; }
+    #cc-tool .cc-result h3 { margin: 0 0 12px 0; color: #1e40af; font-size: 18px; }
+    #cc-tool .cc-r-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #93c5fd; align-items: baseline; gap: 12px; }
+    #cc-tool .cc-r-row:last-child { border-bottom: none; }
+    #cc-tool .cc-r-row.highlight { background: #dbeafe; margin: 4px -8px; padding: 8px; border-radius: 6px; border-bottom: none; }
+    #cc-tool .cc-r-label { color: #475569; font-size: 14px; flex: 1; }
+    #cc-tool .cc-r-val { font-weight: 700; color: #1e3a8a; font-size: 17px; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+    #cc-tool .cc-r-row.highlight .cc-r-val { color: #1d4ed8; font-size: 22px; }
+    #cc-tool .cc-unit-inline { font-size: 12px; color: #64748b; margin-left: 4px; font-weight: 400; }
+    #cc-tool .cc-coeff-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; color: #475569; }
+    #cc-tool .cc-coeff-label { flex: 1; }
+    #cc-tool .cc-coeff-val { font-weight: 600; color: #1e40af; font-variant-numeric: tabular-nums; }
+    #cc-tool .cc-tip { font-size: 13px; color: #1e293b; margin-top: 14px; padding: 10px; background: #fef3c7; border-radius: 6px; border-left: 3px solid #f59e0b; }
+    #cc-tool .cc-warn { font-size: 13px; color: #7f1d1d; margin-top: 10px; padding: 10px; background: #fee2e2; border-radius: 6px; border-left: 3px solid #dc2626; display: none; }
+    #cc-tool .cc-warn.active { display: block; }
+    #cc-tool .cc-formula { font-size: 12px; color: #475569; margin-top: 10px; padding: 10px; background: #f8fafc; border-radius: 6px; border-left: 3px solid #94a3b8; font-family: "SF Mono", Monaco, Consolas, "Courier New", monospace; word-break: break-all; }
+    #cc-tool .cc-standard { font-size: 12px; color: #475569; margin-top: 14px; padding: 12px; background: #f8fafc; border-radius: 6px; border-left: 3px solid #94a3b8; }
+    #cc-tool .cc-standard p { margin: 4px 0; font-weight: 600; }
+    #cc-tool .cc-standard ul { margin: 4px 0; padding-left: 18px; }
+    #cc-tool .cc-standard li { font-weight: 400; line-height: 1.6; }
+    #cc-tool .cc-disclaimer { font-size: 12px; color: #64748b; margin-top: 14px; padding: 12px; background: #f1f5f9; border-radius: 6px; border-left: 3px solid #cbd5e1; line-height: 1.6; }
+    #cc-tool .cc-disclaimer p { margin: 4px 0; font-weight: 600; }
+    #cc-tool .cc-disclaimer ul { margin: 4px 0; padding-left: 18px; }
+    #cc-tool .cc-disclaimer li { font-weight: 400; }
+    @media (prefers-color-scheme: dark) {
+      #cc-tool .cc-card { background: #1e293b; border-color: #334155; }
+      #cc-tool label { color: #cbd5e1; }
+      #cc-tool label .cc-unit { color: #94a3b8; }
+      #cc-tool input, #cc-tool select { background: #0f172a; color: #e2e8f0; border-color: #334155; }
+      #cc-tool .cc-mode-tabs { border-bottom-color: #334155; }
+      #cc-tool .cc-tab { color: #94a3b8; }
+      #cc-tool .cc-tab.active { color: #60a5fa; border-bottom-color: #60a5fa; }
+      #cc-tool .cc-tab:hover:not(.active) { color: #e2e8f0; }
+      #cc-tool .cc-radio-group label { color: #cbd5e1; }
+      #cc-tool .cc-preset { background: #334155; border-color: #475569; color: #cbd5e1; }
+      #cc-tool .cc-preset:hover { background: #2563eb; color: white; border-color: #2563eb; }
+      #cc-tool .cc-result { background: #0c1f3f; border-color: #1e3a8a; }
+      #cc-tool .cc-result h3 { color: #93c5fd; }
+      #cc-tool .cc-r-row { border-bottom-color: #1e3a8a; }
+      #cc-tool .cc-r-label { color: #cbd5e1; }
+      #cc-tool .cc-r-val { color: #93c5fd; }
+      #cc-tool .cc-r-row.highlight { background: #1e3a8a; }
+      #cc-tool .cc-r-row.highlight .cc-r-val { color: #dbeafe; }
+      #cc-tool .cc-coeff-row { color: #cbd5e1; }
+      #cc-tool .cc-coeff-val { color: #93c5fd; }
+      #cc-tool .cc-unit-inline { color: #94a3b8; }
+      #cc-tool .cc-tip { background: #422006; color: #fde68a; border-left-color: #f59e0b; }
+      #cc-tool .cc-warn { background: #450a0a; color: #fecaca; border-left-color: #dc2626; }
+      #cc-tool .cc-formula { background: #0f172a; color: #cbd5e1; border-left-color: #475569; }
+      #cc-tool .cc-standard { background: #0f172a; color: #94a3b8; border-left-color: #475569; }
+      #cc-tool .cc-disclaimer { background: #1f2937; color: #94a3b8; border-left-color: #475569; }
+    }
+    @media (max-width: 600px) {
+      #cc-tool .cc-row, #cc-tool .cc-row3 { grid-template-columns: 1fr; }
+      #cc-tool .cc-mode-tabs { overflow-x: auto; flex-wrap: nowrap; }
+      #cc-tool .cc-tab { white-space: nowrap; }
+      #cc-tool .cc-radio-group { gap: 10px; }
+    }
+  </style>
+
+  <div class="cc-card">
+    <div class="cc-mode-tabs">
+      <div class="cc-tab active" data-mode="air">① 空气敷设</div>
+      <div class="cc-tab" data-mode="pipe">② 穿管敷设</div>
+      <div class="cc-tab" data-mode="soil">③ 土壤敷设</div>
+    </div>
+
+    <!-- =========================================================== -->
+    <!-- Tab 1: 空气敷设(明敷 / 桥架) -->
+    <!-- =========================================================== -->
+    <div class="cc-panel active" data-panel="air">
+
+      <!-- 子方式选择:明敷 / 桥架 -->
+      <div class="cc-input-group">
+        <label>敷设子方式</label>
+        <div class="cc-radio-group">
+          <label><input type="radio" name="cc-air-sub" value="direct" checked> 明敷空气中</label>
+          <label><input type="radio" name="cc-air-sub" value="tray"> 桥架敷设</label>
+        </div>
+      </div>
+
+      <!-- 桥架类型(桥架时显示) -->
+      <div class="cc-input-group" id="cc-air-tray-wrap" style="display:none;">
+        <label>桥架类型</label>
+        <div class="cc-radio-group">
+          <label><input type="radio" name="cc-tray-type" value="ladder" checked> 梯级桥架</label>
+          <label><input type="radio" name="cc-tray-type" value="tray"> 托盘式桥架</label>
+          <label><input type="radio" name="cc-tray-type" value="perforated"> 槽式桥架</label>
+        </div>
+      </div>
+
+      <div class="cc-row">
+        <div class="cc-input-group">
+          <label>导体材料</label>
+          <div class="cc-radio-group">
+            <label><input type="radio" name="cc-air-mat" value="Cu" checked> Cu(铜)</label>
+            <label><input type="radio" name="cc-air-mat" value="Al"> Al(铝)</label>
+          </div>
+        </div>
+        <div class="cc-input-group">
+          <label>电缆类型</label>
+          <select id="cc-air-type">
+            <option value="YJV" selected>YJV(铜芯 XLPE 绝缘)</option>
+            <option value="YJLV">YJLV(铝芯 XLPE 绝缘)</option>
+            <option value="YJV22">YJV22(铜芯 XLPE 钢带铠装)</option>
+            <option value="VV">VV(铜芯 PVC 绝缘)</option>
+            <option value="VLV">VLV(铝芯 PVC 绝缘)</option>
+            <option value="BVR">BVR(铜芯 PVC 软电缆)</option>
+            <option value="BLVR">BLVR(铝芯 PVC 软电缆)</option>
+            <option value="__custom__">自填...</option>
+          </select>
+          <input type="text" id="cc-air-type-custom" placeholder="自填型号(如 YJY23)" style="display:none; margin-top:6px;" maxlength="20">
+        </div>
+      </div>
+
+      <div class="cc-input-group">
+        <label>导体截面积<span class="cc-unit">(mm²)</span></label>
+        <input type="number" id="cc-air-cs" value="10" min="1.5" max="1000" step="0.5" inputmode="decimal">
+        <div class="cc-presets">
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('air',1.5)">1.5</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('air',2.5)">2.5</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('air',4)">4</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('air',6)">6</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('air',10)">10</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('air',16)">16</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('air',25)">25</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('air',35)">35</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('air',50)">50</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('air',70)">70</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('air',95)">95</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('air',120)">120</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('air',150)">150</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('air',185)">185</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('air',240)">240</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('air',300)">300</span>
+        </div>
+      </div>
+
+      <div class="cc-row">
+        <div class="cc-input-group">
+          <label>环境温度 θ_a<span class="cc-unit">(℃)</span></label>
+          <input type="number" id="cc-air-temp" value="30" min="-20" max="60" step="1" inputmode="decimal">
+        </div>
+        <div class="cc-input-group">
+          <label>并列回路数 n</label>
+          <div class="cc-radio-group">
+            <label><input type="radio" name="cc-air-n" value="1" checked> 1</label>
+            <label><input type="radio" name="cc-air-n" value="2"> 2</label>
+            <label><input type="radio" name="cc-air-n" value="3"> 3</label>
+            <label><input type="radio" name="cc-air-n" value="4"> 4</label>
+            <label><input type="radio" name="cc-air-n" value="6"> 6</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="cc-row">
+        <div class="cc-input-group" id="cc-air-multi-wrap" style="display:none;">
+          <label>多回路敷设方式</label>
+          <div class="cc-radio-group">
+            <label><input type="radio" name="cc-air-multi" value="touching" checked> 紧贴</label>
+            <label><input type="radio" name="cc-air-multi" value="spaced"> 有间距(= 1 × 外径)</label>
+          </div>
+        </div>
+        <div class="cc-input-group">
+          <label>海拔高度<span class="cc-unit">(m)</span></label>
+          <input type="number" id="cc-air-altitude" value="0" min="0" max="5000" step="50" inputmode="decimal">
+        </div>
+      </div>
+
+      <div class="cc-input-group">
+        <label>日晒遮蔽(仅明敷空气有效)</label>
+        <div class="cc-radio-group">
+          <label><input type="radio" name="cc-air-shield" value="yes" checked> 有遮蔽 / 室内</label>
+          <label><input type="radio" name="cc-air-shield" value="no"> 无遮蔽 / 直晒</label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- =========================================================== -->
+    <!-- Tab 2: 穿管敷设 -->
+    <!-- =========================================================== -->
+    <div class="cc-panel" data-panel="pipe">
+
+      <div class="cc-row">
+        <div class="cc-input-group">
+          <label>导体材料</label>
+          <div class="cc-radio-group">
+            <label><input type="radio" name="cc-pipe-mat" value="Cu" checked> Cu(铜)</label>
+            <label><input type="radio" name="cc-pipe-mat" value="Al"> Al(铝)</label>
+          </div>
+        </div>
+        <div class="cc-input-group">
+          <label>电缆类型</label>
+          <select id="cc-pipe-type">
+            <option value="YJV" selected>YJV(铜芯 XLPE 绝缘)</option>
+            <option value="YJLV">YJLV(铝芯 XLPE 绝缘)</option>
+            <option value="YJV22">YJV22(铜芯 XLPE 钢带铠装)</option>
+            <option value="VV">VV(铜芯 PVC 绝缘)</option>
+            <option value="VLV">VLV(铝芯 PVC 绝缘)</option>
+            <option value="BVR">BVR(铜芯 PVC 软电缆)</option>
+            <option value="BLVR">BLVR(铝芯 PVC 软电缆)</option>
+            <option value="__custom__">自填...</option>
+          </select>
+          <input type="text" id="cc-pipe-type-custom" placeholder="自填型号" style="display:none; margin-top:6px;" maxlength="20">
+        </div>
+      </div>
+
+      <div class="cc-input-group">
+        <label>导体截面积<span class="cc-unit">(mm²)</span></label>
+        <input type="number" id="cc-pipe-cs" value="10" min="1.5" max="1000" step="0.5" inputmode="decimal">
+        <div class="cc-presets">
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('pipe',1.5)">1.5</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('pipe',2.5)">2.5</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('pipe',4)">4</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('pipe',6)">6</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('pipe',10)">10</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('pipe',16)">16</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('pipe',25)">25</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('pipe',35)">35</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('pipe',50)">50</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('pipe',70)">70</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('pipe',95)">95</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('pipe',120)">120</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('pipe',150)">150</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('pipe',185)">185</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('pipe',240)">240</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('pipe',300)">300</span>
+        </div>
+      </div>
+
+      <div class="cc-row3">
+        <div class="cc-input-group">
+          <label>穿管材质</label>
+          <div class="cc-radio-group">
+            <label><input type="radio" name="cc-pipe-material" value="steel" checked> 钢管(SC)</label>
+            <label><input type="radio" name="cc-pipe-material" value="pvc"> PVC 管</label>
+          </div>
+        </div>
+        <div class="cc-input-group">
+          <label>管内芯数</label>
+          <div class="cc-radio-group">
+            <label><input type="radio" name="cc-pipe-cores" value="1c"> 1 芯</label>
+            <label><input type="radio" name="cc-pipe-cores" value="2c"> 2 芯</label>
+            <label><input type="radio" name="cc-pipe-cores" value="3c" checked> 3 芯</label>
+          </div>
+        </div>
+        <div class="cc-input-group">
+          <label>环境温度 θ_a<span class="cc-unit">(℃)</span></label>
+          <input type="number" id="cc-pipe-temp" value="30" min="-20" max="60" step="1" inputmode="decimal">
+        </div>
+      </div>
+
+      <div class="cc-row">
+        <div class="cc-input-group">
+          <label>并列回路数 n</label>
+          <div class="cc-radio-group">
+            <label><input type="radio" name="cc-pipe-n" value="1" checked> 1</label>
+            <label><input type="radio" name="cc-pipe-n" value="2"> 2</label>
+            <label><input type="radio" name="cc-pipe-n" value="3"> 3</label>
+            <label><input type="radio" name="cc-pipe-n" value="4"> 4</label>
+            <label><input type="radio" name="cc-pipe-n" value="6"> 6</label>
+          </div>
+        </div>
+        <div class="cc-input-group" id="cc-pipe-multi-wrap" style="display:none;">
+          <label>多回路敷设方式</label>
+          <div class="cc-radio-group">
+            <label><input type="radio" name="cc-pipe-multi" value="touching" checked> 紧贴</label>
+            <label><input type="radio" name="cc-pipe-multi" value="spaced"> 有间距(= 1 × 外径)</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="cc-input-group">
+        <label>海拔高度<span class="cc-unit">(m)</span></label>
+        <input type="number" id="cc-pipe-altitude" value="0" min="0" max="5000" step="50" inputmode="decimal">
+      </div>
+
+    </div>
+
+    <!-- =========================================================== -->
+    <!-- Tab 3: 土壤敷设 -->
+    <!-- =========================================================== -->
+    <div class="cc-panel" data-panel="soil">
+
+      <div class="cc-row">
+        <div class="cc-input-group">
+          <label>导体材料</label>
+          <div class="cc-radio-group">
+            <label><input type="radio" name="cc-soil-mat" value="Cu" checked> Cu(铜)</label>
+            <label><input type="radio" name="cc-soil-mat" value="Al"> Al(铝)</label>
+          </div>
+        </div>
+        <div class="cc-input-group">
+          <label>电缆类型</label>
+          <select id="cc-soil-type">
+            <option value="YJV" selected>YJV(铜芯 XLPE 绝缘)</option>
+            <option value="YJLV">YJLV(铝芯 XLPE 绝缘)</option>
+            <option value="YJV22">YJV22(铜芯 XLPE 钢带铠装)</option>
+            <option value="VV">VV(铜芯 PVC 绝缘)</option>
+            <option value="VLV">VLV(铝芯 PVC 绝缘)</option>
+            <option value="BVR">BVR(铜芯 PVC 软电缆)</option>
+            <option value="BLVR">BLVR(铝芯 PVC 软电缆)</option>
+            <option value="__custom__">自填...</option>
+          </select>
+          <input type="text" id="cc-soil-type-custom" placeholder="自填型号" style="display:none; margin-top:6px;" maxlength="20">
+        </div>
+      </div>
+
+      <div class="cc-input-group">
+        <label>导体截面积<span class="cc-unit">(mm²)</span></label>
+        <input type="number" id="cc-soil-cs" value="70" min="1.5" max="1000" step="0.5" inputmode="decimal">
+        <div class="cc-presets">
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('soil',1.5)">1.5</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('soil',2.5)">2.5</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('soil',4)">4</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('soil',6)">6</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('soil',10)">10</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('soil',16)">16</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('soil',25)">25</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('soil',35)">35</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('soil',50)">50</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('soil',70)">70</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('soil',95)">95</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('soil',120)">120</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('soil',150)">150</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('soil',185)">185</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('soil',240)">240</span>
+          <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('soil',300)">300</span>
+        </div>
+      </div>
+
+      <div class="cc-input-group">
+        <label>敷设子类</label>
+        <div class="cc-radio-group">
+          <label><input type="radio" name="cc-soil-sub" value="direct" checked> 直埋地中</label>
+          <label><input type="radio" name="cc-soil-sub" value="duct"> 管道内敷设</label>
+        </div>
+      </div>
+
+      <div class="cc-row3">
+        <div class="cc-input-group">
+          <label>土壤温度 θ_g<span class="cc-unit">(℃)</span></label>
+          <input type="number" id="cc-soil-temp" value="25" min="-10" max="40" step="1" inputmode="decimal">
+        </div>
+        <div class="cc-input-group">
+          <label>土壤热阻系数 ρ<span class="cc-unit">(K·m/W)</span></label>
+          <input type="number" id="cc-soil-rho" value="2.0" min="0.5" max="5.0" step="0.1" inputmode="decimal">
+          <div class="cc-presets">
+            <span class="cc-preset" onclick="ccApplyRho(1.0)">1.0</span>
+            <span class="cc-preset" onclick="ccApplyRho(1.5)">1.5</span>
+            <span class="cc-preset" onclick="ccApplyRho(2.0)">2.0(基准)</span>
+            <span class="cc-preset" onclick="ccApplyRho(2.5)">2.5(GB 默认)</span>
+            <span class="cc-preset" onclick="ccApplyRho(3.0)">3.0</span>
+          </div>
+        </div>
+        <div class="cc-input-group">
+          <label>并列回路数 n</label>
+          <div class="cc-radio-group">
+            <label><input type="radio" name="cc-soil-n" value="1" checked> 1</label>
+            <label><input type="radio" name="cc-soil-n" value="2"> 2</label>
+            <label><input type="radio" name="cc-soil-n" value="3"> 3</label>
+            <label><input type="radio" name="cc-soil-n" value="4"> 4</label>
+            <label><input type="radio" name="cc-soil-n" value="6"> 6</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="cc-row">
+        <div class="cc-input-group" id="cc-soil-multi-wrap" style="display:none;">
+          <label>多回路敷设方式</label>
+          <div class="cc-radio-group">
+            <label><input type="radio" name="cc-soil-multi" value="touching" checked> 紧贴</label>
+            <label><input type="radio" name="cc-soil-multi" value="spaced"> 有间距(= 1 × 外径)</label>
+          </div>
+        </div>
+        <div class="cc-input-group">
+          <label>海拔高度<span class="cc-unit">(m)</span></label>
+          <input type="number" id="cc-soil-altitude" value="0" min="0" max="5000" step="50" inputmode="decimal">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- =========================================================== -->
+    <!-- Result area -->
+    <!-- =========================================================== -->
+    <div class="cc-result" id="cc-result">
+      <h3 id="cc-result-title">计算结果</h3>
+      <div id="cc-result-body"></div>
+      <div class="cc-formula" id="cc-formula"></div>
+      <div class="cc-tip" id="cc-tip" style="display:none;"></div>
+      <div class="cc-warn" id="cc-warn"></div>
+    </div>
+
+    <!-- =========================================================== -->
+    <!-- 国标依据 + 免责声明 -->
+    <!-- =========================================================== -->
+    <div class="cc-standard">
+      <p>📋 国标依据</p>
+      <ul>
+        <li>GB 50217-2018《电力工程电缆设计标准》(基准温度 25℃,本工具采用)</li>
+        <li>GB/T 16895.15-2005《低压电气装置 第 5-52 部分》(等同 IEC 60364-5-52)</li>
+        <li>IEC 60364-5-52:2009(基准温度 30℃ — 与 GB 50217 25℃ 基准不同,工程审计需换算)</li>
+        <li>GB 50054-2011《低压配电设计规范》(断路器整定参考)</li>
+      </ul>
+    </div>
+
+    <div class="cc-disclaimer">
+      <p>⚠ 免责声明</p>
+      <ul>
+        <li>本工具基于 GB 50217-2018 / IEC 60364-5-52 标准数据表简化实现,计算结果仅供设计参考。</li>
+        <li>正式施工图设计应以<strong>国家标准化管理委员会发布的现行版本</strong>为准。</li>
+        <li>本工具不替代专业电气工程师的设计审核 + 完整配电设计流程。</li>
+        <li>特殊场景(矿用 / 船用 / 化工防腐 / 高海拔 &gt; 4000m)需参考专项标准。</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    'use strict';
+
+    // ===========================================================
+    // 1. 基准载流量数据表(GB 50217-2018 表 C.0.1,25℃ 基准)
+    // ===========================================================
+
+    // 表 3.1.1:Cu + XLPE + 多芯 + 自由空气中(method E/F)
+    // YJV / YJLV / YJV22 共用(钢带铠装散热差 ≤ 5%)
+    var TABLE_XLPE_AIR = {
+      Cu: { 1.5:23, 2.5:32, 4:42, 6:54, 10:75, 16:100, 25:127, 35:158, 50:192, 70:246, 95:298, 120:346, 150:399, 185:456, 240:538, 300:621 },
+      Al: { 10:58, 16:77, 25:97, 35:120, 50:146, 70:187, 95:227, 120:263, 150:304, 185:347, 240:409, 300:471 }
+    };
+
+    // 表 3.1.2:Cu + PVC + 多芯 + 自由空气中(method E,70℃)
+    // VV / VLV / BVR / BLVR
+    var TABLE_PVC_AIR = {
+      Cu: { 1.5:19, 2.5:26, 4:35, 6:45, 10:63, 16:81, 25:104, 35:125, 50:148, 70:191, 95:235, 120:273, 150:318, 185:362, 240:424, 300:485 },
+      Al: { 10:49, 16:64, 25:83, 35:99, 50:118, 70:152, 95:187, 120:216, 150:252, 185:287, 240:337, 300:386 }
+    };
+
+    // 表 3.1.3:Cu + PVC + 多芯 + 直埋地中(method D,25℃ / 2.5 K·m/W)
+    var TABLE_PVC_SOIL = {
+      Cu: { 1.5:22, 2.5:29, 4:37, 6:46, 10:60, 16:78, 25:99, 35:119, 50:140, 70:176, 95:213, 120:247, 150:285, 185:324, 240:380, 300:435 },
+      Al: { 10:47, 16:60, 25:77, 35:92, 50:109, 70:137, 95:165, 120:191, 150:220, 185:250, 240:294, 300:336 }
+    };
+
+    // 表 3.1.4:Cu + XLPE + 多芯 + 直埋地中(method D,25℃ / 2.5 K·m/W)
+    // YJV / YJLV / YJV22 共用
+    var TABLE_XLPE_SOIL = {
+      Cu: { 1.5:26, 2.5:34, 4:44, 6:55, 10:73, 16:94, 25:119, 35:144, 50:171, 70:215, 95:262, 120:303, 150:348, 185:395, 240:462, 300:528 },
+      Al: { 10:57, 16:73, 25:93, 35:112, 50:132, 70:167, 95:203, 120:235, 150:270, 185:306, 240:358, 300:409 }
+    };
+
+    // 表 3.1.5:Cu + PVC + 多芯 + 穿管敷设(method B1/B2,25℃ 空气)
+    // VV / VLV / BVR / BLVR
+    // {cs: {1c, 2c, 3c}}
+    var TABLE_PVC_PIPE = {
+      Cu: { 1.5:{1:17,2:13,3:13}, 2.5:{1:23,2:18,3:17}, 4:{1:31,2:24,3:23}, 6:{1:40,2:31,3:29}, 10:{1:54,2:42,3:39}, 16:{1:73,2:56,3:52}, 25:{1:95,2:71,3:66}, 35:{1:117,2:88,3:81}, 50:{1:141,2:105,3:96}, 70:{1:179,2:133,3:121}, 95:{1:216,2:160,3:146}, 120:{1:249,2:186,3:169}, 150:{1:285,2:213,3:192}, 185:{1:324,2:242,3:218}, 240:{1:380,2:282,3:253}, 300:{1:435,2:322,3:289} }
+    };
+
+    // 表 3.1.6:Cu + XLPE + 多芯 + 穿管敷设(method B1/B2,25℃ 空气)
+    // YJV / YJLV / YJV22 共用
+    var TABLE_XLPE_PIPE = {
+      Cu: { 1.5:{1:21,2:17,3:16}, 2.5:{1:28,2:23,3:22}, 4:{1:38,2:31,3:30}, 6:{1:49,2:40,3:38}, 10:{1:65,2:53,3:50}, 16:{1:86,2:70,3:66}, 25:{1:109,2:89,3:84}, 35:{1:133,2:108,3:102}, 50:{1:158,2:129,3:122}, 70:{1:199,2:162,3:154}, 95:{1:241,2:196,3:186}, 120:{1:277,2:225,3:213}, 150:{1:316,2:257,3:243}, 185:{1:361,2:293,3:277}, 240:{1:424,2:343,3:324}, 300:{1:486,2:392,3:369} }
+    };
+
+    // 表 3.1.7:Cu + 多芯电缆 + 桥架敷设(method C,梯级桥架,VV / YJV 通用初值)
+    // 桥架散热介于明敷和穿管之间 — 同一表(XLPE 用主,PVC 略低但工程初值用同一表)
+    var TABLE_TRAY_CU = {
+      1.5:22, 2.5:30, 4:39, 6:50, 10:67, 16:88, 25:110, 35:133, 50:158, 70:200, 95:244, 120:283, 150:327, 185:372, 240:437, 300:500
+    };
+
+    // 表 3.1.8 dispatch:v2 修复 — BVR / BLVR 归 PVC,YJV22 归 XLPE
+    function isXLPE(type) {
+      return /^(YJV|YJLV|YJV22)$/.test(type);
+    }
+    function isPVC(type) {
+      return /^(VV|VLV|BVR|BLVR)$/.test(type);
+    }
+
+    // ===========================================================
+    // 2. 修正系数函数
+    // ===========================================================
+
+    // §3.2 K_θ:GB 50217 25℃ 基准
+    // K_θ = √((T_max - θ) / (T_max - 25))
+    function calcKtheta(theta, Tmax, baselineC) {
+      baselineC = baselineC || 25;
+      if (!isFinite(theta) || isNaN(theta)) return { val: null, warn: '请输入有效温度值' };
+      if (theta >= Tmax) return { val: 0, warn: '环境温度 ≥ 绝缘耐温(' + Tmax + '℃),电缆不可用' };
+      if (theta < -40 || theta > 60) return { val: null, warn: '温度超出工程常规范围(-40 ~ 60℃)' };
+      var val = Math.sqrt((Tmax - theta) / (Tmax - baselineC));
+      return { val: val, warn: null };
+    }
+
+    // §3.3 K_s
+    function calcKsSoil(rho) {
+      // 表 5.4.7 离散点 + 线性插值
+      var pts = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0];
+      var Ks = [1.28, 1.13, 1.05, 1.00, 0.96, 0.91, 0.83, 0.75];
+      if (rho <= pts[0]) return Ks[0];
+      if (rho >= pts[pts.length - 1]) return Ks[Ks.length - 1];
+      for (var i = 0; i < pts.length - 1; i++) {
+        if (rho >= pts[i] && rho <= pts[i + 1]) {
+          var t = (rho - pts[i]) / (pts[i + 1] - pts[i]);
+          return Ks[i] + t * (Ks[i + 1] - Ks[i]);
+        }
+      }
+      return 1.0;
+    }
+
+    // §3.4 K_p:IEC 表 B.52.17
+    var TABLE_KP = {
+      '1': { touching:1.00, spaced:1.00 },
+      '2': { touching:0.88, spaced:0.90 },
+      '3': { touching:0.82, spaced:0.85 },
+      '4': { touching:0.77, spaced:0.80 },
+      '6': { touching:0.73, spaced:0.76 }
+    };
+    function calcKp(n, mode) {
+      // n=5 用 4 和 6 线性插值
+      if (n === 5) {
+        var k4 = TABLE_KP['4'][mode];
+        var k6 = TABLE_KP['6'][mode];
+        return (k4 + k6) / 2;
+      }
+      var row = TABLE_KP[String(n)];
+      if (!row) return 1.0;
+      return row[mode] || 1.0;
+    }
+
+    // §3.5 K_h:GB 50217 表 5.4.6
+    var KH_TABLE = { 1000:1.00, 1500:0.97, 2000:0.94, 2500:0.91, 3000:0.88, 3500:0.85, 4000:0.82, 5000:0.76 };
+    function calcKh(alt) {
+      if (!isFinite(alt) || isNaN(alt)) return 1.0;
+      if (alt <= 1000) return 1.0;
+      if (alt >= 5000) return KH_TABLE[5000];
+      // 离散点线性插值
+      var keys = Object.keys(KH_TABLE).map(Number).sort(function(a,b){return a-b;});
+      for (var i = 0; i < keys.length - 1; i++) {
+        if (alt >= keys[i] && alt <= keys[i + 1]) {
+          var t = (alt - keys[i]) / (keys[i + 1] - keys[i]);
+          return KH_TABLE[keys[i]] + t * (KH_TABLE[keys[i + 1]] - KH_TABLE[keys[i]]);
+        }
+      }
+      return 1.0;
+    }
+
+    // ===========================================================
+    // 3. DOM 工具
+    // ===========================================================
+
+    function $(id) { return document.getElementById(id); }
+
+    function $(id) { return document.getElementById(id); }
+    function $$(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
+
+    function val(id) {
+      var el = $(id);
+      if (!el) return null;
+      return el.value;
+    }
+    function numVal(id) {
+      var v = parseFloat(val(id));
+      return isFinite(v) && !isNaN(v) ? v : null;
+    }
+    function checkedRadio(name) {
+      var els = document.getElementsByName(name);
+      for (var i = 0; i < els.length; i++) if (els[i].checked) return els[i].value;
+      return null;
+    }
+
+    function fmt(n, d) {
+      d = d || 2;
+      if (!isFinite(n) || isNaN(n)) return '--';
+      return n.toFixed(d);
+    }
+
+    function rowHtml(label, val, unit, highlight, note) {
+      var cls = 'cc-r-row' + (highlight ? ' highlight' : '');
+      var noteHtml = note ? ' <span style="color:#94a3b8; font-size:11px;">(' + note + ')</span>' : '';
+      return '<div class="' + cls + '">' +
+             '<span class="cc-r-label">' + label + noteHtml + '</span>' +
+             '<span class="cc-r-val">' + val + '<span class="cc-unit-inline">' + (unit || '') + '</span></span>' +
+             '</div>';
+    }
+    function coeffRow(label, val, note) {
+      var noteHtml = note ? ' <span style="color:#94a3b8; font-size:11px;">' + note + '</span>' : '';
+      return '<div class="cc-coeff-row">' +
+             '<span class="cc-coeff-label">' + label + noteHtml + '</span>' +
+             '<span class="cc-coeff-val">' + val + '</span>' +
+             '</div>';
+    }
+
+    // ===========================================================
+    // 4. 数据表查询(lookupI0)
+    // ===========================================================
+
+    function lookupI0(mode, mat, type, cs, pipeCores) {
+      // mode: 'air' / 'pipe' / 'soil' / 'tray'
+      var xlpe = isXLPE(type);
+      if (mode === 'air') {
+        var table = xlpe ? TABLE_XLPE_AIR : TABLE_PVC_AIR;
+        var row = table[mat];
+        if (!row) return null;
+        if (!(cs in row)) {
+          // Al < 10 不在表内
+          return null;
+        }
+        return row[cs];
+      } else if (mode === 'tray') {
+        // 桥架用统一表(仅 Cu 截面积维度,Al 不常用,工程提示用 PVC/XLPE 表代替)
+        if (!(cs in TABLE_TRAY_CU)) return null;
+        return TABLE_TRAY_CU[cs];
+      } else if (mode === 'pipe') {
+        var pipeTbl = xlpe ? TABLE_XLPE_PIPE : TABLE_PVC_PIPE;
+        var prow = pipeTbl[mat];
+        if (!prow) return null;
+        if (!(cs in prow)) return null;
+        if (!prow[cs]) return null;
+        return prow[cs][pipeCores] || null;
+      } else if (mode === 'soil') {
+        var stbl = xlpe ? TABLE_XLPE_SOIL : TABLE_PVC_SOIL;
+        var srow = stbl[mat];
+        if (!srow) return null;
+        if (!(cs in srow)) return null;
+        return srow[cs];
+      }
+      return null;
+    }
+
+    // ===========================================================
+    // 5. 主计算
+    // ===========================================================
+
+    function calc() {
+      var r = $('cc-result');
+      var w = $('cc-warn');
+      var t = $('cc-tip');
+      var f = $('cc-formula');
+      var body = $('cc-result-body');
+      var titleEl = $('cc-result-title');
+
+      var tab = checkedRadio ? null : null;
+      var activeTab = $$('.cc-tab.active')[0];
+      if (!activeTab) {
+        r.classList.remove('active');
+        return;
+      }
+      var mode = activeTab.dataset.mode; // 'air' / 'pipe' / 'soil'
+
+      var mat, typeVal, cs, temp, alt, n, multi;
+      var pipeMaterial = null, pipeCores = null;
+      var airSub = null, trayType = null;
+      var shielded = null;
+      var soilTemp = null, soilRho = null, soilSub = null;
+
+      if (mode === 'air') {
+        mat = checkedRadio('cc-air-mat');
+        typeVal = val('cc-air-type');
+        if (typeVal === '__custom__') typeVal = val('cc-air-type-custom') || '';
+        cs = numVal('cc-air-cs');
+        temp = numVal('cc-air-temp');
+        alt = numVal('cc-air-altitude');
+        n = parseInt(checkedRadio('cc-air-n'));
+        multi = checkedRadio('cc-air-multi');
+        airSub = checkedRadio('cc-air-sub');
+        if (airSub === 'tray') trayType = checkedRadio('cc-tray-type');
+        shielded = checkedRadio('cc-air-shield');
+      } else if (mode === 'pipe') {
+        mat = checkedRadio('cc-pipe-mat');
+        typeVal = val('cc-pipe-type');
+        if (typeVal === '__custom__') typeVal = val('cc-pipe-type-custom') || '';
+        cs = numVal('cc-pipe-cs');
+        temp = numVal('cc-pipe-temp');
+        alt = numVal('cc-pipe-altitude');
+        n = parseInt(checkedRadio('cc-pipe-n'));
+        multi = checkedRadio('cc-pipe-multi');
+        pipeMaterial = checkedRadio('cc-pipe-material');
+        pipeCores = checkedRadio('cc-pipe-cores');
+      } else if (mode === 'soil') {
+        mat = checkedRadio('cc-soil-mat');
+        typeVal = val('cc-soil-type');
+        if (typeVal === '__custom__') typeVal = val('cc-soil-type-custom') || '';
+        cs = numVal('cc-soil-cs');
+        temp = numVal('cc-soil-temp');
+        alt = numVal('cc-soil-altitude');
+        n = parseInt(checkedRadio('cc-soil-n'));
+        multi = checkedRadio('cc-soil-multi');
+        soilTemp = temp;
+        soilRho = numVal('cc-soil-rho');
+        soilSub = checkedRadio('cc-soil-sub');
+      }
+
+      // 校验
+      var warns = [];
+      var fatal = false;
+
+      if (!mat) { fatal = true; warns.push('请选择导体材料'); }
+      if (!typeVal || typeVal === '') { fatal = true; warns.push('请填写电缆类型'); }
+      if (cs === null || cs <= 0 || cs < 1.5) {
+        if (cs !== null && cs < 1.5) warns.push('截面积小于 1.5 mm²,GB 50054 最小铜芯 1.5mm²');
+        else { fatal = true; warns.push('请填写导体截面积(≥ 1.5 mm²)'); }
+      }
+      if (mat === 'Al' && cs !== null && cs < 10) {
+        warns.push('铝芯最小截面积 10 mm²(GB 50054),结果仅供参考');
+      }
+      if (temp === null) { fatal = true; warns.push('请填写环境温度'); }
+      if (alt === null) { fatal = true; warns.push('请填写海拔高度'); }
+      if (n < 1 || n > 6) warns.push('并列回路数超出范围(1~6)');
+
+      if (fatal) {
+        r.classList.remove('active');
+        w.classList.add('active');
+        w.textContent = '⚠ ' + warns.join(' / ');
+        return;
+      }
+
+      // T_max 决定绝缘材料(XLPE / PVC)
+      var xlpe = isXLPE(typeVal);
+      var Tmax = xlpe ? 90 : 70;
+      var insulLabel = xlpe ? 'XLPE(交联聚乙烯,90℃)' : 'PVC(聚氯乙烯,70℃)';
+
+      // 自填型号(无前缀匹配) → 默认按 PVC 提示,工程结果仅供参考
+      var isCustomType = !isXLPE(typeVal) && !isPVC(typeVal);
+
+      // 1. I_0(基准载流量)
+      var lookupMode = mode;
+      if (mode === 'air' && airSub === 'tray') lookupMode = 'tray';
+      var pipeCoresKey = pipeCores ? parseInt(pipeCores) : 3; // 默认 3c
+      var I0 = lookupI0(lookupMode, mat, typeVal, cs, pipeCoresKey);
+
+      if (I0 === null || I0 === undefined) {
+        r.classList.remove('active');
+        w.classList.add('active');
+        var msg = '⚠ 截面积 ' + cs + ' mm² 不在速查表范围内';
+        if (mat === 'Al') msg += '(铝芯最小 10 mm²,GB 50054)';
+        w.textContent = msg;
+        return;
+      }
+
+      // 2. K_θ
+      var ktResult = calcKtheta(temp, Tmax, 25);
+      var Kt = ktResult.val;
+      if (ktResult.warn) warns.push(ktResult.warn);
+
+      // 3. K_s
+      var Ks = 1.0;
+      var ksNote = '';
+      if (mode === 'air') {
+        if (airSub === 'tray') {
+          if (trayType === 'ladder') { Ks = 1.0; ksNote = '梯级桥架(散热良好)'; }
+          else if (trayType === 'tray') { Ks = 0.95; ksNote = '托盘式桥架(散热略差)'; }
+          else if (trayType === 'perforated') { Ks = 0.95; ksNote = '槽式桥架(散热略差)'; }
+        } else {
+          // 明敷空气
+          if (shielded === 'no') { Ks = 0.9; ksNote = '无遮蔽 / 日晒降容(GB 50217 §5.4.5)'; }
+          else { Ks = 1.0; ksNote = '有遮蔽 / 室内(基准)'; }
+        }
+      } else if (mode === 'pipe') {
+        // 穿管数据已含修正:钢管 K_s = 1.0;PVC 管再加 0.9
+        if (pipeMaterial === 'pvc') { Ks = 0.9; ksNote = 'PVC 管(散热差,×0.9)'; }
+        else { Ks = 1.0; ksNote = '钢管 SC(数据表已含修正)'; }
+      } else if (mode === 'soil') {
+        Ks = calcKsSoil(soilRho);
+        ksNote = '土壤热阻 ρ=' + soilRho + ' K·m/W';
+        if (soilSub === 'duct') {
+          // 管道内敷设再降容
+          Ks = Ks * 0.85;
+          ksNote += ',管道内敷设(×0.85)';
+        }
+      }
+
+      // 4. K_p
+      var Kp = 1.0;
+      var kpNote = '';
+      if (n === 1) { Kp = 1.0; kpNote = '单回路(基准)'; }
+      else {
+        Kp = calcKp(n, multi);
+        var multiLabel = multi === 'spaced' ? '有间距' : '紧贴';
+        kpNote = n + ' 回路' + multiLabel;
+      }
+
+      // 5. K_h
+      var Kh = calcKh(alt);
+      var khNote = '';
+      if (alt > 1000) khNote = '海拔 ' + alt + 'm(GB 50217 表 5.4.6)';
+      else khNote = '海拔 ≤ 1000m(免修正)';
+
+      // 6. 综合 I_z
+      var Iz = null;
+      if (Kt === null) {
+        Iz = null;
+      } else {
+        Iz = I0 * Kt * Ks * Kp * Kh;
+      }
+
+      // 边界警告
+      if (cs > 300 && cs <= 1000) warns.push('截面积 ' + cs + ' mm² 超出速查表,使用线性外推,精度 ±10%');
+      if (cs > 1000) warns.push('截面积 > 1000 mm² 建议查 GB 50217 附录 D 大截面专项表');
+      if (soilRho !== null && soilRho > 5.0) warns.push('土壤热阻 > 5.0 K·m/W,异常干燥,需现场实测');
+      if (alt > 5000) warns.push('海拔 > 5000m 超高海拔,需特殊设计');
+
+      // ===========================================================
+      // 7. 渲染
+      // ===========================================================
+
+      var tabLabel = mode === 'air' ? '空气敷设' : (mode === 'pipe' ? '穿管敷设' : '土壤敷设');
+      var subLabel = '';
+      if (mode === 'air') {
+        subLabel = airSub === 'tray' ? '桥架敷设(' + (trayType === 'ladder' ? '梯级' : (trayType === 'tray' ? '托盘' : '槽式')) + ')' : '明敷空气中';
+      } else if (mode === 'pipe') {
+        subLabel = '穿管敷设(' + (pipeMaterial === 'pvc' ? 'PVC 管' : '钢管 SC') + ',' + pipeCores + ')';
+      } else {
+        subLabel = soilSub === 'duct' ? '管道内敷设' : '直埋地中';
+      }
+
+      var titleStr = typeVal + ' ' + cs + ' mm² · ' + mat + ' · ' + tabLabel + ' · ' + subLabel;
+      titleEl.textContent = '计算结果 · ' + titleStr;
+
+      var bodyHtml = '';
+
+      // 主结果(高亮)
+      if (Iz !== null) {
+        bodyHtml += rowHtml('修正后载流量 I_z', fmt(Iz, 2), ' A', true);
+      } else {
+        bodyHtml += rowHtml('修正后载流量 I_z', '--', ' A(参数无效)', true);
+      }
+
+      // 基准载流量
+      bodyHtml += rowHtml('基准载流量 I_0', fmt(I0, 1), ' A');
+
+      // 修正系数明细
+      bodyHtml += '<div style="margin-top:14px; padding-top:10px; border-top:1px dashed #93c5fd;">';
+      bodyHtml += '<div style="font-size:13px; font-weight:600; color:#1e40af; margin-bottom:6px;">📊 修正系数明细 · ' + insulLabel + (isCustomType ? ' (自填型号,默认按 PVC 处理)' : '') + '</div>';
+      var tempNote = temp + '℃';
+      if (mode === 'soil') tempNote = '土壤 ' + soilTemp + '℃';
+      bodyHtml += coeffRow('K_θ · 温度修正', Kt !== null ? fmt(Kt, 3) : '--', tempNote);
+      bodyHtml += coeffRow('K_s · 敷设修正', fmt(Ks, 3), ksNote);
+      bodyHtml += coeffRow('K_p · 并列回路', fmt(Kp, 3), kpNote);
+      if (alt > 1000) {
+        bodyHtml += coeffRow('K_h · 海拔修正', fmt(Kh, 3), khNote);
+      } else {
+        bodyHtml += coeffRow('K_h · 海拔修正', '1.000', khNote);
+      }
+      bodyHtml += '</div>';
+
+      // 断路器选型参考
+      if (Iz !== null) {
+        bodyHtml += '<div style="margin-top:14px; padding-top:10px; border-top:1px dashed #93c5fd;">';
+        bodyHtml += '<div style="font-size:13px; font-weight:600; color:#1e40af; margin-bottom:6px;">⚡ 断路器选型参考(GB 50054-2011)</div>';
+        var breakerMax = Iz * 0.8;
+        bodyHtml += rowHtml('建议整定电流上限(工程经验 I_n ≤ 0.8 × I_z)', fmt(breakerMax, 1), ' A');
+        bodyHtml += rowHtml('1.45 × I_z 约定动作电流(GB 50054 §6.3.4)', fmt(Iz * 1.45, 1), ' A');
+        bodyHtml += '</div>';
+      }
+
+      body.innerHTML = bodyHtml;
+
+      // 综合公式
+      var formulaStr = 'I_z = I_0 × K_θ × K_s × K_p × K_h';
+      formulaStr += '\n     = ' + I0 + ' × ' + (Kt !== null ? Kt.toFixed(3) : '--') + ' × ' + Ks.toFixed(3) + ' × ' + Kp.toFixed(3) + ' × ' + Kh.toFixed(3);
+      if (Iz !== null) formulaStr += '\n     = ' + Iz.toFixed(2) + ' A';
+      f.textContent = formulaStr;
+
+      // 提示
+      var tips = [];
+      if (Kt !== null && Kt > 1.0) {
+        tips.push('ℹ K_θ > 1.0:冷却条件优于基准(温度低于 25℃),实际载流量可大于基准表值');
+      }
+      if (Kt !== null && Kt < 0.9 && temp <= Tmax) {
+        tips.push('⚠ K_θ < 0.9:环境温度较高,电缆载流量明显下降,建议复核与断路器整定匹配');
+      }
+      if (pipeMaterial === 'pvc') {
+        tips.push('ℹ PVC 管穿管散热比钢管差,已额外乘 0.9 降容(钢管数据表已含修正,无需再乘)');
+      }
+      if (n >= 4) {
+        tips.push('ℹ 并列回路 ≥ 4:建议分桥架 / 分层敷设,经济性更佳');
+      }
+      if (alt > 1000 && alt <= 4000) {
+        tips.push('ℹ 海拔 > 1000m:空气密度下降,散热恶化(K_h < 1.0)');
+      }
+      if (isCustomType) {
+        tips.push('ℹ 自填型号未匹配预设:已按 PVC 绝缘(70℃)查表,工程结果仅供参考,建议参考手册附录');
+      }
+      if (Iz !== null) {
+        tips.push('💡 建议断路器整定电流 ≤ ' + Iz.toFixed(0) + ' A × 0.8 = ' + (Iz * 0.8).toFixed(0) + ' A(工程经验);严格按 GB 50054-2011 §6.3.1 为 I_n ≤ I_z,过载保护按 §6.3.4 校验 1.45 × I_z');
+      }
+
+      if (tips.length > 0) {
+        t.style.display = 'block';
+        t.innerHTML = tips.join('<br>');
+      } else {
+        t.style.display = 'none';
+      }
+
+      // 警告
+      if (warns.length > 0) {
+        w.classList.add('active');
+        w.innerHTML = '⚠ ' + warns.join('<br>⚠ ');
+      } else {
+        w.classList.remove('active');
+      }
+
+      r.classList.add('active');
+    }
+
+    // ===========================================================
+    // 6. Tab 切换
+    // ===========================================================
+
+    function switchTab(mode) {
+      $$('.cc-tab').forEach(function(t) { t.classList.toggle('active', t.dataset.mode === mode); });
+      $$('.cc-panel').forEach(function(p) { p.classList.toggle('active', p.dataset.panel === mode); });
+      // 切到管/土时强制重算(数据可能不同)
+      setTimeout(calc, 50);
+    }
+
+    // ===========================================================
+    // 7. 事件绑定
+    // ===========================================================
+
+    // Tab 点击
+    $$('.cc-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() { switchTab(tab.dataset.mode); });
+    });
+
+    // 所有 input / select / radio
+    function bindAll() {
+      // text/number input
+      ['cc-air-cs','cc-air-temp','cc-air-altitude','cc-air-type','cc-air-type-custom',
+       'cc-pipe-cs','cc-pipe-temp','cc-pipe-altitude','cc-pipe-type','cc-pipe-type-custom',
+       'cc-soil-cs','cc-soil-temp','cc-soil-rho','cc-soil-altitude','cc-soil-type','cc-soil-type-custom'
+      ].forEach(function(id) {
+        var el = $(id);
+        if (!el) return;
+        el.addEventListener('input', calc);
+        el.addEventListener('change', calc);
+      });
+      // radio groups
+      ['cc-air-mat','cc-air-n','cc-air-multi','cc-air-shield','cc-air-sub','cc-tray-type',
+       'cc-pipe-mat','cc-pipe-n','cc-pipe-multi','cc-pipe-material','cc-pipe-cores',
+       'cc-soil-mat','cc-soil-n','cc-soil-multi','cc-soil-sub'
+      ].forEach(function(name) {
+        var els = document.getElementsByName(name);
+        for (var i = 0; i < els.length; i++) {
+          els[i].addEventListener('change', calc);
+        }
+      });
+    }
+
+    // 自填型号联动
+    function bindCustomType() {
+      ['cc-air-type','cc-pipe-type','cc-soil-type'].forEach(function(id) {
+        var el = $(id);
+        if (!el) return;
+        el.addEventListener('change', function() {
+          var customId = id.replace('-type', '-type-custom');
+          var customEl = $(customId);
+          if (customEl) customEl.style.display = (el.value === '__custom__') ? 'block' : 'none';
+          calc();
+        });
+      });
+    }
+
+    // 子方式切换时显示/隐藏桥架类型
+    function bindAirSubToggle() {
+      $$('input[name="cc-air-sub"]').forEach(function(r) {
+        r.addEventListener('change', function() {
+          var trayWrap = $('cc-air-tray-wrap');
+          if (r.value === 'tray' && r.checked) {
+            trayWrap.style.display = 'block';
+          } else if (r.value === 'direct' && r.checked) {
+            trayWrap.style.display = 'none';
+          }
+          calc();
+        });
+      });
+    }
+
+    // 多回路 n ≥ 2 时显示多回路方式
+    function bindMultiToggle() {
+      var groups = [
+        { n: 'cc-air-n', wrap: 'cc-air-multi-wrap' },
+        { n: 'cc-pipe-n', wrap: 'cc-pipe-multi-wrap' },
+        { n: 'cc-soil-n', wrap: 'cc-soil-multi-wrap' }
+      ];
+      groups.forEach(function(g) {
+        var els = document.getElementsByName(g.n);
+        var wrap = $(g.wrap);
+        function update() {
+          var checked = null;
+          for (var i = 0; i < els.length; i++) if (els[i].checked) checked = els[i].value;
+          if (wrap) wrap.style.display = (checked && checked !== '1') ? 'block' : 'none';
+        }
+        for (var i = 0; i < els.length; i++) els[i].addEventListener('change', function() { update(); calc(); });
+        update();
+      });
+    }
+
+    // ===========================================================
+    // 8. 全局预设函数
+    // ===========================================================
+
+    window.ccApplyCS = function(tab, cs) {
+      var id = 'cc-' + tab + '-cs';
+      var el = $(id);
+      if (el) {
+        el.value = cs;
+        calc();
+      }
+    };
+    window.ccApplyRho = function(rho) {
+      var el = $('cc-soil-rho');
+      if (el) {
+        el.value = rho;
+        calc();
+      }
+    };
+
+    // ===========================================================
+    // 9. 启动
+    // ===========================================================
+
+    bindAll();
+    bindCustomType();
+    bindAirSubToggle();
+    bindMultiToggle();
+    calc();
+  })();
+  </script>
+</div>
