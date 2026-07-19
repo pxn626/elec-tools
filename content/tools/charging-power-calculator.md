@@ -21,8 +21,8 @@ translationKey: "charging_power_calculator"
 
 - **单相 / 三相自动切换**:支持 220V 单相家用与 380V 三相工业电表
 - **三功率输出**:同时给出有功 kW、无功 kVar、视在 kVA,便于配电设计
-- **充电桩选型推荐**:7kW / 11kW / 22kW 三档推荐,匹配车型电池容量
-- **电流计算反推**:已知功率反推所需电流,辅助配电开关 / 线缆选型
+- **充电桩选型推荐**:7kW / 11kW / 22kW / 43kW / 60-100kW / 120-160kW / 240kW / 400kW+ 共 8 档推荐,匹配各档车型 / 配电容量
+- **线缆规格整合**:每档推荐文字直接给出漏电保护开关 + 电缆截面积,无需再到 FAQ 查
 - **典型场景预设**:一键加载以下常用充电桩档位
   - **交流段**:家用 7kW(220V/32A)、三相 11kW(380V/16A)、三相 22kW(380V/32A)、三相 43kW(380V/63A,实际 ≈40.5kW)
   - **直流柜段**:30kW / 60kW / 80kW / 100kW / 120kW / 160kW / 240kW / 400kW / 480kW(380V 三相输入侧的等效电流值)
@@ -43,7 +43,7 @@ translationKey: "charging_power_calculator"
 
 **11kW 是三相 380V × 16A**,**22kW 是三相 380V × 32A**。两者都需要三相电表,但 22kW 充电速度提升 1 倍。注意:特斯拉 Model 3/Y 标准版车载充电机限制 11kW,即使插 22kW 桩也只能跑 11kW。
 
-#### 充电桩选型怎么选?7kW / 11kW / 22kW?
+#### 充电桩选型怎么选?7kW / 11kW / 22kW?工具推荐区会直接给出对应漏电保护 + 电缆规格。
 
 - **7kW 单相 220V**:适用大部分家用场景,无需三相电申请,主流方案
 - **11kW 三相 380V**:充电速度提升 57%,适合通勤频繁的车主(每周 2-3 次充电)
@@ -75,7 +75,7 @@ translationKey: "charging_power_calculator"
     {"@type": "Question", "name": "充电桩功率计算公式是什么?", "acceptedAnswer": {"@type": "Answer", "text": "三相:P = √3 × U × I × cosΦ;单相:P = U × I × cosΦ。cosΦ 一般取 0.95-1.0,电动车充电按 0.98 计算。"}},
     {"@type": "Question", "name": "7kW 充电桩需要多少安培电流?", "acceptedAnswer": {"@type": "Answer", "text": "单相 220V × 32A ≈ 7kW,配 32A 漏保 + 6mm² 铜芯线缆。11kW 三相桩需三相 380V × 16A + 5×4mm² 五芯电缆。"}},
     {"@type": "Question", "name": "22kW 和 11kW 充电桩的区别?", "acceptedAnswer": {"@type": "Answer", "text": "11kW = 三相 380V × 16A;22kW = 三相 380V × 32A。22kW 速度快 1 倍,但特斯拉 Model 3/Y 标准版车载充电机限制 11kW。"}},
-    {"@type": "Question", "name": "充电桩选型 7kW / 11kW / 22kW 怎么选?", "acceptedAnswer": {"@type": "Answer", "text": "7kW 单相 220V 适合家用;11kW 三相 380V 适合通勤频繁;22kW 适合商业/双车。43kW(63A 三相,实际 ≈40.5kW)适用工业。选型公式:周需求 kWh = 容量 × 0.6,除以功率即充电小时。"}},
+    {"@type": "Question", "name": "充电桩选型 7kW / 11kW / 22kW 怎么选?", "acceptedAnswer": {"@type": "Answer", "text": "7kW 单相 220V 适合家用;11kW 三相 380V 适合通勤频繁;22kW 适合商业/双车。43kW(63A 三相,实际 ≈40.5kW)适用工业。工具上方推荐区会按 P 自动给出对应漏电保护 + 电缆规格,无需再到 FAQ 查。选型公式:周需求 kWh = 容量 × 0.6,除以功率即充电小时。"}},
     {"@type": "Question", "name": "配电开关和线缆怎么配?", "acceptedAnswer": {"@type": "Answer", "text": "7kW:32A 漏保 + 6mm² + 1.5P 空开;11kW:三相 16A 漏保 + 5×4mm² + 3P 空开;22kW:三相 32A 漏保 + 5×6mm² + 3P 空开;43kW:三相 63A 漏保 + 5×10mm² + 3P 80A 空开;60-120kW 直流柜:三相 100A 漏保 + 5×16mm²;400-480kW 超充:690V/10kV 中压入站。超过 50m 放大一档。"}},
     {"@type": "Question", "name": "功率因数 cosΦ 是什么?", "acceptedAnswer": {"@type": "Answer", "text": "功率因数是有功功率与视在功率的比值 cosΦ = P / S。电动车充电接近纯阻性,功率因数高达 0.95-1.0,通常按 0.98 取值。"}}
   ]
