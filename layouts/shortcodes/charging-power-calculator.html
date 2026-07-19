@@ -7,9 +7,11 @@
     #cp-tool label { display: block; font-weight: 600; margin-bottom: 6px; color: #1f2937; font-size: 14px; }
     #cp-tool input, #cp-tool select { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; box-sizing: border-box; background: white; }
     #cp-tool input:focus, #cp-tool select:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    #cp-tool .cp-section-title { font-size: 13px; font-weight: 600; color: #64748b; margin: 16px 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px; }
     #cp-tool .cp-presets { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0 16px 0; }
-    #cp-tool .cp-preset { padding: 6px 12px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; cursor: pointer; font-size: 13px; transition: all 0.2s; }
-    #cp-tool .cp-preset:hover { background: #2563eb; color: white; border-color: #2563eb; }
+    #cp-tool .cp-preset { padding: 6px 12px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; cursor: pointer; font-size: 13px; transition: all 0.2s; user-select: none; }
+    #cp-tool .cp-preset:hover { background: #dbeafe; border-color: #93c5fd; }
+    #cp-tool .cp-preset.active { background: #2563eb; color: white; border-color: #2563eb; box-shadow: 0 2px 4px rgba(37,99,235,0.25); }
     #cp-tool .cp-result { background: #f0fdf4; border: 1px solid #86efac; border-radius: 10px; padding: 18px; margin-top: 18px; display: none; }
     #cp-tool .cp-result.active { display: block; }
     #cp-tool .cp-result h3 { margin: 0 0 12px 0; color: #15803d; font-size: 18px; }
@@ -19,43 +21,68 @@
     #cp-tool .cp-power-val { font-weight: 700; color: #14532d; font-size: 17px; }
     #cp-tool .cp-tip { font-size: 13px; color: #475569; margin-top: 14px; padding: 10px; background: #f8fafc; border-radius: 6px; }
     #cp-tool .cp-rec { background: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 12px; margin-top: 12px; font-size: 14px; color: #78350f; }
+    /* 移动端适配 */
+    @media (max-width: 600px) {
+      #cp-tool .cp-card { padding: 16px; }
+      #cp-tool .cp-row { grid-template-columns: 1fr; }
+    }
     @media (prefers-color-scheme: dark) {
       #cp-tool .cp-card { background: #1e293b; border-color: #334155; }
       #cp-tool label, #cp-tool .cp-power-label { color: #cbd5e1; }
+      #cp-tool .cp-section-title { color: #94a3b8; }
       #cp-tool input, #cp-tool select { background: #0f172a; color: #e2e8f0; border-color: #334155; }
+      #cp-tool .cp-preset { background: #0f172a; color: #cbd5e1; border-color: #334155; }
+      #cp-tool .cp-preset:hover { background: #1e3a8a; border-color: #3b82f6; color: white; }
+      #cp-tool .cp-preset.active { background: #2563eb; color: white; border-color: #2563eb; }
       #cp-tool .cp-result { background: #052e16; border-color: #14532d; }
       #cp-tool .cp-power-val { color: #86efac; }
+      #cp-tool .cp-tip { background: #0f172a; color: #cbd5e1; }
       #cp-tool .cp-rec { background: #422006; border-color: #78350f; color: #fde68a; }
     }
   </style>
 
   <div class="cp-card">
     <div class="cp-input-group">
-      <label>相数 / 电压 (V)</label>
+      <label for="cp-phase">相数 / 电压 (V)</label>
       <select id="cp-phase">
         <option value="1">单相 220V (家用)</option>
-        <option value="3" selected>三相 380V (工业)</option>
+        <option value="3" selected>三相 380V (工业 / 直流柜输入侧)</option>
       </select>
     </div>
     <div class="cp-row">
       <div class="cp-input-group">
-        <label>电压 U (V)</label>
+        <label for="cp-volt">电压 U (V)</label>
         <input type="number" id="cp-volt" value="380" min="110" max="1000" step="10">
       </div>
       <div class="cp-input-group">
-        <label>电流 I (A)</label>
-        <input type="number" id="cp-curr" value="32" min="1" max="500" step="1">
+        <label for="cp-curr">电流 I (A)</label>
+        <input type="number" id="cp-curr" value="32" min="1" max="1000" step="1">
       </div>
       <div class="cp-input-group">
-        <label>功率因数 cosΦ</label>
+        <label for="cp-cos">功率因数 cosΦ</label>
         <input type="number" id="cp-cos" value="0.98" min="0.5" max="1.0" step="0.01">
       </div>
     </div>
+
+    <div class="cp-section-title">交流充电桩(单相 / 三相)</div>
     <div class="cp-presets">
-      <span class="cp-preset" data-v="220" data-c="32" data-pf="0.98" data-ph="1">家用 7kW 慢充 (220V/32A)</span>
+      <span class="cp-preset" data-v="220" data-c="32" data-pf="0.98" data-ph="1">家用 7kW (220V/32A)</span>
       <span class="cp-preset" data-v="380" data-c="16" data-pf="0.98" data-ph="3">三相 11kW (380V/16A)</span>
       <span class="cp-preset" data-v="380" data-c="32" data-pf="0.98" data-ph="3">三相 22kW (380V/32A)</span>
-      <span class="cp-preset" data-v="380" data-c="63" data-pf="0.98" data-ph="3">三相 43kW (380V/63A)</span>
+      <span class="cp-preset" data-v="380" data-c="63" data-pf="0.98" data-ph="3" title="按 cosΦ=0.98 实际计算约 40.5kW,行业俗称 43kW">三相 43kW (380V/63A)</span>
+    </div>
+
+    <div class="cp-section-title">直流充电柜(输出功率 → 输入侧等效电流)</div>
+    <div class="cp-presets" id="cp-presets-dc">
+      <span class="cp-preset" data-v="380" data-c="45"  data-pf="0.98" data-ph="3" title="30kW 一体式直流桩,适用小型商用">30kW (380V/45A)</span>
+      <span class="cp-preset" data-v="380" data-c="100" data-pf="0.98" data-ph="3" title="60kW 直流快充,主流商用桩">60kW (380V/100A)</span>
+      <span class="cp-preset" data-v="380" data-c="130" data-pf="0.98" data-ph="3" title="80kW 直流快充">80kW (380V/130A)</span>
+      <span class="cp-preset" data-v="380" data-c="165" data-pf="0.98" data-ph="3" title="100kW 直流快充,公交 / 物流车">100kW (380V/165A)</span>
+      <span class="cp-preset" data-v="380" data-c="200" data-pf="0.98" data-ph="3" title="120kW 直流快充,商用主流">120kW (380V/200A)</span>
+      <span class="cp-preset" data-v="380" data-c="260" data-pf="0.98" data-ph="3" title="160kW 直流快充,双枪同充">160kW (380V/260A)</span>
+      <span class="cp-preset" data-v="380" data-c="400" data-pf="0.98" data-ph="3" title="240kW 超充,接近 380V 直供上限">240kW (380V/400A)</span>
+      <span class="cp-preset" data-v="380" data-c="660" data-pf="0.98" data-ph="3" title="400kW 超充,通常需 690V/10kV 配电">400kW (380V/660A)</span>
+      <span class="cp-preset" data-v="380" data-c="800" data-pf="0.98" data-ph="3" title="480kW 液冷超充,通常需 690V/10kV 配电">480kW (380V/800A)</span>
     </div>
 
     <div class="cp-result" id="cp-result">
@@ -95,12 +122,19 @@
       else if (P >= 7 && P < 11) rec = '推荐:7kW 单相桩已能满足此功率需求;若需更快可升级三相 11kW 桩。';
       else if (P >= 11 && P < 22) rec = '推荐:11kW 三相 380V 桩,适用主流电动车,适合通勤频繁场景。';
       else if (P >= 22 && P < 43) rec = '推荐:22kW 三相桩,充电速度最快,需确认车型支持(部分车载充电机限 11kW)。';
-      else rec = '推荐:商用三相快充桩,适合 30kW+ 直流场景。';
+      else if (P >= 43 && P < 60) rec = '推荐:43kW 三相交流桩,商用场景;功率接近 22kW 直流柜输入侧。';
+      else if (P >= 60 && P < 120) rec = '推荐:60-100kW 直流快充,适用公交 / 物流 / 出租车队。';
+      else if (P >= 120 && P < 240) rec = '推荐:120-160kW 直流快充,商用主流,适用双枪同充场景。';
+      else if (P >= 240 && P < 400) rec = '推荐:240kW 超充桩,接近 380V 直供上限,需提前规划配电容量。';
+      else rec = '推荐:400kW+ 液冷超充桩,通常需要 690V 或 10kV 中压配电,需专项设计。';
       document.getElementById('cp-rec').textContent = rec;
       var tip = '';
       if (phase === 1 && P > 7) tip = '提示:单相 220V 实际功率上限约 7kW(32A),更高功率必须用三相 380V。';
-      else if (phase === 3 && I > 32) tip = '提示:电流大于 32A 需配置三相漏保 + 5×6mm² 五芯电缆,配电容量按 1.25 倍预留。';
-      else if (cos < 0.95) tip = '提示:功率因数低于 0.95 会导致电网罚款,建议加装 SVG 无功补偿装置。';
+      else if (phase === 3 && I <= 32) tip = '提示:电流 ≤32A 用三相漏保 + 5×6mm² 五芯电缆,配电容量按 1.25 倍预留。';
+      else if (phase === 3 && I > 32 && I < 100) tip = '提示:电流 32-100A 需配 100A 三相漏保 + 5×10mm² 以上电缆,配电柜预留 1.5 倍容量。';
+      else if (phase === 3 && I >= 100 && I < 400) tip = '提示:电流 100-400A 属于商用大功率,需配专用配电柜 + 母线槽,建议加装 SVG 无功补偿。';
+      else if (phase === 3 && I >= 400) tip = '提示:电流 ≥400A 已超过 380V 直供上限,通常需要 690V 或 10kV 中压配电,需电力公司专项审批。';
+      if (cos < 0.95) tip = (tip ? tip + ' ' : '') + '⚠ 功率因数低于 0.95 会导致电网罚款,建议加装 SVG 无功补偿装置。';
       document.getElementById('cp-tip').textContent = tip;
       document.getElementById('cp-result').classList.add('active');
     }
@@ -111,6 +145,8 @@
     });
     document.querySelectorAll('#cp-tool .cp-preset').forEach(function(p){
       p.addEventListener('click', function(){
+        document.querySelectorAll('#cp-tool .cp-preset').forEach(function(x){ x.classList.remove('active'); });
+        this.classList.add('active');
         document.getElementById('cp-phase').value = this.dataset.ph;
         document.getElementById('cp-volt').value = this.dataset.v;
         document.getElementById('cp-curr').value = this.dataset.c;
