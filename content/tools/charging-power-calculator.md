@@ -1,12 +1,13 @@
 ---
-title: "充电桩功率计算器 — 7kW / 11kW / 22kW 选型与三相功率计算"
-description: "免费在线充电桩功率计算器,输入电压 V、电流 A、功率因数 cosΦ,即可算出有功功率 kW、无功功率 kVar、视在功率 kVA,支持单相 220V 与三相 380V,辅助 7kW / 11kW / 22kW 充电桩选型。"
+title: 充电桩功率计算器 — 选型与三相功率计算
+description: 免费在线充电桩功率计算器,输入电压 V、电流 A、功率因数 cosΦ,即可算出有功功率 kW、无功功率 kVar、视在功率 kVA,支持单相 220V 与三相 380V,辅助充电桩选型。
 categories:
-  - "充电桩工具"
-  - "电气计算"
-  - "工程师工具"
-layout: "page"
-translationKey: "charging_power_calculator"
+  - 充电桩工具
+  - 电气计算
+  - 工程师工具
+layout: page
+translationKey: charging_power_calculator
+slug: 充电桩功率计算器-—-选型与三相功率计算
 ---
 
 {{< charging-power-calculator >}}
