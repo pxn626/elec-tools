@@ -3,24 +3,39 @@
     #charging-time-tool { max-width: 720px; margin: 24px auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
     #charging-time-tool .ct-card { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; }
     #charging-time-tool .ct-input-group { margin-bottom: 18px; }
-    #charging-time-tool label { display: block; font-weight: 600; margin-bottom: 6px; color: #1f2937; }
-    #charging-time-tool input[type="number"] { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
+    #charging-time-tool label { display: block; font-weight: 600; margin-bottom: 6px; color: #1f2937; font-size: 14px; }
+    #charging-time-tool input[type="number"] { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; box-sizing: border-box; background: white; }
     #charging-time-tool input[type="number"]:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
-    #charging-time-tool .ct-presets { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
-    #charging-time-tool .ct-preset { padding: 8px 14px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; cursor: pointer; font-size: 14px; transition: all 0.2s; }
-    #charging-time-tool .ct-preset:hover { background: #2563eb; color: white; border-color: #2563eb; }
+    #charging-time-tool .ct-section-title { font-size: 13px; font-weight: 600; color: #64748b; margin: 12px 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+    #charging-time-tool .ct-presets { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 12px 0; }
+    #charging-time-tool .ct-preset { padding: 6px 12px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; cursor: pointer; font-size: 13px; transition: all 0.2s; user-select: none; }
+    #charging-time-tool .ct-preset:hover { background: #dbeafe; border-color: #93c5fd; }
+    #charging-time-tool .ct-preset.active { background: #2563eb; color: white; border-color: #2563eb; box-shadow: 0 2px 4px rgba(37,99,235,0.25); }
+    #charging-time-tool .ct-clear { padding: 6px 12px; background: #fff; border: 1px dashed #94a3b8; border-radius: 8px; cursor: pointer; font-size: 13px; color: #64748b; transition: all 0.2s; user-select: none; }
+    #charging-time-tool .ct-clear:hover { background: #fee2e2; border-color: #ef4444; color: #b91c1c; }
     #charging-time-tool .ct-result { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 10px; padding: 18px; margin-top: 18px; display: none; }
     #charging-time-tool .ct-result.active { display: block; }
     #charging-time-tool .ct-result h3 { margin: 0 0 12px 0; color: #0369a1; font-size: 18px; }
     #charging-time-tool .ct-time-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #cbd5e1; }
     #charging-time-tool .ct-time-row:last-child { border-bottom: none; }
     #charging-time-tool .ct-time-label { color: #475569; }
-    #charging-time-tool .ct-time-val { font-weight: 700; color: #0c4a6e; font-size: 16px; }
-    #charging-time-tool .ct-tip { font-size: 13px; color: #64748b; margin-top: 14px; padding: 10px; background: #f8fafc; border-radius: 6px; }
+    #charging-time-tool .ct-time-val { font-weight: 700; color: #0c4a6e; font-size: 17px; }
+    #charging-time-tool .ct-tip { font-size: 13px; color: #475569; margin-top: 14px; padding: 10px; background: #f8fafc; border-radius: 6px; }
+    /* 移动端适配 */
+    @media (max-width: 600px) {
+      #charging-time-tool .ct-card { padding: 16px; }
+      #charging-time-tool .ct-preset, #charging-time-tool .ct-clear { font-size: 12px; padding: 5px 10px; }
+    }
     @media (prefers-color-scheme: dark) {
       #charging-time-tool .ct-card { background: #1e293b; border-color: #334155; }
-      #charging-time-tool label { color: #e2e8f0; }
+      #charging-time-tool label { color: #cbd5e1; }
+      #charging-time-tool .ct-section-title { color: #94a3b8; }
       #charging-time-tool input[type="number"] { background: #0f172a; color: #e2e8f0; border-color: #334155; }
+      #charging-time-tool .ct-preset { background: #0f172a; color: #cbd5e1; border-color: #334155; }
+      #charging-time-tool .ct-preset:hover { background: #1e3a8a; border-color: #3b82f6; color: white; }
+      #charging-time-tool .ct-preset.active { background: #2563eb; color: white; border-color: #2563eb; }
+      #charging-time-tool .ct-clear { background: #0f172a; color: #cbd5e1; border-color: #475569; }
+      #charging-time-tool .ct-clear:hover { background: #450a0a; border-color: #ef4444; color: #fecaca; }
       #charging-time-tool .ct-result { background: #082f49; border-color: #075985; }
       #charging-time-tool .ct-time-val { color: #7dd3fc; }
       #charging-time-tool .ct-tip { background: #0f172a; color: #94a3b8; }
@@ -29,22 +44,37 @@
 
   <div class="ct-card">
     <div class="ct-input-group">
-      <label>电池容量 (kWh)</label>
+      <label for="ct-capacity">电池容量 (kWh)</label>
       <input type="number" id="ct-capacity" value="60" min="1" max="200" step="0.5">
     </div>
     <div class="ct-input-group">
-      <label>充电功率 (kW)</label>
-      <input type="number" id="ct-power" value="7" min="0.5" max="350" step="0.5">
+      <label for="ct-power">充电功率 (kW)</label>
+      <input type="number" id="ct-power" value="7" min="0.5" max="600" step="0.5">
+
+      <div class="ct-section-title">交流充电桩</div>
       <div class="ct-presets">
-        <span class="ct-preset" onclick="document.getElementById('ct-power').value=7">7kW 家用慢充</span>
-        <span class="ct-preset" onclick="document.getElementById('ct-power').value=11">11kW 三相交流</span>
-        <span class="ct-preset" onclick="document.getElementById('ct-power').value=22">22kW 双枪交流</span>
-        <span class="ct-preset" onclick="document.getElementById('ct-power').value=120">120kW 直流快充</span>
-        <span class="ct-preset" onclick="document.getElementById('ct-power').value=250">250kW 特斯拉超充</span>
+        <span class="ct-preset" data-p="7"  title="家用单相 220V/32A 慢充">7kW 家用慢充</span>
+        <span class="ct-preset" data-p="11" title="三相 380V/16A 通勤主流">11kW 三相交流</span>
+        <span class="ct-preset" data-p="22" title="三相 380V/32A 双枪交流">22kW 双枪交流</span>
+        <span class="ct-preset" data-p="43" title="三相 380V/63A,工业场景,实际输入有功 ≈40.5kW">43kW 工业交流</span>
+      </div>
+
+      <div class="ct-section-title">直流快充 / 超充(国标 GB/T)</div>
+      <div class="ct-presets" id="ct-presets-dc">
+        <span class="ct-preset" data-p="30"  title="一体式直流桩,小型商用">30kW 直流一体</span>
+        <span class="ct-preset" data-p="60"  title="商用主流,公交 / 出租车队">60kW 直流快充</span>
+        <span class="ct-preset" data-p="80"  title="公交 / 物流车主流">80kW 公交快充</span>
+        <span class="ct-preset" data-p="100" title="国标 GB/T 100kW 公交快充">100kW 大功率直流</span>
+        <span class="ct-preset" data-p="120" title="120kW 国标商用主流">120kW 商用快充</span>
+        <span class="ct-preset" data-p="160" title="双枪同充场景">160kW 双枪快充</span>
+        <span class="ct-preset" data-p="240" title="接近 380V 直供上限,需提前规划配电">240kW 超充</span>
+        <span class="ct-preset" data-p="400" title="通常需 690V/10kV 中压配电">400kW 高速超充</span>
+        <span class="ct-preset" data-p="480" title="液冷终端,特斯拉 V4 / 国标 GB/T">480kW 液冷超充</span>
+        <span class="ct-clear" id="ct-clear" title="清空输入 / 取消预设选中">✕ 清除</span>
       </div>
     </div>
     <div class="ct-input-group">
-      <label>充电效率 (%) — 默认 90%</label>
+      <label for="ct-eff">充电效率 (%) — 默认 90%</label>
       <input type="number" id="ct-eff" value="90" min="50" max="100" step="1">
     </div>
 
@@ -73,18 +103,23 @@
       var P = parseFloat(document.getElementById('ct-power').value);
       var E = parseFloat(document.getElementById('ct-eff').value) / 100;
       if (!C || !P || !E || C <= 0 || P <= 0 || E <= 0) return;
-      var t60 = (C * 0.6) / (P * E);
-      var t80 = (C * 0.8) / (P * E);
+      var t60  = (C * 0.6) / (P * E);
+      var t80  = (C * 0.8) / (P * E);
       var t100 = (C * 1.0) / (P * E);
-      var t30 = (C * 0.3) / (P * E);
-      document.getElementById('ct-t60').textContent = fmtTime(t60);
-      document.getElementById('ct-t80').textContent = fmtTime(t80);
+      var t30  = (C * 0.3) / (P * E);
+      document.getElementById('ct-t60').textContent  = fmtTime(t60);
+      document.getElementById('ct-t80').textContent  = fmtTime(t80);
       document.getElementById('ct-t100').textContent = fmtTime(t100);
-      document.getElementById('ct-t30').textContent = fmtTime(t30);
+      document.getElementById('ct-t30').textContent  = fmtTime(t30);
+      // 智能提示(4 档覆盖,补全 7-22 kW 空白)
       var tip = '';
-      if (P >= 100) tip = '提示:直流快充功率峰值仅在 20%-80% SOC 区间达到,80% 后进入涓流,实际时间略长于计算值。';
-      else if (P >= 22) tip = '提示:22kW 需三相 380V 电表,部分车型车载充电机限制 11kW。';
-      else if (P <= 7) tip = '提示:7kW 慢充几乎不损伤电池,适合日常家用;冬季低温充电时间可能延长 20-30%。';
+      if (P >= 240)      tip = '提示:超充桩(240kW+)通常 20-80% SOC 区间能跑满功率,80% 后进入涓流,实际时间略长于计算值;通常需 690V/10kV 中压配电。';
+      else if (P >= 100) tip = '提示:直流快充功率峰值仅在 20-80% SOC 区间达到,80% 后进入涓流,实际时间略长于计算值。';
+      else if (P >= 60)  tip = '提示:60-100kW 直流桩面向公交 / 物流,长时间满功率运行建议关注电池温升。';
+      else if (P >= 43)  tip = '提示:43kW 工业交流,需三相 380V/63A,实际输入有功约 40.5kW(cosΦ=0.98)。';
+      else if (P >= 22)  tip = '提示:22kW 需三相 380V 电表,部分车型车载充电机限制 11kW,实际充不到 22kW。';
+      else if (P >= 11)  tip = '提示:11kW 通勤主流方案,3-5 小时从 20% 充到 80%(视电池容量),需三相 380V 电表。';
+      else if (P <= 7)   tip = '提示:7kW 慢充几乎不损伤电池,适合日常家用;冬季低温充电时间可能延长 20-30%。';
       document.getElementById('ct-tip').textContent = tip;
       document.getElementById('ct-result').classList.add('active');
     }
@@ -93,8 +128,24 @@
       el.addEventListener('input', calc);
       el.addEventListener('change', calc);
     });
+    // 预设按钮:写入 value → 触发 input 事件(让原监听器自己跑,无 setTimeout hack)
     document.querySelectorAll('#charging-time-tool .ct-preset').forEach(function(p){
-      p.addEventListener('click', function(){ setTimeout(calc, 50); });
+      p.addEventListener('click', function(){
+        document.querySelectorAll('#charging-time-tool .ct-preset').forEach(function(x){ x.classList.remove('active'); });
+        this.classList.add('active');
+        var input = document.getElementById('ct-power');
+        input.value = this.dataset.p;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+    });
+    // 清除按钮:重置所有 input + 取消 active
+    document.getElementById('ct-clear').addEventListener('click', function(){
+      document.querySelectorAll('#charging-time-tool .ct-preset').forEach(function(x){ x.classList.remove('active'); });
+      document.getElementById('ct-capacity').value = '60';
+      var p = document.getElementById('ct-power');
+      p.value = '7';
+      p.dispatchEvent(new Event('input', { bubbles: true }));
+      document.getElementById('ct-eff').value = '90';
     });
     calc();
   })();
