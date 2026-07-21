@@ -16,8 +16,10 @@
     #tp-tool .tp-panel { display: none; }
     #tp-tool .tp-panel.active { display: block; }
     #tp-tool .tp-presets { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0 16px 0; }
-    #tp-tool .tp-preset { padding: 6px 12px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; cursor: pointer; font-size: 13px; transition: all 0.2s; }
-    #tp-tool .tp-preset:hover { background: #2563eb; color: white; border-color: #2563eb; }
+    #tp-tool .tp-preset { padding: 6px 12px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; cursor: pointer; font-size: 13px; transition: all 0.2s; user-select: none; }
+    #tp-tool .tp-preset:hover { background: #dbeafe; border-color: #93c5fd; }
+    #tp-tool .tp-preset.active { background: #2563eb; color: white; border-color: #2563eb; box-shadow: 0 0 0 2px rgba(37,99,235,0.2); }
+    #tp-tool .tp-preset.active:hover { background: #1d4ed8; border-color: #1d4ed8; }
     #tp-tool .tp-result { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 10px; padding: 18px; margin-top: 18px; display: none; }
     #tp-tool .tp-result.active { display: block; }
     #tp-tool .tp-result h3 { margin: 0 0 12px 0; color: #1e40af; font-size: 18px; }
@@ -41,7 +43,8 @@
       #tp-tool .tp-tab { color: #94a3b8; }
       #tp-tool .tp-tab.active { color: #60a5fa; border-bottom-color: #60a5fa; }
       #tp-tool .tp-preset { background: #334155; border-color: #475569; color: #cbd5e1; }
-      #tp-tool .tp-preset:hover { background: #2563eb; color: white; border-color: #2563eb; }
+      #tp-tool .tp-preset:hover { background: #1e3a8a; border-color: #3b82f6; color: #dbeafe; }
+      #tp-tool .tp-preset.active { background: #2563eb; color: white; border-color: #2563eb; }
       #tp-tool .tp-result { background: #0c1f3f; border-color: #1e3a8a; }
       #tp-tool .tp-result h3 { color: #93c5fd; }
       #tp-tool .tp-power-row { border-bottom-color: #1e3a8a; }
@@ -54,36 +57,44 @@
       #tp-tool .tp-warn { background: #450a0a; color: #fecaca; border-left-color: #dc2626; }
       #tp-tool .tp-formula { background: #0f172a; color: #cbd5e1; border-left-color: #475569; }
     }
+    @media (max-width: 600px) {
+      #tp-tool { margin: 12px auto; }
+      #tp-tool .tp-card { padding: 16px; }
+      #tp-tool .tp-row, #tp-tool .tp-row3 { grid-template-columns: 1fr; }
+      #tp-tool .tp-tab { padding: 8px 12px; font-size: 13px; }
+      #tp-tool .tp-preset { padding: 5px 10px; font-size: 12px; }
+      #tp-tool .tp-power-row.highlight .tp-power-val { font-size: 18px; }
+    }
   </style>
 
   <div class="tp-card">
     <div class="tp-mode-tabs">
-      <div class="tp-tab active" data-mode="A">① 三相有功功率</div>
-      <div class="tp-tab" data-mode="B">② 视在/无功换算</div>
-      <div class="tp-tab" data-mode="C">③ 功率因数补偿</div>
+      <div class="tp-tab active" data-mode="A" role="tab" aria-selected="true">① 三相有功功率</div>
+      <div class="tp-tab" data-mode="B" role="tab" aria-selected="false">② 视在/无功换算</div>
+      <div class="tp-tab" data-mode="C" role="tab" aria-selected="false">③ 功率因数补偿</div>
     </div>
 
     <!-- Tab A: 三相有功功率 -->
     <div class="tp-panel active" data-panel="A">
       <div class="tp-row3">
         <div class="tp-input-group">
-          <label>线电压 U<span class="tp-unit">(V)</span></label>
+          <label for="tp-u">线电压 U<span class="tp-unit">(V)</span></label>
           <input type="number" id="tp-u" value="380" min="110" max="1000" step="10">
         </div>
         <div class="tp-input-group">
-          <label>线电流 I<span class="tp-unit">(A)</span></label>
+          <label for="tp-i">线电流 I<span class="tp-unit">(A)</span></label>
           <input type="number" id="tp-i" value="50" min="0.1" max="2000" step="1">
         </div>
         <div class="tp-input-group">
-          <label>功率因数 cosφ</label>
+          <label for="tp-cosA">功率因数 cosφ</label>
           <input type="number" id="tp-cosA" value="0.85" min="0.01" max="1.0" step="0.01">
         </div>
       </div>
       <div class="tp-presets">
-        <span class="tp-preset" onclick="tpApplyPreset('A',380,50,0.85)">典型工业 380V/50A</span>
-        <span class="tp-preset" onclick="tpApplyPreset('A',380,100,0.9)">中压电机 380V/100A</span>
-        <span class="tp-preset" onclick="tpApplyPreset('A',380,200,0.88)">大功率负载 380V/200A</span>
-        <span class="tp-preset" onclick="tpApplyPreset('A',6600,50,0.85)">高压 6.6kV/50A</span>
+        <span class="tp-preset" onclick="tpApplyPreset('A',this,380,50,0.85)">典型工业 380V/50A</span>
+        <span class="tp-preset" onclick="tpApplyPreset('A',this,380,100,0.9)">中压电机 380V/100A</span>
+        <span class="tp-preset" onclick="tpApplyPreset('A',this,380,200,0.88)">大功率负载 380V/200A</span>
+        <span class="tp-preset" onclick="tpApplyPreset('A',this,6600,50,0.85)">高压 6.6kV/50A</span>
       </div>
     </div>
 
@@ -91,19 +102,19 @@
     <div class="tp-panel" data-panel="B">
       <div class="tp-row">
         <div class="tp-input-group">
-          <label>有功功率 P<span class="tp-unit">(kW)</span></label>
+          <label for="tp-pB">有功功率 P<span class="tp-unit">(kW)</span></label>
           <input type="number" id="tp-pB" value="50" min="0.1" max="10000" step="1">
         </div>
         <div class="tp-input-group">
-          <label>功率因数 cosφ</label>
+          <label for="tp-cosB">功率因数 cosφ</label>
           <input type="number" id="tp-cosB" value="0.85" min="0.01" max="1.0" step="0.01">
         </div>
       </div>
       <div class="tp-presets">
-        <span class="tp-preset" onclick="tpApplyPreset('B',50,0.85)">典型负载 50kW</span>
-        <span class="tp-preset" onclick="tpApplyPreset('B',200,0.9)">电机组 200kW</span>
-        <span class="tp-preset" onclick="tpApplyPreset('B',15,0.7)">感性负载 15kW</span>
-        <span class="tp-preset" onclick="tpApplyPreset('B',500,0.95)">补偿后 500kW</span>
+        <span class="tp-preset" onclick="tpApplyPreset('B',this,50,0.85)">典型负载 50kW</span>
+        <span class="tp-preset" onclick="tpApplyPreset('B',this,200,0.9)">电机组 200kW</span>
+        <span class="tp-preset" onclick="tpApplyPreset('B',this,15,0.7)">感性负载 15kW</span>
+        <span class="tp-preset" onclick="tpApplyPreset('B',this,500,0.95)">补偿后 500kW</span>
       </div>
     </div>
 
@@ -111,28 +122,28 @@
     <div class="tp-panel" data-panel="C">
       <div class="tp-row3">
         <div class="tp-input-group">
-          <label>有功功率 P<span class="tp-unit">(kW)</span></label>
+          <label for="tp-pC">有功功率 P<span class="tp-unit">(kW)</span></label>
           <input type="number" id="tp-pC" value="100" min="0.1" max="10000" step="1">
         </div>
         <div class="tp-input-group">
-          <label>补偿前 cosφ₁</label>
+          <label for="tp-cos1">补偿前 cosφ₁</label>
           <input type="number" id="tp-cos1" value="0.7" min="0.01" max="1.0" step="0.01">
         </div>
         <div class="tp-input-group">
-          <label>补偿后 cosφ₂</label>
+          <label for="tp-cos2">补偿后 cosφ₂</label>
           <input type="number" id="tp-cos2" value="0.95" min="0.01" max="1.0" step="0.01">
         </div>
       </div>
       <div class="tp-presets">
-        <span class="tp-preset" onclick="tpApplyPreset('C',100,0.7,0.95)">从 0.7 提到 0.95</span>
-        <span class="tp-preset" onclick="tpApplyPreset('C',200,0.6,0.9)">从 0.6 提到 0.9</span>
-        <span class="tp-preset" onclick="tpApplyPreset('C',50,0.8,0.98)">从 0.8 提到 0.98</span>
-        <span class="tp-preset" onclick="tpApplyPreset('C',500,0.85,0.95)">大功率 500kW</span>
+        <span class="tp-preset" onclick="tpApplyPreset('C',this,100,0.7,0.95)">从 0.7 提到 0.95</span>
+        <span class="tp-preset" onclick="tpApplyPreset('C',this,200,0.6,0.9)">从 0.6 提到 0.9</span>
+        <span class="tp-preset" onclick="tpApplyPreset('C',this,50,0.8,0.98)">从 0.8 提到 0.98</span>
+        <span class="tp-preset" onclick="tpApplyPreset('C',this,500,0.85,0.95)">大功率 500kW</span>
       </div>
     </div>
 
     <!-- Result area -->
-    <div class="tp-result" id="tp-result">
+    <div class="tp-result" id="tp-result" aria-live="polite">
       <h3 id="tp-result-title">计算结果</h3>
       <div id="tp-result-body"></div>
       <div class="tp-formula" id="tp-formula"></div>
@@ -160,6 +171,19 @@
       return c;
     }
 
+    function setActivePreset(presetEl) {
+      if (!presetEl) return;
+      var siblings = presetEl.parentNode.querySelectorAll('.tp-preset');
+      siblings.forEach(function(s) { s.classList.remove('active'); });
+      presetEl.classList.add('active');
+    }
+
+    function clearAllPresets() {
+      document.querySelectorAll('#tp-tool .tp-preset').forEach(function(s) {
+        s.classList.remove('active');
+      });
+    }
+
     function row(label, val, unit, highlight) {
       var cls = 'tp-power-row' + (highlight ? ' highlight' : '');
       return '<div class="' + cls + '">' +
@@ -171,11 +195,15 @@
     function switchTab(mode) {
       currentMode = mode;
       document.querySelectorAll('#tp-tool .tp-tab').forEach(function(t){
-        t.classList.toggle('active', t.dataset.mode === mode);
+        var active = t.dataset.mode === mode;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
       });
       document.querySelectorAll('#tp-tool .tp-panel').forEach(function(p){
         p.classList.toggle('active', p.dataset.panel === mode);
       });
+      // 切换 Tab 时清除所有 preset 选中态(避免跨 Tab 残留)
+      clearAllPresets();
       calc();
     }
 
@@ -350,16 +378,16 @@
       tab.addEventListener('click', function(){ switchTab(tab.dataset.mode); });
     });
 
-    // 输入绑定
+    // 输入绑定 — 用户手动输入时清除 preset 选中态
     ['tp-u','tp-i','tp-cosA','tp-pB','tp-cosB','tp-pC','tp-cos1','tp-cos2'].forEach(function(id){
       var el = $(id);
       if (!el) return;
-      el.addEventListener('input', calc);
+      el.addEventListener('input', function() { clearAllPresets(); calc(); });
       el.addEventListener('change', calc);
     });
 
-    // 暴露给 preset
-    window.tpApplyPreset = function(mode, a, b, c) {
+    // 暴露给 preset onclick
+    window.tpApplyPreset = function(mode, presetEl, a, b, c) {
       if (mode === 'A') {
         $('tp-u').value = a;
         $('tp-i').value = b;
@@ -372,6 +400,7 @@
         $('tp-cos1').value = b;
         $('tp-cos2').value = c;
       }
+      setActivePreset(presetEl);
       calc();
     };
 
