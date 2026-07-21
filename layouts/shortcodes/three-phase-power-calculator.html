@@ -256,7 +256,26 @@
 
           // 电流过载提醒
           if (U === 380 && I >= 100) {
-            tip += '<br>🔌 大电流建议:380V/' + I + 'A 需配 5×' + Math.ceil(I * 1.25 / 100) * 10 + 'mm² 五芯铜电缆,断路器按 1.25 倍整定。';
+            // 5 芯 PVC 铜芯电缆载流量表(380V,30°C 穿管敷设,GB/T 4706 参考)
+            // 留余量,匹配工业现场典型配置
+            var cableTable = [
+              { max: 63,  size: 16  },
+              { max: 100, size: 25  },
+              { max: 125, size: 35  },
+              { max: 160, size: 50  },
+              { max: 200, size: 70  },
+              { max: 250, size: 95  },
+              { max: 315, size: 120 }
+            ];
+            var cableSize = null;
+            for (var ci = 0; ci < cableTable.length; ci++) {
+              if (I <= cableTable[ci].max) { cableSize = cableTable[ci].size; break; }
+            }
+            if (cableSize !== null) {
+              tip += '<br>🔌 大电流建议:380V/' + I + 'A 需配 5×' + cableSize + 'mm² 五芯铜电缆,断路器按 1.25 倍整定。';
+            } else {
+              tip += '<br>🔌 大电流建议:380V/' + I + 'A 超过 315A 标准表上限,请咨询专业电气工程师选型电缆与断路器(通常 ≥150mm² + 中压配电)。';
+            }
           }
         }
 
