@@ -53,6 +53,14 @@
       #ec-tool .ec-preset:hover { background: #1e3a8a; border-color: #3b82f6; color: #dbeafe; }
       #ec-tool .ec-preset.active { background: #2563eb; color: white; border-color: #2563eb; }
     }
+    @media (max-width: 600px) {
+      #ec-tool { margin: 12px auto; }
+      #ec-tool .ec-card { padding: 16px; }
+      #ec-tool .ec-row { grid-template-columns: 1fr; }
+      #ec-tool .ec-tab { padding: 8px 12px; font-size: 14px; }
+      #ec-tool .ec-preset { padding: 5px 10px; font-size: 12px; }
+      #ec-tool .ec-cost-row.highlight .ec-cost-val { font-size: 18px; }
+    }
   </style>
 
   <div class="ec-card">
@@ -174,10 +182,10 @@
       calc();
     }
 
+    // 统一 preset 行为:仅设置目标字段 + 切选中态 + 重算。
+    // 不动 name/hours 等其他字段 — 用户已输入的值不要被覆盖。
     function applyWattPreset(w, presetEl) {
       $('ec-watt').value = w;
-      $('ec-name').value = '';
-      $('ec-hours').value = 8;
       setActivePreset(presetEl);
       calc();
     }
