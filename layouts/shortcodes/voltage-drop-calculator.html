@@ -1,0 +1,938 @@
+<div class="tool-container" id="vd-tool">
+  <style>
+    #vd-tool { max-width: 820px; margin: 24px auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    #vd-tool .vd-card { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; }
+    #vd-tool .vd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    #vd-tool .vd-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    #vd-tool .vd-input-group { margin-bottom: 14px; }
+    #vd-tool label { display: block; font-weight: 600; margin-bottom: 6px; color: #1f2937; font-size: 14px; }
+    #vd-tool label .vd-unit { font-weight: 400; color: #6b7280; font-size: 12px; margin-left: 4px; }
+    #vd-tool label .vd-help { font-weight: 400; color: #6b7280; font-size: 11px; display: block; margin-top: 2px; }
+    #vd-tool input, #vd-tool select { width: 100%; padding: 9px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; box-sizing: border-box; background: white; color: #111827; }
+    #vd-tool input:focus, #vd-tool select:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    #vd-tool input:disabled, #vd-tool select:disabled { background: #f3f4f6; color: #9ca3af; cursor: not-allowed; }
+    #vd-tool .vd-preset-group { margin-bottom: 14px; }
+    #vd-tool .vd-preset-group-label { font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    #vd-tool .vd-presets { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+    #vd-tool .vd-preset { padding: 6px 12px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; cursor: pointer; font-size: 13px; transition: all 0.15s; user-select: none; }
+    #vd-tool .vd-preset:hover { background: #dbeafe; border-color: #93c5fd; }
+    #vd-tool .vd-preset.active { background: #2563eb; color: white; border-color: #2563eb; }
+    #vd-tool .vd-toggle { display: inline-flex; gap: 0; border: 1px solid #d1d5db; border-radius: 8px; overflow: hidden; }
+    #vd-tool .vd-toggle-btn { padding: 8px 14px; background: #fff; cursor: pointer; font-size: 13px; font-weight: 600; color: #374151; border: none; transition: all 0.15s; }
+    #vd-tool .vd-toggle-btn.active { background: #2563eb; color: white; }
+    #vd-tool .vd-toggle-btn:not(.active):hover { background: #f3f4f6; }
+    #vd-tool .vd-checkbox { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #374151; cursor: pointer; padding: 4px 0; }
+    #vd-tool .vd-checkbox input { width: 16px; height: 16px; margin: 0; }
+    #vd-tool .vd-checkbox .vd-help { color: #6b7280; font-size: 12px; margin-left: 24px; }
+    #vd-tool .vd-result { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 18px; }
+    #vd-tool .vd-badge { display: inline-block; padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; margin-bottom: 14px; }
+    #vd-tool .vd-badge-green { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+    #vd-tool .vd-badge-yellow { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+    #vd-tool .vd-badge-red { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+    #vd-tool .vd-result-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    #vd-tool .vd-result-cell { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; text-align: center; }
+    #vd-tool .vd-result-cell-label { font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; font-weight: 600; }
+    #vd-tool .vd-result-cell-value { font-size: 22px; font-weight: 700; color: #1e3a8a; font-variant-numeric: tabular-nums; line-height: 1.2; }
+    #vd-tool .vd-result-cell-unit { font-size: 12px; color: #6b7280; margin-top: 2px; }
+    #vd-tool .vd-cell-vdrop .vd-result-cell-value { color: #7c2d12; }
+    #vd-tool .vd-cell-pct .vd-result-cell-value { color: #14532d; }
+    #vd-tool .vd-cell-awg .vd-result-cell-value { color: #1e3a8a; }
+    #vd-tool .vd-notes { background: #f3f4f6; border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #374151; }
+    #vd-tool .vd-notes h4 { margin: 0 0 8px 0; font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+    #vd-tool .vd-note-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed #d1d5db; gap: 12px; }
+    #vd-tool .vd-note-row:last-child { border-bottom: none; }
+    #vd-tool .vd-note-row .vd-note-label { color: #6b7280; flex-shrink: 0; }
+    #vd-tool .vd-note-row .vd-note-value { color: #1f2937; font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; }
+    #vd-tool .vd-formula { font-family: "SF Mono", Monaco, Consolas, "Courier New", monospace; font-size: 11px; color: #475569; background: #f8fafc; padding: 8px 10px; border-radius: 6px; margin-top: 10px; border-left: 3px solid #94a3b8; word-break: break-all; }
+    #vd-tool .vd-tip { font-size: 12px; color: #1e293b; margin-top: 12px; padding: 10px; background: #fef3c7; border-radius: 6px; border-left: 3px solid #f59e0b; line-height: 1.5; }
+    #vd-tool .vd-tip.vd-tip-good { background: #d1fae5; border-left-color: #10b981; color: #064e3b; }
+    #vd-tool .vd-tip.vd-tip-warn { background: #fef3c7; border-left-color: #f59e0b; color: #78350f; }
+    #vd-tool .vd-tip.vd-tip-bad { background: #fee2e2; border-left-color: #dc2626; color: #7f1d1d; }
+    #vd-tool .vd-tip.vd-tip-info { background: #dbeafe; border-left-color: #2563eb; color: #1e3a8a; }
+    #vd-tool .vd-disclaimer { font-size: 11px; color: #6b7280; margin-top: 16px; padding: 10px; background: #f8fafc; border-radius: 6px; border-left: 3px solid #94a3b8; line-height: 1.5; }
+    #vd-tool .vd-collapsible { margin-top: 18px; }
+    #vd-tool .vd-collapsible summary { cursor: pointer; font-weight: 600; font-size: 14px; color: #2563eb; padding: 8px 0; user-select: none; }
+    #vd-tool .vd-collapsible summary:hover { color: #1d4ed8; }
+    #vd-tool .vd-collapsible table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+    #vd-tool .vd-collapsible th, #vd-tool .vd-collapsible td { padding: 6px 10px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+    #vd-tool .vd-collapsible th { background: #f3f4f6; font-weight: 600; color: #374151; font-size: 12px; }
+    #vd-tool .vd-collapsible td.num { font-variant-numeric: tabular-nums; text-align: right; }
+    #vd-tool .vd-collapsible .vd-source { font-size: 11px; color: #6b7280; margin-top: 8px; font-style: italic; }
+    @media (prefers-color-scheme: dark) {
+      #vd-tool .vd-card { background: #1e293b; border-color: #334155; }
+      #vd-tool label { color: #cbd5e1; }
+      #vd-tool label .vd-unit, #vd-tool label .vd-help { color: #94a3b8; }
+      #vd-tool input, #vd-tool select { background: #0f172a; color: #e2e8f0; border-color: #334155; }
+      #vd-tool input:focus, #vd-tool select:focus { border-color: #60a5fa; box-shadow: 0 0 0 3px rgba(96,165,250,0.15); }
+      #vd-tool input:disabled, #vd-tool select:disabled { background: #1e293b; color: #64748b; }
+      #vd-tool .vd-preset { background: #334155; border-color: #475569; color: #cbd5e1; }
+      #vd-tool .vd-preset:hover { background: #1e3a8a; border-color: #3b82f6; color: #dbeafe; }
+      #vd-tool .vd-preset.active { background: #2563eb; color: white; border-color: #2563eb; }
+      #vd-tool .vd-toggle { border-color: #475569; }
+      #vd-tool .vd-toggle-btn { background: #1e293b; color: #cbd5e1; }
+      #vd-tool .vd-toggle-btn.active { background: #2563eb; color: white; }
+      #vd-tool .vd-toggle-btn:not(.active):hover { background: #334155; }
+      #vd-tool .vd-checkbox { color: #cbd5e1; }
+      #vd-tool .vd-result { background: #0f172a; border-color: #334155; }
+      #vd-tool .vd-result-cell { background: #1e293b; border-color: #334155; }
+      #vd-tool .vd-result-cell-label { color: #94a3b8; }
+      #vd-tool .vd-result-cell-value { color: #93c5fd; }
+      #vd-tool .vd-cell-vdrop .vd-result-cell-value { color: #fdba74; }
+      #vd-tool .vd-cell-pct .vd-result-cell-value { color: #86efac; }
+      #vd-tool .vd-cell-awg .vd-result-cell-value { color: #93c5fd; }
+      #vd-tool .vd-badge-green { background: #064e3b; color: #6ee7b7; border-color: #047857; }
+      #vd-tool .vd-badge-yellow { background: #451a03; color: #fcd34d; border-color: #b45309; }
+      #vd-tool .vd-badge-red { background: #450a0a; color: #fca5a5; border-color: #b91c1c; }
+      #vd-tool .vd-notes { background: #1e293b; color: #cbd5e1; }
+      #vd-tool .vd-notes h4 { color: #94a3b8; }
+      #vd-tool .vd-note-row { border-bottom-color: #334155; }
+      #vd-tool .vd-note-row .vd-note-label { color: #94a3b8; }
+      #vd-tool .vd-note-row .vd-note-value { color: #e2e8f0; }
+      #vd-tool .vd-formula { background: #0f172a; color: #cbd5e1; border-left-color: #475569; }
+      #vd-tool .vd-tip { background: #422006; color: #fde68a; border-left-color: #f59e0b; }
+      #vd-tool .vd-tip.vd-tip-good { background: #064e3b; color: #6ee7b7; border-left-color: #10b981; }
+      #vd-tool .vd-tip.vd-tip-warn { background: #422006; color: #fde68a; border-left-color: #f59e0b; }
+      #vd-tool .vd-tip.vd-tip-bad { background: #450a0a; color: #fca5a5; border-left-color: #dc2626; }
+      #vd-tool .vd-tip.vd-tip-info { background: #1e3a8a; color: #bfdbfe; border-left-color: #60a5fa; }
+      #vd-tool .vd-disclaimer { background: #0f172a; color: #94a3b8; border-left-color: #475569; }
+      #vd-tool .vd-collapsible th { background: #1e293b; color: #cbd5e1; }
+      #vd-tool .vd-collapsible th, #vd-tool .vd-collapsible td { border-bottom-color: #334155; }
+      #vd-tool .vd-collapsible .vd-source { color: #94a3b8; }
+    }
+    @media (max-width: 700px) {
+      #vd-tool { margin: 12px auto; }
+      #vd-tool .vd-card { padding: 16px; }
+      #vd-tool .vd-grid { grid-template-columns: 1fr; gap: 16px; }
+      #vd-tool .vd-row { grid-template-columns: 1fr; }
+      #vd-tool .vd-result-grid { grid-template-columns: 1fr; }
+      #vd-tool .vd-result-cell-value { font-size: 18px; }
+    }
+  </style>
+
+  <div class="vd-card">
+    <!-- Presets -->
+    <div class="vd-preset-group">
+      <div class="vd-preset-group-label">⚡ Quick Presets — Common V-Drop Scenarios</div>
+      <div class="vd-presets">
+        <span class="vd-preset" data-preset="dryer">30A Dryer</span>
+        <span class="vd-preset" data-preset="range">40A Range</span>
+        <span class="vd-preset" data-preset="rv50">50A RV</span>
+        <span class="vd-preset" data-preset="ev60">60A EV Charger</span>
+        <span class="vd-preset" data-preset="sub100">100A Subpanel</span>
+        <span class="vd-preset" data-preset="svc200">200A Service</span>
+        <span class="vd-preset" data-preset="garage">Detached Garage 60A/200ft</span>
+        <span class="vd-preset" data-preset="pv12">12V PV Solar</span>
+        <span class="vd-preset" data-preset="pv24">24V PV Solar</span>
+        <span class="vd-preset" data-preset="pv48">48V PV Battery</span>
+        <span class="vd-preset" data-preset="wellpump">240V Well Pump</span>
+      </div>
+    </div>
+
+    <div class="vd-grid">
+      <!-- INPUT FORM -->
+      <div>
+        <div class="vd-row">
+          <div class="vd-input-group">
+            <label for="vd-amps">Load Amps <span class="vd-unit">(A)</span></label>
+            <input type="number" id="vd-amps" value="50" min="0.1" max="2000" step="0.1">
+          </div>
+          <div class="vd-input-group">
+            <label for="vd-kw">Load Power <span class="vd-unit">(kW, optional)</span></label>
+            <input type="number" id="vd-kw" value="" min="0.1" max="2000" step="0.1" placeholder="e.g. 11">
+            <span class="vd-help">Enter kW <em>or</em> amps — kW will be converted to amps via power factor.</span>
+          </div>
+        </div>
+
+        <div class="vd-row" id="vd-cosphi-row" style="display:none;">
+          <div class="vd-input-group">
+            <label for="vd-cosphi">Power Factor <span class="vd-unit">(cosφ)</span></label>
+            <input type="number" id="vd-cosphi" value="0.95" min="0.01" max="1.0" step="0.01">
+            <span class="vd-help">Default 0.95. Pure resistive = 1.0. Motor load = 0.85.</span>
+          </div>
+          <div></div>
+        </div>
+
+        <div class="vd-row">
+          <div class="vd-input-group">
+            <label for="vd-volts">System Voltage <span class="vd-unit">(V)</span></label>
+            <select id="vd-volts">
+              <option value="12">12 V DC</option>
+              <option value="24">24 V DC</option>
+              <option value="48">48 V DC</option>
+              <option value="120">120 V</option>
+              <option value="208">208 V</option>
+              <option value="220">220 V</option>
+              <option value="240" selected>240 V</option>
+              <option value="277">277 V</option>
+              <option value="347">347 V</option>
+              <option value="380">380 V</option>
+              <option value="480">480 V</option>
+              <option value="600">600 V</option>
+            </select>
+          </div>
+          <div class="vd-input-group">
+            <label>Phase</label>
+            <div class="vd-toggle">
+              <button type="button" class="vd-toggle-btn active" data-phase="1">1Φ Single-Phase</button>
+              <button type="button" class="vd-toggle-btn" data-phase="3">3Φ Three-Phase</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="vd-row">
+          <div class="vd-input-group">
+            <label for="vd-length">One-Way Length <span class="vd-unit">(ft)</span></label>
+            <input type="number" id="vd-length" value="75" min="1" max="5000" step="1">
+          </div>
+          <div class="vd-input-group">
+            <label>Wire Material</label>
+            <div class="vd-toggle">
+              <button type="button" class="vd-toggle-btn active" data-mat="copper">Copper (Cu)</button>
+              <button type="button" class="vd-toggle-btn" data-mat="aluminum">Aluminum (Al)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="vd-row">
+          <div class="vd-input-group">
+            <label for="vd-awg">Conductor Size <span class="vd-unit">(AWG / kcmil)</span></label>
+            <select id="vd-awg">
+              <option value="14 AWG">14 AWG</option>
+              <option value="12 AWG">12 AWG</option>
+              <option value="10 AWG">10 AWG</option>
+              <option value="8 AWG">8 AWG</option>
+              <option value="6 AWG" selected>6 AWG</option>
+              <option value="4 AWG">4 AWG</option>
+              <option value="3 AWG">3 AWG</option>
+              <option value="2 AWG">2 AWG</option>
+              <option value="1 AWG">1 AWG</option>
+              <option value="1/0 AWG">1/0 AWG</option>
+              <option value="2/0 AWG">2/0 AWG</option>
+              <option value="3/0 AWG">3/0 AWG</option>
+              <option value="4/0 AWG">4/0 AWG</option>
+              <option value="250 kcmil">250 kcmil</option>
+              <option value="300 kcmil">300 kcmil</option>
+              <option value="350 kcmil">350 kcmil</option>
+              <option value="400 kcmil">400 kcmil</option>
+              <option value="500 kcmil">500 kcmil</option>
+              <option value="600 kcmil">600 kcmil</option>
+              <option value="750 kcmil">750 kcmil</option>
+            </select>
+          </div>
+          <div class="vd-input-group">
+            <label>Temperature Column</label>
+            <div class="vd-toggle">
+              <button type="button" class="vd-toggle-btn active" data-temp="75C">75 °C</button>
+              <button type="button" class="vd-toggle-btn" data-temp="90C">90 °C</button>
+            </div>
+            <span class="vd-help">75 °C = standard branch (NEC 110.14(C)). 90 °C = PV wire / motor windings.</span>
+          </div>
+        </div>
+
+        <div class="vd-input-group">
+          <label class="vd-checkbox">
+            <input type="checkbox" id="vd-nec647">
+            <span>NEC 647 Sensitive Electronic Equipment <span style="color:#6b7280;font-weight:400;">(3% branch + 6% combined)</span></span>
+          </label>
+          <div class="vd-help">Enable for hospitals, data centers, recording studios, and other NEC 647 sensitive electronic equipment. Tighter V-drop limit (6 % combined).</div>
+        </div>
+
+        <div class="vd-input-group">
+          <label class="vd-checkbox">
+            <input type="checkbox" id="vd-awg-auto">
+            <span>Auto-select smallest compliant AWG <span style="color:#6b7280;font-weight:400;">(ignore AWG dropdown)</span></span>
+          </label>
+          <div class="vd-help">When enabled, the calculator finds the smallest AWG that meets the 3 % branch limit for the given amps + length, instead of using the manually selected AWG.</div>
+        </div>
+      </div>
+
+      <!-- RESULT PANEL -->
+      <div class="vd-result" id="vd-result">
+        <div id="vd-badge-container"></div>
+        <div class="vd-result-grid">
+          <div class="vd-result-cell vd-cell-vdrop">
+            <div class="vd-result-cell-label">Voltage Drop</div>
+            <div class="vd-result-cell-value" id="vd-vdrop-v">—</div>
+            <div class="vd-result-cell-unit">volts</div>
+          </div>
+          <div class="vd-result-cell vd-cell-pct">
+            <div class="vd-result-cell-label">V-Drop %</div>
+            <div class="vd-result-cell-value" id="vd-vdrop-pct">—</div>
+            <div class="vd-result-cell-unit" id="vd-vdrop-status">—</div>
+          </div>
+          <div class="vd-result-cell vd-cell-awg">
+            <div class="vd-result-cell-label">Conductor</div>
+            <div class="vd-result-cell-value" id="vd-result-awg">—</div>
+            <div class="vd-result-cell-unit" id="vd-result-awg-unit">—</div>
+          </div>
+        </div>
+
+        <div class="vd-notes" id="vd-notes">
+          <h4>Calculation Details</h4>
+          <div class="vd-note-row">
+            <span class="vd-note-label">Run current (I)</span>
+            <span class="vd-note-value" id="vd-detail-amps">—</span>
+          </div>
+          <div class="vd-note-row">
+            <span class="vd-note-label">Conductor resistance (R) at <span id="vd-detail-temp">75</span> °C</span>
+            <span class="vd-note-value" id="vd-detail-r">—</span>
+          </div>
+          <div class="vd-note-row">
+            <span class="vd-note-label">One-way length (L)</span>
+            <span class="vd-note-value" id="vd-detail-length">—</span>
+          </div>
+          <div class="vd-note-row">
+            <span class="vd-note-label">Phase configuration</span>
+            <span class="vd-note-value" id="vd-detail-phase">—</span>
+          </div>
+          <div class="vd-note-row">
+            <span class="vd-note-label">System voltage</span>
+            <span class="vd-note-value" id="vd-detail-voltage">—</span>
+          </div>
+          <div class="vd-note-row">
+            <span class="vd-note-label">NEC limit (branch / combined)</span>
+            <span class="vd-note-value" id="vd-detail-limit">—</span>
+          </div>
+          <div class="vd-note-row" id="vd-auto-awg-row" style="display:none;">
+            <span class="vd-note-label">Auto-AWG picked</span>
+            <span class="vd-note-value" id="vd-detail-auto-awg">—</span>
+          </div>
+        </div>
+
+        <div class="vd-formula" id="vd-formula">Enter load values to see the formula.</div>
+
+        <div class="vd-tip" id="vd-tip" style="display:none;"></div>
+
+        <!-- 5. Collapsible reference tables -->
+        <details class="vd-collapsible">
+          <summary>📊 NEC Chapter 9 Table 9 — Ω/1000 ft at 75 °C & 90 °C (click to expand)</summary>
+          <table>
+            <thead>
+              <tr>
+                <th>AWG / kcmil</th>
+                <th class="num">Cu Ω/1000ft @ 75 °C</th>
+                <th class="num">Cu Ω/1000ft @ 90 °C</th>
+                <th class="num">Al Ω/1000ft @ 75 °C</th>
+                <th class="num">Al Ω/1000ft @ 90 °C</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>14 AWG</td><td class="num">3.14</td><td class="num">3.36</td><td class="num">—</td><td class="num">—</td></tr>
+              <tr><td>12 AWG</td><td class="num">1.98</td><td class="num">2.12</td><td class="num">—</td><td class="num">—</td></tr>
+              <tr><td>10 AWG</td><td class="num">1.24</td><td class="num">1.33</td><td class="num">—</td><td class="num">—</td></tr>
+              <tr><td>8 AWG</td><td class="num">0.7782</td><td class="num">0.8342</td><td class="num">1.26</td><td class="num">1.35</td></tr>
+              <tr><td>6 AWG</td><td class="num">0.4912</td><td class="num">0.5263</td><td class="num">0.808</td><td class="num">0.865</td></tr>
+              <tr><td>4 AWG</td><td class="num">0.3085</td><td class="num">0.3303</td><td class="num">0.508</td><td class="num">0.544</td></tr>
+              <tr><td>3 AWG</td><td class="num">0.2451</td><td class="num">0.2625</td><td class="num">0.403</td><td class="num">0.431</td></tr>
+              <tr><td>2 AWG</td><td class="num">0.1941</td><td class="num">0.2079</td><td class="num">0.319</td><td class="num">0.341</td></tr>
+              <tr><td>1 AWG</td><td class="num">0.1540</td><td class="num">0.1649</td><td class="num">0.253</td><td class="num">0.271</td></tr>
+              <tr><td>1/0 AWG</td><td class="num">0.1223</td><td class="num">0.1310</td><td class="num">0.201</td><td class="num">0.215</td></tr>
+              <tr><td>2/0 AWG</td><td class="num">0.0967</td><td class="num">0.1036</td><td class="num">0.159</td><td class="num">0.170</td></tr>
+              <tr><td>3/0 AWG</td><td class="num">0.0766</td><td class="num">0.0821</td><td class="num">0.126</td><td class="num">0.135</td></tr>
+              <tr><td>4/0 AWG</td><td class="num">0.0608</td><td class="num">0.0651</td><td class="num">0.100</td><td class="num">0.107</td></tr>
+              <tr><td>250 kcmil</td><td class="num">0.0515</td><td class="num">0.0551</td><td class="num">0.0847</td><td class="num">0.0907</td></tr>
+              <tr><td>300 kcmil</td><td class="num">0.0429</td><td class="num">0.0459</td><td class="num">0.0707</td><td class="num">0.0757</td></tr>
+              <tr><td>350 kcmil</td><td class="num">0.0367</td><td class="num">0.0393</td><td class="num">0.0605</td><td class="num">0.0647</td></tr>
+              <tr><td>400 kcmil</td><td class="num">0.0321</td><td class="num">0.0343</td><td class="num">0.0529</td><td class="num">0.0566</td></tr>
+              <tr><td>500 kcmil</td><td class="num">0.0258</td><td class="num">0.0276</td><td class="num">0.0424</td><td class="num">0.0454</td></tr>
+              <tr><td>600 kcmil</td><td class="num">0.0214</td><td class="num">0.0229</td><td class="num">0.0353</td><td class="num">0.0378</td></tr>
+              <tr><td>750 kcmil</td><td class="num">0.0171</td><td class="num">0.0183</td><td class="num">0.0282</td><td class="num">0.0302</td></tr>
+            </tbody>
+          </table>
+          <div class="vd-source">Source: NFPA 70 — National Electrical Code 2023, Chapter 9 Table 9 (DC resistance for uncoated copper &amp; aluminum conductors, 75 °C and 90 °C columns).</div>
+        </details>
+
+        <details class="vd-collapsible">
+          <summary>📊 NEC 210.19(A) / 215.2(A) / 647 — V-Drop Compliance Reference (click to expand)</summary>
+          <table>
+            <thead>
+              <tr><th>NEC Article</th><th>Branch Limit</th><th>Combined Limit</th><th>Scope</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>210.19(A) IN No. 4</td><td class="num">3 %</td><td class="num">5 %</td><td>Branch circuits (residential, commercial)</td></tr>
+              <tr><td>215.2(A) IN No. 3</td><td class="num">3 %</td><td class="num">5 %</td><td>Feeders (subpanels, services)</td></tr>
+              <tr><td>647 (Sensitive Electronic Equipment)</td><td class="num">3 %</td><td class="num">6 %</td><td>Hospitals, data centers, recording studios</td></tr>
+            </tbody>
+          </table>
+          <div class="vd-source">Source: NFPA 70 — National Electrical Code 2023, Informational Notes 210.19(A) No. 4, 215.2(A) No. 3, and Article 647.</div>
+        </details>
+
+        <div class="vd-disclaimer">
+          ⚠️ <strong>Reference only.</strong> V-drop calculations are NEC-aware but final conductor sizing must be verified by a licensed electrician and approved by your local Authority Having Jurisdiction (AHJ). This calculator ignores conductor reactance (X) which becomes significant for cables &gt; 600 V or runs &gt; 500 ft; for those applications consult IEEE Std 141 (Red Book) or a power-quality engineer.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    'use strict';
+
+    // ─────────────────────────────────────────────────────────────────
+    // NEC Reference Data (public-domain regulatory references, NFPA 70)
+    // ─────────────────────────────────────────────────────────────────
+
+    // NEC Chapter 9 Table 9 — DC Resistance (Ω/1000 ft) at 75 °C and 90 °C
+    // Copper and aluminum, uncoated conductors. 75 °C = inspector-favored
+    // branch-circuit terminal rating per NEC 110.14(C); 90 °C = PV wire,
+    // motor windings, derated to 75 °C for ampacity.
+    var NEC_CU_OHM = [
+      { awg: '14 AWG',    ohm75: 3.14,  ohm90: 3.36  },
+      { awg: '12 AWG',    ohm75: 1.98,  ohm90: 2.12  },
+      { awg: '10 AWG',    ohm75: 1.24,  ohm90: 1.33  },
+      { awg: '8 AWG',     ohm75: 0.778, ohm90: 0.833 },
+      { awg: '6 AWG',     ohm75: 0.491, ohm90: 0.526 },
+      { awg: '4 AWG',     ohm75: 0.308, ohm90: 0.330 },
+      { awg: '3 AWG',     ohm75: 0.245, ohm90: 0.262 },
+      { awg: '2 AWG',     ohm75: 0.194, ohm90: 0.207 },
+      { awg: '1 AWG',     ohm75: 0.154, ohm90: 0.165 },
+      { awg: '1/0 AWG',   ohm75: 0.122, ohm90: 0.131 },
+      { awg: '2/0 AWG',   ohm75: 0.0967, ohm90: 0.104 },
+      { awg: '3/0 AWG',   ohm75: 0.0766, ohm90: 0.0820 },
+      { awg: '4/0 AWG',   ohm75: 0.0608, ohm90: 0.0651 },
+      { awg: '250 kcmil', ohm75: 0.0515, ohm90: 0.0551 },
+      { awg: '300 kcmil', ohm75: 0.0429, ohm90: 0.0459 },
+      { awg: '350 kcmil', ohm75: 0.0367, ohm90: 0.0393 },
+      { awg: '400 kcmil', ohm75: 0.0321, ohm90: 0.0343 },
+      { awg: '500 kcmil', ohm75: 0.0258, ohm90: 0.0276 },
+      { awg: '600 kcmil', ohm75: 0.0214, ohm90: 0.0229 },
+      { awg: '750 kcmil', ohm75: 0.0171, ohm90: 0.0183 }
+    ];
+
+    var NEC_AL_OHM = [
+      { awg: '8 AWG',     ohm75: 1.26,  ohm90: 1.35  },
+      { awg: '6 AWG',     ohm75: 0.808, ohm90: 0.865 },
+      { awg: '4 AWG',     ohm75: 0.508, ohm90: 0.544 },
+      { awg: '3 AWG',     ohm75: 0.403, ohm90: 0.431 },
+      { awg: '2 AWG',     ohm75: 0.319, ohm90: 0.341 },
+      { awg: '1 AWG',     ohm75: 0.253, ohm90: 0.271 },
+      { awg: '1/0 AWG',   ohm75: 0.201, ohm90: 0.215 },
+      { awg: '2/0 AWG',   ohm75: 0.159, ohm90: 0.170 },
+      { awg: '3/0 AWG',   ohm75: 0.126, ohm90: 0.135 },
+      { awg: '4/0 AWG',   ohm75: 0.100, ohm90: 0.107 },
+      { awg: '250 kcmil', ohm75: 0.0847, ohm90: 0.0907 },
+      { awg: '300 kcmil', ohm75: 0.0707, ohm90: 0.0757 },
+      { awg: '350 kcmil', ohm75: 0.0605, ohm90: 0.0647 },
+      { awg: '400 kcmil', ohm75: 0.0529, ohm90: 0.0566 },
+      { awg: '500 kcmil', ohm75: 0.0424, ohm90: 0.0454 },
+      { awg: '600 kcmil', ohm75: 0.0353, ohm90: 0.0378 },
+      { awg: '750 kcmil', ohm75: 0.0282, ohm90: 0.0302 }
+    ];
+
+    // NEC 210.19(A) IN No. 4 / 215.2(A) IN No. 3 — V-drop limits (informational)
+    // NEC 647 — Sensitive Electronic Equipment (tighter combined limit)
+    var NEC_BRANCH_LIMIT = 3.0;     // %
+    var NEC_COMBINED_LIMIT = 5.0;   // %
+    var NEC_647_BRANCH_LIMIT = 3.0; // %
+    var NEC_647_COMBINED_LIMIT = 6.0; // %
+
+    // ─────────────────────────────────────────────────────────────────
+    // Preset definitions
+    // ─────────────────────────────────────────────────────────────────
+    var PRESETS = {
+      dryer:    { amps: 24,  volts: 240, phase: 1, length: 35,  material: 'copper', awg: '10 AWG',  temp: '75C', necMode: 'standard', awgAuto: false, label: '30A Dryer' },
+      range:    { amps: 33,  volts: 240, phase: 1, length: 35,  material: 'copper', awg: '8 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: '40A Range' },
+      rv50:     { amps: 50,  volts: 240, phase: 1, length: 75,  material: 'copper', awg: '6 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: '50A RV' },
+      ev60:     { amps: 60,  volts: 240, phase: 1, length: 100, material: 'copper', awg: '6 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: '60A EV Charger' },
+      sub100:   { amps: 100, volts: 240, phase: 1, length: 100, material: 'copper', awg: '3 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: '100A Subpanel' },
+      svc200:   { amps: 200, volts: 240, phase: 1, length: 75,  material: 'copper', awg: '3/0 AWG', temp: '75C', necMode: 'standard', awgAuto: false, label: '200A Service' },
+      garage:   { amps: 60,  volts: 240, phase: 1, length: 200, material: 'copper', awg: '6 AWG',   temp: '75C', necMode: 'standard', awgAuto: true,  label: 'Detached Garage 60A/200ft' },
+      pv12:     { amps: 30,  volts: 12,  phase: 1, length: 100, material: 'copper', awg: '4/0 AWG', temp: '75C', necMode: 'standard', awgAuto: true,  label: '12V PV Solar' },
+      pv24:     { amps: 30,  volts: 24,  phase: 1, length: 50,  material: 'copper', awg: '2 AWG',   temp: '75C', necMode: 'standard', awgAuto: true,  label: '24V PV Solar' },
+      pv48:     { amps: 100, volts: 48,  phase: 1, length: 20,  material: 'copper', awg: '1/0 AWG', temp: '75C', necMode: 'standard', awgAuto: true,  label: '48V PV Battery' },
+      wellpump: { amps: 10,  volts: 240, phase: 1, length: 250, material: 'copper', awg: '10 AWG',  temp: '75C', necMode: 'standard', awgAuto: true,  label: '240V Well Pump' }
+    };
+
+    // ─────────────────────────────────────────────────────────────────
+    // Calculation logic
+    // ─────────────────────────────────────────────────────────────────
+
+    // kW → A conversion (P = V × I × cosφ)
+    function kWtoAmps(kw, voltage, phase, cosphi) {
+      var pf = cosphi || 0.95;
+      if (pf <= 0 || pf > 1.0) pf = 0.95;
+      if (phase === 3) {
+        return (kw * 1000) / (Math.sqrt(3) * voltage * pf);
+      }
+      return (kw * 1000) / (voltage * pf);
+    }
+
+    // NEC Chapter 9 Table 9 lookup
+    function getResistance(awg, material, tempColumn) {
+      var table = (material === 'copper') ? NEC_CU_OHM : NEC_AL_OHM;
+      var ohmKey = (tempColumn === '90C') ? 'ohm90' : 'ohm75';
+      for (var i = 0; i < table.length; i++) {
+        if (table[i].awg === awg) return table[i][ohmKey];
+      }
+      return null; // AWG not in table
+    }
+
+    // NEC 210.19 / 215.2 / 647 voltage drop formula
+    // 1Φ 2-wire: V_drop = (2 × I × R × L) / 1000   [volts]
+    // 3Φ 3-wire: V_drop = (√3 × I × R × L) / 1000  [volts]
+    function calcVoltageDrop(amps, voltage, phase, lengthFt, ohmPer1000Ft) {
+      var vDropV;
+      if (phase === 1) {
+        vDropV = (2 * amps * ohmPer1000Ft * lengthFt) / 1000;
+      } else {
+        vDropV = (Math.sqrt(3) * amps * ohmPer1000Ft * lengthFt) / 1000;
+      }
+      var vDropPct = (vDropV / voltage) * 100;
+      return { vDropV: vDropV, vDropPct: vDropPct };
+    }
+
+    // AWG-auto: scan from largest (750 kcmil) downward, return smallest
+    // AWG whose V-drop % ≤ branch limit. Returns null if even 750 kcmil
+    // exceeds the branch limit.
+    function findSmallestCompliantAWG(amps, voltage, phase, length, material, tempColumn) {
+      var table = (material === 'copper') ? NEC_CU_OHM : NEC_AL_OHM;
+      var ohmKey = (tempColumn === '90C') ? 'ohm90' : 'ohm75';
+      for (var i = table.length - 1; i >= 0; i--) {
+        var awg = table[i].awg;
+        var R = table[i][ohmKey];
+        var vd = calcVoltageDrop(amps, voltage, phase, length, R);
+        if (vd.vDropPct <= NEC_BRANCH_LIMIT) {
+          return { awg: awg, vDropV: vd.vDropV, vDropPct: vd.vDropPct, R: R };
+        }
+      }
+      return null;
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    // Main calculation
+    // ─────────────────────────────────────────────────────────────────
+
+    function calculate(inputs) {
+      // STEP 1: Resolve running current — amps direct OR kW→A
+      var amps = null;
+      var derivedFromKw = false;
+      if (inputs.amps && inputs.amps > 0) {
+        amps = inputs.amps;
+      } else if (inputs.loadKw && inputs.loadKw > 0 && inputs.voltage > 0) {
+        amps = kWtoAmps(inputs.loadKw, inputs.voltage, inputs.phase, inputs.cosphi);
+        derivedFromKw = true;
+      } else {
+        return { error: 'Enter load amps, kW, or select a preset.' };
+      }
+
+      // STEP 2: AWG-auto mode — pick smallest compliant AWG first
+      var chosenAwg = inputs.awg;
+      var autoPicked = false;
+      var autoDetail = null;
+      if (inputs.awgAuto) {
+        var auto = findSmallestCompliantAWG(amps, inputs.voltage, inputs.phase, inputs.length, inputs.material, inputs.tempColumn);
+        if (!auto) {
+          return {
+            error: 'Required V-drop < 3 % exceeds 750 kcmil — use parallel conductors, higher voltage (e.g. 12 V → 48 V), or shorter run.',
+            amps: amps
+          };
+        }
+        chosenAwg = auto.awg;
+        autoPicked = true;
+        autoDetail = auto;
+      }
+
+      // STEP 3: Lookup resistance
+      var resistance = getResistance(chosenAwg, inputs.material, inputs.tempColumn);
+      if (resistance === null) {
+        return {
+          error: 'AWG "' + chosenAwg + '" not available for ' + inputs.material + '.',
+          amps: amps
+        };
+      }
+
+      // STEP 4: Calculate V-drop
+      var vd = calcVoltageDrop(amps, inputs.voltage, inputs.phase, inputs.length, resistance);
+
+      // STEP 5: Compliance badge (NEC 210.19 / 215.2 / 647)
+      var branchLimit = (inputs.necMode === 'nec647') ? NEC_647_BRANCH_LIMIT : NEC_BRANCH_LIMIT;
+      var combinedLimit = (inputs.necMode === 'nec647') ? NEC_647_COMBINED_LIMIT : NEC_COMBINED_LIMIT;
+      var vdropStatus;
+      if (vd.vDropPct <= branchLimit) {
+        vdropStatus = 'GREEN';
+      } else if (vd.vDropPct <= combinedLimit) {
+        vdropStatus = 'YELLOW';
+      } else {
+        vdropStatus = 'RED';
+      }
+
+      return {
+        amps: amps,
+        derivedFromKw: derivedFromKw,
+        loadKw: inputs.loadKw || null,
+        cosphi: inputs.cosphi || 0.95,
+        awg: chosenAwg,
+        resistance: resistance,
+        vDropV: vd.vDropV,
+        vDropPct: vd.vDropPct,
+        vdropStatus: vdropStatus,
+        voltage: inputs.voltage,
+        phase: inputs.phase,
+        length: inputs.length,
+        material: inputs.material,
+        tempColumn: inputs.tempColumn,
+        necMode: inputs.necMode,
+        branchLimit: branchLimit,
+        combinedLimit: combinedLimit,
+        autoPicked: autoPicked,
+        autoDetail: autoDetail,
+        formula1Phi: 'V_drop = (2 × I × R × L) / 1000  [V]',
+        formula3Phi: 'V_drop = (√3 × I × R × L) / 1000  [V]'
+      };
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    // Rendering helpers
+    // ─────────────────────────────────────────────────────────────────
+
+    function fmt(n, d) {
+      d = (d === undefined) ? 2 : d;
+      if (!isFinite(n) || isNaN(n)) return '--';
+      return n.toFixed(d);
+    }
+
+    function setText(id, txt) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = txt;
+    }
+
+    function setBadge(state, label) {
+      var container = document.getElementById('vd-badge-container');
+      if (!container) return;
+      var cls = 'vd-badge vd-badge-' + state.toLowerCase();
+      container.innerHTML = '<span class="' + cls + '">' + label + '</span>';
+    }
+
+    function clearResult() {
+      setBadge('red', '⚠ Enter valid load values to compute V-drop.');
+      setText('vd-vdrop-v', '—');
+      setText('vd-vdrop-pct', '—');
+      setText('vd-vdrop-status', '—');
+      setText('vd-result-awg', '—');
+      setText('vd-result-awg-unit', '—');
+      setText('vd-detail-amps', '—');
+      setText('vd-detail-r', '—');
+      setText('vd-detail-length', '—');
+      setText('vd-detail-phase', '—');
+      setText('vd-detail-voltage', '—');
+      setText('vd-detail-limit', '—');
+      document.getElementById('vd-auto-awg-row').style.display = 'none';
+      setText('vd-formula', 'Enter load values to see the formula.');
+      document.getElementById('vd-tip').style.display = 'none';
+    }
+
+    function renderResult(r) {
+      if (r.error) {
+        setBadge('red', '⚠ ' + r.error);
+        setText('vd-vdrop-v', '—');
+        setText('vd-vdrop-pct', '—');
+        setText('vd-vdrop-status', '—');
+        setText('vd-result-awg', '—');
+        setText('vd-result-awg-unit', '—');
+        setText('vd-detail-amps', fmt(r.amps, 1) + ' A');
+        setText('vd-detail-r', '—');
+        setText('vd-detail-length', '—');
+        setText('vd-detail-phase', '—');
+        setText('vd-detail-voltage', '—');
+        setText('vd-detail-limit', '—');
+        document.getElementById('vd-auto-awg-row').style.display = 'none';
+        setText('vd-formula', 'Error: ' + r.error);
+        document.getElementById('vd-tip').style.display = 'none';
+        return;
+      }
+
+      // ── Compliance badge ──
+      var badgeText, badgeState;
+      if (r.necMode === 'nec647') {
+        if (r.vdropStatus === 'GREEN') {
+          badgeState = 'green';
+          badgeText = '🟢 NEC 647 Compliant — within 3 % branch limit';
+        } else if (r.vdropStatus === 'YELLOW') {
+          badgeState = 'yellow';
+          badgeText = '🟡 NEC 647 — within 6 % combined, exceeds 3 % branch';
+        } else {
+          badgeState = 'red';
+          badgeText = '🔴 NEC 647 — exceeds 6 % combined limit';
+        }
+      } else {
+        if (r.vdropStatus === 'GREEN') {
+          badgeState = 'green';
+          badgeText = '🟢 NEC 210.19 / 215.2 Compliant — within 3 % branch limit';
+        } else if (r.vdropStatus === 'YELLOW') {
+          badgeState = 'yellow';
+          badgeText = '🟡 Within 5 % combined, exceeds 3 % branch — consider upsizing';
+        } else {
+          badgeState = 'red';
+          badgeText = '🔴 Exceeds 5 % combined — upsize AWG, shorten run, or raise voltage';
+        }
+      }
+      setBadge(badgeState, badgeText);
+
+      // ── Result cells ──
+      setText('vd-vdrop-v', fmt(r.vDropV, 2));
+      setText('vd-vdrop-pct', fmt(r.vDropPct, 2) + '%');
+
+      var vdropStatusText;
+      if (r.vdropStatus === 'GREEN') vdropStatusText = '✓ within 3 % NEC limit';
+      else if (r.vdropStatus === 'YELLOW') vdropStatusText = '⚠ within 5 %, over 3 %';
+      else vdropStatusText = '✗ exceeds 5 % limit';
+      setText('vd-vdrop-status', vdropStatusText);
+
+      // Conductor display — strip " AWG" / " kcmil" suffix to show as number+kcmil label
+      var awgDisplay = r.awg.replace(' AWG', '').replace(' kcmil', '');
+      setText('vd-result-awg', awgDisplay);
+      setText('vd-result-awg-unit', r.awg.indexOf('kcmil') >= 0 ? 'kcmil' : 'AWG');
+
+      // ── Notes ──
+      var ampsLabel = fmt(r.amps, 1) + ' A';
+      if (r.derivedFromKw && r.loadKw) {
+        var denom = (r.phase === 3) ? '(√3 × V × cosφ)' : '(V × cosφ)';
+        ampsLabel += '  ←  I = (kW × 1000) / ' + denom + ' = (' + r.loadKw + ' × 1000) / ' + denom + ' = ' + fmt(r.amps, 2) + ' A';
+      }
+      setText('vd-detail-amps', ampsLabel);
+
+      var tempLabel = (r.tempColumn === '90C') ? '90' : '75';
+      setText('vd-detail-temp', tempLabel);
+      setText('vd-detail-r', fmt(r.resistance, 4) + ' Ω / 1000 ft');
+      setText('vd-detail-length', r.length + ' ft');
+      setText('vd-detail-phase', r.phase === 1 ? '1Φ Single-Phase (L + N)' : '3Φ Three-Phase (√3 factor)');
+      setText('vd-detail-voltage', r.voltage + ' V');
+      setText('vd-detail-limit', r.branchLimit + ' % / ' + r.combinedLimit + ' %' + (r.necMode === 'nec647' ? '  (NEC 647)' : ''));
+
+      if (r.autoPicked && r.autoDetail) {
+        document.getElementById('vd-auto-awg-row').style.display = 'flex';
+        setText('vd-detail-auto-awg', r.awg + '  (V-drop ' + fmt(r.autoDetail.vDropPct, 2) + ' %, R ' + fmt(r.autoDetail.R, 4) + ' Ω/1000ft)');
+      } else {
+        document.getElementById('vd-auto-awg-row').style.display = 'none';
+      }
+
+      // ── Formula display ──
+      var formula;
+      if (r.phase === 1) {
+        formula = 'V-drop = (2 × I × R × L) / 1000 / V × 100  [V-drop %]' +
+                  '\n= (2 × ' + fmt(r.amps, 2) + ' × ' + fmt(r.resistance, 4) + ' × ' + r.length + ') / 1000 / ' + r.voltage + ' × 100' +
+                  '\n= ' + fmt(r.vDropV, 3) + ' V / ' + r.voltage + ' V  =  ' + fmt(r.vDropPct, 2) + ' %';
+      } else {
+        formula = 'V-drop = (√3 × I × R × L) / 1000 / V × 100  [V-drop %]' +
+                  '\n= (1.732 × ' + fmt(r.amps, 2) + ' × ' + fmt(r.resistance, 4) + ' × ' + r.length + ') / 1000 / ' + r.voltage + ' × 100' +
+                  '\n= ' + fmt(r.vDropV, 3) + ' V / ' + r.voltage + ' V  =  ' + fmt(r.vDropPct, 2) + ' %';
+      }
+      setText('vd-formula', formula);
+
+      // ── Engineering tip ──
+      var tipEl = document.getElementById('vd-tip');
+      var tipText = '';
+      var tipClass = 'vd-tip';
+      var materialWord = (r.material === 'aluminum') ? 'Aluminum (Al)' : 'Copper (Cu)';
+
+      if (r.necMode === 'nec647') {
+        tipText = 'ℹ <strong>NEC 647 mode active.</strong> 3 % branch / 6 % combined applied (instead of 3 % / 5 %) for sensitive electronic equipment per NFPA 70 Article 647.';
+        tipClass += ' vd-tip-info';
+      } else if (r.autoPicked) {
+        tipText = '✓ <strong>Smallest compliant AWG picked automatically.</strong> ' + r.awg + ' at ' + tempLabel + ' °C — V-drop ' + fmt(r.vDropPct, 2) + ' % ≤ 3 % branch (NEC 210.19(A) IN No. 4).';
+        tipClass += ' vd-tip-good';
+      } else if (r.vdropStatus === 'RED') {
+        if (r.voltage <= 48 && r.voltage >= 12) {
+          tipText = '⚠️ <strong>V-drop exceeds NEC 5 % combined limit.</strong> For low-voltage DC, stepping up the battery voltage (12 V → 24 V → 48 V) quarters the current and halves / quarters V-drop. Otherwise upsize 1–2 AWG sizes or shorten the run.';
+        } else {
+          tipText = '⚠️ <strong>V-drop exceeds NEC 5 % combined limit.</strong> Upsize 1–2 AWG sizes, shorten the run, or raise the system voltage (e.g. 240 V → 480 V halves V-drop). Pair with the <a href="/tools/wire-size-calculator/">wire size calculator</a> to confirm ampacity.';
+        }
+        tipClass += ' vd-tip-bad';
+      } else if (r.vdropStatus === 'YELLOW') {
+        if (r.material === 'aluminum') {
+          tipText = '💡 <strong>V-drop exceeds 3 % branch but within 5 % combined.</strong> Consider upsizing one AWG (Al has ~61 % the conductivity of Cu — typically need 2 sizes larger for V-drop parity). Verify with your AHJ.';
+        } else {
+          tipText = '💡 <strong>V-drop exceeds 3 % branch but within 5 % combined (NEC 215.2(A) IN No. 3).</strong> For motor loads or sensitive electronics, consider upsizing one AWG. Pair with the <a href="/tools/circuit-breaker-sizing-calculator/">circuit breaker sizing calculator</a> for OCPD selection.';
+        }
+        tipClass += ' vd-tip-warn';
+      } else {
+        // GREEN
+        if (r.voltage <= 48 && r.voltage >= 12) {
+          tipText = '✓ <strong>Fully NEC-compliant.</strong> V-drop within 3 % branch (NEC 210.19(A) IN No. 4). ' + materialWord + ' conductor at ' + tempLabel + ' °C. For long-run DC, consider parallel conductors if length must exceed 200 ft.';
+        } else {
+          tipText = '✓ <strong>Fully NEC-compliant.</strong> V-drop within the 3 % branch recommendation (NEC 210.19(A) IN No. 4) and 5 % combined (NEC 215.2(A) IN No. 3). Pair the conductor with the breaker via the <a href="/tools/circuit-breaker-sizing-calculator/">circuit breaker sizing calculator</a>.';
+        }
+        tipClass += ' vd-tip-good';
+      }
+      tipEl.className = tipClass;
+      tipEl.innerHTML = tipText;
+      tipEl.style.display = 'block';
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    // UI bindings
+    // ─────────────────────────────────────────────────────────────────
+
+    function readInputs() {
+      return {
+        amps: parseFloat(document.getElementById('vd-amps').value) || null,
+        loadKw: parseFloat(document.getElementById('vd-kw').value) || null,
+        cosphi: parseFloat(document.getElementById('vd-cosphi').value) || 0.95,
+        voltage: parseFloat(document.getElementById('vd-volts').value),
+        phase: parseInt(document.querySelector('#vd-tool [data-phase].active').dataset.phase),
+        length: parseFloat(document.getElementById('vd-length').value),
+        material: document.querySelector('#vd-tool [data-mat].active').dataset.mat,
+        awg: document.getElementById('vd-awg').value,
+        tempColumn: document.querySelector('#vd-tool [data-temp].active').dataset.temp,
+        necMode: document.getElementById('vd-nec647').checked ? 'nec647' : 'standard',
+        awgAuto: document.getElementById('vd-awg-auto').checked
+      };
+    }
+
+    function clearPresetHighlight() {
+      var presets = document.querySelectorAll('#vd-tool .vd-preset');
+      for (var i = 0; i < presets.length; i++) {
+        presets[i].classList.remove('active');
+      }
+    }
+
+    function applyPreset(presetId) {
+      var p = PRESETS[presetId];
+      if (!p) return;
+
+      // Amps / kW — clear kW (amp mode)
+      document.getElementById('vd-amps').value = p.amps;
+      document.getElementById('vd-kw').value = '';
+      document.getElementById('vd-cosphi-row').style.display = 'none';
+
+      document.getElementById('vd-volts').value = p.volts;
+
+      // Phase toggle
+      var phaseBtns = document.querySelectorAll('#vd-tool [data-phase]');
+      for (var i = 0; i < phaseBtns.length; i++) {
+        phaseBtns[i].classList.toggle('active', parseInt(phaseBtns[i].dataset.phase) === p.phase);
+      }
+
+      document.getElementById('vd-length').value = p.length;
+
+      // Material toggle
+      var matBtns = document.querySelectorAll('#vd-tool [data-mat]');
+      for (var i = 0; i < matBtns.length; i++) {
+        matBtns[i].classList.toggle('active', matBtns[i].dataset.mat === p.material);
+      }
+
+      // Temp toggle
+      var tempBtns = document.querySelectorAll('#vd-tool [data-temp]');
+      for (var i = 0; i < tempBtns.length; i++) {
+        tempBtns[i].classList.toggle('active', tempBtns[i].dataset.temp === p.temp);
+      }
+
+      document.getElementById('vd-awg').value = p.awg;
+      document.getElementById('vd-nec647').checked = (p.necMode === 'nec647');
+      document.getElementById('vd-awg-auto').checked = !!p.awgAuto;
+      document.getElementById('vd-awg').disabled = !!p.awgAuto;
+
+      // Highlight active preset
+      var presetEls = document.querySelectorAll('#vd-tool .vd-preset');
+      for (var i = 0; i < presetEls.length; i++) {
+        presetEls[i].classList.toggle('active', presetEls[i].dataset.preset === presetId);
+      }
+
+      calc();
+    }
+
+    function calc() {
+      var inputs = readInputs();
+
+      // Basic validation
+      if (!inputs.voltage || inputs.voltage <= 0) return;
+      if (!inputs.length || inputs.length <= 0) return;
+      if ((!inputs.amps || inputs.amps <= 0) && (!inputs.loadKw || inputs.loadKw <= 0)) {
+        clearResult();
+        return;
+      }
+      if (inputs.amps && inputs.amps <= 0) return;
+      if (inputs.loadKw && inputs.loadKw <= 0) return;
+
+      var result = calculate(inputs);
+      renderResult(result);
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    // Wire up event listeners
+    // ─────────────────────────────────────────────────────────────────
+
+    // Numeric / select input fields
+    ['vd-amps', 'vd-kw', 'vd-cosphi', 'vd-volts', 'vd-length', 'vd-awg'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var handler = function() {
+        clearPresetHighlight();
+        // Show/hide cosphi row based on kW input
+        var kwVal = parseFloat(document.getElementById('vd-kw').value);
+        document.getElementById('vd-cosphi-row').style.display = (kwVal && kwVal > 0) ? '' : 'none';
+        calc();
+      };
+      el.addEventListener('input', handler);
+      el.addEventListener('change', handler);
+    });
+
+    // Phase toggle buttons
+    var phaseBtns = document.querySelectorAll('#vd-tool [data-phase]');
+    for (var i = 0; i < phaseBtns.length; i++) {
+      phaseBtns[i].addEventListener('click', (function(btn) {
+        return function() {
+          var all = document.querySelectorAll('#vd-tool [data-phase]');
+          for (var j = 0; j < all.length; j++) all[j].classList.remove('active');
+          btn.classList.add('active');
+          clearPresetHighlight();
+          calc();
+        };
+      })(phaseBtns[i]));
+    }
+
+    // Material toggle buttons
+    var matBtns = document.querySelectorAll('#vd-tool [data-mat]');
+    for (var i = 0; i < matBtns.length; i++) {
+      matBtns[i].addEventListener('click', (function(btn) {
+        return function() {
+          var all = document.querySelectorAll('#vd-tool [data-mat]');
+          for (var j = 0; j < all.length; j++) all[j].classList.remove('active');
+          btn.classList.add('active');
+          clearPresetHighlight();
+          calc();
+        };
+      })(matBtns[i]));
+    }
+
+    // Temperature toggle buttons
+    var tempBtns = document.querySelectorAll('#vd-tool [data-temp]');
+    for (var i = 0; i < tempBtns.length; i++) {
+      tempBtns[i].addEventListener('click', (function(btn) {
+        return function() {
+          var all = document.querySelectorAll('#vd-tool [data-temp]');
+          for (var j = 0; j < all.length; j++) all[j].classList.remove('active');
+          btn.classList.add('active');
+          clearPresetHighlight();
+          calc();
+        };
+      })(tempBtns[i]));
+    }
+
+    // Preset chips
+    var presetEls = document.querySelectorAll('#vd-tool .vd-preset');
+    for (var i = 0; i < presetEls.length; i++) {
+      presetEls[i].addEventListener('click', (function(el) {
+        return function() { applyPreset(el.dataset.preset); };
+      })(presetEls[i]));
+    }
+
+    // NEC 647 checkbox
+    document.getElementById('vd-nec647').addEventListener('change', function() {
+      clearPresetHighlight();
+      calc();
+    });
+
+    // AWG-auto checkbox — toggle AWG dropdown disabled state
+    document.getElementById('vd-awg-auto').addEventListener('change', function() {
+      var autoOn = this.checked;
+      document.getElementById('vd-awg').disabled = autoOn;
+      clearPresetHighlight();
+      calc();
+    });
+
+    // Initial calculation
+    calc();
+  })();
+  </script>
+</div>
