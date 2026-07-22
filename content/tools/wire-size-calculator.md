@@ -22,6 +22,16 @@ translationKey: "wire_size_calculator"
 
 {{< wire-size-calculator >}}
 
+> **TL;DR — What this calculator returns.** Enter load amps (or use a
+> preset), system voltage, one-way run length, wire material
+> (copper / aluminum), ambient temperature, and number of
+> current-carrying conductors. The tool returns the smallest
+> **NEC Table 310.16 (75 °C column)** compliant AWG or kcmil, the
+> corrected ampacity after **NEC 310.15(B)(1)** temperature and
+> **NEC 310.15(C)(1)** conduit-fill adjustment, the recommended
+> breaker (**NEC 240.6(A)** standard OCPD), and the voltage-drop %
+> against the **NEC 3 % branch / 5 % combined** limits.
+
 ## What size wire do I need?
 
 **Wire Size Calculator — sized right, NEC right.** Pick the correct
@@ -241,6 +251,29 @@ more than **800 A**. In practice this means: if your load calculation
 lands on a non-standard ampacity, the conductor must be sized to the
 next standard OCPD — the calculator flags this automatically.
 
+### When does voltage drop drive the sizing instead of ampacity?
+Voltage drop is usually the **second** constraint — but for long
+runs it becomes the **first**. Rule of thumb: if the one-way length
+in feet is **greater than the system voltage in volts × 1.5**
+(150 ft @ 120 V, 300 ft @ 240 V, 720 ft @ 480 V), the smallest
+ampacity-compliant conductor will likely exceed the 3 % branch
+limit. **How to upsize:** bump one or two AWG sizes until the
+calculator's V-drop card turns 🟢 green. For very long runs (e.g.
+detached outbuildings, solar arrays, well pumps), combine this
+calculator with the
+[voltage drop calculator](/tools/voltage-drop-calculator/) for a
+full length-vs-gauge sensitivity sweep.
+
+### Do I need to derate for solar PV DC string wiring?
+Yes — but the **125 % continuous-load rule (NEC 690.8)** is the bigger
+factor. Solar PV inverter output circuits are treated as continuous,
+so the conductor ampacity must be ≥ **1.25 × the inverter's max
+output current**. PV wire (typically USE-2 / PV wire, 90 °C wet-rated)
+still uses **NEC Table 310.16** for ampacity. For 12V / 24V / 48V
+off-grid battery banks, the calculator's "12 V / 24 V / 48 V" preset
+chains the same logic with low-voltage high-current arithmetic —
+expect 4/0 AWG or larger on a 48 V bank pushing 100 A.
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -325,6 +358,22 @@ next standard OCPD — the calculator flags this automatically.
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "NEC 240.4(B) says the next-larger standard overcurrent device (OCPD) is permitted only if the ampacity of the conductor does not correspond to a standard OCPD size AND the next-larger OCPD is no more than 800 A. In practice this means: if your load calculation lands on a non-standard ampacity, the conductor must be sized to the next standard OCPD — the calculator flags this automatically."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When does voltage drop drive the sizing instead of ampacity?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Voltage drop is usually the second constraint, but for long runs it becomes the first. Rule of thumb: if the one-way length in feet is greater than the system voltage in volts times 1.5 (150 ft at 120 V, 300 ft at 240 V, 720 ft at 480 V), the smallest ampacity-compliant conductor will likely exceed the 3 percent branch limit. Bump one or two AWG sizes until the calculator V-drop card turns green. For very long runs, combine with a full voltage-drop sensitivity sweep."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to derate for solar PV DC string wiring?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, but the 125 percent continuous-load rule per NEC 690.8 is the bigger factor. Solar PV inverter output circuits are treated as continuous, so the conductor ampacity must be at least 1.25 times the inverter's maximum output current. PV wire (USE-2 / PV wire, 90 C wet-rated) still uses NEC Table 310.16 for ampacity. For 12 V / 24 V / 48 V off-grid battery banks, the calculator applies the same logic with low-voltage high-current arithmetic — expect 4/0 AWG or larger on a 48 V bank pushing 100 A."
       }
     }
   ]
