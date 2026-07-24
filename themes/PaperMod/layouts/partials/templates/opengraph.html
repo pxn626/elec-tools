@@ -49,4 +49,8 @@
 {{ end }}{{ end }}
 
 {{- /* Facebook Page Admin ID for Domain Insights */}}
+<<<<<<< HEAD
 {{- with site.Params.Social }}{{- with .facebook_admin }}<meta property="fb:admins" content="{{ . }}" />{{ end }}{{- end }}
+=======
+{{- with site.Social.facebook_admin }}<meta property="fb:admins" content="{{ . }}" />{{ end }}
+>>>>>>> elec/feat/cable-current-carrying-capacity-lookup
