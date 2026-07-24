@@ -1,0 +1,867 @@
+<div class="tool-container" id="cbs-tool">
+  <style>
+    #cbs-tool { max-width: 820px; margin: 24px auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    #cbs-tool .cbs-card { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; }
+    #cbs-tool .cbs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    #cbs-tool .cbs-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    #cbs-tool .cbs-input-group { margin-bottom: 14px; }
+    #cbs-tool label { display: block; font-weight: 600; margin-bottom: 6px; color: #1f2937; font-size: 14px; }
+    #cbs-tool label .cbs-unit { font-weight: 400; color: #6b7280; font-size: 12px; margin-left: 4px; }
+    #cbs-tool label .cbs-help { font-weight: 400; color: #6b7280; font-size: 11px; display: block; margin-top: 2px; }
+    #cbs-tool input, #cbs-tool select { width: 100%; padding: 9px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; box-sizing: border-box; background: white; color: #111827; }
+    #cbs-tool input:focus, #cbs-tool select:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    #cbs-tool .cbs-preset-group { margin-bottom: 14px; }
+    #cbs-tool .cbs-preset-group-label { font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    #cbs-tool .cbs-presets { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+    #cbs-tool .cbs-preset { padding: 6px 12px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; cursor: pointer; font-size: 13px; transition: all 0.15s; user-select: none; }
+    #cbs-tool .cbs-preset:hover { background: #dbeafe; border-color: #93c5fd; }
+    #cbs-tool .cbs-preset.active { background: #2563eb; color: white; border-color: #2563eb; }
+    #cbs-tool .cbs-toggle { display: inline-flex; gap: 0; border: 1px solid #d1d5db; border-radius: 8px; overflow: hidden; }
+    #cbs-tool .cbs-toggle-btn { padding: 8px 14px; background: #fff; cursor: pointer; font-size: 13px; font-weight: 600; color: #374151; border: none; transition: all 0.15s; }
+    #cbs-tool .cbs-toggle-btn.active { background: #2563eb; color: white; }
+    #cbs-tool .cbs-toggle-btn:not(.active):hover { background: #f3f4f6; }
+    #cbs-tool .cbs-checkbox { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #374151; cursor: pointer; padding: 4px 0; }
+    #cbs-tool .cbs-checkbox input { width: 16px; height: 16px; margin: 0; }
+    #cbs-tool .cbs-checkbox .cbs-help { color: #6b7280; font-size: 12px; margin-left: 24px; }
+    #cbs-tool .cbs-mode-tabs { display: flex; gap: 0; border-bottom: 2px solid #e5e7eb; margin-bottom: 16px; }
+    #cbs-tool .cbs-mode-tab { padding: 10px 16px; cursor: pointer; font-weight: 600; color: #6b7280; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; font-size: 14px; user-select: none; }
+    #cbs-tool .cbs-mode-tab.active { color: #2563eb; border-bottom-color: #2563eb; }
+    #cbs-tool .cbs-mode-tab:hover:not(.active) { color: #374151; }
+    #cbs-tool .cbs-panel { display: none; }
+    #cbs-tool .cbs-panel.active { display: block; }
+    #cbs-tool .cbs-result { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 18px; }
+    #cbs-tool .cbs-badge { display: inline-block; padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; margin-bottom: 14px; }
+    #cbs-tool .cbs-badge-green { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+    #cbs-tool .cbs-badge-yellow { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+    #cbs-tool .cbs-badge-red { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+    #cbs-tool .cbs-result-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    #cbs-tool .cbs-result-cell { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; text-align: center; }
+    #cbs-tool .cbs-result-cell-label { font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; font-weight: 600; }
+    #cbs-tool .cbs-result-cell-value { font-size: 22px; font-weight: 700; color: #1e3a8a; font-variant-numeric: tabular-nums; line-height: 1.2; }
+    #cbs-tool .cbs-result-cell-unit { font-size: 12px; color: #6b7280; margin-top: 2px; }
+    #cbs-tool .cbs-cell-ocpd .cbs-result-cell-value { color: #7c2d12; }
+    #cbs-tool .cbs-cell-run .cbs-result-cell-value { color: #1e3a8a; }
+    #cbs-tool .cbs-cell-design .cbs-result-cell-value { color: #14532d; }
+    #cbs-tool .cbs-notes { background: #f3f4f6; border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #374151; }
+    #cbs-tool .cbs-notes h4 { margin: 0 0 8px 0; font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+    #cbs-tool .cbs-note-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed #d1d5db; }
+    #cbs-tool .cbs-note-row:last-child { border-bottom: none; }
+    #cbs-tool .cbs-note-row .cbs-note-label { color: #6b7280; }
+    #cbs-tool .cbs-note-row .cbs-note-value { color: #1f2937; font-weight: 600; font-variant-numeric: tabular-nums; }
+    #cbs-tool .cbs-formula { font-family: "SF Mono", Monaco, Consolas, "Courier New", monospace; font-size: 11px; color: #475569; background: #f8fafc; padding: 8px 10px; border-radius: 6px; margin-top: 10px; border-left: 3px solid #94a3b8; word-break: break-all; }
+    #cbs-tool .cbs-tip { font-size: 12px; color: #1e293b; margin-top: 12px; padding: 10px; background: #fef3c7; border-radius: 6px; border-left: 3px solid #f59e0b; line-height: 1.5; }
+    #cbs-tool .cbs-tip.cbs-tip-good { background: #d1fae5; border-left-color: #10b981; color: #064e3b; }
+    #cbs-tool .cbs-tip.cbs-tip-warn { background: #fef3c7; border-left-color: #f59e0b; color: #78350f; }
+    #cbs-tool .cbs-tip.cbs-tip-bad { background: #fee2e2; border-left-color: #dc2626; color: #7f1d1d; }
+    #cbs-tool .cbs-disclaimer { font-size: 11px; color: #6b7280; margin-top: 16px; padding: 10px; background: #f8fafc; border-radius: 6px; border-left: 3px solid #94a3b8; line-height: 1.5; }
+    #cbs-tool .cbs-collapsible { margin-top: 18px; }
+    #cbs-tool .cbs-collapsible summary { cursor: pointer; font-weight: 600; font-size: 14px; color: #2563eb; padding: 8px 0; user-select: none; }
+    #cbs-tool .cbs-collapsible summary:hover { color: #1d4ed8; }
+    #cbs-tool .cbs-collapsible table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+    #cbs-tool .cbs-collapsible th, #cbs-tool .cbs-collapsible td { padding: 6px 10px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+    #cbs-tool .cbs-collapsible th { background: #f3f4f6; font-weight: 600; color: #374151; font-size: 12px; }
+    #cbs-tool .cbs-collapsible td.num { font-variant-numeric: tabular-nums; text-align: right; }
+    #cbs-tool .cbs-collapsible .cbs-source { font-size: 11px; color: #6b7280; margin-top: 8px; font-style: italic; }
+    @media (prefers-color-scheme: dark) {
+      #cbs-tool .cbs-card { background: #1e293b; border-color: #334155; }
+      #cbs-tool label { color: #cbd5e1; }
+      #cbs-tool label .cbs-unit, #cbs-tool label .cbs-help { color: #94a3b8; }
+      #cbs-tool input, #cbs-tool select { background: #0f172a; color: #e2e8f0; border-color: #334155; }
+      #cbs-tool input:focus, #cbs-tool select:focus { border-color: #60a5fa; box-shadow: 0 0 0 3px rgba(96,165,250,0.15); }
+      #cbs-tool .cbs-preset { background: #334155; border-color: #475569; color: #cbd5e1; }
+      #cbs-tool .cbs-preset:hover { background: #1e3a8a; border-color: #3b82f6; color: #dbeafe; }
+      #cbs-tool .cbs-preset.active { background: #2563eb; color: white; border-color: #2563eb; }
+      #cbs-tool .cbs-toggle { border-color: #475569; }
+      #cbs-tool .cbs-toggle-btn { background: #1e293b; color: #cbd5e1; }
+      #cbs-tool .cbs-toggle-btn.active { background: #2563eb; color: white; }
+      #cbs-tool .cbs-toggle-btn:not(.active):hover { background: #334155; }
+      #cbs-tool .cbs-checkbox { color: #cbd5e1; }
+      #cbs-tool .cbs-mode-tabs { border-bottom-color: #334155; }
+      #cbs-tool .cbs-mode-tab { color: #94a3b8; }
+      #cbs-tool .cbs-mode-tab.active { color: #60a5fa; border-bottom-color: #60a5fa; }
+      #cbs-tool .cbs-mode-tab:hover:not(.active) { color: #cbd5e1; }
+      #cbs-tool .cbs-result { background: #0f172a; border-color: #334155; }
+      #cbs-tool .cbs-result-cell { background: #1e293b; border-color: #334155; }
+      #cbs-tool .cbs-result-cell-label { color: #94a3b8; }
+      #cbs-tool .cbs-result-cell-value { color: #93c5fd; }
+      #cbs-tool .cbs-cell-ocpd .cbs-result-cell-value { color: #fdba74; }
+      #cbs-tool .cbs-cell-run .cbs-result-cell-value { color: #93c5fd; }
+      #cbs-tool .cbs-cell-design .cbs-result-cell-value { color: #86efac; }
+      #cbs-tool .cbs-badge-green { background: #064e3b; color: #6ee7b7; border-color: #047857; }
+      #cbs-tool .cbs-badge-yellow { background: #451a03; color: #fcd34d; border-color: #b45309; }
+      #cbs-tool .cbs-badge-red { background: #450a0a; color: #fca5a5; border-color: #b91c1c; }
+      #cbs-tool .cbs-notes { background: #1e293b; color: #cbd5e1; }
+      #cbs-tool .cbs-notes h4 { color: #94a3b8; }
+      #cbs-tool .cbs-note-row { border-bottom-color: #334155; }
+      #cbs-tool .cbs-note-row .cbs-note-label { color: #94a3b8; }
+      #cbs-tool .cbs-note-row .cbs-note-value { color: #e2e8f0; }
+      #cbs-tool .cbs-formula { background: #0f172a; color: #cbd5e1; border-left-color: #475569; }
+      #cbs-tool .cbs-tip { background: #422006; color: #fde68a; border-left-color: #f59e0b; }
+      #cbs-tool .cbs-tip.cbs-tip-good { background: #064e3b; color: #6ee7b7; border-left-color: #10b981; }
+      #cbs-tool .cbs-tip.cbs-tip-warn { background: #422006; color: #fde68a; border-left-color: #f59e0b; }
+      #cbs-tool .cbs-tip.cbs-tip-bad { background: #450a0a; color: #fca5a5; border-left-color: #dc2626; }
+      #cbs-tool .cbs-disclaimer { background: #0f172a; color: #94a3b8; border-left-color: #475569; }
+      #cbs-tool .cbs-collapsible th { background: #1e293b; color: #cbd5e1; }
+      #cbs-tool .cbs-collapsible th, #cbs-tool .cbs-collapsible td { border-bottom-color: #334155; }
+      #cbs-tool .cbs-collapsible .cbs-source { color: #94a3b8; }
+    }
+    @media (max-width: 700px) {
+      #cbs-tool { margin: 12px auto; }
+      #cbs-tool .cbs-card { padding: 16px; }
+      #cbs-tool .cbs-grid { grid-template-columns: 1fr; gap: 16px; }
+      #cbs-tool .cbs-row { grid-template-columns: 1fr; }
+      #cbs-tool .cbs-result-grid { grid-template-columns: 1fr; }
+      #cbs-tool .cbs-result-cell-value { font-size: 18px; }
+      #cbs-tool .cbs-mode-tab { padding: 8px 12px; font-size: 13px; }
+    }
+  </style>
+
+  <div class="cbs-card">
+    <!-- Presets -->
+    <div class="cbs-preset-group">
+      <div class="cbs-preset-group-label">⚡ Quick Presets — Common NEC Services</div>
+      <div class="cbs-presets">
+        <span class="cbs-preset" data-preset="ev32">EV L2 32A</span>
+        <span class="cbs-preset" data-preset="ev40">EV L2 40A</span>
+        <span class="cbs-preset" data-preset="ev48">EV L2 48A</span>
+        <span class="cbs-preset" data-preset="sub50">50A Subpanel</span>
+        <span class="cbs-preset" data-preset="sub100">100A Subpanel</span>
+        <span class="cbs-preset" data-preset="svc200">200A Service</span>
+        <span class="cbs-preset" data-preset="dryer">30A Dryer</span>
+        <span class="cbs-preset" data-preset="range">40A Range</span>
+        <span class="cbs-preset" data-preset="motor10">10 HP Motor</span>
+        <span class="cbs-preset" data-preset="motor25">25 HP Motor</span>
+      </div>
+    </div>
+
+    <!-- Mode Tabs -->
+    <div class="cbs-mode-tabs" role="tablist">
+      <div class="cbs-mode-tab active" data-mode="resistive" role="tab" aria-selected="true">⚡ Resistive / General Load</div>
+      <div class="cbs-mode-tab" data-mode="motor" role="tab" aria-selected="false">⚙ Motor Branch Circuit (NEC 430)</div>
+    </div>
+
+    <div class="cbs-grid">
+      <!-- INPUT FORM -->
+      <div>
+        <!-- Resistive Panel -->
+        <div class="cbs-panel active" data-panel="resistive">
+          <div class="cbs-row">
+            <div class="cbs-input-group">
+              <label for="cbs-amps">Load Amps <span class="cbs-unit">(A)</span></label>
+              <input type="number" id="cbs-amps" value="48" min="0.1" max="5000" step="0.1">
+            </div>
+            <div class="cbs-input-group">
+              <label for="cbs-kw">Load Power <span class="cbs-unit">(kW, optional)</span></label>
+              <input type="number" id="cbs-kw" value="" min="0.1" max="2000" step="0.1">
+              <span class="cbs-help">Leave blank if entering amps directly.</span>
+            </div>
+          </div>
+
+          <div class="cbs-input-group">
+            <label for="cbs-volts">System Voltage <span class="cbs-unit">(V)</span></label>
+            <select id="cbs-volts">
+              <option value="120">120 V</option>
+              <option value="208">208 V</option>
+              <option value="220">220 V</option>
+              <option value="240" selected>240 V</option>
+              <option value="277">277 V</option>
+              <option value="347">347 V</option>
+              <option value="380">380 V</option>
+              <option value="480">480 V</option>
+              <option value="600">600 V</option>
+            </select>
+          </div>
+
+          <div class="cbs-input-group">
+            <label>Phase</label>
+            <div class="cbs-toggle">
+              <button type="button" class="cbs-toggle-btn active" data-phase-resistive="1">1Φ Single-Phase</button>
+              <button type="button" class="cbs-toggle-btn" data-phase-resistive="3">3Φ Three-Phase</button>
+            </div>
+          </div>
+
+          <div class="cbs-row">
+            <div class="cbs-input-group">
+              <label for="cbs-cosphi">Power Factor <span class="cbs-unit">(cosφ)</span></label>
+              <input type="number" id="cbs-cosphi" value="0.95" min="0.01" max="1.0" step="0.01">
+              <span class="cbs-help">Resistive load = 1.0. Motor load = 0.85 typical.</span>
+            </div>
+            <div class="cbs-input-group">
+              <label class="cbs-checkbox" style="margin-top:24px;">
+                <input type="checkbox" id="cbs-continuous">
+                <span>Continuous load <span style="color:#6b7280;font-weight:400;">(NEC 210.20(A) — 125% rule)</span></span>
+              </label>
+            </div>
+          </div>
+          <div class="cbs-help" style="color:#6b7280;font-size:11px;margin-bottom:8px;">Required for EV chargers, solar PV inverters, and any load expected to run &gt; 3 hours.</div>
+        </div>
+
+        <!-- Motor Panel -->
+        <div class="cbs-panel" data-panel="motor">
+          <div class="cbs-row">
+            <div class="cbs-input-group">
+              <label for="cbs-motor-hp">Motor Power <span class="cbs-unit">(HP)</span></label>
+              <input type="number" id="cbs-motor-hp" value="10" min="0.25" max="500" step="0.25">
+            </div>
+            <div class="cbs-input-group">
+              <label for="cbs-motor-design">NEMA/IEC Design Letter</label>
+              <select id="cbs-motor-design">
+                <option value="B" selected>B — Standard (most common, 250% FLA)</option>
+                <option value="A">A — High torque, normal locked-rotor (250% FLA)</option>
+                <option value="C">C — High starting torque (150% FLA)</option>
+                <option value="E">E — IEC premium efficiency (150% FLA)</option>
+                <option value="D">D — Very high locked-rotor (150% FLA)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="cbs-input-group">
+            <label for="cbs-motor-volts">Motor Voltage <span class="cbs-unit">(V)</span></label>
+            <select id="cbs-motor-volts">
+              <option value="115">115 V</option>
+              <option value="208">208 V</option>
+              <option value="220">220 V</option>
+              <option value="230">230 V</option>
+              <option value="240">240 V</option>
+              <option value="380">380 V</option>
+              <option value="460" selected>460 V</option>
+              <option value="480">480 V</option>
+              <option value="575">575 V</option>
+              <option value="600">600 V</option>
+            </select>
+          </div>
+
+          <div class="cbs-input-group">
+            <label>Motor Phase</label>
+            <div class="cbs-toggle">
+              <button type="button" class="cbs-toggle-btn" data-phase-motor="1">1Φ Single-Phase</button>
+              <button type="button" class="cbs-toggle-btn active" data-phase-motor="3">3Φ Three-Phase</button>
+            </div>
+          </div>
+
+          <div class="cbs-help" style="color:#6b7280;font-size:11px;margin-top:4px;">
+            FLA is looked up from NEC Table 430.250 (3Φ) or 430.6 (1Φ). Per NEC 430.52, inverse-time breaker = 250% of FLA for Design A/B; 150% for Design C/E/D.
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULT PANEL -->
+      <div class="cbs-result" id="cbs-result">
+        <div id="cbs-badge-container"></div>
+        <div class="cbs-result-grid">
+          <div class="cbs-result-cell cbs-cell-ocpd">
+            <div class="cbs-result-cell-label">Recommended OCPD</div>
+            <div class="cbs-result-cell-value" id="cbs-ocpd">—</div>
+            <div class="cbs-result-cell-unit">amperes</div>
+          </div>
+          <div class="cbs-result-cell cbs-cell-run">
+            <div class="cbs-result-cell-label">Running Amps</div>
+            <div class="cbs-result-cell-value" id="cbs-runamps">—</div>
+            <div class="cbs-result-cell-unit" id="cbs-runamps-unit">A</div>
+          </div>
+          <div class="cbs-result-cell cbs-cell-design">
+            <div class="cbs-result-cell-label">Design Amps</div>
+            <div class="cbs-result-cell-value" id="cbs-designamps">—</div>
+            <div class="cbs-result-cell-unit" id="cbs-designamps-unit">A</div>
+          </div>
+        </div>
+
+        <div class="cbs-notes" id="cbs-notes">
+          <h4>Calculation Details</h4>
+          <div class="cbs-note-row">
+            <span class="cbs-note-label" id="cbs-step1-label">Run current</span>
+            <span class="cbs-note-value" id="cbs-step1-value">—</span>
+          </div>
+          <div class="cbs-note-row" id="cbs-step2-row">
+            <span class="cbs-note-label" id="cbs-step2-label">NEC 210.20(A) 125% rule</span>
+            <span class="cbs-note-value" id="cbs-step2-value">—</span>
+          </div>
+          <div class="cbs-note-row" id="cbs-step3-row">
+            <span class="cbs-note-label" id="cbs-step3-label">NEC 240.4(B) round-up</span>
+            <span class="cbs-note-value" id="cbs-step3-value">—</span>
+          </div>
+          <div class="cbs-note-row">
+            <span class="cbs-note-label">NEC 240.6(A) standard rating</span>
+            <span class="cbs-note-value" id="cbs-standard">—</span>
+          </div>
+        </div>
+
+        <div class="cbs-formula" id="cbs-formula">Enter load values to see the formula.</div>
+
+        <div class="cbs-tip" id="cbs-tip" style="display:none;"></div>
+
+        <details class="cbs-collapsible">
+          <summary>📊 NEC 240.6(A) Standard OCPD Sizes (click to expand)</summary>
+          <table>
+            <thead>
+              <tr><th>Standard OCPD (A)</th><th>Common Use</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="num">15</td><td>General lighting, 14 AWG</td></tr>
+              <tr><td class="num">20</td><td>General receptacles, 12 AWG</td></tr>
+              <tr><td class="num">25</td><td>Select appliances</td></tr>
+              <tr><td class="num">30</td><td>Dryer (small), water heater, 10 AWG</td></tr>
+              <tr><td class="num">35</td><td>Limited use</td></tr>
+              <tr><td class="num">40</td><td>Range (small), 8 AWG</td></tr>
+              <tr><td class="num">45</td><td>Limited use</td></tr>
+              <tr><td class="num">50</td><td>Subpanel feeders, 6 AWG, hot tub</td></tr>
+              <tr><td class="num">60</td><td>EV L2 48A continuous, 6 AWG</td></tr>
+              <tr><td class="num">70</td><td>Limited use</td></tr>
+              <tr><td class="num">80</td><td>Subpanel feeders</td></tr>
+              <tr><td class="num">90</td><td>Subpanel feeders</td></tr>
+              <tr><td class="num">100</td><td>Subpanel feeders, 3 AWG</td></tr>
+              <tr><td class="num">110</td><td>Service entrance</td></tr>
+              <tr><td class="num">125</td><td>Service entrance, 1/0 AWG</td></tr>
+              <tr><td class="num">150</td><td>Service entrance</td></tr>
+              <tr><td class="num">175</td><td>Service entrance, 2/0 AWG</td></tr>
+              <tr><td class="num">200</td><td>Residential service, 3/0 AWG</td></tr>
+              <tr><td class="num">225</td><td>Service entrance</td></tr>
+              <tr><td class="num">250</td><td>Commercial service</td></tr>
+              <tr><td class="num">300</td><td>Commercial service</td></tr>
+              <tr><td class="num">350</td><td>Commercial service</td></tr>
+              <tr><td class="num">400</td><td>Commercial service</td></tr>
+              <tr><td class="num">450</td><td>Industrial service</td></tr>
+              <tr><td class="num">500</td><td>Industrial service</td></tr>
+              <tr><td class="num">600</td><td>Industrial service</td></tr>
+              <tr><td class="num">700</td><td>Industrial service</td></tr>
+              <tr><td class="num">800</td><td>Industrial service</td></tr>
+            </tbody>
+          </table>
+          <div class="cbs-source">Source: NFPA 70 — National Electrical Code 2023, Section 240.6(A).</div>
+        </details>
+
+        <details class="cbs-collapsible">
+          <summary>📊 NEC Table 430.250 — 3-Phase Motor FLA Reference (click to expand)</summary>
+          <table>
+            <thead>
+              <tr><th>HP</th><th class="num">208 V</th><th class="num">230 V</th><th class="num">460 V</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>0.5</td><td class="num">2.4</td><td class="num">2.2</td><td class="num">1.1</td></tr>
+              <tr><td>0.75</td><td class="num">3.5</td><td class="num">3.2</td><td class="num">1.6</td></tr>
+              <tr><td>1</td><td class="num">4.6</td><td class="num">4.2</td><td class="num">2.1</td></tr>
+              <tr><td>1.5</td><td class="num">6.6</td><td class="num">6.0</td><td class="num">3.0</td></tr>
+              <tr><td>2</td><td class="num">7.5</td><td class="num">6.8</td><td class="num">3.4</td></tr>
+              <tr><td>3</td><td class="num">10.6</td><td class="num">9.6</td><td class="num">4.8</td></tr>
+              <tr><td>5</td><td class="num">16.7</td><td class="num">15.2</td><td class="num">7.6</td></tr>
+              <tr><td>7.5</td><td class="num">24.2</td><td class="num">22.0</td><td class="num">11.0</td></tr>
+              <tr><td>10</td><td class="num">30.8</td><td class="num">28.0</td><td class="num">14.0</td></tr>
+              <tr><td>15</td><td class="num">46.2</td><td class="num">42.0</td><td class="num">21.0</td></tr>
+              <tr><td>20</td><td class="num">59.4</td><td class="num">54.0</td><td class="num">27.0</td></tr>
+              <tr><td>25</td><td class="num">74.8</td><td class="num">68.0</td><td class="num">34.0</td></tr>
+              <tr><td>30</td><td class="num">88.0</td><td class="num">80.0</td><td class="num">40.0</td></tr>
+              <tr><td>40</td><td class="num">114.0</td><td class="num">104.0</td><td class="num">52.0</td></tr>
+              <tr><td>50</td><td class="num">143.0</td><td class="num">130.0</td><td class="num">65.0</td></tr>
+              <tr><td>60</td><td class="num">169.0</td><td class="num">154.0</td><td class="num">77.0</td></tr>
+              <tr><td>75</td><td class="num">211.0</td><td class="num">192.0</td><td class="num">96.0</td></tr>
+              <tr><td>100</td><td class="num">273.0</td><td class="num">248.0</td><td class="num">124.0</td></tr>
+            </tbody>
+          </table>
+          <div class="cbs-source">Source: NFPA 70 — National Electrical Code 2023, Table 430.250 (3-phase induction motors, full-load amperes).</div>
+        </details>
+
+        <div class="cbs-disclaimer">
+          ⚠️ <strong>Reference only.</strong> OCPD sizing is NEC-aware but final conductor and breaker sizing must be verified by a licensed electrician and approved by your local Authority Having Jurisdiction (AHJ). Always follow the latest edition of NFPA 70 — National Electrical Code.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    'use strict';
+
+    // ─────────────────────────────────────────────────────────────────
+    // NEC Reference Data (public-domain regulatory references, NFPA 70)
+    // ─────────────────────────────────────────────────────────────────
+
+    // NEC Section 240.6(A) — Standard OCPD ratings (27 sizes, A)
+    var STD_OCPD = [15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 110, 125, 150, 175, 200, 225, 250, 300, 350, 400, 450, 500, 600, 700, 800];
+
+    // NEC Table 430.250 — 3Φ motor FLA (208/230/460 V — full table)
+    // Values are full-load amperes for 3-phase squirrel-cage induction motors.
+    var MOTOR_FLA_3PH = {
+      208: { 0.5:2.4, 0.75:3.5, 1:4.6, 1.5:6.6, 2:7.5, 3:10.6, 5:16.7, 7.5:24.2, 10:30.8, 15:46.2, 20:59.4, 25:74.8, 30:88, 40:114, 50:143, 60:169, 75:211, 100:273, 125:343, 150:396, 200:528 },
+      230: { 0.5:2.2, 0.75:3.2, 1:4.2, 1.5:6.0, 2:6.8, 3:9.6, 5:15.2, 7.5:22, 10:28, 15:42, 20:54, 25:68, 30:80, 40:104, 50:130, 60:154, 75:192, 100:248, 125:312, 150:360, 200:480 },
+      460: { 0.5:1.1, 0.75:1.6, 1:2.1, 1.5:3.0, 2:3.4, 3:4.8, 5:7.6, 7.5:11, 10:14, 15:21, 20:27, 25:34, 30:40, 40:52, 50:65, 60:77, 75:96, 100:124, 125:156, 150:180, 200:240 }
+    };
+
+    // NEC Table 430.6 — 1Φ motor FLA (115/230 V)
+    var MOTOR_FLA_1PH = {
+      115: { 0.5:7.2, 0.75:9.8, 1:12, 1.5:16, 2:19.8, 3:26, 5:43, 7.5:56 },
+      230: { 0.5:3.6, 0.75:4.9, 1:6, 1.5:8, 2:9.9, 3:13.2, 5:19.6, 7.5:28 }
+    };
+
+    // NEC 430.52 — motor branch-circuit OCPD multiplier (inverse-time breaker)
+    // Design A/B = 250% (standard), Design C/E/D = 150% (high-efficiency / high-starting-torque)
+    var MOTOR_MULTIPLIER = { A: 2.50, B: 2.50, C: 1.50, E: 1.50, D: 1.50 };
+
+    // ─────────────────────────────────────────────────────────────────
+    // Preset definitions
+    // ─────────────────────────────────────────────────────────────────
+    var PRESETS = {
+      // ─── Resistive presets ───
+      ev32:    { mode: 'resistive', amps: 32,  kw: '', volts: 240, phaseResistive: 1, cosphi: 0.95, continuous: true,  label: 'EV L2 32A' },
+      ev40:    { mode: 'resistive', amps: 40,  kw: '', volts: 240, phaseResistive: 1, cosphi: 0.95, continuous: true,  label: 'EV L2 40A' },
+      ev48:    { mode: 'resistive', amps: 48,  kw: '', volts: 240, phaseResistive: 1, cosphi: 0.95, continuous: true,  label: 'EV L2 48A' },
+      sub50:   { mode: 'resistive', amps: 50,  kw: '', volts: 240, phaseResistive: 1, cosphi: 0.95, continuous: false, label: '50A Subpanel' },
+      sub100:  { mode: 'resistive', amps: 100, kw: '', volts: 240, phaseResistive: 1, cosphi: 0.95, continuous: false, label: '100A Subpanel' },
+      svc200:  { mode: 'resistive', amps: 200, kw: '', volts: 240, phaseResistive: 1, cosphi: 0.95, continuous: false, label: '200A Service' },
+      dryer:   { mode: 'resistive', amps: 24,  kw: '', volts: 240, phaseResistive: 1, cosphi: 0.95, continuous: false, label: '30A Dryer' },
+      range:   { mode: 'resistive', amps: 33,  kw: '', volts: 240, phaseResistive: 1, cosphi: 0.95, continuous: false, label: '40A Range' },
+      // ─── Motor presets ───
+      motor10: { mode: 'motor', hp: 10, volts: 460, phaseMotor: 3, design: 'B', label: '10 HP Motor' },
+      motor25: { mode: 'motor', hp: 25, volts: 460, phaseMotor: 3, design: 'B', label: '25 HP Motor' }
+    };
+
+    // ─────────────────────────────────────────────────────────────────
+    // Calculation logic
+    // ─────────────────────────────────────────────────────────────────
+
+    // NEC 240.6(A) — find smallest standard OCPD ≥ target
+    function findStandardOCPD(target) {
+      for (var i = 0; i < STD_OCPD.length; i++) {
+        if (STD_OCPD[i] >= target) return STD_OCPD[i];
+      }
+      return STD_OCPD[STD_OCPD.length - 1]; // cap at 800 A
+    }
+
+    // NEC 210.20(A) / 215.3 / 625 — continuous-load 125% rule
+    function applyContinuous(amps, isCont) {
+      return isCont ? amps * 1.25 : amps;
+    }
+
+    // NEC Table 430.250 (3Φ) / 430.6 (1Φ) — FLA lookup with linear interpolation
+    function lookupMotorFLA(hp, volts, phase) {
+      var table = (phase === 3) ? MOTOR_FLA_3PH[volts] : MOTOR_FLA_1PH[volts];
+      if (!table) return null;
+
+      // Exact match
+      if (table[hp] !== undefined) return table[hp];
+
+      // Linear interpolation between adjacent keys
+      var keys = Object.keys(table).map(Number).sort(function(a, b) { return a - b; });
+      var lower = null, upper = null;
+      for (var i = 0; i < keys.length; i++) {
+        if (keys[i] < hp) lower = keys[i];
+        if (keys[i] > hp && upper === null) { upper = keys[i]; break; }
+      }
+      if (lower === null) return table[keys[0]];
+      if (upper === null) return table[keys[keys.length - 1]];
+
+      var flaLower = table[lower];
+      var flaUpper = table[upper];
+      var frac = (hp - lower) / (upper - lower);
+      return flaLower + (flaUpper - flaLower) * frac;
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    // Main calculation
+    // ─────────────────────────────────────────────────────────────────
+
+    function calculate(inputs) {
+      var mode = inputs.mode;
+
+      if (mode === 'motor') {
+        // ─── MOTOR PATH (NEC 430) ───
+        var fla = lookupMotorFLA(inputs.motorHp, inputs.voltage, inputs.phase);
+        if (fla === null) {
+          return { error: 'Motor FLA not available for ' + inputs.voltage + 'V ' + (inputs.phase === 3 ? '3Φ' : '1Φ') + ' — refer to NEC Table 430.250 / Table 430.6 directly.' };
+        }
+        var multiplier = MOTOR_MULTIPLIER[inputs.motorDesign] || 2.50;
+        var targetOCPD = fla * multiplier;
+        var ocpd = findStandardOCPD(targetOCPD);
+
+        return {
+          mode: 'motor',
+          runAmps: fla,
+          designAmps: fla,
+          ocpd: ocpd,
+          multiplier: multiplier,
+          targetOCPD: targetOCPD,
+          motorHp: inputs.motorHp,
+          motorDesign: inputs.motorDesign,
+          voltage: inputs.voltage,
+          phase: inputs.phase,
+          exceeds800: ocpd >= 800 && targetOCPD > 800,
+          roundUpApplied: ocpd > targetOCPD
+        };
+      } else {
+        // ─── RESISTIVE PATH (NEC 240 / 210.20(A)) ───
+        var amps = null;
+        var kwGiven = inputs.loadKw && inputs.loadKw > 0;
+        var ampsGiven = inputs.loadAmps && inputs.loadAmps > 0;
+
+        if (ampsGiven) {
+          amps = inputs.loadAmps;
+        } else if (kwGiven) {
+          // kW → A conversion
+          var pf = inputs.powerFactor;
+          if (pf <= 0 || pf > 1.0) pf = 1.0;
+          if (inputs.phase === 3) {
+            amps = (inputs.loadKw * 1000) / (Math.sqrt(3) * inputs.voltage * pf);
+          } else {
+            amps = (inputs.loadKw * 1000) / (inputs.voltage * pf);
+          }
+        } else {
+          return { error: 'Enter load amps or load kW.' };
+        }
+
+        if (inputs.voltage <= 0) {
+          return { error: 'Invalid voltage.' };
+        }
+
+        // Apply NEC 210.20(A) 125% rule for continuous loads
+        var designAmps = applyContinuous(amps, inputs.continuous);
+
+        // Apply NEC 240.4(B) round-up to standard OCPD
+        var ocpd = findStandardOCPD(designAmps);
+        var exceeds800 = designAmps > 800;
+        var roundUpApplied = ocpd > designAmps + 0.001; // tiny epsilon
+
+        return {
+          mode: 'resistive',
+          runAmps: amps,
+          designAmps: designAmps,
+          ocpd: ocpd,
+          continuous: inputs.continuous,
+          voltage: inputs.voltage,
+          phase: inputs.phase,
+          powerFactor: inputs.powerFactor,
+          loadKw: kwGiven ? inputs.loadKw : null,
+          exceeds800: exceeds800,
+          roundUpApplied: roundUpApplied
+        };
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    // Rendering
+    // ─────────────────────────────────────────────────────────────────
+
+    function fmt(n, d) {
+      d = (d === undefined) ? 2 : d;
+      if (!isFinite(n) || isNaN(n)) return '--';
+      return n.toFixed(d);
+    }
+
+    function setText(id, txt) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = txt;
+    }
+
+    function setBadge(state, label) {
+      var container = document.getElementById('cbs-badge-container');
+      if (!container) return;
+      var cls = 'cbs-badge cbs-badge-' + state.toLowerCase();
+      container.innerHTML = '<span class="' + cls + '">' + label + '</span>';
+    }
+
+    function renderResult(r) {
+      if (r.error) {
+        setBadge('red', '⚠ ' + r.error);
+        setText('cbs-ocpd', '—');
+        setText('cbs-runamps', '—');
+        setText('cbs-runamps-unit', 'A');
+        setText('cbs-designamps', '—');
+        setText('cbs-designamps-unit', 'A');
+        setText('cbs-step1-value', '—');
+        setText('cbs-step2-value', '—');
+        setText('cbs-step3-value', '—');
+        setText('cbs-standard', '—');
+        setText('cbs-formula', 'Error: ' + r.error);
+        document.getElementById('cbs-tip').style.display = 'none';
+        return;
+      }
+
+      // ─── Compliance badge ───
+      var badgeState, badgeText;
+      if (r.exceeds800) {
+        badgeState = 'red';
+        badgeText = '🔴 Exceeds 800 A — Use Parallel Conductors or MV';
+      } else if (r.mode === 'motor') {
+        if (r.motorDesign === 'B' || r.motorDesign === 'A') {
+          badgeState = 'yellow';
+          badgeText = '🟡 NEC 430.52 × ' + (r.multiplier * 100).toFixed(0) + '% Applied (Design ' + r.motorDesign + ')';
+        } else {
+          badgeState = 'yellow';
+          badgeText = '🟡 NEC 430.52 × ' + (r.multiplier * 100).toFixed(0) + '% Applied (Design ' + r.motorDesign + ')';
+        }
+      } else if (r.roundUpApplied) {
+        badgeState = 'green';
+        badgeText = '🟢 NEC 240.4(B) Round-Up Applied — next-larger OCPD';
+      } else {
+        badgeState = 'green';
+        badgeText = '🟢 NEC-Compliant — direct OCPD match';
+      }
+      setBadge(badgeState, badgeText);
+
+      // ─── Result cells ───
+      setText('cbs-ocpd', r.ocpd);
+      setText('cbs-runamps', fmt(r.runAmps, 1));
+      setText('cbs-runamps-unit', 'A');
+
+      if (r.mode === 'motor') {
+        setText('cbs-designamps', fmt(r.designAmps, 1));
+        setText('cbs-designamps-unit', 'A (NEC 430.52 path)');
+      } else {
+        setText('cbs-designamps', fmt(r.designAmps, 1));
+        setText('cbs-designamps-unit', r.continuous ? 'A (×1.25 cont.)' : 'A');
+      }
+
+      // ─── Notes ───
+      if (r.mode === 'motor') {
+        setText('cbs-step1-label', 'FLA (Table 430.250)');
+        setText('cbs-step1-value', fmt(r.runAmps, 1) + ' A at ' + r.motorHp + ' HP, ' + r.voltage + ' V ' + (r.phase === 3 ? '3Φ' : '1Φ'));
+        document.getElementById('cbs-step2-row').style.display = 'flex';
+        setText('cbs-step2-label', 'NEC 430.52 multiplier');
+        setText('cbs-step2-value', fmt(r.targetOCPD, 1) + ' A (×' + (r.multiplier * 100).toFixed(0) + '%)');
+        document.getElementById('cbs-step3-row').style.display = 'flex';
+        setText('cbs-step3-label', 'NEC 240.4(B) round-up');
+        setText('cbs-step3-value', r.roundUpApplied ? 'Yes → ' + r.ocpd + ' A (next std OCPD)' : 'No (already at std OCPD)');
+      } else {
+        if (r.loadKw !== null) {
+          setText('cbs-step1-label', 'Run current (kW→A)');
+          setText('cbs-step1-value', fmt(r.runAmps, 1) + ' A (' + fmt(r.loadKw, 1) + ' kW @ ' + r.voltage + ' V ' + (r.phase === 3 ? '3Φ' : '1Φ') + ' cosφ=' + r.powerFactor.toFixed(2) + ')');
+        } else {
+          setText('cbs-step1-label', 'Run current (input)');
+          setText('cbs-step1-value', fmt(r.runAmps, 1) + ' A at ' + r.voltage + ' V ' + (r.phase === 3 ? '3Φ' : '1Φ'));
+        }
+        document.getElementById('cbs-step2-row').style.display = 'flex';
+        setText('cbs-step2-label', 'NEC 210.20(A) 125% rule');
+        setText('cbs-step2-value', r.continuous ? fmt(r.designAmps, 1) + ' A (×1.25, continuous)' : 'Not applied (non-continuous)');
+        document.getElementById('cbs-step3-row').style.display = 'flex';
+        setText('cbs-step3-label', 'NEC 240.4(B) round-up');
+        setText('cbs-step3-value', r.roundUpApplied ? 'Yes → ' + r.ocpd + ' A (next std OCPD)' : 'No (design amps ≤ std OCPD)');
+      }
+
+      // ─── Standard rating row ───
+      setText('cbs-standard', r.ocpd + ' A');
+
+      // ─── Formula display ───
+      var formula;
+      if (r.mode === 'motor') {
+        formula = 'FLA = lookup NEC Table 430.250 (3Φ) / Table 430.6 (1Φ) → ' + fmt(r.runAmps, 1) + ' A\n' +
+                  'OCPD target = FLA × ' + (r.multiplier * 100).toFixed(0) + '% = ' + fmt(r.runAmps, 1) + ' × ' + r.multiplier.toFixed(2) + ' = ' + fmt(r.targetOCPD, 1) + ' A\n' +
+                  'NEC 240.4(B) → next standard OCPD from 240.6(A) = ' + r.ocpd + ' A';
+      } else if (r.loadKw !== null) {
+        if (r.phase === 3) {
+          formula = 'I = P / (√3 × V × cosφ) × 1000' +
+                    ' = (' + r.loadKw + ' × 1000) / (1.732 × ' + r.voltage + ' × ' + r.powerFactor.toFixed(2) + ')' +
+                    ' = ' + fmt(r.runAmps, 2) + ' A';
+        } else {
+          formula = 'I = P / (V × cosφ) × 1000' +
+                    ' = (' + r.loadKw + ' × 1000) / (' + r.voltage + ' × ' + r.powerFactor.toFixed(2) + ')' +
+                    ' = ' + fmt(r.runAmps, 2) + ' A';
+        }
+        if (r.continuous) {
+          formula += '\nNEC 210.20(A): design = ' + fmt(r.runAmps, 2) + ' × 1.25 = ' + fmt(r.designAmps, 2) + ' A';
+        }
+        formula += '\nNEC 240.4(B) → next standard OCPD from 240.6(A) = ' + r.ocpd + ' A';
+      } else {
+        formula = 'Run amps = ' + fmt(r.runAmps, 1) + ' A (direct input)';
+        if (r.continuous) {
+          formula += '\nNEC 210.20(A): design = ' + fmt(r.runAmps, 1) + ' × 1.25 = ' + fmt(r.designAmps, 2) + ' A';
+        }
+        formula += '\nNEC 240.4(B) → next standard OCPD from 240.6(A) = ' + r.ocpd + ' A';
+      }
+      setText('cbs-formula', formula);
+
+      // ─── Engineering tip ───
+      var tipEl = document.getElementById('cbs-tip');
+      var tipText = '';
+      var tipClass = 'cbs-tip';
+      if (r.exceeds800) {
+        tipText = '⚠️ <strong>Design amps exceed 800 A.</strong> Standard OCPD ladder caps at 800 A (NEC 240.6(A)). Use parallel conductors (NEC 310.10(H)), reduce voltage (step down to MV distribution), or use a service-entrance rated breaker series.';
+        tipClass += ' cbs-tip-bad';
+      } else if (r.mode === 'motor') {
+        tipText = '💡 <strong>NEC 430.52 motor path applied.</strong> Inverse-time breaker sized at ' + (r.multiplier * 100).toFixed(0) + '% of FLA for Design ' + r.motorDesign + '. Verify motor nameplate design letter and short-circuit current rating (SCCR) for the chosen breaker. Per NEC 430.52(C)(1) Exception 1, round-up to next std OCPD permitted when calculated value does not match a standard rating.';
+        tipClass += ' cbs-tip-warn';
+      } else if (r.continuous && r.roundUpApplied) {
+        tipText = '✓ <strong>Continuous load + NEC 240.4(B) round-up.</strong> Design amps = ' + fmt(r.runAmps, 1) + ' A × 1.25 = ' + fmt(r.designAmps, 1) + ' A. Next standard OCPD ' + r.ocpd + ' A protects the conductor per the round-up rule. For EV chargers (NEC 625) and continuous loads, the OCPD must handle 125% of the load for >3 hours of operation.';
+        tipClass += ' cbs-tip-good';
+      } else if (r.continuous) {
+        tipText = '✓ <strong>Continuous load compliant (NEC 210.20(A) 125% rule).</strong> Design amps = ' + fmt(r.runAmps, 1) + ' A × 1.25 = ' + fmt(r.designAmps, 1) + ' A; OCPD ' + r.ocpd + ' A is a direct standard match. Pair the breaker with a conductor rated ≥' + fmt(r.designAmps, 1) + ' A (NEC 110.14(C), 75 °C column for circuits ≤100 A).';
+        tipClass += ' cbs-tip-good';
+      } else if (r.roundUpApplied) {
+        tipText = '✓ <strong>NEC 240.4(B) round-up applied.</strong> Conductor ampacity does not match any standard OCPD; next-larger ' + r.ocpd + ' A is permitted per NEC 240.4(B). Conductor must be sized for the actual load (not rounded up to OCPD).';
+        tipClass += ' cbs-tip-good';
+      } else {
+        tipText = '✓ <strong>Fully NEC-compliant.</strong> OCPD ' + r.ocpd + ' A is a direct standard match (NEC 240.6(A)) for the design amps. Pair the conductor with the breaker per NEC 110.14(C) — 75 °C terminal column for circuits rated 100 A or less.';
+        tipClass += ' cbs-tip-good';
+      }
+      tipEl.className = tipClass;
+      tipEl.innerHTML = tipText;
+      tipEl.style.display = 'block';
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    // UI bindings
+    // ─────────────────────────────────────────────────────────────────
+
+    function getActiveMode() {
+      var active = document.querySelector('#cbs-tool .cbs-mode-tab.active');
+      return active ? active.dataset.mode : 'resistive';
+    }
+
+    function readInputs() {
+      var mode = getActiveMode();
+      var inputs = { mode: mode };
+
+      if (mode === 'resistive') {
+        inputs.loadAmps = parseFloat(document.getElementById('cbs-amps').value);
+        inputs.loadKw = parseFloat(document.getElementById('cbs-kw').value) || null;
+        inputs.voltage = parseFloat(document.getElementById('cbs-volts').value);
+        var phaseBtn = document.querySelector('#cbs-tool [data-phase-resistive].active');
+        inputs.phase = phaseBtn ? parseInt(phaseBtn.dataset.phaseResistive) : 1;
+        inputs.powerFactor = parseFloat(document.getElementById('cbs-cosphi').value) || 1.0;
+        inputs.continuous = document.getElementById('cbs-continuous').checked;
+      } else {
+        inputs.motorHp = parseFloat(document.getElementById('cbs-motor-hp').value);
+        inputs.motorDesign = document.getElementById('cbs-motor-design').value;
+        inputs.voltage = parseFloat(document.getElementById('cbs-motor-volts').value);
+        var phaseBtn2 = document.querySelector('#cbs-tool [data-phase-motor].active');
+        inputs.phase = phaseBtn2 ? parseInt(phaseBtn2.dataset.phaseMotor) : 3;
+      }
+      return inputs;
+    }
+
+    function clearPresetHighlight() {
+      document.querySelectorAll('#cbs-tool .cbs-preset').forEach(function(p) {
+        p.classList.remove('active');
+      });
+    }
+
+    function switchMode(mode) {
+      document.querySelectorAll('#cbs-tool .cbs-mode-tab').forEach(function(t) {
+        var active = t.dataset.mode === mode;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      document.querySelectorAll('#cbs-tool .cbs-panel').forEach(function(p) {
+        p.classList.toggle('active', p.dataset.panel === mode);
+      });
+      clearPresetHighlight();
+      calc();
+    }
+
+    function applyPreset(presetId) {
+      var p = PRESETS[presetId];
+      if (!p) return;
+      switchMode(p.mode);
+
+      if (p.mode === 'resistive') {
+        document.getElementById('cbs-amps').value = p.amps;
+        document.getElementById('cbs-kw').value = p.kw;
+        document.getElementById('cbs-volts').value = p.volts;
+        document.querySelectorAll('#cbs-tool [data-phase-resistive]').forEach(function(b) {
+          b.classList.toggle('active', parseInt(b.dataset.phaseResistive) === p.phaseResistive);
+        });
+        document.getElementById('cbs-cosphi').value = p.cosphi;
+        document.getElementById('cbs-continuous').checked = p.continuous;
+      } else {
+        document.getElementById('cbs-motor-hp').value = p.hp;
+        document.getElementById('cbs-motor-volts').value = p.volts;
+        document.querySelectorAll('#cbs-tool [data-phase-motor]').forEach(function(b) {
+          b.classList.toggle('active', parseInt(b.dataset.phaseMotor) === p.phaseMotor);
+        });
+        document.getElementById('cbs-motor-design').value = p.design;
+      }
+
+      document.querySelectorAll('#cbs-tool .cbs-preset').forEach(function(el) {
+        el.classList.toggle('active', el.dataset.preset === presetId);
+      });
+
+      calc();
+    }
+
+    function calc() {
+      var inputs = readInputs();
+
+      // Input validation
+      if (inputs.mode === 'resistive') {
+        var hasAmps = inputs.loadAmps && !isNaN(inputs.loadAmps) && inputs.loadAmps > 0;
+        var hasKw = inputs.loadKw && !isNaN(inputs.loadKw) && inputs.loadKw > 0;
+        if (!hasAmps && !hasKw) return; // silently no-op
+        if (!inputs.voltage || inputs.voltage <= 0) return;
+        if (hasAmps && inputs.loadAmps <= 0) return;
+      } else {
+        if (!inputs.motorHp || isNaN(inputs.motorHp) || inputs.motorHp <= 0) return;
+        if (!inputs.voltage || inputs.voltage <= 0) return;
+      }
+
+      var result = calculate(inputs);
+      renderResult(result);
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    // Wire up event listeners
+    // ─────────────────────────────────────────────────────────────────
+
+    // Input fields — recalc on change (resistive panel)
+    ['cbs-amps', 'cbs-kw', 'cbs-volts', 'cbs-cosphi', 'cbs-continuous'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var handler = function() {
+        clearPresetHighlight();
+        calc();
+      };
+      el.addEventListener('input', handler);
+      el.addEventListener('change', handler);
+    });
+
+    // Input fields — recalc on change (motor panel)
+    ['cbs-motor-hp', 'cbs-motor-volts', 'cbs-motor-design'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var handler = function() {
+        clearPresetHighlight();
+        calc();
+      };
+      el.addEventListener('input', handler);
+      el.addEventListener('change', handler);
+    });
+
+    // Mode tabs
+    document.querySelectorAll('#cbs-tool .cbs-mode-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        switchMode(this.dataset.mode);
+      });
+    });
+
+    // Phase toggle buttons (resistive)
+    document.querySelectorAll('#cbs-tool [data-phase-resistive]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('#cbs-tool [data-phase-resistive]').forEach(function(b) {
+          b.classList.remove('active');
+        });
+        btn.classList.add('active');
+        clearPresetHighlight();
+        calc();
+      });
+    });
+
+    // Phase toggle buttons (motor)
+    document.querySelectorAll('#cbs-tool [data-phase-motor]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('#cbs-tool [data-phase-motor]').forEach(function(b) {
+          b.classList.remove('active');
+        });
+        btn.classList.add('active');
+        clearPresetHighlight();
+        calc();
+      });
+    });
+
+    // Preset chips
+    document.querySelectorAll('#cbs-tool .cbs-preset').forEach(function(el) {
+      el.addEventListener('click', function() {
+        applyPreset(this.dataset.preset);
+      });
+    });
+
+    // Initial calculation
+    calc();
+  })();
+  </script>
+</div>
