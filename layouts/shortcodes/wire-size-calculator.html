@@ -1,0 +1,759 @@
+<div class="tool-container" id="ws-tool">
+  <style>
+    #ws-tool { max-width: 820px; margin: 24px auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    #ws-tool .ws-card { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; }
+    #ws-tool .ws-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    #ws-tool .ws-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    #ws-tool .ws-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    #ws-tool .ws-input-group { margin-bottom: 14px; }
+    #ws-tool label { display: block; font-weight: 600; margin-bottom: 6px; color: #1f2937; font-size: 14px; }
+    #ws-tool label .ws-unit { font-weight: 400; color: #6b7280; font-size: 12px; margin-left: 4px; }
+    #ws-tool label .ws-help { font-weight: 400; color: #6b7280; font-size: 11px; display: block; margin-top: 2px; }
+    #ws-tool input, #ws-tool select { width: 100%; padding: 9px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; box-sizing: border-box; background: white; color: #111827; }
+    #ws-tool input:focus, #ws-tool select:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    #ws-tool .ws-preset-group { margin-bottom: 14px; }
+    #ws-tool .ws-preset-group-label { font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    #ws-tool .ws-presets { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+    #ws-tool .ws-preset { padding: 6px 12px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; cursor: pointer; font-size: 13px; transition: all 0.15s; user-select: none; }
+    #ws-tool .ws-preset:hover { background: #dbeafe; border-color: #93c5fd; }
+    #ws-tool .ws-preset.active { background: #2563eb; color: white; border-color: #2563eb; }
+    #ws-tool .ws-toggle { display: inline-flex; gap: 0; border: 1px solid #d1d5db; border-radius: 8px; overflow: hidden; }
+    #ws-tool .ws-toggle-btn { padding: 8px 14px; background: #fff; cursor: pointer; font-size: 13px; font-weight: 600; color: #374151; border: none; transition: all 0.15s; }
+    #ws-tool .ws-toggle-btn.active { background: #2563eb; color: white; }
+    #ws-tool .ws-toggle-btn:not(.active):hover { background: #f3f4f6; }
+    #ws-tool .ws-checkbox { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #374151; cursor: pointer; padding: 4px 0; }
+    #ws-tool .ws-checkbox input { width: 16px; height: 16px; margin: 0; }
+    #ws-tool .ws-checkbox .ws-help { color: #6b7280; font-size: 12px; margin-left: 24px; }
+    #ws-tool .ws-result { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 18px; }
+    #ws-tool .ws-badge { display: inline-block; padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; margin-bottom: 14px; }
+    #ws-tool .ws-badge-green { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+    #ws-tool .ws-badge-yellow { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+    #ws-tool .ws-badge-red { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+    #ws-tool .ws-result-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    #ws-tool .ws-result-cell { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; text-align: center; }
+    #ws-tool .ws-result-cell-label { font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; font-weight: 600; }
+    #ws-tool .ws-result-cell-value { font-size: 22px; font-weight: 700; color: #1e3a8a; font-variant-numeric: tabular-nums; line-height: 1.2; }
+    #ws-tool .ws-result-cell-unit { font-size: 12px; color: #6b7280; margin-top: 2px; }
+    #ws-tool .ws-cell-ocpd .ws-result-cell-value { color: #7c2d12; }
+    #ws-tool .ws-cell-vdrop .ws-result-cell-value { color: #14532d; }
+    #ws-tool .ws-notes { background: #f3f4f6; border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #374151; }
+    #ws-tool .ws-notes h4 { margin: 0 0 8px 0; font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+    #ws-tool .ws-note-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed #d1d5db; }
+    #ws-tool .ws-note-row:last-child { border-bottom: none; }
+    #ws-tool .ws-note-row .ws-note-label { color: #6b7280; }
+    #ws-tool .ws-note-row .ws-note-value { color: #1f2937; font-weight: 600; font-variant-numeric: tabular-nums; }
+    #ws-tool .ws-formula { font-family: "SF Mono", Monaco, Consolas, "Courier New", monospace; font-size: 11px; color: #475569; background: #f8fafc; padding: 8px 10px; border-radius: 6px; margin-top: 10px; border-left: 3px solid #94a3b8; word-break: break-all; }
+    #ws-tool .ws-tip { font-size: 12px; color: #1e293b; margin-top: 12px; padding: 10px; background: #fef3c7; border-radius: 6px; border-left: 3px solid #f59e0b; line-height: 1.5; }
+    #ws-tool .ws-tip.ws-tip-good { background: #d1fae5; border-left-color: #10b981; color: #064e3b; }
+    #ws-tool .ws-tip.ws-tip-bad { background: #fee2e2; border-left-color: #dc2626; color: #7f1d1d; }
+    #ws-tool .ws-disclaimer { font-size: 11px; color: #6b7280; margin-top: 16px; padding: 10px; background: #f8fafc; border-radius: 6px; border-left: 3px solid #94a3b8; line-height: 1.5; }
+    #ws-tool .ws-collapsible { margin-top: 18px; }
+    #ws-tool .ws-collapsible summary { cursor: pointer; font-weight: 600; font-size: 14px; color: #2563eb; padding: 8px 0; user-select: none; }
+    #ws-tool .ws-collapsible summary:hover { color: #1d4ed8; }
+    #ws-tool .ws-collapsible table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+    #ws-tool .ws-collapsible th, #ws-tool .ws-collapsible td { padding: 6px 10px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+    #ws-tool .ws-collapsible th { background: #f3f4f6; font-weight: 600; color: #374151; font-size: 12px; }
+    #ws-tool .ws-collapsible td.num { font-variant-numeric: tabular-nums; text-align: right; }
+    #ws-tool .ws-collapsible .ws-source { font-size: 11px; color: #6b7280; margin-top: 8px; font-style: italic; }
+    @media (prefers-color-scheme: dark) {
+      #ws-tool .ws-card { background: #1e293b; border-color: #334155; }
+      #ws-tool label { color: #cbd5e1; }
+      #ws-tool label .ws-unit, #ws-tool label .ws-help { color: #94a3b8; }
+      #ws-tool input, #ws-tool select { background: #0f172a; color: #e2e8f0; border-color: #334155; }
+      #ws-tool input:focus, #ws-tool select:focus { border-color: #60a5fa; box-shadow: 0 0 0 3px rgba(96,165,250,0.15); }
+      #ws-tool .ws-preset { background: #334155; border-color: #475569; color: #cbd5e1; }
+      #ws-tool .ws-preset:hover { background: #1e3a8a; border-color: #3b82f6; color: #dbeafe; }
+      #ws-tool .ws-preset.active { background: #2563eb; color: white; border-color: #2563eb; }
+      #ws-tool .ws-toggle { border-color: #475569; }
+      #ws-tool .ws-toggle-btn { background: #1e293b; color: #cbd5e1; }
+      #ws-tool .ws-toggle-btn.active { background: #2563eb; color: white; }
+      #ws-tool .ws-toggle-btn:not(.active):hover { background: #334155; }
+      #ws-tool .ws-checkbox { color: #cbd5e1; }
+      #ws-tool .ws-result { background: #0f172a; border-color: #334155; }
+      #ws-tool .ws-result-cell { background: #1e293b; border-color: #334155; }
+      #ws-tool .ws-result-cell-label { color: #94a3b8; }
+      #ws-tool .ws-result-cell-value { color: #93c5fd; }
+      #ws-tool .ws-cell-ocpd .ws-result-cell-value { color: #fdba74; }
+      #ws-tool .ws-cell-vdrop .ws-result-cell-value { color: #86efac; }
+      #ws-tool .ws-badge-green { background: #064e3b; color: #6ee7b7; border-color: #047857; }
+      #ws-tool .ws-badge-yellow { background: #451a03; color: #fcd34d; border-color: #b45309; }
+      #ws-tool .ws-badge-red { background: #450a0a; color: #fca5a5; border-color: #b91c1c; }
+      #ws-tool .ws-notes { background: #1e293b; color: #cbd5e1; }
+      #ws-tool .ws-notes h4 { color: #94a3b8; }
+      #ws-tool .ws-note-row { border-bottom-color: #334155; }
+      #ws-tool .ws-note-row .ws-note-label { color: #94a3b8; }
+      #ws-tool .ws-note-row .ws-note-value { color: #e2e8f0; }
+      #ws-tool .ws-formula { background: #0f172a; color: #cbd5e1; border-left-color: #475569; }
+      #ws-tool .ws-tip { background: #422006; color: #fde68a; border-left-color: #f59e0b; }
+      #ws-tool .ws-tip.ws-tip-good { background: #064e3b; color: #6ee7b7; border-left-color: #10b981; }
+      #ws-tool .ws-tip.ws-tip-bad { background: #450a0a; color: #fca5a5; border-left-color: #dc2626; }
+      #ws-tool .ws-disclaimer { background: #0f172a; color: #94a3b8; border-left-color: #475569; }
+      #ws-tool .ws-collapsible th { background: #1e293b; color: #cbd5e1; }
+      #ws-tool .ws-collapsible th, #ws-tool .ws-collapsible td { border-bottom-color: #334155; }
+      #ws-tool .ws-collapsible .ws-source { color: #94a3b8; }
+    }
+    @media (max-width: 700px) {
+      #ws-tool { margin: 12px auto; }
+      #ws-tool .ws-card { padding: 16px; }
+      #ws-tool .ws-grid { grid-template-columns: 1fr; gap: 16px; }
+      #ws-tool .ws-row, #ws-tool .ws-row3 { grid-template-columns: 1fr; }
+      #ws-tool .ws-result-grid { grid-template-columns: 1fr; }
+      #ws-tool .ws-result-cell-value { font-size: 18px; }
+    }
+  </style>
+
+  <div class="ws-card">
+    <!-- Presets -->
+    <div class="ws-preset-group">
+      <div class="ws-preset-group-label">⚡ Quick Presets — One-Click Sizing</div>
+      <div class="ws-presets">
+        <span class="ws-preset" data-preset="ev40">EV Charger 40A (continuous)</span>
+        <span class="ws-preset" data-preset="ev48">EV Charger 48A (continuous)</span>
+        <span class="ws-preset" data-preset="ev50">EV Charger 50A (continuous)</span>
+        <span class="ws-preset" data-preset="sub50">50A Subpanel</span>
+        <span class="ws-preset" data-preset="sub100">100A Subpanel</span>
+        <span class="ws-preset" data-preset="svc200">200A Service</span>
+        <span class="ws-preset" data-preset="dryer">30A Dryer</span>
+        <span class="ws-preset" data-preset="range">40A Range</span>
+      </div>
+    </div>
+
+    <div class="ws-grid">
+      <!-- INPUT FORM -->
+      <div>
+        <div class="ws-row">
+          <div class="ws-input-group">
+            <label for="ws-amps">Load Amps <span class="ws-unit">(A)</span></label>
+            <input type="number" id="ws-amps" value="40" min="0.1" max="2000" step="0.1">
+          </div>
+          <div class="ws-input-group">
+            <label for="ws-volts">System Voltage <span class="ws-unit">(V)</span></label>
+            <select id="ws-volts">
+              <option value="120">120 V</option>
+              <option value="208">208 V</option>
+              <option value="220">220 V</option>
+              <option value="240" selected>240 V</option>
+              <option value="277">277 V</option>
+              <option value="347">347 V</option>
+              <option value="480">480 V</option>
+              <option value="600">600 V</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="ws-input-group">
+          <label>Phase</label>
+          <div class="ws-toggle">
+            <button type="button" class="ws-toggle-btn active" data-phase="1">1Φ Single-Phase</button>
+            <button type="button" class="ws-toggle-btn" data-phase="3">3Φ Three-Phase</button>
+          </div>
+        </div>
+
+        <div class="ws-row">
+          <div class="ws-input-group">
+            <label for="ws-length">One-Way Length <span class="ws-unit">(ft)</span></label>
+            <input type="number" id="ws-length" value="50" min="1" max="2000" step="1">
+          </div>
+          <div class="ws-input-group">
+            <label for="ws-material">Wire Material</label>
+            <div class="ws-toggle">
+              <button type="button" class="ws-toggle-btn active" data-mat="copper">Copper (Cu)</button>
+              <button type="button" class="ws-toggle-btn" data-mat="aluminum">Aluminum (Al)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="ws-row">
+          <div class="ws-input-group">
+            <label for="ws-temp">Ambient Temp <span class="ws-unit">(°C)</span></label>
+            <input type="number" id="ws-temp" value="30" min="10" max="55" step="1">
+          </div>
+          <div class="ws-input-group">
+            <label for="ws-conductors">Current-Carrying Conductors</label>
+            <select id="ws-conductors">
+              <option value="1">1</option>
+              <option value="2-3" selected>2-3</option>
+              <option value="4-6">4-6</option>
+              <option value="7-9">7-9</option>
+              <option value="10-20">10-20</option>
+              <option value="21-30">21-30</option>
+              <option value="31-40">31-40</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="ws-input-group">
+          <label class="ws-checkbox">
+            <input type="checkbox" id="ws-continuous">
+            <span>Continuous load <span style="color:#6b7280;font-weight:400;">(NEC 210.20(A) — 125% rule)</span></span>
+          </label>
+          <div class="ws-help">Required for EV chargers, solar PV inverters, and any load expected to run &gt; 3 hours.</div>
+        </div>
+      </div>
+
+      <!-- RESULT PANEL -->
+      <div class="ws-result" id="ws-result">
+        <div id="ws-badge-container"></div>
+        <div class="ws-result-grid">
+          <div class="ws-result-cell">
+            <div class="ws-result-cell-label">Conductor</div>
+            <div class="ws-result-cell-value" id="ws-awg">—</div>
+            <div class="ws-result-cell-unit" id="ws-awg-unit">—</div>
+          </div>
+          <div class="ws-result-cell ws-cell-ocpd">
+            <div class="ws-result-cell-label">Breaker (OCPD)</div>
+            <div class="ws-result-cell-value" id="ws-ocpd">—</div>
+            <div class="ws-result-cell-unit">amperes</div>
+          </div>
+          <div class="ws-result-cell ws-cell-vdrop">
+            <div class="ws-result-cell-label">Voltage Drop</div>
+            <div class="ws-result-cell-value" id="ws-vdrop">—</div>
+            <div class="ws-result-cell-unit" id="ws-vdrop-status">—</div>
+          </div>
+        </div>
+
+        <div class="ws-notes" id="ws-notes">
+          <h4>Calculation Details</h4>
+          <div class="ws-note-row">
+            <span class="ws-note-label">Design amps (NEC 125% if continuous)</span>
+            <span class="ws-note-value" id="ws-design">—</span>
+          </div>
+          <div class="ws-note-row">
+            <span class="ws-note-label">Base ampacity (NEC 310.16, 75°C)</span>
+            <span class="ws-note-value" id="ws-base">—</span>
+          </div>
+          <div class="ws-note-row">
+            <span class="ws-note-label">Temperature correction (310.15(B)(1))</span>
+            <span class="ws-note-value" id="ws-tfactor">—</span>
+          </div>
+          <div class="ws-note-row">
+            <span class="ws-note-label">Conduit-fill derating (310.15(C)(1))</span>
+            <span class="ws-note-value" id="ws-cfactor">—</span>
+          </div>
+          <div class="ws-note-row">
+            <span class="ws-note-label">Final corrected ampacity</span>
+            <span class="ws-note-value" id="ws-final">—</span>
+          </div>
+          <div class="ws-note-row" id="ws-roundup-row" style="display:none;">
+            <span class="ws-note-label">NEC 240.4(B) round-up applied</span>
+            <span class="ws-note-value">Yes — bumped to match OCPD</span>
+          </div>
+        </div>
+
+        <div class="ws-formula" id="ws-formula">Enter load values to see the formula.</div>
+
+        <div class="ws-tip" id="ws-tip" style="display:none;"></div>
+
+        <details class="ws-collapsible">
+          <summary>📊 NEC 310.16 Reference Table — 75°C Column (click to expand)</summary>
+          <table>
+            <thead>
+              <tr><th>AWG / kcmil</th><th class="num">Copper (A)</th><th class="num">Aluminum (A)</th><th class="num">Ω/1000 ft (Cu)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>14 AWG</td><td class="num">20</td><td class="num">—</td><td class="num">3.14</td></tr>
+              <tr><td>12 AWG</td><td class="num">25</td><td class="num">—</td><td class="num">1.98</td></tr>
+              <tr><td>10 AWG</td><td class="num">35</td><td class="num">—</td><td class="num">1.24</td></tr>
+              <tr><td>8 AWG</td><td class="num">50</td><td class="num">40</td><td class="num">0.778</td></tr>
+              <tr><td>6 AWG</td><td class="num">65</td><td class="num">50</td><td class="num">0.491</td></tr>
+              <tr><td>4 AWG</td><td class="num">85</td><td class="num">65</td><td class="num">0.308</td></tr>
+              <tr><td>3 AWG</td><td class="num">100</td><td class="num">75</td><td class="num">0.245</td></tr>
+              <tr><td>2 AWG</td><td class="num">115</td><td class="num">90</td><td class="num">0.194</td></tr>
+              <tr><td>1 AWG</td><td class="num">130</td><td class="num">100</td><td class="num">0.154</td></tr>
+              <tr><td>1/0 AWG</td><td class="num">150</td><td class="num">120</td><td class="num">0.122</td></tr>
+              <tr><td>2/0 AWG</td><td class="num">175</td><td class="num">135</td><td class="num">0.0967</td></tr>
+              <tr><td>3/0 AWG</td><td class="num">200</td><td class="num">155</td><td class="num">0.0766</td></tr>
+              <tr><td>4/0 AWG</td><td class="num">230</td><td class="num">180</td><td class="num">0.0608</td></tr>
+              <tr><td>250 kcmil</td><td class="num">255</td><td class="num">205</td><td class="num">0.0515</td></tr>
+              <tr><td>300 kcmil</td><td class="num">285</td><td class="num">230</td><td class="num">0.0429</td></tr>
+              <tr><td>350 kcmil</td><td class="num">310</td><td class="num">250</td><td class="num">0.0367</td></tr>
+              <tr><td>400 kcmil</td><td class="num">335</td><td class="num">270</td><td class="num">0.0321</td></tr>
+              <tr><td>500 kcmil</td><td class="num">380</td><td class="num">310</td><td class="num">0.0258</td></tr>
+              <tr><td>600 kcmil</td><td class="num">420</td><td class="num">340</td><td class="num">0.0214</td></tr>
+              <tr><td>750 kcmil</td><td class="num">475</td><td class="num">385</td><td class="num">0.0171</td></tr>
+            </tbody>
+          </table>
+          <div class="ws-source">Source: NFPA 70 — National Electrical Code 2023, Table 310.16 (75°C column, the inspector-favored terminal rating per NEC 110.14(C) for circuits rated 100 A or less).</div>
+        </details>
+
+        <div class="ws-disclaimer">
+          ⚠️ <strong>Reference only.</strong> Calculations are NEC-aware but final conductor sizing must be verified by a licensed electrician and approved by your local Authority Having Jurisdiction (AHJ). Always follow the latest edition of NFPA 70 — National Electrical Code.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    'use strict';
+
+    // ─────────────────────────────────────────────────────────────────
+    // NEC Reference Data (public-domain regulatory references, NFPA 70)
+    // ─────────────────────────────────────────────────────────────────
+
+    // NEC Table 310.16 — 75°C column ampacity
+    // 75°C is the inspector-favored terminal rating per NEC 110.14(C)
+    // for circuits rated 100 A or less.
+    var NEC_CU = [
+      { awg: '14 AWG',    cu_a: 20,  cu_ohm: 3.14 },
+      { awg: '12 AWG',    cu_a: 25,  cu_ohm: 1.98 },
+      { awg: '10 AWG',    cu_a: 35,  cu_ohm: 1.24 },
+      { awg: '8 AWG',     cu_a: 50,  cu_ohm: 0.778 },
+      { awg: '6 AWG',     cu_a: 65,  cu_ohm: 0.491 },
+      { awg: '4 AWG',     cu_a: 85,  cu_ohm: 0.308 },
+      { awg: '3 AWG',     cu_a: 100, cu_ohm: 0.245 },
+      { awg: '2 AWG',     cu_a: 115, cu_ohm: 0.194 },
+      { awg: '1 AWG',     cu_a: 130, cu_ohm: 0.154 },
+      { awg: '1/0 AWG',   cu_a: 150, cu_ohm: 0.122 },
+      { awg: '2/0 AWG',   cu_a: 175, cu_ohm: 0.0967 },
+      { awg: '3/0 AWG',   cu_a: 200, cu_ohm: 0.0766 },
+      { awg: '4/0 AWG',   cu_a: 230, cu_ohm: 0.0608 },
+      { awg: '250 kcmil', cu_a: 255, cu_ohm: 0.0515 },
+      { awg: '300 kcmil', cu_a: 285, cu_ohm: 0.0429 },
+      { awg: '350 kcmil', cu_a: 310, cu_ohm: 0.0367 },
+      { awg: '400 kcmil', cu_a: 335, cu_ohm: 0.0321 },
+      { awg: '500 kcmil', cu_a: 380, cu_ohm: 0.0258 },
+      { awg: '600 kcmil', cu_a: 420, cu_ohm: 0.0214 },
+      { awg: '750 kcmil', cu_a: 475, cu_ohm: 0.0171 }
+    ];
+
+    var NEC_AL = [
+      { awg: '8 AWG',     al_a: 40,  al_ohm: 1.26 },
+      { awg: '6 AWG',     al_a: 50,  al_ohm: 0.808 },
+      { awg: '4 AWG',     al_a: 65,  al_ohm: 0.508 },
+      { awg: '3 AWG',     al_a: 75,  al_ohm: 0.403 },
+      { awg: '2 AWG',     al_a: 90,  al_ohm: 0.319 },
+      { awg: '1 AWG',     al_a: 100, al_ohm: 0.253 },
+      { awg: '1/0 AWG',   al_a: 120, al_ohm: 0.201 },
+      { awg: '2/0 AWG',   al_a: 135, al_ohm: 0.159 },
+      { awg: '3/0 AWG',   al_a: 155, al_ohm: 0.126 },
+      { awg: '4/0 AWG',   al_a: 180, al_ohm: 0.100 },
+      { awg: '250 kcmil', al_a: 205, al_ohm: 0.0847 },
+      { awg: '300 kcmil', al_a: 230, al_ohm: 0.0707 },
+      { awg: '350 kcmil', al_a: 250, al_ohm: 0.0605 },
+      { awg: '400 kcmil', al_a: 270, al_ohm: 0.0529 },
+      { awg: '500 kcmil', al_a: 310, al_ohm: 0.0424 },
+      { awg: '600 kcmil', al_a: 340, al_ohm: 0.0353 },
+      { awg: '750 kcmil', al_a: 385, al_ohm: 0.0282 }
+    ];
+
+    // NEC Table 310.15(B)(1) — 75°C column ambient temperature correction
+    // For ambient ≠ 30°C, multiply base ampacity by this factor.
+    // Buckets: 10°C 1.12 / 16°C 1.08 / 21°C 1.05 / 26°C 1.04 / 30°C 1.00 /
+    //          36°C 0.96 / 41°C 0.91 / 46°C 0.87 / 51°C 0.82 / 56°C 0.76
+    var TEMP_75C = {
+      10: 1.12, 11: 1.12, 12: 1.12, 13: 1.12, 14: 1.12, 15: 1.12,
+      16: 1.08, 17: 1.08, 18: 1.08, 19: 1.08, 20: 1.08,
+      21: 1.05, 22: 1.05, 23: 1.05, 24: 1.05, 25: 1.05,
+      26: 1.04, 27: 1.04, 28: 1.04, 29: 1.04, 30: 1.00, 31: 1.00, 32: 1.00, 33: 1.00, 34: 1.00, 35: 1.00,
+      36: 0.96, 37: 0.96, 38: 0.96, 39: 0.96, 40: 0.96,
+      41: 0.91, 42: 0.91, 43: 0.91, 44: 0.91, 45: 0.91,
+      46: 0.87, 47: 0.87, 48: 0.87, 49: 0.87, 50: 0.87,
+      51: 0.82, 52: 0.82, 53: 0.82, 54: 0.82, 55: 0.82
+    };
+
+    // NEC Table 310.15(C)(1) — conduit-fill adjustment factor
+    // Multiply ampacity by this factor when more than 3 current-carrying
+    // conductors share a conduit. 1-3 conductors is the baseline (1.00).
+    var CONDUIT = {
+      '1':     1.00,
+      '2-3':   1.00,
+      '4-6':   0.80,
+      '7-9':   0.70,
+      '10-20': 0.50,
+      '21-30': 0.45,
+      '31-40': 0.40
+    };
+
+    // NEC Section 240.6(A) — Standard OCPD ratings
+    var STD_OCPD = [15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 110, 125, 150, 175, 200, 225, 250, 300, 350, 400, 450, 500, 600, 700, 800];
+
+    // ─────────────────────────────────────────────────────────────────
+    // Preset definitions
+    // ─────────────────────────────────────────────────────────────────
+    var PRESETS = {
+      ev40:   { amps: 40, volts: 240, phase: 1, length: 50, material: 'copper', temp: 30, conductors: '2-3', continuous: true,  label: 'EV L2 40A' },
+      ev48:   { amps: 48, volts: 240, phase: 1, length: 50, material: 'copper', temp: 30, conductors: '2-3', continuous: true,  label: 'EV L2 48A' },
+      ev50:   { amps: 50, volts: 240, phase: 1, length: 50, material: 'copper', temp: 30, conductors: '2-3', continuous: true,  label: 'EV L2 50A' },
+      sub50:  { amps: 50, volts: 240, phase: 1, length: 75, material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: '50A Subpanel' },
+      sub100: { amps: 100, volts: 240, phase: 1, length: 100, material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: '100A Subpanel' },
+      svc200: { amps: 200, volts: 240, phase: 1, length: 75, material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: '200A Service' },
+      dryer:  { amps: 24, volts: 240, phase: 1, length: 35, material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: '30A Dryer' },
+      range:  { amps: 33, volts: 240, phase: 1, length: 35, material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: '40A Range' }
+    };
+
+    // ─────────────────────────────────────────────────────────────────
+    // Calculation logic
+    // ─────────────────────────────────────────────────────────────────
+
+    // NEC 210.20(A) / 215.3 / 625 — continuous-load 125% rule
+    // For continuous loads, conductor + OCPD must be sized to 125% of load.
+    function applyContinuous(amps, isCont) {
+      return isCont ? amps * 1.25 : amps;
+    }
+
+    // NEC 240.6(A) — find smallest standard OCPD ≥ target
+    function findStandardOCPD(target) {
+      for (var i = 0; i < STD_OCPD.length; i++) {
+        if (STD_OCPD[i] >= target) return STD_OCPD[i];
+      }
+      return STD_OCPD[STD_OCPD.length - 1]; // cap at 800 A
+    }
+
+    // NEC Table 310.16 lookup — find smallest AWG where ampacity ≥ designAmps
+    function findBaseAWG(table, ampKey, designAmps) {
+      for (var i = 0; i < table.length; i++) {
+        if (table[i][ampKey] >= designAmps) return i;
+      }
+      return -1; // exceeds max
+    }
+
+    // NEC 310.15(B)(1) — temperature correction lookup
+    function getTempFactor(tempC) {
+      var t = Math.round(tempC);
+      if (t < 10) return 1.12; // extrapolation
+      if (t > 55) return 0.76; // extrapolation
+      return TEMP_75C[t] || 1.00;
+    }
+
+    // NEC 310.15(C)(1) — conduit-fill derating
+    function getConduitFactor(conductors) {
+      return CONDUIT[conductors] || 1.00;
+    }
+
+    // NEC 210.19 Informational Note / 215.2 — voltage drop preview
+    // 1Φ: V% = (2 × I × R × L) / (1000 × V) × 100
+    // 3Φ: V% = (√3 × I × R × L) / (1000 × V) × 100
+    function calcVoltageDrop(amps, voltage, phase, lengthFt, ohmPer1000Ft) {
+      if (phase === 1) {
+        return (2 * amps * ohmPer1000Ft * lengthFt) / (1000 * voltage) * 100;
+      } else {
+        return (Math.sqrt(3) * amps * ohmPer1000Ft * lengthFt) / (1000 * voltage) * 100;
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    // Main calculation
+    // ─────────────────────────────────────────────────────────────────
+
+    function calculate(inputs) {
+      var amps = inputs.amps;
+      var voltage = inputs.volts;
+      var phase = inputs.phase;
+      var length = inputs.length;
+      var material = inputs.material;
+      var tempC = inputs.temp;
+      var conductors = inputs.conductors;
+      var isCont = inputs.continuous;
+
+      // STEP 1: Apply continuous-load rule (NEC 210.20(A), 215.3, 625)
+      var designAmps = applyContinuous(amps, isCont);
+
+      // STEP 2: Lookup table
+      var table = (material === 'copper') ? NEC_CU : NEC_AL;
+      var aKey = (material === 'copper') ? 'cu_a' : 'al_a';
+      var rKey = (material === 'copper') ? 'cu_ohm' : 'al_ohm';
+
+      // STEP 3: Find smallest base AWG ≥ designAmps
+      var idx = findBaseAWG(table, aKey, designAmps);
+      if (idx === -1) {
+        return {
+          error: 'Required ampacity (' + designAmps.toFixed(1) + ' A) exceeds 750 kcmil capacity. Consider parallel conductors (NEC 310.10(H)).',
+          designAmps: designAmps
+        };
+      }
+
+      // STEP 4: Apply temperature + conduit corrections
+      var tFactor = getTempFactor(tempC);
+      var cFactor = getConduitFactor(conductors);
+
+      // STEP 5: NEC 240.4(B) round-up — OCPD ≤ corrected ampacity
+      var ocpd = findStandardOCPD(designAmps);
+      var baseAmpacity = table[idx][aKey];
+      var finalAmpacity = baseAmpacity * tFactor * cFactor;
+
+      // Comparison: continuous requires STRICT > (extra thermal margin),
+      // non-continuous allows ≥ (NEC 240.4(B) round-up permits equal).
+      var compare = isCont
+        ? function(a, b) { return a > b; }
+        : function(a, b) { return a >= b; };
+
+      var roundUpApplied = false;
+      var roundUpStartIdx = idx;
+      while (!compare(finalAmpacity, ocpd) && idx < table.length - 1) {
+        idx++;
+        baseAmpacity = table[idx][aKey];
+        finalAmpacity = baseAmpacity * tFactor * cFactor;
+        roundUpApplied = true;
+      }
+
+      // If still not satisfied at the largest size, return error
+      if (!compare(finalAmpacity, ocpd)) {
+        return {
+          error: 'Cannot meet OCPD requirement within 750 kcmil — try parallel conductors or larger OCPD class.',
+          designAmps: designAmps,
+          ocpd: ocpd
+        };
+      }
+
+      var row = table[idx];
+      var resistance = row[rKey];
+
+      // STEP 6: Voltage drop preview — uses actual load amps (not designAmps)
+      var vdropPct = calcVoltageDrop(amps, voltage, phase, length, resistance);
+
+      // Compliance badge logic
+      var vdropStatus;
+      if (vdropPct <= 3) {
+        vdropStatus = 'GREEN';
+      } else if (vdropPct <= 5) {
+        vdropStatus = 'YELLOW';
+      } else {
+        vdropStatus = 'RED';
+      }
+
+      return {
+        awg: row.awg,
+        baseAmpacity: baseAmpacity,
+        correctedAmpacity: finalAmpacity,
+        ocpd: ocpd,
+        vdropPct: vdropPct,
+        vdropStatus: vdropStatus,
+        tFactor: tFactor,
+        cFactor: cFactor,
+        designAmps: designAmps,
+        isCont: isCont,
+        roundUpApplied: roundUpApplied,
+        resistance: resistance,
+        phase: phase,
+        voltage: voltage,
+        length: length,
+        amps: amps,
+        material: material
+      };
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    // Rendering
+    // ─────────────────────────────────────────────────────────────────
+
+    function fmt(n, d) {
+      d = (d === undefined) ? 2 : d;
+      if (!isFinite(n) || isNaN(n)) return '--';
+      return n.toFixed(d);
+    }
+
+    function setText(id, txt) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = txt;
+    }
+
+    function setBadge(state, label) {
+      var container = document.getElementById('ws-badge-container');
+      if (!container) return;
+      var cls = 'ws-badge ws-badge-' + state.toLowerCase();
+      container.innerHTML = '<span class="' + cls + '">' + label + '</span>';
+    }
+
+    function renderResult(r) {
+      if (r.error) {
+        setBadge('red', '⚠ ' + r.error);
+        setText('ws-awg', '—');
+        setText('ws-awg-unit', '—');
+        setText('ws-ocpd', '—');
+        setText('ws-vdrop', '—');
+        setText('ws-vdrop-status', '—');
+        setText('ws-design', '—');
+        setText('ws-base', '—');
+        setText('ws-tfactor', '—');
+        setText('ws-cfactor', '—');
+        setText('ws-final', '—');
+        document.getElementById('ws-roundup-row').style.display = 'none';
+        setText('ws-formula', 'Error: ' + r.error);
+        document.getElementById('ws-tip').style.display = 'none';
+        return;
+      }
+
+      // Compliance badge
+      var badgeText, badgeState;
+      if (r.vdropStatus === 'GREEN') {
+        badgeState = 'green';
+        badgeText = '🟢 NEC-Compliant — within 3% branch limit';
+      } else if (r.vdropStatus === 'YELLOW') {
+        badgeState = 'yellow';
+        badgeText = '🟡 Marginal — exceeds 3% branch but within 5% feeder+branch';
+      } else {
+        badgeState = 'red';
+        badgeText = '🔴 V-Drop too high — exceeds 5% combined limit';
+      }
+      setBadge(badgeState, badgeText);
+
+      // Result cells
+      setText('ws-awg', r.awg.replace(' AWG', '').replace(' kcmil', ''));
+      setText('ws-awg-unit', r.awg.indexOf('kcmil') >= 0 ? 'kcmil (Cu)' : 'AWG ' + (r.material === 'aluminum' ? 'Al' : 'Cu'));
+      setText('ws-ocpd', r.ocpd);
+      setText('ws-vdrop', fmt(r.vdropPct, 2) + '%');
+
+      var vdropStatusText;
+      if (r.vdropPct <= 3) vdropStatusText = '✓ within 3% NEC limit';
+      else if (r.vdropPct <= 5) vdropStatusText = '⚠ within 5%, over 3%';
+      else vdropStatusText = '✗ exceeds 5% limit';
+      setText('ws-vdrop-status', vdropStatusText);
+
+      // Notes
+      setText('ws-design', fmt(r.designAmps, 1) + ' A' + (r.isCont ? ' (×1.25)' : ''));
+      setText('ws-base', fmt(r.baseAmpacity, 0) + ' A');
+      setText('ws-tfactor', fmt(r.tFactor, 2) + (r.tempC !== 30 ? ' (at ' + r.tempC + '°C)' : ' (reference 30°C)'));
+      setText('ws-cfactor', fmt(r.cFactor, 2) + (r.cFactor < 1.0 ? ' (' + (r.conductors || '2-3') + ' conductors)' : ' (baseline ≤3 conductors)'));
+      setText('ws-final', fmt(r.correctedAmpacity, 1) + ' A');
+      document.getElementById('ws-roundup-row').style.display = r.roundUpApplied ? 'flex' : 'none';
+
+      // Formula display
+      var formula;
+      if (r.phase === 1) {
+        formula = 'V-drop = (2 × I × R × L) / (1000 × V) × 100' +
+                  ' = (2 × ' + r.amps + ' × ' + r.resistance + ' × ' + r.length + ') / (1000 × ' + r.voltage + ') × 100' +
+                  ' = ' + fmt(r.vdropPct, 2) + '%';
+      } else {
+        formula = 'V-drop = (√3 × I × R × L) / (1000 × V) × 100' +
+                  ' = (1.732 × ' + r.amps + ' × ' + r.resistance + ' × ' + r.length + ') / (1000 × ' + r.voltage + ') × 100' +
+                  ' = ' + fmt(r.vdropPct, 2) + '%';
+      }
+      setText('ws-formula', formula);
+
+      // Engineering tip
+      var tipEl = document.getElementById('ws-tip');
+      var tipText = '';
+      var tipClass = 'ws-tip';
+      if (r.vdropStatus === 'RED') {
+        tipText = '⚠️ <strong>Voltage drop exceeds NEC 5% combined limit.</strong> Upsize one or two AWG sizes, shorten the run, or increase the system voltage (e.g. 240 → 480 V).';
+        tipClass += ' ws-tip-bad';
+      } else if (r.vdropStatus === 'YELLOW') {
+        tipText = '💡 <strong>Voltage drop is within 5% but exceeds the 3% branch-circuit recommendation.</strong> For motor loads or sensitive electronics, consider upsizing one AWG. Verify with your AHJ.';
+      } else if (r.isCont) {
+        tipText = '✓ <strong>Continuous load compliant.</strong> NEC 210.20(A) 125% rule applied — conductor ampacity exceeds the OCPD rating per the strict-greater-than requirement for continuous loads.';
+        tipClass += ' ws-tip-good';
+      } else if (r.roundUpApplied) {
+        tipText = '✓ <strong>NEC 240.4(B) round-up applied.</strong> Conductor sized one step larger to match the next standard OCPD rating per the round-up rule.';
+        tipClass += ' ws-tip-good';
+      } else {
+        tipText = '✓ <strong>Fully NEC-compliant.</strong> Conductor ampacity ≥ OCPD, voltage drop within the 3% branch limit.';
+        tipClass += ' ws-tip-good';
+      }
+      tipEl.className = tipClass;
+      tipEl.innerHTML = tipText;
+      tipEl.style.display = 'block';
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    // UI bindings
+    // ─────────────────────────────────────────────────────────────────
+
+    function readInputs() {
+      return {
+        amps: parseFloat(document.getElementById('ws-amps').value),
+        volts: parseFloat(document.getElementById('ws-volts').value),
+        phase: parseInt(document.querySelector('#ws-tool [data-phase].active').dataset.phase),
+        length: parseFloat(document.getElementById('ws-length').value),
+        material: document.querySelector('#ws-tool [data-mat].active').dataset.mat,
+        temp: parseFloat(document.getElementById('ws-temp').value),
+        conductors: document.getElementById('ws-conductors').value,
+        continuous: document.getElementById('ws-continuous').checked,
+        tempC: parseFloat(document.getElementById('ws-temp').value)
+      };
+    }
+
+    function clearPresetHighlight() {
+      document.querySelectorAll('#ws-tool .ws-preset').forEach(function(p) {
+        p.classList.remove('active');
+      });
+    }
+
+    function applyPreset(presetId) {
+      var p = PRESETS[presetId];
+      if (!p) return;
+      document.getElementById('ws-amps').value = p.amps;
+      document.getElementById('ws-volts').value = p.volts;
+      // Phase toggle
+      document.querySelectorAll('#ws-tool [data-phase]').forEach(function(b) {
+        b.classList.toggle('active', parseInt(b.dataset.phase) === p.phase);
+      });
+      document.getElementById('ws-length').value = p.length;
+      // Material toggle
+      document.querySelectorAll('#ws-tool [data-mat]').forEach(function(b) {
+        b.classList.toggle('active', b.dataset.mat === p.material);
+      });
+      document.getElementById('ws-temp').value = p.temp;
+      document.getElementById('ws-conductors').value = p.conductors;
+      document.getElementById('ws-continuous').checked = p.continuous;
+
+      // Highlight active preset
+      document.querySelectorAll('#ws-tool .ws-preset').forEach(function(el) {
+        el.classList.toggle('active', el.dataset.preset === presetId);
+      });
+
+      calc();
+    }
+
+    function calc() {
+      var inputs = readInputs();
+      // Basic validation
+      if (!inputs.amps || inputs.amps <= 0 || !inputs.volts || !inputs.length || inputs.length <= 0) {
+        return;
+      }
+      var result = calculate(inputs);
+      renderResult(result);
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    // Wire up event listeners
+    // ─────────────────────────────────────────────────────────────────
+
+    // Input fields — recalc on change
+    ['ws-amps', 'ws-volts', 'ws-length', 'ws-temp', 'ws-conductors', 'ws-continuous'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var handler = function() {
+        clearPresetHighlight();
+        calc();
+      };
+      el.addEventListener('input', handler);
+      el.addEventListener('change', handler);
+    });
+
+    // Phase toggle buttons
+    document.querySelectorAll('#ws-tool [data-phase]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('#ws-tool [data-phase]').forEach(function(b) {
+          b.classList.remove('active');
+        });
+        btn.classList.add('active');
+        clearPresetHighlight();
+        calc();
+      });
+    });
+
+    // Material toggle buttons
+    document.querySelectorAll('#ws-tool [data-mat]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('#ws-tool [data-mat]').forEach(function(b) {
+          b.classList.remove('active');
+        });
+        btn.classList.add('active');
+        clearPresetHighlight();
+        calc();
+      });
+    });
+
+    // Preset chips
+    document.querySelectorAll('#ws-tool .ws-preset').forEach(function(el) {
+      el.addEventListener('click', function() {
+        applyPreset(this.dataset.preset);
+      });
+    });
+
+    // Initial calculation
+    calc();
+  })();
+  </script>
+</div>
