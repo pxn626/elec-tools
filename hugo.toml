@@ -11,8 +11,8 @@ theme = "PaperMod"
             mediaType = "application/json"
 
 [languages.zh]
-    languageCode = 'zh-CN'
-    languageName = '简体中文'
+    locale = 'zh-CN'
+    label = '简体中文'
     title = '电气工具箱'
     weight = 1
 
