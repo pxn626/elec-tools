@@ -1,4 +1,5 @@
 ---
+translationKey: "about"
 title: "关于电气工具箱"
 description: "关于电气工具箱 — 免费在线电气计算工具集，面向电气工程师与电动车车主"
 layout: "page"
