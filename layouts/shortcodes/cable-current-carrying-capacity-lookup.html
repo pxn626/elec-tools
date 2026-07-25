@@ -116,12 +116,11 @@
 
       <div class="cc-row">
         <div class="cc-input-group">
-          <label>导体材料</label>
+          <label>{{ T "cc_label_material" }}</label>
           <div class="cc-radio-group">
-            <label><input type="radio" name="cc-air-mat" value="Cu" checked> Cu(铜)</label>
-            <label><input type="radio" name="cc-air-mat" value="Al"> Al(铝)</label>
+            <label><input type="radio" name="cc-air-mat" value="Cu" checked> {{ T "cc_mat_cu" }}</label>
+            <label><input type="radio" name="cc-air-mat" value="Al"> {{ T "cc_mat_al" }}</label>
           </div>
-        </div>
         <div class="cc-input-group">
           <label>电缆类型</label>
           <select id="cc-air-type">
@@ -139,7 +138,7 @@
       </div>
 
       <div class="cc-input-group">
-        <label>导体截面积<span class="cc-unit">(mm²)</span></label>
+        <label>{{ T "cc_label_cs" }}<span class="cc-unit">(mm²)</span></label>
         <input type="number" id="cc-air-cs" value="10" min="1.5" max="1000" step="0.5" inputmode="decimal">
         <div class="cc-presets">
           <span class="cc-preset cc-preset-cs" onclick="ccApplyCS('air',1.5)">1.5</span>
@@ -411,7 +410,7 @@
     <!-- Result area -->
     <!-- =========================================================== -->
     <div class="cc-result" id="cc-result">
-      <h3 id="cc-result-title">计算结果</h3>
+      <h3 id="cc-result-title">{{ T "cc_result_title" }}</h3>
       <div id="cc-result-body"></div>
       <div class="cc-formula" id="cc-formula"></div>
       <div class="cc-tip" id="cc-tip" style="display:none;"></div>

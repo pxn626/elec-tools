@@ -1,0 +1,47 @@
+- id: cc_tab_air
+  translation: "① In Air"
+- id: cc_tab_pipe
+  translation: "② In Pipe"
+- id: cc_tab_soil
+  translation: "③ In Soil"
+- id: cc_label_material
+  translation: "Conductor Material"
+- id: cc_mat_cu
+  translation: "Cu(Copper)"
+- id: cc_mat_al
+  translation: "Al(Aluminum)"
+- id: cc_label_type
+  translation: "Cable Type"
+- id: cc_type_custom_placeholder
+  translation: "Custom type (e.g. YJY23)"
+- id: cc_label_cs
+  translation: "Cross-Section"
+- id: cc_label_temp
+  translation: "Ambient Temp θ_a"
+- id: cc_label_altitude
+  translation: "Altitude"
+- id: cc_result_title
+  translation: "Result"
+- id: cc_coeff_detail
+  translation: "Correction Factors"
+- id: cc_breaker_ref
+  translation: "Breaker Reference"
+- id: cc_standard_title
+  translation: "📋 Standards"
+- id: cc_disclaimer_title
+  translation: "⚠ Disclaimer"
+# JS 动态提示文本
+- id: cc_js_warn_temp
+  translation: "Please enter a valid temperature"
+- id: cc_js_warn_cs_min
+  translation: "Please enter cross-section (≥ 1.5 mm²)"
+- id: cc_js_tab_air
+  translation: "In Air"
+- id: cc_js_tab_pipe
+  translation: "In Pipe"
+- id: cc_js_tab_soil
+  translation: "In Soil"
+- id: cc_js_ks_note_ladder
+  translation: "Ladder tray (Good cooling)"
+- id: cc_js_kh_note_below_1000
+  translation: "Altitude ≤ 1000m (No correction)"

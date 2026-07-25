@@ -1,0 +1,47 @@
+- id: cc_tab_air
+  translation: "① 空气敷设"
+- id: cc_tab_pipe
+  translation: "② 穿管敷设"
+- id: cc_tab_soil
+  translation: "③ 土壤敷设"
+- id: cc_label_material
+  translation: "导体材料"
+- id: cc_mat_cu
+  translation: "Cu(铜)"
+- id: cc_mat_al
+  translation: "Al(铝)"
+- id: cc_label_type
+  translation: "电缆类型"
+- id: cc_type_custom_placeholder
+  translation: "自填型号(如 YJY23)"
+- id: cc_label_cs
+  translation: "导体截面积"
+- id: cc_label_temp
+  translation: "环境温度 θ_a"
+- id: cc_label_altitude
+  translation: "海拔高度"
+- id: cc_result_title
+  translation: "计算结果"
+- id: cc_coeff_detail
+  translation: "修正系数明细"
+- id: cc_breaker_ref
+  translation: "断路器选型参考"
+- id: cc_standard_title
+  translation: "📋 国标依据"
+- id: cc_disclaimer_title
+  translation: "⚠ 免责声明"
+# JS 动态提示文本
+- id: cc_js_warn_temp
+  translation: "请输入有效温度值"
+- id: cc_js_warn_cs_min
+  translation: "请填写导体截面积(≥ 1.5 mm²)"
+- id: cc_js_tab_air
+  translation: "空气敷设"
+- id: cc_js_tab_pipe
+  translation: "穿管敷设"
+- id: cc_js_tab_soil
+  translation: "土壤敷设"
+- id: cc_js_ks_note_ladder
+  translation: "梯级桥架(散热良好)"
+- id: cc_js_kh_note_below_1000
+  translation: "海拔 ≤ 1000m(免修正)"
