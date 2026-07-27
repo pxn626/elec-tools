@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>电气工具箱 — Hugo 站点检查报告</title>
+<style>
+  :root{
+    --bg:#f8fafc; --card:#ffffff; --ink:#0f172a; --muted:#64748b; --line:#e2e8f0;
+    --red:#dc2626; --red-bg:#fef2f2; --red-bd:#fecaca;
+    --amber:#d97706; --amber-bg:#fffbeb; --amber-bd:#fde68a;
+    --gray:#6b7280; --gray-bg:#f9fafb; --gray-bd:#e5e7eb;
+    --green:#059669; --green-bg:#ecfdf5; --green-bd:#a7f3d0;
+    --blue:#2563eb; --blue-bg:#eff6ff; --blue-bd:#bfdbfe;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;font-size:15px;padding:24px}
+  .wrap{max-width:980px;margin:0 auto}
+  header.hero{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;border-radius:16px;padding:32px 28px;margin-bottom:24px;box-shadow:0 10px 30px rgba(37,99,235,.18)}
+  header.hero h1{font-size:26px;margin-bottom:6px}
+  header.hero .sub{opacity:.9;font-size:14px}
+  .stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+  .stat{background:rgba(255,255,255,.15);border-radius:10px;padding:10px 16px;backdrop-filter:blur(4px)}
+  .stat b{display:block;font-size:22px;line-height:1}
+  .stat span{font-size:12px;opacity:.85}
+  .badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:12px;font-weight:700}
+  .badge.ok{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd)}
+  section{margin-bottom:28px}
+  h2{font-size:18px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--line);display:flex;align-items:center;gap:8px}
+  h2 .count{font-size:13px;color:var(--muted);font-weight:400}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;font-size:12px}
+  .legend span{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:8px;border:1px solid var(--line);background:#fff}
+  .dot{width:10px;height:10px;border-radius:50%}
+  .dot.r{background:var(--red)} .dot.a{background:var(--amber)} .dot.g{background:var(--gray)} .dot.gr{background:var(--green)}
+  .issue{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gray);border-radius:10px;padding:18px 20px;margin-bottom:14px}
+  .issue.r{border-left-color:var(--red);background:var(--red-bg)}
+  .issue.a{border-left-color:var(--amber);background:var(--amber-bg)}
+  .issue.gr{border-left-color:var(--green);background:var(--green-bg)}
+  .issue h3{font-size:15.5px;margin-bottom:8px;display:flex;align-items:flex-start;gap:8px}
+  .tag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;white-space:nowrap}
+  .tag.r{background:var(--red);color:#fff} .tag.a{background:var(--amber);color:#fff} .tag.g{background:var(--gray);color:#fff} .tag.gr{background:var(--green);color:#fff}
+  .loc{font-family:"SF Mono",Monaco,Consolas,monospace;font-size:12.5px;color:var(--blue);background:var(--blue-bg);border:1px solid var(--blue-bd);border-radius:6px;padding:2px 8px;display:inline-block;margin:6px 0}
+  .issue p{margin:6px 0;color:#334155}
+  .fix{margin-top:10px;padding:10px 14px;background:#fff;border:1px dashed var(--line);border-radius:8px;font-size:13.5px}
+  .fix b{color:var(--green)}
+  .fix code, p code, .loc code{font-family:"SF Mono",Monaco,Consolas,monospace;background:rgba(15,23,42,.06);padding:1px 5px;border-radius:4px;font-size:12px}
+  .roadmap{counter-reset:step}
+  .step{display:flex;gap:14px;margin-bottom:12px;align-items:flex-start}
+  .step::before{counter-increment:step;content:counter(step);min-width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+  .step .body{flex:1;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+  .step .body b{color:var(--blue)}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:24px;padding:16px}
+  code.blk{display:block;background:#0f172a;color:#e2e8f0;padding:10px 14px;border-radius:8px;font-size:12.5px;overflow-x:auto;margin:8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>电气工具箱 · Hugo 站点检查报告</h1>
+  <div class="sub">Hugo v0.164.0 + PaperMod 主题 · 中英双语 · 项目路径 D:\code\elec-tools</div>
+  <div class="stats">
+    <div class="stat"><b>16</b><span>待修正问题</span></div>
+    <div class="stat"><b>3</b><span>高优先级</span></div>
+    <div class="stat"><b>6</b><span>中优先级</span></div>
+    <div class="stat"><b>7</b><span>轻微/配置</span></div>
+    <div class="stat"><b>✓</b><span>构建通过</span></div>
+  </div>
+</header>
+
+<div class="legend">
+  <span><i class="dot r"></i> 高优先级 — 影响 SEO / 用户体验</span>
+  <span><i class="dot a"></i> 中优先级 — 功能与一致性</span>
+  <span><i class="dot g"></i> 轻微 — 配置与规范</span>
+  <span><i class="dot gr"></i> 已修复 / 良好</span>
+</div>
+
+<section>
+<h2>🔴 高优先级问题 <span class="count">3 项 · 建议立即修正</span></h2>
+
+<div class="issue r">
+  <h3><span class="tag r">P1</span> 英文首页有 6 个死链（404）</h3>
+  <span class="loc">content/en/_index.md · 第 12–21 行</span>
+  <p>英文首页列出了 9 个工具链接，但英文站实际只有 <code>circuit-breaker-sizing-calculator</code> 和 <code>wire-size-calculator</code> 两个内容页。其余 6 个链接（charging-time、charging-power、three-phase、cable、transformer、electricity-cost）在 <code>public/en/tools/</code> 下均无对应目录，全部 404。</p>
+  <p>根因：英文首页直接复制了完整工具清单，但对应的英文翻译页从未创建。</p>
+  <div class="fix"><b>修复：</b>方案一——英文首页只保留已存在的 2 个工具链接，移除其余 6 个；方案二——为 6 个缺失工具补齐英文内容页。在补齐前至少先把死链从首页撤下，避免被搜索引擎抓取到大量 404。</div>
+</div>
+
+<div class="issue r">
+  <h3><span class="tag r">P1</span> 中文首页严重过时，漏掉 5 个已上线工具</h3>
+  <span class="loc">content/zh/_index.md · 第 11–18 行</span>
+  <p>中文站实际已有 7 个工具，但首页只列了充电时间、充电功率 2 个。第 16–18 行仍写着“更多工具（cable 线径、电压降、断路器选型、电费）正在开发，敬请期待”——而这些工具早已上线。首页入口缺失直接拖累工具可达性与 SEO 内链。</p>
+  <div class="fix"><b>修复：</b>补全 7 个工具的入口卡片/链接，删除“正在开发”文案，使首页与实际内容一致。</div>
+</div>
+
+<div class="issue r">
+  <h3><span class="tag r">P1</span> charging-power 页 slug 被设为中文，生成中文 URL</h3>
+  <span class="loc">content/zh/tools/charging-power-calculator.md:10</span>
+  <p>frontmatter 中 <code>slug: 充电桩功率计算器-—-选型与三相功率计算</code>，导致实际 URL 变成 <code>/zh/tools/充电桩功率计算器-—-选型与三相功率计算/</code>（已验证 public 下生成了中文目录名）。中文 URL 不规范、SEO 不友好，且 slug 中的 em-dash（—）易引发 URL 编码问题，也与其余工具统一的英文 slug 风格不一致。</p>
+  <div class="fix"><b>修复：</b>删除该 <code>slug</code> 行，让其回退到文件名 <code>charging-power-calculator</code>，与其他工具保持一致。</div>
+</div>
+</section>
+
+<section>
+<h2>🟡 中优先级问题 <span class="count">6 项 · 影响多语言与一致性</span></h2>
+
+<div class="issue a">
+  <h3><span class="tag a">P2</span> 多语言工具页严重不对称，translationKey 大量悬空</h3>
+  <p>中文 7 个工具 vs 英文 2 个工具：</p>
+  <p>• 中文独有、缺英文翻译（6 个）：cable、charging-power、charging-time、electricity-cost、three-phase、transformer<br>
+  • 英文独有、缺中文翻译（1 个）：wire-size（其 <code>translationKey: wire_size_calculator</code> 在中文站无对端）<br>
+  • 双语齐全仅 1 个：circuit-breaker</p>
+  <p>悬空的 translationKey 导致跨语言切换失效。</p>
+  <div class="fix"><b>修复：</b>明确多语言策略。若暂不做英文版，就从英文首页移除对应链接（见 P1-1）；若要做，补齐 6 个英文翻译页 + 1 个 wire-size 中文页。</div>
+</div>
+
+<div class="issue a">
+  <h3><span class="tag a">P2</span> shortcode 未做 i18n，中文站 circuit-breaker 显示英文界面</h3>
+  <span class="loc">layouts/shortcodes/*.html</span>
+  <p>8 个 shortcode 中仅 <code>cable-current-carrying-capacity-lookup.html</code> 使用了 <code>{{ T "..." }}</code> 国际化，其余全部硬编码文本。<code>circuit-breaker-sizing-calculator.html</code> 的界面 label 全为英文（“Quick Presets”“Resistive / General Load”“Motor Branch Circuit”等）。</p>
+  <p>中文站调用同一 shortcode 时，会出现“计算器界面英文 + 下方 FAQ 中文”的割裂体验。</p>
+  <div class="fix"><b>修复：</b>为双语共用的 shortcode（至少 circuit-breaker、wire-size）补充 i18n 文本条目，参照 cable shortcode 的 <code>{{ T }}</code> 模式。</div>
+</div>
+
+<div class="issue a">
+  <h3><span class="tag a">P2</span> voltage-drop-calculator.html 为孤儿 shortcode</h3>
+  <span class="loc">layouts/shortcodes/voltage-drop-calculator.html</span>
+  <p>该 shortcode 文件存在，但没有任何内容页通过 <code>{{&lt; voltage-drop-calculator &gt;}}</code> 调用它。疑似计划中未完成的工具。</p>
+  <div class="fix"><b>修复：</b>要么创建对应内容页完成上线，要么暂时移除该文件以免误导。</div>
+</div>
+
+<div class="issue a">
+  <h3><span class="tag a">P2</span> public 目录残留陈旧文件</h3>
+  <span class="loc">public/zh/tools/wire-size-calculator/ · public/zh/tools/充电桩功率计算器…/</span>
+  <p><code>public/zh/tools/wire-size-calculator/index.html</code> 含 <code>livereload.js</code>、canonical 指向 <code>localhost:1313</code>、带 <code>noindex</code>——是旧 <code>hugo server</code> 运行残留，源文件早已删除。<code>hugo --gc</code> 不会清理这类非本次生成的文件。</p>
+  <div class="fix"><b>修复：</b>执行 <code class="blk">rm -rf public &amp;&amp; hugo</code> 重建，确保 public 与当前源码一致。</div>
+</div>
+
+<div class="issue a">
+  <h3><span class="tag a">P2</span> 首页链接未用 ref shortcode，无法适配多语言/检测死链</h3>
+  <span class="loc">content/zh/_index.md · content/en/_index.md</span>
+  <p>中英文首页均用裸 markdown 链接 <code>/tools/xxx/</code>。在 <code>defaultContentLanguageInSubdir=true</code> 下，英文页的这类绝对路径不会自动加 <code>/en/</code> 前缀，Hugo 也无法在构建期检测死链。</p>
+  <div class="fix"><b>修复：</b>改用 <code>{{&lt; ref "tools/xxx.md" &gt;}}</code> 或 <code>relref</code>，由 Hugo 解析路径、自动加语言前缀并在链接失效时报错。</div>
+</div>
+
+<div class="issue a">
+  <h3><span class="tag a">P2</span> header.html 语言切换硬编码路径</h3>
+  <span class="loc">layouts/partials/header.html:66,68</span>
+  <p>第 66 行 <code>&lt;a href="/en/"&gt;</code>、第 68 行 <code>&lt;a href="/"&gt;</code> 硬编码绝对路径，绕过了主题标准的 <code>AllTranslations</code> 逻辑。虽然当前两语言下能工作，但不够健壮，且 <code>/</code> 在子目录模式下需靠重定向跳到 <code>/zh/</code>。</p>
+  <div class="fix"><b>修复：</b>改用 <code>{{ .RelPermalink | absLangURL }}</code> 或保留标准 <code>AllTranslations</code> 循环分支，让 Hugo 自动生成正确语言链接。</div>
+</div>
+</section>
+
+<section>
+<h2>⚪ 轻微 / 配置问题 <span class="count">7 项 · 规范与优化</span></h2>
+
+<div class="issue">
+  <h3><span class="tag g">P3</span> static/js/ 空目录残留</h3>
+  <span class="loc">static/js/</span>
+  <p>目录存在但为空，属残留。建议直接删除。</p>
+</div>
+<div class="issue">
+  <h3><span class="tag g">P3</span> 缺少 favicon 与站点图标</h3>
+  <p>static/ 下无任何 favicon 文件，但主题模板引用了 <code>/favicon.ico</code>、<code>/favicon-16x16.png</code>、<code>/apple-touch-icon.png</code> 等，访问会 404。建议补充一套图标。</p>
+</div>
+<div class="issue">
+  <h3><span class="tag g">P3</span> 缺少 [params.author]</h3>
+  <p>PaperMod 的 RSS、schema_json、文章元数据依赖 author 配置，当前未设置。建议在 <code>[params]</code> 添加 <code>author = "..."</code>。</p>
+</div>
+<div class="issue">
+  <h3><span class="tag g">P3</span> [env] production = true 写死在配置中</h3>
+  <span class="loc">hugo.toml [params] 下</span>
+  <p>开发环境也强制 production 模式，会禁用草稿、影响资源处理（如不生成 livereload）。建议改用环境变量 <code>HUGO_ENV=production</code> 控制，而非写死。</p>
+</div>
+<div class="issue">
+  <h3><span class="tag g">P3</span> opengraph.html 首行含 BOM 字符</h3>
+  <span class="loc">layouts/partials/templates/opengraph.html:1</span>
+  <p>文件开头有 U+FEFF BOM 字符，通常无害但不规范。建议以 UTF-8 无 BOM 重新保存。</p>
+</div>
+<div class="issue">
+  <h3><span class="tag g">P3</span> shortcode 内联大量重复 CSS</h3>
+  <p>每个 shortcode 自带完整 <code>&lt;style&gt;</code>（circuit-breaker 的 CSS 约 116 行），8 个 shortcode 间存在大量重复的卡片、输入框、暗色模式样式。建议抽到 <code>assets/css</code> 或 <code>static/css</code> 统一管理，减小体积、统一视觉。</p>
+</div>
+<div class="issue">
+  <h3><span class="tag g">P3</span> 首页 _index.md 内联裸 ld+json</h3>
+  <span class="loc">content/zh/_index.md · content/en/_index.md</span>
+  <p>首页直接内嵌 <code>&lt;script type="application/ld+json"&gt;</code>，靠 <code>markup.goldmark.renderer.unsafe=true</code> 渲染。可工作，但更安全的方式是用 <code>{{&lt; rawhtml &gt;}}</code> shortcode 包裹，或抽到布局模板。</p>
+</div>
+</section>
+
+<section>
+<h2>✅ 已修复 / 良好部分 <span class="count">对照旧 todolist.md</span></h2>
+<div class="issue gr">
+  <p>• <b>构建已通过</b>——<code>hugo --gc</code> 退出码 0，ZH 72 页 / EN 66 页。旧记录中“自定义 opengraph.html 使用 .Site.Authors 导致全站编译失败”的问题已修复，opengraph.html 已改回标准模板。</p>
+  <p>• <b>about 页中英文齐全</b>——旧记录中“关于链接 404”已修复，content/zh/about.md 与 content/en/about.md 均存在且 translationKey 绑定。</p>
+  <p>• <b>content/zh/_index.md 已创建</b>——旧记录中“中文首页缺失”已修复。</p>
+  <p>• circuit-breaker 中英文 translationKey 绑定正确。</p>
+  <p>• 每个工具页有 schema.org 结构化数据（FAQPage、BreadcrumbList）。</p>
+  <p>• 搜索已配置（JSON 输出格式 + Fuse.js）。</p>
+  <p>• 主题用 git submodule 管理，技术内容（NEC/GB 标准）引用准确。</p>
+</div>
+</section>
+
+<section>
+<h2>🛠️ 建议修复路线图</h2>
+<div class="roadmap">
+  <div class="step"><div class="body"><b>第一步 · 清理死链与过时首页</b><br>修正英文首页死链（P1-1）、补全中文首页工具入口并删除“正在开发”文案（P1-2）、删除 charging-power 中文 slug（P1-3）。这是上线前必须做的。</div></div>
+  <div class="step"><div class="body"><b>第二步 · 重建 public 与多语言策略</b><br>rm -rf public 重建清理残留（P2-4），明确多语言策略：要么补翻译要么撤英文首页链接（P2-1）。</div></div>
+  <div class="step"><div class="body"><b>第三步 · shortcode 本地化</b><br>为双语共用的 circuit-breaker / wire-size shortcode 补 i18n 文本（P2-2），首页链接改用 ref shortcode（P2-5）。</div></div>
+  <div class="step"><div class="body"><b>第四步 · 配置补全</b><br>补 author、favicon，修正 [env] 与 BOM，处理孤儿 shortcode 与空目录（P3 系列）。</div></div>
+  <div class="step"><div class="body"><b>第五步 · 样式整理</b><br>将 shortcode 内联 CSS 抽到统一样式表，减小体积、统一视觉（P3-6）。</div></div>
+</div>
+</section>
+
+<footer>
+  本报告由 WorkBuddy 自动检查生成 · 基于 Hugo v0.164.0 实际构建与源码分析 · 2026-07-26
+</footer>
+
+</div>
+</body>
+</html>
