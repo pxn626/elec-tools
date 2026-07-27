@@ -91,8 +91,8 @@
 
   <div class="tcs-card">
     <div class="tcs-mode-tabs">
-      <div class="tcs-tab active" data-tab="factor">① 需要系数法(主推,GB 50054 推荐)</div>
-      <div class="tcs-tab" data-tab="total">② 按总功率法(快速估算)</div>
+      <div class="tcs-tab active" data-tab="factor">{{ T "tcs_tab_factor" }}</div>
+      <div class="tcs-tab" data-tab="total">{{ T "tcs_tab_total" }}</div>
     </div>
 
     <!-- =========================================================== -->
@@ -101,39 +101,39 @@
     <div class="tcs-panel active" data-panel="factor">
 
       <!-- 用户类型(决定 K_Σ 同时系数) -->
-      <div class="tcs-section-title">▶ 用户类型(决定同时系数 K_Σ)</div>
+      <div class="tcs-section-title">{{ T "tcs_user_type_section" }}</div>
       <div class="tcs-input-group">
         <div class="tcs-radio-group">
-          <label><input type="radio" name="tcs-user-type" value="residential" checked onclick="tcsApplyUserType('residential')"> 住宅小区 (K_Σ=0.75)</label>
-          <label><input type="radio" name="tcs-user-type" value="commercial" onclick="tcsApplyUserType('commercial')"> 商业建筑 (K_Σ=0.85)</label>
-          <label><input type="radio" name="tcs-user-type" value="industrial" onclick="tcsApplyUserType('industrial')"> 工业厂房 (K_Σ=0.95)</label>
-          <label><input type="radio" name="tcs-user-type" value="public" onclick="tcsApplyUserType('public')"> 公共建筑 (K_Σ=0.85)</label>
-          <label><input type="radio" name="tcs-user-type" value="custom" onclick="tcsApplyUserType('custom')"> 自填</label>
+          <label><input type="radio" name="tcs-user-type" value="residential" checked onclick="tcsApplyUserType('residential')"> {{ T "tcs_user_residential" }}</label>
+          <label><input type="radio" name="tcs-user-type" value="commercial" onclick="tcsApplyUserType('commercial')"> {{ T "tcs_user_commercial" }}</label>
+          <label><input type="radio" name="tcs-user-type" value="industrial" onclick="tcsApplyUserType('industrial')"> {{ T "tcs_user_industrial" }}</label>
+          <label><input type="radio" name="tcs-user-type" value="public" onclick="tcsApplyUserType('public')"> {{ T "tcs_user_public" }}</label>
+          <label><input type="radio" name="tcs-user-type" value="custom" onclick="tcsApplyUserType('custom')"> {{ T "tcs_user_custom" }}</label>
         </div>
       </div>
       <div class="tcs-row" id="tcs-Ksigma-custom-wrap" style="display:none;">
         <div class="tcs-input-group">
-          <label>同时系数 K_Σ(自填)</label>
+          <label>{{ T "tcs_label_Ksigma" }}</label>
           <input type="number" id="tcs-Ksigma-custom" value="0.85" min="0.50" max="1.00" step="0.05" inputmode="decimal">
         </div>
         <div class="tcs-input-group"></div>
       </div>
 
       <!-- 设备分类输入 -->
-      <div class="tcs-section-title">▶ 设备分类输入(填 0 = 无该类负荷)</div>
+      <div class="tcs-section-title">{{ T "tcs_equip_section" }}</div>
 
       <!-- ① 照明设备 -->
       <div class="tcs-row3">
         <div class="tcs-input-group">
-          <label>① 照明设备 总功率 P₁<span class="tcs-unit">(kW)</span></label>
+          <label>{{ T "tcs_label_p_lighting" }}<span class="tcs-unit">(kW)</span></label>
           <input type="number" id="tcs-power-lighting" value="0" min="0" max="10000" step="0.5" inputmode="decimal">
         </div>
         <div class="tcs-input-group">
-          <label>需要系数 K_x1<span class="tcs-unit">(0.50~0.90)</span></label>
+          <label>{{ T "tcs_label_kx_lighting" }}<span class="tcs-unit">(0.50~0.90)</span></label>
           <input type="number" id="tcs-Kx-lighting" value="0.80" min="0.10" max="1.00" step="0.05" inputmode="decimal">
         </div>
         <div class="tcs-input-group">
-          <label>功率因数 cosφ₁<span class="tcs-unit">(0.50~1.00)</span></label>
+          <label>{{ T "tcs_label_cos_lighting" }}<span class="tcs-unit">(0.50~1.00)</span></label>
           <input type="number" id="tcs-cos-lighting" value="0.90" min="0.50" max="1.00" step="0.01" inputmode="decimal">
         </div>
       </div>
@@ -141,15 +141,15 @@
       <!-- ② 动力设备 -->
       <div class="tcs-row3">
         <div class="tcs-input-group">
-          <label>② 动力设备 总功率 P₂<span class="tcs-unit">(kW)</span></label>
+          <label>{{ T "tcs_label_p_motor" }}<span class="tcs-unit">(kW)</span></label>
           <input type="number" id="tcs-power-motor" value="0" min="0" max="10000" step="0.5" inputmode="decimal">
         </div>
         <div class="tcs-input-group">
-          <label>需要系数 K_x2<span class="tcs-unit">(0.50~0.85)</span></label>
+          <label>{{ T "tcs_label_kx_motor" }}<span class="tcs-unit">(0.50~0.85)</span></label>
           <input type="number" id="tcs-Kx-motor" value="0.80" min="0.10" max="1.00" step="0.05" inputmode="decimal">
         </div>
         <div class="tcs-input-group">
-          <label>功率因数 cosφ₂<span class="tcs-unit">(0.70~0.85)</span></label>
+          <label>{{ T "tcs_label_cos_motor" }}<span class="tcs-unit">(0.70~0.85)</span></label>
           <input type="number" id="tcs-cos-motor" value="0.80" min="0.50" max="1.00" step="0.01" inputmode="decimal">
         </div>
       </div>
@@ -157,15 +157,15 @@
       <!-- ③ 电热设备 -->
       <div class="tcs-row3">
         <div class="tcs-input-group">
-          <label>③ 电热设备 总功率 P₃<span class="tcs-unit">(kW)</span></label>
+          <label>{{ T "tcs_label_p_heating" }}<span class="tcs-unit">(kW)</span></label>
           <input type="number" id="tcs-power-heating" value="0" min="0" max="10000" step="0.5" inputmode="decimal">
         </div>
         <div class="tcs-input-group">
-          <label>需要系数 K_x3<span class="tcs-unit">(0.60~0.80)</span></label>
+          <label>{{ T "tcs_label_kx_heating" }}<span class="tcs-unit">(0.60~0.80)</span></label>
           <input type="number" id="tcs-Kx-heating" value="0.70" min="0.10" max="1.00" step="0.05" inputmode="decimal">
         </div>
         <div class="tcs-input-group">
-          <label>功率因数 cosφ₃<span class="tcs-unit">(0.95~1.00)</span></label>
+          <label>{{ T "tcs_label_cos_heating" }}<span class="tcs-unit">(0.95~1.00)</span></label>
           <input type="number" id="tcs-cos-heating" value="1.00" min="0.50" max="1.00" step="0.01" inputmode="decimal">
         </div>
       </div>
@@ -173,22 +173,22 @@
       <!-- ④ 其他设备 -->
       <div class="tcs-row3">
         <div class="tcs-input-group">
-          <label>④ 其他设备 总功率 P₄<span class="tcs-unit">(kW)</span></label>
+          <label>{{ T "tcs_label_p_other" }}<span class="tcs-unit">(kW)</span></label>
           <input type="number" id="tcs-power-other" value="0" min="0" max="10000" step="0.5" inputmode="decimal">
         </div>
         <div class="tcs-input-group">
-          <label>需要系数 K_x4<span class="tcs-unit">(0.60~0.80)</span></label>
+          <label>{{ T "tcs_label_kx_other" }}<span class="tcs-unit">(0.60~0.80)</span></label>
           <input type="number" id="tcs-Kx-other" value="0.70" min="0.10" max="1.00" step="0.05" inputmode="decimal">
         </div>
         <div class="tcs-input-group">
-          <label>功率因数 cosφ₄<span class="tcs-unit">(0.70~0.90)</span></label>
+          <label>{{ T "tcs_label_cos_other" }}<span class="tcs-unit">(0.70~0.90)</span></label>
           <input type="number" id="tcs-cos-other" value="0.85" min="0.50" max="1.00" step="0.01" inputmode="decimal">
         </div>
       </div>
 
       <!-- 预设按钮:动力 -->
       <div class="tcs-input-group">
-        <label>📋 动力设备预设(点击自动填 P₂)</label>
+        <label>{{ T "tcs_preset_motor" }}</label>
         <div class="tcs-presets">
           <span class="tcs-preset" onclick="tcsApplyPowerPreset('motor', 22.5, 0.75, 0.80)">7.5kW × 3 电动机</span>
           <span class="tcs-preset" onclick="tcsApplyPowerPreset('motor', 22.0, 0.75, 0.80)">11kW × 2 电动机</span>
@@ -200,7 +200,7 @@
 
       <!-- 预设按钮:照明 -->
       <div class="tcs-input-group">
-        <label>💡 照明设备预设(点击自动填 P₁)</label>
+        <label>{{ T "tcs_preset_lighting" }}</label>
         <div class="tcs-presets">
           <span class="tcs-preset" onclick="tcsApplyPowerPreset('lighting', 2.0, 0.80, 0.90)">50m² 住宅</span>
           <span class="tcs-preset" onclick="tcsApplyPowerPreset('lighting', 8.0, 0.85, 0.92)">200m² 商铺</span>
@@ -210,28 +210,28 @@
       </div>
 
       <!-- 变压器选型 -->
-      <div class="tcs-section-title">▶ 变压器选型</div>
+      <div class="tcs-section-title">{{ T "tcs_tx_section" }}</div>
       <div class="tcs-row">
         <div class="tcs-input-group">
-          <label>变压器类型</label>
+          <label>{{ T "tcs_tx_type" }}</label>
           <div class="tcs-radio-group">
-            <label><input type="radio" name="tcs-tx-type" value="oil" checked onclick="tcsCalc()"> 油浸 (η≈0.97)</label>
-            <label><input type="radio" name="tcs-tx-type" value="dry" onclick="tcsCalc()"> 干式 (η≈0.96)</label>
-            <label><input type="radio" name="tcs-tx-type" value="custom" onclick="tcsCalc()"> 自填</label>
+            <label><input type="radio" name="tcs-tx-type" value="oil" checked onclick="tcsCalc()"> {{ T "tcs_tx_oil" }}</label>
+            <label><input type="radio" name="tcs-tx-type" value="dry" onclick="tcsCalc()"> {{ T "tcs_tx_dry" }}</label>
+            <label><input type="radio" name="tcs-tx-type" value="custom" onclick="tcsCalc()"> {{ T "tcs_tx_custom" }}</label>
           </div>
         </div>
         <div class="tcs-input-group" id="tcs-eta-wrap" style="display:none;">
-          <label>变压器效率 η(自填)<span class="tcs-unit">(0.90~0.99)</span></label>
+          <label>{{ T "tcs_label_eta" }}<span class="tcs-unit">(0.90~0.99)</span></label>
           <input type="number" id="tcs-eta-custom" value="0.97" min="0.90" max="0.99" step="0.005" inputmode="decimal">
         </div>
       </div>
       <div class="tcs-row">
         <div class="tcs-input-group">
-          <label>负载率 K_load<span class="tcs-unit">(经济区间 0.75~0.85)</span></label>
+          <label>{{ T "tcs_label_kload" }}<span class="tcs-unit">(经济区间 0.75~0.85)</span></label>
           <input type="number" id="tcs-kload" value="0.85" min="0.30" max="1.00" step="0.05" inputmode="decimal">
         </div>
         <div class="tcs-input-group">
-          <label>裕度系数 K_m<span class="tcs-unit">(GB 50052 推荐 1.10~1.25)</span></label>
+          <label>{{ T "tcs_label_km" }}<span class="tcs-unit">(GB 50052 推荐 1.10~1.25)</span></label>
           <input type="number" id="tcs-km" value="1.20" min="1.00" max="1.50" step="0.05" inputmode="decimal">
         </div>
       </div>
@@ -241,31 +241,31 @@
     <!-- Tab 2: 按总功率法 -->
     <!-- =========================================================== -->
     <div class="tcs-panel" data-panel="total">
-      <div class="tcs-section-title">▶ 总功率输入</div>
+      <div class="tcs-section-title">{{ T "tcs_total_section" }}</div>
       <div class="tcs-row">
         <div class="tcs-input-group">
-          <label>总有功功率 P<span class="tcs-unit">(kW)</span></label>
+          <label>{{ T "tcs_label_total_p" }}<span class="tcs-unit">(kW)</span></label>
           <input type="number" id="tcs-total-p" value="50" min="1" max="100000" step="1" inputmode="decimal">
         </div>
         <div class="tcs-input-group">
-          <label>设备类型</label>
+          <label>{{ T "tcs_label_equip_type" }}</label>
           <div class="tcs-radio-group">
-            <label><input type="radio" name="tcs-total-type" value="resistive" onclick="tcsApplyTotalType('resistive')"> 电阻性(cosφ≈1)</label>
-            <label><input type="radio" name="tcs-total-type" value="inductive" checked onclick="tcsApplyTotalType('inductive')"> 感性(cosφ&lt;1)</label>
-            <label><input type="radio" name="tcs-total-type" value="custom" onclick="tcsApplyTotalType('custom')"> 自填</label>
+            <label><input type="radio" name="tcs-total-type" value="resistive" onclick="tcsApplyTotalType('resistive')"> {{ T "tcs_equip_resistive" }}</label>
+            <label><input type="radio" name="tcs-total-type" value="inductive" checked onclick="tcsApplyTotalType('inductive')"> {{ T "tcs_equip_inductive" }}</label>
+            <label><input type="radio" name="tcs-total-type" value="custom" onclick="tcsApplyTotalType('custom')"> {{ T "tcs_user_custom" }}</label>
           </div>
         </div>
       </div>
       <div class="tcs-row">
         <div class="tcs-input-group">
-          <label>总功率因数 cosφ<span class="tcs-unit">(0.50~1.00)</span></label>
+          <label>{{ T "tcs_label_total_cos" }}<span class="tcs-unit">(0.50~1.00)</span></label>
           <input type="number" id="tcs-total-cos" value="0.80" min="0.50" max="1.00" step="0.01" inputmode="decimal">
         </div>
         <div class="tcs-input-group"></div>
       </div>
 
       <div class="tcs-input-group">
-        <label>📋 总功率预设(常见场景)</label>
+        <label>{{ T "tcs_preset_total" }}</label>
         <div class="tcs-presets">
           <span class="tcs-preset" onclick="tcsApplyTotalPreset(50)">50 kW 小型作坊</span>
           <span class="tcs-preset" onclick="tcsApplyTotalPreset(200)">200 kW 中型工厂</span>
@@ -275,28 +275,28 @@
         </div>
       </div>
 
-      <div class="tcs-section-title">▶ 变压器选型</div>
+      <div class="tcs-section-title">{{ T "tcs_tx_section" }}</div>
       <div class="tcs-row">
         <div class="tcs-input-group">
-          <label>变压器类型</label>
+          <label>{{ T "tcs_tx_type" }}</label>
           <div class="tcs-radio-group">
-            <label><input type="radio" name="tcs-tx-type-2" value="oil" checked onclick="tcsCalc()"> 油浸 (η≈0.97)</label>
-            <label><input type="radio" name="tcs-tx-type-2" value="dry" onclick="tcsCalc()"> 干式 (η≈0.96)</label>
-            <label><input type="radio" name="tcs-tx-type-2" value="custom" onclick="tcsCalc()"> 自填</label>
+            <label><input type="radio" name="tcs-tx-type-2" value="oil" checked onclick="tcsCalc()"> {{ T "tcs_tx_oil" }}</label>
+            <label><input type="radio" name="tcs-tx-type-2" value="dry" onclick="tcsCalc()"> {{ T "tcs_tx_dry" }}</label>
+            <label><input type="radio" name="tcs-tx-type-2" value="custom" onclick="tcsCalc()"> {{ T "tcs_tx_custom" }}</label>
           </div>
         </div>
         <div class="tcs-input-group" id="tcs-eta-wrap-2" style="display:none;">
-          <label>变压器效率 η(自填)<span class="tcs-unit">(0.90~0.99)</span></label>
+          <label>{{ T "tcs_label_eta" }}<span class="tcs-unit">(0.90~0.99)</span></label>
           <input type="number" id="tcs-eta-2" value="0.97" min="0.90" max="0.99" step="0.005" inputmode="decimal">
         </div>
       </div>
       <div class="tcs-row">
         <div class="tcs-input-group">
-          <label>负载率 K_load<span class="tcs-unit">(经济区间 0.75~0.85)</span></label>
+          <label>{{ T "tcs_label_kload" }}<span class="tcs-unit">(经济区间 0.75~0.85)</span></label>
           <input type="number" id="tcs-kload-2" value="0.85" min="0.30" max="1.00" step="0.05" inputmode="decimal">
         </div>
         <div class="tcs-input-group">
-          <label>裕度系数 K_m<span class="tcs-unit">(GB 50052 推荐 1.10~1.25)</span></label>
+          <label>{{ T "tcs_label_km" }}<span class="tcs-unit">(GB 50052 推荐 1.10~1.25)</span></label>
           <input type="number" id="tcs-km-2" value="1.20" min="1.00" max="1.50" step="0.05" inputmode="decimal">
         </div>
       </div>
@@ -306,7 +306,7 @@
     <!-- Result area -->
     <!-- =========================================================== -->
     <div class="tcs-result" id="tcs-result">
-      <h3 id="tcs-result-title">变压器容量选型结果</h3>
+      <h3 id="tcs-result-title">{{ T "tcs_result_title" }}</h3>
       <div id="tcs-result-body"></div>
       <div class="tcs-formula" id="tcs-formula"></div>
       <div class="tcs-tip" id="tcs-tip" style="display:none;"></div>
@@ -317,7 +317,7 @@
     <!-- 国标依据 + 免责声明 -->
     <!-- =========================================================== -->
     <div class="tcs-standard">
-      <p>📋 国标依据</p>
+      <p>{{ T "tcs_js_standard_title" }}</p>
       <ul>
         <li>GB 50052-2009《供配电系统设计规范》§6.0.3(变压器容量选择)/ §6.0.4(留裕度)/ §6.0.5(单台 ≤ 1250 kVA)/ §6.0.7(负载率 ≤ 85%)</li>
         <li>GB 50054-2011《低压配电设计规范》§3.4(负荷计算)+ 附录 B(需要系数、同时系数)</li>
@@ -329,7 +329,7 @@
     </div>
 
     <div class="tcs-disclaimer">
-      <p>⚠ 免责声明</p>
+      <p>{{ T "tcs_js_disclaimer_title" }}</p>
       <ul>
         <li>本工具基于 GB 50052-2009 / GB/T 17468-2019 标准简化实现,选型结果仅供设计参考。</li>
         <li>正式施工图设计应以<strong>国家标准化管理委员会发布的现行版本</strong>为准,由注册电气工程师审核。</li>

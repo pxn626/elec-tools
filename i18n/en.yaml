@@ -45,3 +45,639 @@
   translation: "Ladder tray (Good cooling)"
 - id: cc_js_kh_note_below_1000
   translation: "Altitude ≤ 1000m (No correction)"
+- id: cc_label_air_sub
+  translation: "Installation Method"
+- id: cc_air_sub_direct
+  translation: "In Free Air"
+- id: cc_air_sub_tray
+  translation: "On Cable Tray"
+- id: cc_tray_type
+  translation: "Tray Type"
+- id: cc_tray_ladder
+  translation: "Ladder Tray"
+- id: cc_tray_perforated
+  translation: "Perforated Tray"
+- id: cc_tray_tray
+  translation: "Solid Tray"
+- id: cc_multi_mode
+  translation: "Multi-Circuit Arrangement"
+- id: cc_multi_touching
+  translation: "Touching"
+- id: cc_multi_spaced
+  translation: "Spaced (= 1 × OD)"
+- id: cc_shield
+  translation: "Sun/Shade (free air only)"
+- id: cc_shield_yes
+  translation: "Shaded / Indoor"
+- id: cc_shield_no
+  translation: "Exposed / Direct Sun"
+- id: cc_pipe_mat
+  translation: "Conductor Material"
+- id: cc_pipe_material
+  translation: "Conduit Material"
+- id: cc_pipe_steel
+  translation: "Steel Conduit (SC)"
+- id: cc_pipe_pvc
+  translation: "PVC Conduit"
+- id: cc_pipe_cores
+  translation: "Cores in Conduit"
+- id: cc_pipe_1c
+  translation: "1 Core"
+- id: cc_pipe_2c
+  translation: "2 Cores"
+- id: cc_pipe_3c
+  translation: "3 Cores"
+- id: cc_soil_sub
+  translation: "Laying Method"
+- id: cc_soil_direct
+  translation: "Direct Burial"
+- id: cc_soil_duct
+  translation: "In Duct"
+- id: cc_soil_temp
+  translation: "Soil Temp θ_g"
+- id: cc_soil_rho
+  translation: "Soil Thermal Resistivity ρ"
+- id: cc_soil_rho_base
+  translation: "2.0 (baseline)"
+- id: cc_soil_rho_gb
+  translation: "2.5 (GB default)"
+- id: cc_js_warn_cs_1c
+  translation: "Cross-section < 1.5 mm², GB 50054 min Cu 1.5mm²"
+- id: cc_js_warn_mat
+  translation: "Select conductor material"
+- id: cc_js_warn_type
+  translation: "Enter cable type"
+- id: cc_js_warn_alt
+  translation: "Enter altitude"
+- id: cc_js_warn_cs_out
+  translation: "Cross-section {cs} mm² out of lookup table range"
+- id: cc_js_warn_cs_exceed
+  translation: "Cross-section {cs} mm² exceeds table — linear extrapolation used, ±10% accuracy"
+- id: cc_js_warn_cs_gt1000
+  translation: "Cross-section > 1000 mm²: consult GB 50217 Appendix D"
+- id: cc_js_warn_al_min
+  translation: "Al min cross-section 10 mm² (GB 50054), result is reference only"
+- id: cc_js_warn_rho_high
+  translation: "Soil thermal resistivity > 5.0 K·m/W: abnormal dryness, on-site measurement required"
+- id: cc_js_warn_alt_high
+  translation: "Altitude > 5000m: special design required"
+- id: cc_js_warn_n_range
+  translation: "Parallel circuits out of range (1~6)"
+- id: cc_js_warn_temp_high
+  translation: "Ambient temp ≥ insulation limit ({Tmax}°C): cable unusable"
+- id: cc_js_warn_temp_range
+  translation: "Temperature out of engineering range (-40 ~ 60°C)"
+- id: cc_js_ks_note_tray_ladder
+  translation: "Ladder tray (good cooling)"
+- id: cc_js_ks_note_tray_other
+  translation: "Perforated/solid tray (slightly worse cooling)"
+- id: cc_js_ks_note_unshielded
+  translation: "Exposed to sun, derating applied (GB 50217 §5.4.5)"
+- id: cc_js_ks_note_shielded
+  translation: "Shaded / indoor (baseline)"
+- id: cc_js_ks_note_pvc_pipe
+  translation: "PVC conduit: poor heat dissipation, ×0.9 applied"
+- id: cc_js_ks_note_steel_pipe
+  translation: "Steel conduit SC: correction already in table"
+- id: cc_js_ks_note_soil_rho
+  translation: "Soil thermal resistivity ρ={rho} K·m/W"
+- id: cc_js_ks_note_soil_duct
+  translation: "In duct: additional ×0.85 applied"
+- id: cc_js_kp_note_single
+  translation: "Single circuit (baseline)"
+- id: cc_js_kp_note_multi
+  translation: "{n} circuits {mode}"
+- id: cc_js_kh_note_alt
+  translation: "Altitude {alt}m (GB 50217 Table 5.4.6)"
+- id: cc_js_kh_note_below
+  translation: "Altitude ≤ 1000m (no correction)"
+- id: cc_js_tip_ktheta_high
+  translation: "K_θ > 1.0: cooling better than baseline (temp below 25°C), actual ampacity exceeds table value"
+- id: cc_js_tip_ktheta_low
+  translation: "K_θ < 0.9: high ambient temp, cable ampacity significantly reduced — verify breaker coordination"
+- id: cc_js_tip_pvc_pipe
+  translation: "PVC conduit has worse heat dissipation than steel, extra ×0.9 applied (steel data already corrected)"
+- id: cc_js_tip_multi_4
+  translation: "Parallel circuits ≥ 4: recommend separate trays / layers for better economics"
+- id: cc_js_tip_alt_1000
+  translation: "Altitude > 1000m: air density lower, heat dissipation worse (K_h < 1.0)"
+- id: cc_js_tip_custom_type
+  translation: "Custom type not matched: using PVC insulation (70°C) table — reference only, consult manufacturer manual"
+- id: cc_js_tip_cb_rec
+  translation: "Recommended breaker setting ≤ {Iz}A × 0.8 = {cb}A (engineering practice); strictly per GB 50054-2011 §6.3.1 I_n ≤ I_z, overload check §6.3.4 1.45 × I_z"
+- id: cc_js_result_title
+  translation: "Result · {title}"
+- id: cc_result_iz
+  translation: "Corrected Ampacity I_z"
+- id: cc_result_i0
+  translation: "Reference Ampacity I_0"
+- id: cc_result_coeff
+  translation: "Correction Factors · {insul}"
+- id: cc_result_cb_ref
+  translation: "Breaker Sizing Reference (GB 50054-2011)"
+- id: cc_result_cb_upper
+  translation: "Recommended Setting Upper Limit (engineering: I_n ≤ 0.8 × I_z)"
+- id: cc_result_cb_145
+  translation: "1.45 × I_z Trip Current (GB 50054 §6.3.4)"
+- id: cc_js_standard_title
+  translation: "📋 Standards"
+- id: cc_js_disclaimer_title
+  translation: "⚠ Disclaimer"
+- id: cp_label_phase
+  translation: "Phase / Voltage (V)"
+- id: cp_phase_opt_1
+  translation: "Single-Phase 220V (Residential)"
+- id: cp_phase_opt_3
+  translation: "Three-Phase 380V (Industrial / DC Cabinet Input)"
+- id: cp_label_volt
+  translation: "Voltage U (V)"
+- id: cp_label_curr
+  translation: "Current I (A)"
+- id: cp_label_cos
+  translation: "Power Factor cosΦ"
+- id: cp_section_ac
+  translation: "AC Charging Piles (Single / Three-Phase)"
+- id: cp_section_dc
+  translation: "DC Charging Cabinet (Output → Input-Side Equivalent Current)"
+- id: cp_btn_clear
+  translation: "✕ Clear"
+- id: cp_result_title
+  translation: "Power Calculation Result"
+- id: cp_result_p
+  translation: "Active Power P (kW)"
+- id: cp_result_q
+  translation: "Reactive Power Q (kVar)"
+- id: cp_result_s
+  translation: "Apparent Power S (kVA)"
+- id: cp_tip_1ph_limit
+  translation: "⚠ Single-phase 220V practical upper limit ~7kW (32A). Higher power requires three-phase 380V."
+- id: cp_tip_3ph_limit
+  translation: "⚠ Input current ≥400A exceeds 380V direct supply limit. Usually requires 690V or 10kV medium-voltage distribution, with utility approval."
+- id: cp_tip_pf_low
+  translation: "⚠ Power factor below 0.95 triggers grid penalty. Recommend SVG reactive power compensation."
+- id: ct_label_capacity
+  translation: "Battery Capacity (kWh)"
+- id: ct_label_power
+  translation: "Charging Power (kW)"
+- id: ct_section_ac
+  translation: "AC Charging Piles"
+- id: ct_section_dc
+  translation: "DC Fast / Ultra Charging (GB/T Standard)"
+- id: ct_btn_clear
+  translation: "✕ Clear"
+- id: ct_label_eff
+  translation: "Charging Efficiency (%) — Default 90%"
+- id: ct_result_title
+  translation: "Estimated Charging Time"
+- id: ct_result_60
+  translation: "20% → 80% (Daily Use)"
+- id: ct_result_80
+  translation: "0% → 80% (Fast Charge Mainstream)"
+- id: ct_result_100
+  translation: "0% → 100% (Full Cycle)"
+- id: ct_result_30
+  translation: "50% → 80% (Emergency Top-Up)"
+- id: ct_link_cp
+  translation: "View current / cable sizing for this power →"
+- id: ct_js_minute
+  translation: "min"
+- id: ct_js_hour
+  translation: "h"
+- id: ct_js_hour_min
+  translation: "h {m} min"
+- id: ct_js_cccv
+  translation: "CCCV curve applied (0-20% ramp / 80-100% trickle). 0→100% takes {p}% longer than constant-power linear model. 20→80% unchanged."
+- id: ct_tip_240
+  translation: "Note: Ultra chargers (240kW+) typically run at full power in 20-80% SOC range; after 80% enters trickle. Actual time slightly longer. Usually requires 690V/10kV medium-voltage distribution."
+- id: ct_tip_100
+  translation: "Note: DC fast charge peak power only in 20-80% SOC range; 80%+ enters trickle. Actual time slightly longer than calculation."
+- id: ct_tip_60
+  translation: "Note: 60-100kW DC chargers for bus/fleet use. Prolonged full-power operation — monitor battery temperature."
+- id: ct_tip_43
+  translation: "Note: 43kW industrial AC requires three-phase 380V/63A. Actual input active power ~40.5kW (cosΦ=0.98)."
+- id: ct_tip_22
+  translation: "Note: 22kW requires three-phase 380V meter. Some vehicles limit on-board charger to 11kW — may not reach 22kW."
+- id: ct_tip_11
+  translation: "Note: 11kW is mainstream for commuting. 3-5 hours 20%→80% (depends on battery). Requires three-phase 380V meter."
+- id: ct_tip_8_10
+  translation: "Note: 8-10kW between home slow charge and three-phase AC. Confirm meter and on-board charger support this power level."
+- id: ct_tip_7
+  translation: "Note: 7kW slow charge barely damages battery, ideal for daily home use. Winter low temperature may extend charging time by 20-30%."
+- id: ec_tab_appliance
+  translation: "By Appliance Power"
+- id: ec_tab_total
+  translation: "By Total Consumption"
+- id: ec_label_name
+  translation: "Appliance Name (optional)"
+- id: ec_placeholder_name
+  translation: "e.g. AC / Refrigerator / Water Heater"
+- id: ec_label_watt
+  translation: "Rated Power P (W)"
+- id: ec_label_hours
+  translation: "Daily Usage (h)"
+- id: ec_checkbox_standby
+  translation: "Include standby power (5% of rated power)"
+- id: ec_label_monthly
+  translation: "Monthly Consumption (kWh)"
+- id: ec_label_price
+  translation: "Electricity Price (¥ / kWh)"
+- id: ec_label_days
+  translation: "Usage Days / Period"
+- id: ec_result_title
+  translation: "Electricity Cost Estimate"
+- id: ec_result_daily_kwh
+  translation: "Daily Consumption"
+- id: ec_result_daily_cost
+  translation: "Daily Cost"
+- id: ec_result_period_cost
+  translation: "{days}-Day Cost ({kwh} kWh)"
+- id: ec_result_yearly_cost
+  translation: "Yearly Cost (Est.)"
+- id: ec_result_household_pct
+  translation: "% of Household Monthly Income (assumed ¥3000/mo)"
+- id: ec_result_co2
+  translation: "CO₂ Emission Est.:"
+- id: ec_result_co2_note
+  translation: "≈ 0.785 kg CO₂/kWh, China grid average"
+- id: ec_tip_high_30
+  translation: "⚡ Daily consumption exceeds 30 kWh. Suggest: ① Upgrade to inverter model (save 20-30%) ② Add timer switch ③ Check for prolonged standby"
+- id: ec_tip_high_10
+  translation: "💡 High-power appliance tips: ① Use off-peak hours (valley price) ② Smart plug with timer ③ Regular descaling/cleaning (water heater saves 10%)"
+- id: ec_tip_medium
+  translation: "✓ Moderate consumption. Develop habit of switching off — long-term saves 5-8%."
+- id: ec_tip_low
+  translation: "✓ Low-consumption appliance, normal use fine. Standby accounts for ~5%; unplugging saves more."
+- id: ec_tip_monthly_high
+  translation: "🏠 Monthly consumption high ({kwh} kWh). Tips: ① Check standby power (save 5-10%) ② Replace old AC/water heater ③ Add solar (5-8 yr payback in China)"
+- id: ec_tip_monthly_low
+  translation: "✓ Low consumption. Further savings: ① LED lighting ② Raise AC temp 1°C (save 6-8%) ③ Add insulation to water heater"
+- id: ec_tip_monthly_normal
+  translation: "💡 Typical household level. Recommend: AC ≥26°C summer, electric heating ≤22°C winter — saves power and healthier."
+- id: tp_tab_A
+  translation: "① Three-Phase Active Power"
+- id: tp_tab_B
+  translation: "② Apparent / Reactive Conversion"
+- id: tp_tab_C
+  translation: "③ Power Factor Compensation"
+- id: tp_label_u
+  translation: "Line Voltage U"
+- id: tp_label_i
+  translation: "Line Current I"
+- id: tp_label_cosA
+  translation: "Power Factor cosφ"
+- id: tp_label_pB
+  translation: "Active Power P"
+- id: tp_label_cosB
+  translation: "Power Factor cosφ"
+- id: tp_label_pC
+  translation: "Active Power P"
+- id: tp_label_cos1
+  translation: "Before Compensation cosφ₁"
+- id: tp_label_cos2
+  translation: "After Compensation cosφ₂"
+- id: tp_result_title
+  translation: "Calculation Result"
+- id: tp_result_p
+  translation: "Active Power P"
+- id: tp_result_s
+  translation: "Apparent Power S"
+- id: tp_result_q
+  translation: "Reactive Power Q"
+- id: tp_result_phi
+  translation: "Phase Angle φ"
+- id: tp_result_s_reduction
+  translation: "Apparent Power Reduction"
+- id: tp_result_qc
+  translation: "Required Compensation Qc"
+- id: tp_js_title_A
+  translation: "Three-Phase Power · U={U}V / I={I}A / cosφ={cos}"
+- id: tp_js_tip_low_pf
+  translation: "⚡ Power factor too low (cosφ<{cos}). Utility reactive power penalty applies. Recommend SVG/capacitor compensation, target ≥0.90."
+- id: tp_js_tip_med_pf
+  translation: "💡 Power factor slightly low (cosφ={cos}). Compensate to 0.90~0.95 to reduce line loss and transformer load."
+- id: tp_js_tip_good_pf
+  translation: "✓ Good power factor (cosφ={cos}). In optimal range. Beware over-compensation causing reactive power export."
+- id: tp_js_warn_cos1
+  translation: "⚠ cosφ=1 is pure resistive — rare in industrial settings. Acceptable if post-compensation data."
+- id: tp_js_tip_cable
+  translation: "🔌 High-current recommendation: 380V/{I}A requires 5×{size}mm² five-core Cu cable, breaker set at 1.25×."
+- id: tp_js_tip_cable_overflow
+  translation: "🔌 380V/{I}A exceeds 315A table range. Consult professional engineer for cable and breaker selection (usually ≥150mm² + medium-voltage)."
+- id: tp_js_tip_q_ratio
+  translation: "⚡ Reactive component too high (Q/S={ratio}%). Transformer and lines must be sized for S={S}kVA not P={P}kW, significantly increasing capacity requirements."
+- id: tp_js_tip_s_more
+  translation: "💡 Apparent power S is {pct}% more than active P. Post-compensation sizing can be reduced."
+- id: tp_js_tip_s_good
+  translation: "✓ Good power factor. S close to P, high distribution capacity utilization."
+- id: tp_js_tip_no_needed
+  translation: "⚠ Target cosφ₂ ({cos2}) ≤ current cosφ₁ ({cos1}). No compensation needed. Raise cosφ₂ (e.g. 0.90~0.95)."
+- id: tp_js_warn_over_comp
+  translation: "⚠ Target cosφ₂ > 0.98 risks over-compensation (reactive power export to grid), causing reactive power penalty. 0.90~0.95 is most economical."
+- id: tp_js_tip_large_qc
+  translation: "🏭 Large compensation ({qc} kVAr). Tips: ① Grouped automatic switching (avoid over-comp) ② SVG preferred (fast response) ③ 480V capacitor bank (avoid harmonic amplification from 380V direct compensation)."
+- id: tp_js_tip_med_qc
+  translation: "⚙ Medium compensation. Recommended: ① SVG (static VAR generator, <10ms response) ② Or TSC (thyristor-switched capacitors)."
+- id: tp_js_tip_small_qc
+  translation: "✓ Small compensation. Standard capacitor bank (contactor-switched) sufficient — low cost, simple maintenance."
+- id: tcs_tab_factor
+  translation: "① Demand Factor Method (Recommended, GB 50054)"
+- id: tcs_tab_total
+  translation: "② Total Power Method (Quick Estimate)"
+- id: tcs_user_type_section
+  translation: "▶ User Type (determines Diversity Factor K_Σ)"
+- id: tcs_user_residential
+  translation: "Residential (K_Σ=0.75)"
+- id: tcs_user_commercial
+  translation: "Commercial Building (K_Σ=0.85)"
+- id: tcs_user_industrial
+  translation: "Industrial Plant (K_Σ=0.95)"
+- id: tcs_user_public
+  translation: "Public Building (K_Σ=0.85)"
+- id: tcs_user_custom
+  translation: "Custom"
+- id: tcs_label_Ksigma
+  translation: "Diversity Factor K_Σ (custom)"
+- id: tcs_equip_section
+  translation: "▶ Equipment Category Input (enter 0 = no such load)"
+- id: tcs_label_p_lighting
+  translation: "① Lighting Total Power P₁"
+- id: tcs_label_kx_lighting
+  translation: "Demand Factor K_x1"
+- id: tcs_label_cos_lighting
+  translation: "Power Factor cosφ₁"
+- id: tcs_label_p_motor
+  translation: "② Motor Equipment Total Power P₂"
+- id: tcs_label_kx_motor
+  translation: "Demand Factor K_x2"
+- id: tcs_label_cos_motor
+  translation: "Power Factor cosφ₂"
+- id: tcs_label_p_heating
+  translation: "③ Heating Equipment Total Power P₃"
+- id: tcs_label_kx_heating
+  translation: "Demand Factor K_x3"
+- id: tcs_label_cos_heating
+  translation: "Power Factor cosφ₃"
+- id: tcs_label_p_other
+  translation: "④ Other Equipment Total Power P₄"
+- id: tcs_label_kx_other
+  translation: "Demand Factor K_x4"
+- id: tcs_label_cos_other
+  translation: "Power Factor cosφ₄"
+- id: tcs_preset_motor
+  translation: "📋 Motor Presets (click to fill P₂)"
+- id: tcs_preset_lighting
+  translation: "💡 Lighting Presets (click to fill P₁)"
+- id: tcs_tx_section
+  translation: "▶ Transformer Selection"
+- id: tcs_tx_type
+  translation: "Transformer Type"
+- id: tcs_tx_oil
+  translation: "Oil-Immersed (η≈0.97)"
+- id: tcs_tx_dry
+  translation: "Dry-Type (η≈0.96)"
+- id: tcs_tx_custom
+  translation: "Custom"
+- id: tcs_label_eta
+  translation: "Transformer Efficiency η (custom)"
+- id: tcs_label_kload
+  translation: "Load Factor K_load"
+- id: tcs_label_km
+  translation: "Margin Factor K_m"
+- id: tcs_total_section
+  translation: "▶ Total Power Input"
+- id: tcs_label_total_p
+  translation: "Total Active Power P"
+- id: tcs_label_equip_type
+  translation: "Equipment Type"
+- id: tcs_equip_resistive
+  translation: "Resistive (cosφ≈1)"
+- id: tcs_equip_inductive
+  translation: "Inductive (cosφ<1)"
+- id: tcs_label_total_cos
+  translation: "Total Power Factor cosφ"
+- id: tcs_preset_total
+  translation: "📋 Total Power Presets (common scenarios)"
+- id: tcs_result_title
+  translation: "Transformer Capacity Selection Result"
+- id: tcs_result_pc
+  translation: "Calculated Load P_c"
+- id: tcs_result_sc
+  translation: "Apparent Calculated Load S_c"
+- id: tcs_result_sn_min
+  translation: "Required Minimum Capacity S_N_min"
+- id: tcs_result_sn_std
+  translation: "Recommended Standard Capacity S_N_std"
+- id: tcs_result_beta
+  translation: "Actual Load Factor β"
+- id: tcs_result_beta_low
+  translation: "Low-load warning"
+- id: tcs_result_beta_below
+  translation: "Below optimal"
+- id: tcs_result_beta_good
+  translation: "Optimal range ✅"
+- id: tcs_result_beta_full
+  translation: "Near full load"
+- id: tcs_result_beta_over
+  translation: "Overload warning"
+- id: tcs_coeff_section
+  translation: "Correction Factors (GB 50054-2011)"
+- id: tcs_coeff_kx_avg
+  translation: "Weighted Demand Factor K_x_avg"
+- id: tcs_coeff_ksigma
+  translation: "Diversity Factor K_Σ"
+- id: tcs_coeff_cos_avg
+  translation: "Weighted Power Factor cosφ_avg"
+- id: tcs_coeff_eta
+  translation: "Transformer Efficiency η"
+- id: tcs_coeff_kload
+  translation: "Load Factor K_load"
+- id: tcs_coeff_km
+  translation: "Margin Factor K_m"
+- id: tcs_select_model
+  translation: "Selection Recommendation"
+- id: tcs_js_standard_title
+  translation: "📋 Standards"
+- id: tcs_js_disclaimer_title
+  translation: "⚠ Disclaimer"
+- id: tcs_js_warn_no_power
+  translation: "Enter at least one equipment category power"
+- id: tcs_js_warn_ksigma
+  translation: "Enter a valid K_Σ diversity factor"
+- id: tcs_js_warn_eta
+  translation: "Enter a valid transformer efficiency η (0 < η < 1)"
+- id: tcs_js_warn_kload
+  translation: "Enter a valid load factor K_load"
+- id: tcs_js_warn_km
+  translation: "Margin factor K_m must be ≥ 1 — engineering requirement"
+- id: tcs_js_tip_beta_low
+  translation: "⚠ Actual load factor < 50%: transformer runs at low load long-term, low efficiency, high no-load loss proportion. Consider smaller R10 size or re-check load calculation."
+- id: tcs_js_tip_beta_below
+  translation: "ℹ Actual load factor 50%~75%: below optimal, acceptable but not economical for long-term low-load operation."
+- id: tcs_js_tip_beta_good
+  translation: "✅ Actual load factor {beta}%: within GB 50052-2009 §6.0.7 recommended economic operating range 75%~85%"
+- id: tcs_js_tip_beta_full
+  translation: "⚠ Actual load factor 85%~100%: near full load, acceptable but no reserve, peak may overload."
+- id: tcs_js_tip_beta_over
+  translation: "⚠ Actual load factor > 100%: overloaded, standard capacity insufficient, select next size."
+- id: tcs_js_tip_motor_big
+  translation: "ℹ Contains large motor (≥30kW single unit): verify motor starting voltage drop separately, GB 50052-2009 §6.0.4."
+- id: tcs_js_tip_big_tx
+  translation: "ℹ Recommended capacity ≥1250 kVA: GB 50052-2009 §6.0.5 recommends single unit ≤1250 kVA, consider 2 parallel units long-term."
+- id: tcs_js_warn_over_2500
+  translation: "⚠ Required capacity exceeds single R10 upper limit 2500 kVA, recommend 2 parallel units (GB 50052 §6.0.5)"
+- id: tcs_js_tip_cos_method
+  translation: 'ℹ Weighted cosφ uses "calculated load" (K_x weighted) then re-weighted — compliant with GB 50054-2011 §3.4.5.'
+- id: tcs_js_tip_total_method
+  translation: "ℹ Total power method is simplified. Suitable for preliminary design / single large equipment / factory total load."
+- id: tcs_js_tip_km_high
+  translation: "ℹ K_m > 1.25: high-reliability scenario (data center / hospital) recommended configuration."
+- id: cp_preset_7kw
+  translation: "Residential 7kW"
+- id: cp_preset_11kw
+  translation: "Three-Phase 11kW"
+- id: cp_preset_22kw
+  translation: "Three-Phase 22kW"
+- id: cp_preset_43kw
+  translation: "Three-Phase 43kW"
+- id: cp_preset_30kw
+  translation: "30kW (380V/49A)"
+- id: cp_preset_60kw
+  translation: "60kW (380V/100A)"
+- id: cp_preset_80kw
+  translation: "80kW (380V/130A)"
+- id: cp_preset_100kw
+  translation: "100kW (380V/165A)"
+- id: cp_preset_120kw
+  translation: "120kW (380V/200A)"
+- id: cp_preset_160kw
+  translation: "160kW (380V/260A)"
+- id: cp_preset_240kw
+  translation: "240kW (380V/392A)"
+- id: cp_preset_400kw
+  translation: "400kW (380V/660A)"
+- id: cp_preset_480kw
+  translation: "480kW (380V/784A)"
+- id: cp_preset_43kw_title
+  translation: "cosΦ=0.98 actual calc ~40.5kW, commonly referred to as 43kW"
+- id: cp_preset_30kw_title
+  translation: "Input rated 49A ≈ 30kW output nominal (AC/DC eff ~95%, 1.25x distribution margin)"
+- id: cp_preset_60kw_title
+  translation: "Input rated 100A ≈ 60kW output nominal (AC/DC eff ~95%, 1.25x distribution margin)"
+- id: cp_preset_80kw_title
+  translation: "Input rated 130A ≈ 80kW output nominal (AC/DC eff ~95%, 1.25x distribution margin)"
+- id: cp_preset_100kw_title
+  translation: "Input rated 165A ≈ 100kW output nominal (AC/DC eff ~95%, 1.25x distribution margin)"
+- id: cp_preset_120kw_title
+  translation: "Input rated 200A ≈ 120kW output nominal (AC/DC eff ~95%, 1.25x distribution margin)"
+- id: cp_preset_160kw_title
+  translation: "Input rated 260A ≈ 160kW output nominal (AC/DC eff ~95%, 1.25x distribution margin)"
+- id: cp_preset_240kw_title
+  translation: "Input rated 392A ≈ 240kW output nominal (AC/DC eff ~95%, near 380V direct supply limit)"
+- id: cp_preset_400kw_title
+  translation: "Input rated 660A ≈ 400kW output nominal, usually requires 690V or 10kV medium-voltage"
+- id: cp_preset_480kw_title
+  translation: "Input rated 784A ≈ 480kW output nominal, usually requires 690V or 10kV medium-voltage + liquid-cooled terminal"
+- id: ct_preset_7kw
+  translation: "Home Slow Charge"
+- id: ct_preset_11kw
+  translation: "Three-Phase AC"
+- id: ct_preset_22kw
+  translation: "Dual-Gun AC"
+- id: ct_preset_43kw
+  translation: "Industrial AC"
+- id: ct_preset_30kw
+  translation: "DC Integrated"
+- id: ct_preset_60kw
+  translation: "DC Fast"
+- id: ct_preset_80kw
+  translation: "Bus Fast"
+- id: ct_preset_100kw
+  translation: "High-Power DC"
+- id: ct_preset_120kw
+  translation: "Commercial Fast"
+- id: ct_preset_160kw
+  translation: "Dual-Gun Fast"
+- id: ct_preset_240kw
+  translation: "Ultra Fast"
+- id: ct_preset_400kw
+  translation: "High-Speed Ultra"
+- id: ct_preset_480kw
+  translation: "Liquid-Cooled Ultra"
+- id: ec_preset_led60w
+  translation: "LED Bulb 60W"
+- id: ec_preset_fridge150w
+  translation: "Refrigerator 150W"
+- id: ec_preset_ac2000w
+  translation: "AC 2000W"
+- id: ec_preset_waterheater2200w
+  translation: "Water Heater 2200W"
+- id: ec_preset_instantfaucet3000w
+  translation: "Instant Faucet 3000W"
+- id: ec_preset_desktop500w
+  translation: "Desktop PC 500W"
+- id: ec_preset_solo100
+  translation: "Solo Dweller 100 kWh/mo"
+- id: ec_preset_normal300
+  translation: "Normal Family 300 kWh/mo"
+- id: ec_preset_large600
+  translation: "Multi-Appliance 600 kWh/mo"
+- id: ec_preset_heavy1000
+  translation: "High-Power 1000 kWh/mo"
+- id: ec_preset_price_residential
+  translation: "Residential 0.528"
+- id: ec_preset_price_commercial
+  translation: "Commercial 0.6"
+- id: ec_preset_price_peak
+  translation: "Peak Rate 1.2"
+- id: ec_result_period_cost_default
+  translation: "Monthly Cost (30 days)"
+- id: tcs_preset_motor_1
+  translation: "7.5kW × 3 Motors"
+- id: tcs_preset_motor_2
+  translation: "11kW × 2 Motors"
+- id: tcs_preset_motor_3
+  translation: "22kW × 1 Motor"
+- id: tcs_preset_motor_4
+  translation: "50kW × 1 Motor"
+- id: tcs_preset_motor_5
+  translation: "100kW Hybrid"
+- id: tcs_preset_lighting_1
+  translation: "50m² Residential"
+- id: tcs_preset_lighting_2
+  translation: "200m² Shop"
+- id: tcs_preset_lighting_3
+  translation: "1000m² Factory"
+- id: tcs_preset_lighting_4
+  translation: "5000m² Mall"
+- id: tcs_preset_total_1
+  translation: "50 kW Small Workshop"
+- id: tcs_preset_total_2
+  translation: "200 kW Medium Factory"
+- id: tcs_preset_total_3
+  translation: "500 kW Large Factory"
+- id: tcs_preset_total_4
+  translation: "1000 kW Park Distribution"
+- id: tcs_preset_total_5
+  translation: "2000 kW Data Center"
+- id: tcs_std_gb50052
+  translation: "GB 50052-2009 Power Supply System Design Code §6.0.3(capacity selection)/ §6.0.4(margin)/ §6.0.5(single ≤1250kVA)/ §6.0.7(load factor ≤85%)"
+- id: tcs_std_gb50054
+  translation: "GB 50054-2011 Low-Voltage Distribution Design Code §3.4(load calculation)+ Appendix B(demand factor, diversity factor)"
+- id: tcs_std_gbt17468
+  translation: "GB/T 17468-2019 Guide for Selection of Power Transformers §5.1(R10 priority series)"
+- id: tcs_std_gb20052
+  translation: "GB 20052-2020 Minimum Allowable Values of Energy Efficiency and Energy Efficiency Grades of Three-Phase Distribution Transformers"
+- id: tcs_std_gb51348
+  translation: "GB 51348-2019 Civil Building Electrical Design Standard §3.5(load calculation + cosφ)"
+- id: tcs_std_gbt10228
+  translation: "GB/T 10228-2015 Technical Parameters and Requirements for Dry-Type Power Transformers"
+- id: tcs_disc_1
+  translation: "This tool is based on simplified implementation of GB 50052-2009 / GB/T 17468-2019 standards. Results are for design reference only."
+- id: tcs_disc_2
+  translation: "Formal construction drawings must follow the current version published by the national standardization administration and be reviewed by a registered electrical engineer."
+- id: tcs_disc_3
+  translation: "Single large motors (≥30kW) require separate starting voltage drop verification. This tool does not cover starting checks."
+- id: tcs_disc_4
+  translation: "Parallel operation / short-circuit current / voltage drop / economic current density sizing are outside this tool scope."
+- id: tcs_disc_5
+  translation: "Special scenarios (chemical corrosion protection / explosion hazard / offshore wind / subway) require specialized standards."

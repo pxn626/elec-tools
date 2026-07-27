@@ -7,7 +7,6 @@ categories:
   - 工程师工具
 layout: page
 translationKey: charging_power_calculator
-slug: 充电桩功率计算器-—-选型与三相功率计算
 ---
 
 {{< charging-power-calculator >}}

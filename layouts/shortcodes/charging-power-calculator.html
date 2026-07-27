@@ -47,61 +47,61 @@
 
   <div class="cp-card">
     <div class="cp-input-group">
-      <label for="cp-phase">相数 / 电压 (V)</label>
+      <label for="cp-phase">{{ T "cp_label_phase" }}</label>
       <select id="cp-phase">
-        <option value="1">单相 220V (家用)</option>
-        <option value="3" selected>三相 380V (工业 / 直流柜输入侧)</option>
+        <option value="1">{{ T "cp_phase_opt_1" }}</option>
+        <option value="3" selected>{{ T "cp_phase_opt_3" }}</option>
       </select>
     </div>
     <div class="cp-row">
       <div class="cp-input-group">
-        <label for="cp-volt">电压 U (V)</label>
+        <label for="cp-volt">{{ T "cp_label_volt" }}</label>
         <input type="number" id="cp-volt" value="380" min="110" max="1000" step="10">
       </div>
       <div class="cp-input-group">
-        <label for="cp-curr">电流 I (A)</label>
+        <label for="cp-curr">{{ T "cp_label_curr" }}</label>
         <input type="number" id="cp-curr" value="32" min="1" max="1000" step="1">
       </div>
       <div class="cp-input-group">
-        <label for="cp-cos">功率因数 cosΦ</label>
+        <label for="cp-cos">{{ T "cp_label_cos" }}</label>
         <input type="number" id="cp-cos" value="0.98" min="0.5" max="1.0" step="0.01">
       </div>
     </div>
 
-    <div class="cp-section-title">交流充电桩(单相 / 三相)</div>
+    <div class="cp-section-title">{{ T "cp_section_ac" }}</div>
     <div class="cp-presets">
-      <span class="cp-preset" data-v="220" data-c="32" data-pf="0.98" data-ph="1">家用 7kW (220V/32A)</span>
-      <span class="cp-preset" data-v="380" data-c="16" data-pf="0.98" data-ph="3">三相 11kW (380V/16A)</span>
-      <span class="cp-preset" data-v="380" data-c="32" data-pf="0.98" data-ph="3">三相 22kW (380V/32A)</span>
-      <span class="cp-preset" data-v="380" data-c="63" data-pf="0.98" data-ph="3" title="按 cosΦ=0.98 实际计算约 40.5kW,行业俗称 43kW">三相 43kW (380V/63A)</span>
+      <span class="cp-preset" data-v="220" data-c="32" data-pf="0.98" data-ph="1">{{ T "cp_preset_7kw" }}</span>
+      <span class="cp-preset" data-v="380" data-c="16" data-pf="0.98" data-ph="3">{{ T "cp_preset_11kw" }}</span>
+      <span class="cp-preset" data-v="380" data-c="32" data-pf="0.98" data-ph="3">{{ T "cp_preset_22kw" }}</span>
+      <span class="cp-preset" data-v="380" data-c="63" data-pf="0.98" data-ph="3" data-i18n-title="cp_preset_43kw_title">{{ T "cp_preset_43kw" }}</span>
     </div>
 
-    <div class="cp-section-title">直流充电柜(输出功率 → 输入侧等效电流)</div>
+    <div class="cp-section-title">{{ T "cp_section_dc" }}</div>
     <div class="cp-presets" id="cp-presets-dc">
-      <span class="cp-preset" data-v="380" data-c="49"  data-pf="0.98" data-ph="3" title="输入侧额定 49A ≈ 30kW 输出标称(AC/DC 效率 ~95%,留 1.25 倍配电余量)">30kW (380V/49A)</span>
-      <span class="cp-preset" data-v="380" data-c="100" data-pf="0.98" data-ph="3" title="输入侧额定 100A ≈ 60kW 输出标称(AC/DC 效率 ~95%,留 1.25 倍配电余量)">60kW (380V/100A)</span>
-      <span class="cp-preset" data-v="380" data-c="130" data-pf="0.98" data-ph="3" title="输入侧额定 130A ≈ 80kW 输出标称(AC/DC 效率 ~95%,留 1.25 倍配电余量)">80kW (380V/130A)</span>
-      <span class="cp-preset" data-v="380" data-c="165" data-pf="0.98" data-ph="3" title="输入侧额定 165A ≈ 100kW 输出标称(AC/DC 效率 ~95%,留 1.25 倍配电余量)">100kW (380V/165A)</span>
-      <span class="cp-preset" data-v="380" data-c="200" data-pf="0.98" data-ph="3" title="输入侧额定 200A ≈ 120kW 输出标称(AC/DC 效率 ~95%,留 1.25 倍配电余量)">120kW (380V/200A)</span>
-      <span class="cp-preset" data-v="380" data-c="260" data-pf="0.98" data-ph="3" title="输入侧额定 260A ≈ 160kW 输出标称(AC/DC 效率 ~95%,留 1.25 倍配电余量)">160kW (380V/260A)</span>
-      <span class="cp-preset" data-v="380" data-c="392" data-pf="0.98" data-ph="3" title="输入侧额定 392A ≈ 240kW 输出标称(AC/DC 效率 ~95%,接近 380V 直供上限)">240kW (380V/392A)</span>
-      <span class="cp-preset" data-v="380" data-c="660" data-pf="0.98" data-ph="3" title="输入侧额定 660A ≈ 400kW 输出标称,通常需 690V 或 10kV 中压配电">400kW (380V/660A)</span>
-      <span class="cp-preset" data-v="380" data-c="784" data-pf="0.98" data-ph="3" title="输入侧额定 784A ≈ 480kW 输出标称,通常需 690V 或 10kV 中压配电 + 液冷终端">480kW (380V/784A)</span>
-      <span class="cp-clear" id="cp-clear" title="清空输入 / 取消预设选中">✕ 清除</span>
+      <span class="cp-preset" data-v="380" data-c="49" data-pf="0.98" data-ph="3" data-i18n="cp_preset_30kw">{{ T "cp_preset_30kw" }}</span>
+      <span class="cp-preset" data-v="380" data-c="100" data-pf="0.98" data-ph="3" data-i18n="cp_preset_60kw">{{ T "cp_preset_60kw" }}</span>
+      <span class="cp-preset" data-v="380" data-c="130" data-pf="0.98" data-ph="3" data-i18n="cp_preset_80kw">{{ T "cp_preset_80kw" }}</span>
+      <span class="cp-preset" data-v="380" data-c="165" data-pf="0.98" data-ph="3" data-i18n="cp_preset_100kw">{{ T "cp_preset_100kw" }}</span>
+      <span class="cp-preset" data-v="380" data-c="200" data-pf="0.98" data-ph="3" data-i18n="cp_preset_120kw">{{ T "cp_preset_120kw" }}</span>
+      <span class="cp-preset" data-v="380" data-c="260" data-pf="0.98" data-ph="3" data-i18n="cp_preset_160kw">{{ T "cp_preset_160kw" }}</span>
+      <span class="cp-preset" data-v="380" data-c="392" data-pf="0.98" data-ph="3" data-i18n="cp_preset_240kw">{{ T "cp_preset_240kw" }}</span>
+      <span class="cp-preset" data-v="380" data-c="660" data-pf="0.98" data-ph="3" data-i18n="cp_preset_400kw">{{ T "cp_preset_400kw" }}</span>
+      <span class="cp-preset" data-v="380" data-c="784" data-pf="0.98" data-ph="3" data-i18n="cp_preset_480kw">{{ T "cp_preset_480kw" }}</span>
+      <span class="cp-clear" id="cp-clear" data-i18n="cp_btn_clear">{{ T "cp_btn_clear" }}</span>
     </div>
 
     <div class="cp-result" id="cp-result">
-      <h3>功率计算结果</h3>
-      <div class="cp-power-row"><span class="cp-power-label">有功功率 P (kW)</span><span class="cp-power-val" id="cp-p">--</span></div>
-      <div class="cp-power-row"><span class="cp-power-label">无功功率 Q (kVar)</span><span class="cp-power-val" id="cp-q">--</span></div>
-      <div class="cp-power-row"><span class="cp-power-label">视在功率 S (kVA)</span><span class="cp-power-val" id="cp-s">--</span></div>
+      <h3>{{ T "cp_result_title" }}</h3>
+      <div class="cp-power-row"><span class="cp-power-label">{{ T "cp_result_p" }}</span><span class="cp-power-val" id="cp-p">--</span></div>
+      <div class="cp-power-row"><span class="cp-power-label">{{ T "cp_result_q" }}</span><span class="cp-power-val" id="cp-q">--</span></div>
+      <div class="cp-power-row"><span class="cp-power-label">{{ T "cp_result_s" }}</span><span class="cp-power-val" id="cp-s">--</span></div>
       <div class="cp-rec" id="cp-rec"></div>
       <div class="cp-tip" id="cp-tip"></div>
     </div>
   </div>
 
   <script>
-  (function(){
+      // i18n strings loaded via data-i18n-title attributes
     // 选型推荐表:按相数分两套,信息密度高(自带线缆规格)
     var REC_1PH = [
       { maxP: 7,   text: '推荐:7kW 单相家用慢充桩,配 32A 漏电保护开关 + 6mm² 铜芯线缆 + 1.5P 空开,无需三相电申请。' },

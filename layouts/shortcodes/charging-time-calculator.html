@@ -57,54 +57,54 @@
 
   <div class="ct-card">
     <div class="ct-input-group">
-      <label for="ct-capacity">电池容量 (kWh)</label>
+      <label for="ct-capacity">{{ T "ct_label_capacity" }}</label>
       <input type="number" id="ct-capacity" value="60" min="1" max="200" step="0.5">
     </div>
     <div class="ct-input-group">
-      <label for="ct-power">充电功率 (kW)</label>
+      <label for="ct-power">{{ T "ct_label_power" }}</label>
       <input type="number" id="ct-power" value="7" min="0.5" max="600" step="0.5">
 
-      <div class="ct-section-title">交流充电桩</div>
+      <div class="ct-section-title">{{ T "ct_section_ac" }}</div>
       <div class="ct-presets">
-        <button type="button" class="ct-preset" data-p="7"  title="家用单相 220V/32A 慢充">7kW 家用慢充</button>
-        <button type="button" class="ct-preset" data-p="11" title="三相 380V/16A 通勤主流">11kW 三相交流</button>
-        <button type="button" class="ct-preset" data-p="22" title="三相 380V/32A 双枪交流">22kW 双枪交流</button>
-        <button type="button" class="ct-preset" data-p="43" title="三相 380V/63A,工业场景,实际输入有功 ≈40.5kW">43kW 工业交流</button>
+        <button type="button" class="ct-preset" data-p="7" data-i18n="ct_preset_7kw">7kW {{ T "ct_preset_7kw" }}</button>
+        <button type="button" class="ct-preset" data-p="11" data-i18n="ct_preset_11kw">11kW {{ T "ct_preset_11kw" }}</button>
+        <button type="button" class="ct-preset" data-p="22" data-i18n="ct_preset_22kw">22kW {{ T "ct_preset_22kw" }}</button>
+        <button type="button" class="ct-preset" data-p="43" data-i18n="ct_preset_43kw">43kW {{ T "ct_preset_43kw" }}</button>
       </div>
 
-      <div class="ct-section-title">直流快充 / 超充(国标 GB/T)</div>
+      <div class="ct-section-title">{{ T "ct_section_dc" }}</div>
       <div class="ct-presets" id="ct-presets-dc">
-        <button type="button" class="ct-preset" data-p="30"  title="一体式直流桩,小型商用">30kW 直流一体</button>
-        <button type="button" class="ct-preset" data-p="60"  title="商用主流,公交 / 出租车队">60kW 直流快充</button>
-        <button type="button" class="ct-preset" data-p="80"  title="公交 / 物流车主流">80kW 公交快充</button>
-        <button type="button" class="ct-preset" data-p="100" title="国标 GB/T 100kW 公交快充">100kW 大功率直流</button>
-        <button type="button" class="ct-preset" data-p="120" title="120kW 国标商用主流">120kW 商用快充</button>
-        <button type="button" class="ct-preset" data-p="160" title="双枪同充场景">160kW 双枪快充</button>
-        <button type="button" class="ct-preset" data-p="240" title="接近 380V 直供上限,需提前规划配电">240kW 超充</button>
-        <button type="button" class="ct-preset" data-p="400" title="通常需 690V/10kV 中压配电">400kW 高速超充</button>
-        <button type="button" class="ct-preset" data-p="480" title="液冷终端,特斯拉 V4 / 国标 GB/T">480kW 液冷超充</button>
-        <button type="button" class="ct-clear" id="ct-clear" title="清空输入 / 取消预设选中">✕ 清除</button>
+        <button type="button" class="ct-preset" data-p="30" data-i18n="ct_preset_30kw">30kW {{ T "ct_preset_30kw" }}</button>
+        <button type="button" class="ct-preset" data-p="60" data-i18n="ct_preset_60kw">60kW {{ T "ct_preset_60kw" }}</button>
+        <button type="button" class="ct-preset" data-p="80" data-i18n="ct_preset_80kw">80kW {{ T "ct_preset_80kw" }}</button>
+        <button type="button" class="ct-preset" data-p="100" data-i18n="ct_preset_100kw">100kW {{ T "ct_preset_100kw" }}</button>
+        <button type="button" class="ct-preset" data-p="120" data-i18n="ct_preset_120kw">120kW {{ T "ct_preset_120kw" }}</button>
+        <button type="button" class="ct-preset" data-p="160" data-i18n="ct_preset_160kw">160kW {{ T "ct_preset_160kw" }}</button>
+        <button type="button" class="ct-preset" data-p="240" data-i18n="ct_preset_240kw">240kW {{ T "ct_preset_240kw" }}</button>
+        <button type="button" class="ct-preset" data-p="400" data-i18n="ct_preset_400kw">400kW {{ T "ct_preset_400kw" }}</button>
+        <button type="button" class="ct-preset" data-p="480" data-i18n="ct_preset_480kw">480kW {{ T "ct_preset_480kw" }}</button>
+        <button type="button" class="ct-clear" id="ct-clear" data-i18n="ct_btn_clear">✕ {{ T "ct_btn_clear" }}</button>
       </div>
     </div>
     <div class="ct-input-group">
-      <label for="ct-eff">充电效率 (%) — 默认 90%</label>
+      <label for="ct-eff">{{ T "ct_label_eff" }}</label>
       <input type="number" id="ct-eff" value="90" min="50" max="100" step="1">
     </div>
 
     <div class="ct-result" id="ct-result">
-      <h3>预计充电时间</h3>
-      <div class="ct-time-row"><span class="ct-time-label">20% → 80%(日常)</span><span class="ct-time-val" id="ct-t60">--</span></div>
-      <div class="ct-time-row"><span class="ct-time-label">0% → 80%(快充主流)</span><span class="ct-time-val" id="ct-t80">--</span></div>
-      <div class="ct-time-row"><span class="ct-time-label">0% → 100%(满充满放)</span><span class="ct-time-val" id="ct-t100">--</span></div>
-      <div class="ct-time-row"><span class="ct-time-label">50% → 80%(应急补能)</span><span class="ct-time-val" id="ct-t30">--</span></div>
+      <h3>{{ T "ct_result_title" }}</h3>
+      <div class="ct-time-row"><span class="ct-time-label">{{ T "ct_result_60" }}</span><span class="ct-time-val" id="ct-t60">--</span></div>
+      <div class="ct-time-row"><span class="ct-time-label">{{ T "ct_result_80" }}</span><span class="ct-time-val" id="ct-t80">--</span></div>
+      <div class="ct-time-row"><span class="ct-time-label">{{ T "ct_result_100" }}</span><span class="ct-time-val" id="ct-t100">--</span></div>
+      <div class="ct-time-row"><span class="ct-time-label">{{ T "ct_result_30" }}</span><span class="ct-time-val" id="ct-t30">--</span></div>
       <div class="ct-cccv" id="ct-cccv"></div>
       <div class="ct-tip" id="ct-tip"></div>
-      <div class="ct-link"><a href="/tools/charging-power-calculator/">查看该功率对应的电流 / 线缆选型 →</a></div>
+      <div class="ct-link"><a href="/tools/charging-power-calculator/">{{ T "ct_link_cp" }}</a></div>
     </div>
   </div>
 
   <script>
-  (function(){
+      // i18n strings loaded via data-i18n attributes
     // 快充 CCCV 分段功率模型(仅对 ≥60kW 直流档生效)
     // 0-20% SOC: 爬坡段,平均功率 ≈ 峰值 × 0.65
     // 20-80% SOC: 峰值平台,平均功率 ≈ 峰值 × 1.0

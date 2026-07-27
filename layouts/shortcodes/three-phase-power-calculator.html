@@ -69,24 +69,24 @@
 
   <div class="tp-card">
     <div class="tp-mode-tabs">
-      <div class="tp-tab active" data-mode="A" role="tab" aria-selected="true">① 三相有功功率</div>
-      <div class="tp-tab" data-mode="B" role="tab" aria-selected="false">② 视在/无功换算</div>
-      <div class="tp-tab" data-mode="C" role="tab" aria-selected="false">③ 功率因数补偿</div>
+      <div class="tp-tab active" data-mode="A" role="tab" aria-selected="true">{{ T "tp_tab_A" }}</div>
+      <div class="tp-tab" data-mode="B" role="tab" aria-selected="false">{{ T "tp_tab_B" }}</div>
+      <div class="tp-tab" data-mode="C" role="tab" aria-selected="false">{{ T "tp_tab_C" }}</div>
     </div>
 
     <!-- Tab A: 三相有功功率 -->
     <div class="tp-panel active" data-panel="A">
       <div class="tp-row3">
         <div class="tp-input-group">
-          <label for="tp-u">线电压 U<span class="tp-unit">(V)</span></label>
+          <label for="tp-u">{{ T "tp_label_u" }}<span class="tp-unit">(V)</span></label>
           <input type="number" id="tp-u" value="380" min="110" max="1000" step="10">
         </div>
         <div class="tp-input-group">
-          <label for="tp-i">线电流 I<span class="tp-unit">(A)</span></label>
+          <label for="tp-i">{{ T "tp_label_i" }}<span class="tp-unit">(A)</span></label>
           <input type="number" id="tp-i" value="50" min="0.1" max="2000" step="1">
         </div>
         <div class="tp-input-group">
-          <label for="tp-cosA">功率因数 cosφ</label>
+          <label for="tp-cosA">{{ T "tp_label_cosA" }}</label>
           <input type="number" id="tp-cosA" value="0.85" min="0.01" max="1.0" step="0.01">
         </div>
       </div>
@@ -102,11 +102,11 @@
     <div class="tp-panel" data-panel="B">
       <div class="tp-row">
         <div class="tp-input-group">
-          <label for="tp-pB">有功功率 P<span class="tp-unit">(kW)</span></label>
+          <label for="tp-pB">{{ T "tp_label_pB" }}<span class="tp-unit">(kW)</span></label>
           <input type="number" id="tp-pB" value="50" min="0.1" max="10000" step="1">
         </div>
         <div class="tp-input-group">
-          <label for="tp-cosB">功率因数 cosφ</label>
+          <label for="tp-cosB">{{ T "tp_label_cosB" }}</label>
           <input type="number" id="tp-cosB" value="0.85" min="0.01" max="1.0" step="0.01">
         </div>
       </div>
@@ -122,15 +122,15 @@
     <div class="tp-panel" data-panel="C">
       <div class="tp-row3">
         <div class="tp-input-group">
-          <label for="tp-pC">有功功率 P<span class="tp-unit">(kW)</span></label>
+          <label for="tp-pC">{{ T "tp_label_pC" }}<span class="tp-unit">(kW)</span></label>
           <input type="number" id="tp-pC" value="100" min="0.1" max="10000" step="1">
         </div>
         <div class="tp-input-group">
-          <label for="tp-cos1">补偿前 cosφ₁</label>
+          <label for="tp-cos1">{{ T "tp_label_cos1" }}</label>
           <input type="number" id="tp-cos1" value="0.7" min="0.01" max="1.0" step="0.01">
         </div>
         <div class="tp-input-group">
-          <label for="tp-cos2">补偿后 cosφ₂</label>
+          <label for="tp-cos2">{{ T "tp_label_cos2" }}</label>
           <input type="number" id="tp-cos2" value="0.95" min="0.01" max="1.0" step="0.01">
         </div>
       </div>
@@ -144,7 +144,7 @@
 
     <!-- Result area -->
     <div class="tp-result" id="tp-result" aria-live="polite">
-      <h3 id="tp-result-title">计算结果</h3>
+      <h3 id="tp-result-title">{{ T "tp_result_title" }}</h3>
       <div id="tp-result-body"></div>
       <div class="tp-formula" id="tp-formula"></div>
       <div class="tp-tip" id="tp-tip"></div>

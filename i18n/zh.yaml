@@ -45,3 +45,639 @@
   translation: "梯级桥架(散热良好)"
 - id: cc_js_kh_note_below_1000
   translation: "海拔 ≤ 1000m(免修正)"
+- id: cc_label_air_sub
+  translation: "敷设子方式"
+- id: cc_air_sub_direct
+  translation: "明敷空气中"
+- id: cc_air_sub_tray
+  translation: "桥架敷设"
+- id: cc_tray_type
+  translation: "桥架类型"
+- id: cc_tray_ladder
+  translation: "梯级桥架"
+- id: cc_tray_perforated
+  translation: "槽式桥架"
+- id: cc_tray_tray
+  translation: "托盘式桥架"
+- id: cc_multi_mode
+  translation: "多回路敷设方式"
+- id: cc_multi_touching
+  translation: "紧贴"
+- id: cc_multi_spaced
+  translation: "有间距(= 1 × 外径)"
+- id: cc_shield
+  translation: "日晒遮蔽(仅明敷空气有效)"
+- id: cc_shield_yes
+  translation: "有遮蔽 / 室内"
+- id: cc_shield_no
+  translation: "无遮蔽 / 直晒"
+- id: cc_pipe_mat
+  translation: "导体材料"
+- id: cc_pipe_material
+  translation: "穿管材质"
+- id: cc_pipe_steel
+  translation: "钢管(SC)"
+- id: cc_pipe_pvc
+  translation: "PVC 管"
+- id: cc_pipe_cores
+  translation: "管内芯数"
+- id: cc_pipe_1c
+  translation: "1 芯"
+- id: cc_pipe_2c
+  translation: "2 芯"
+- id: cc_pipe_3c
+  translation: "3 芯"
+- id: cc_soil_sub
+  translation: "敷设子类"
+- id: cc_soil_direct
+  translation: "直埋地中"
+- id: cc_soil_duct
+  translation: "管道内敷设"
+- id: cc_soil_temp
+  translation: "土壤温度 θ_g"
+- id: cc_soil_rho
+  translation: "土壤热阻系数 ρ"
+- id: cc_soil_rho_base
+  translation: "2.0(基准)"
+- id: cc_soil_rho_gb
+  translation: "2.5(GB 默认)"
+- id: cc_js_warn_cs_1c
+  translation: "截面积小于 1.5 mm²,GB 50054 最小铜芯 1.5mm²"
+- id: cc_js_warn_mat
+  translation: "请选择导体材料"
+- id: cc_js_warn_type
+  translation: "请填写电缆类型"
+- id: cc_js_warn_alt
+  translation: "请填写海拔高度"
+- id: cc_js_warn_cs_out
+  translation: "截面积 ' + cs + ' mm² 不在速查表范围内"
+- id: cc_js_warn_cs_exceed
+  translation: "截面积 {cs} mm² 超出速查表,使用线性外推,精度 ±10%"
+- id: cc_js_warn_cs_gt1000
+  translation: "截面积 > 1000 mm² 建议查 GB 50217 附录 D 大截面专项表"
+- id: cc_js_warn_al_min
+  translation: "铝芯最小截面积 10 mm²(GB 50054),结果仅供参考"
+- id: cc_js_warn_rho_high
+  translation: "土壤热阻 > 5.0 K·m/W,异常干燥,需现场实测"
+- id: cc_js_warn_alt_high
+  translation: "海拔 > 5000m 超高海拔,需特殊设计"
+- id: cc_js_warn_n_range
+  translation: "并列回路数超出范围(1~6)"
+- id: cc_js_warn_temp_high
+  translation: "环境温度 ≥ 绝缘耐温({Tmax}℃),电缆不可用"
+- id: cc_js_warn_temp_range
+  translation: "温度超出工程常规范围(-40 ~ 60℃)"
+- id: cc_js_ks_note_tray_ladder
+  translation: "梯级桥架(散热良好)"
+- id: cc_js_ks_note_tray_other
+  translation: "托盘式/槽式桥架(散热略差)"
+- id: cc_js_ks_note_unshielded
+  translation: "无遮蔽 / 日晒降容(GB 50217 §5.4.5)"
+- id: cc_js_ks_note_shielded
+  translation: "有遮蔽 / 室内(基准)"
+- id: cc_js_ks_note_pvc_pipe
+  translation: "PVC 管(散热差,×0.9)"
+- id: cc_js_ks_note_steel_pipe
+  translation: "钢管 SC(数据表已含修正)"
+- id: cc_js_ks_note_soil_rho
+  translation: "土壤热阻 ρ={rho} K·m/W"
+- id: cc_js_ks_note_soil_duct
+  translation: "管道内敷设(×0.85)"
+- id: cc_js_kp_note_single
+  translation: "单回路(基准)"
+- id: cc_js_kp_note_multi
+  translation: "{n} 回路{mode}"
+- id: cc_js_kh_note_alt
+  translation: "海拔 {alt}m(GB 50217 表 5.4.6)"
+- id: cc_js_kh_note_below
+  translation: "海拔 ≤ 1000m(免修正)"
+- id: cc_js_tip_ktheta_high
+  translation: "K_θ > 1.0:冷却条件优于基准(温度低于 25℃),实际载流量可大于基准表值"
+- id: cc_js_tip_ktheta_low
+  translation: "K_θ < 0.9:环境温度较高,电缆载流量明显下降,建议复核与断路器整定匹配"
+- id: cc_js_tip_pvc_pipe
+  translation: "PVC 管穿管散热比钢管差,已额外乘 0.9 降容(钢管数据表已含修正,无需再乘)"
+- id: cc_js_tip_multi_4
+  translation: "并列回路 ≥ 4:建议分桥架 / 分层敷设,经济性更佳"
+- id: cc_js_tip_alt_1000
+  translation: "海拔 > 1000m:空气密度下降,散热恶化(K_h < 1.0)"
+- id: cc_js_tip_custom_type
+  translation: "自填型号未匹配预设:已按 PVC 绝缘(70℃)查表,工程结果仅供参考,建议参考手册附录"
+- id: cc_js_tip_cb_rec
+  translation: "建议断路器整定电流 ≤ {Iz}A × 0.8 = {cb}A(工程经验);严格按 GB 50054-2011 §6.3.1 为 I_n ≤ I_z,过载保护按 §6.3.4 校验 1.45 × I_z"
+- id: cc_js_result_title
+  translation: "计算结果 · {title}"
+- id: cc_result_iz
+  translation: "修正后载流量 I_z"
+- id: cc_result_i0
+  translation: "基准载流量 I_0"
+- id: cc_result_coeff
+  translation: "修正系数明细 · {insul}"
+- id: cc_result_cb_ref
+  translation: "断路器选型参考(GB 50054-2011)"
+- id: cc_result_cb_upper
+  translation: "建议整定电流上限(工程经验 I_n ≤ 0.8 × I_z)"
+- id: cc_result_cb_145
+  translation: "1.45 × I_z 约定动作电流(GB 50054 §6.3.4)"
+- id: cc_js_standard_title
+  translation: "📋 国标依据"
+- id: cc_js_disclaimer_title
+  translation: "⚠ 免责声明"
+- id: cp_label_phase
+  translation: "相数 / 电压 (V)"
+- id: cp_phase_opt_1
+  translation: "单相 220V (家用)"
+- id: cp_phase_opt_3
+  translation: "三相 380V (工业 / 直流柜输入侧)"
+- id: cp_label_volt
+  translation: "电压 U (V)"
+- id: cp_label_curr
+  translation: "电流 I (A)"
+- id: cp_label_cos
+  translation: "功率因数 cosΦ"
+- id: cp_section_ac
+  translation: "交流充电桩(单相 / 三相)"
+- id: cp_section_dc
+  translation: "直流充电柜(输出功率 → 输入侧等效电流)"
+- id: cp_btn_clear
+  translation: "✕ 清除"
+- id: cp_result_title
+  translation: "功率计算结果"
+- id: cp_result_p
+  translation: "有功功率 P (kW)"
+- id: cp_result_q
+  translation: "无功功率 Q (kVar)"
+- id: cp_result_s
+  translation: "视在功率 S (kVA)"
+- id: cp_tip_1ph_limit
+  translation: "⚠ 单相 220V 实际功率上限约 7kW(32A),更高功率必须用三相 380V。"
+- id: cp_tip_3ph_limit
+  translation: "⚠ 输入电流 ≥400A 已超过 380V 直供上限,通常需要 690V 或 10kV 中压配电,需电力公司专项审批。"
+- id: cp_tip_pf_low
+  translation: "⚠ 功率因数低于 0.95 会导致电网罚款,建议加装 SVG 无功补偿装置。"
+- id: ct_label_capacity
+  translation: "电池容量 (kWh)"
+- id: ct_label_power
+  translation: "充电功率 (kW)"
+- id: ct_section_ac
+  translation: "交流充电桩"
+- id: ct_section_dc
+  translation: "直流快充 / 超充(国标 GB/T)"
+- id: ct_btn_clear
+  translation: "✕ 清除"
+- id: ct_label_eff
+  translation: "充电效率 (%) — 默认 90%"
+- id: ct_result_title
+  translation: "预计充电时间"
+- id: ct_result_60
+  translation: "20% → 80%(日常)"
+- id: ct_result_80
+  translation: "0% → 80%(快充主流)"
+- id: ct_result_100
+  translation: "0% → 100%(满充满放)"
+- id: ct_result_30
+  translation: "50% → 80%(应急补能)"
+- id: ct_link_cp
+  translation: "查看该功率对应的电流 / 线缆选型 →"
+- id: ct_js_minute
+  translation: "分钟"
+- id: ct_js_hour
+  translation: "小时"
+- id: ct_js_hour_min
+  translation: "小时 {m} 分"
+- id: ct_js_cccv
+  translation: "已按 CCCV 曲线修正(0-20% 爬坡 / 80-100% 涓流),0→100% 较恒功率线性模型长约 {p}%;20→80% 区间不修正。"
+- id: ct_tip_240
+  translation: "提示:超充桩(240kW+)通常 20-80% SOC 区间能跑满功率,80% 后进入涓流,实际时间略长于计算值;通常需 690V/10kV 中压配电。"
+- id: ct_tip_100
+  translation: "提示:直流快充功率峰值仅在 20-80% SOC 区间达到,80% 后进入涓流,实际时间略长于计算值。"
+- id: ct_tip_60
+  translation: "提示:60-100kW 直流桩面向公交 / 物流,长时间满功率运行建议关注电池温升。"
+- id: ct_tip_43
+  translation: "提示:43kW 工业交流,需三相 380V/63A,实际输入有功约 40.5kW(cosΦ=0.98)。"
+- id: ct_tip_22
+  translation: "提示:22kW 需三相 380V 电表,部分车型车载充电机限制 11kW,实际充不到 22kW。"
+- id: ct_tip_11
+  translation: "提示:11kW 通勤主流方案,3-5 小时从 20% 充到 80%(视电池容量),需三相 380V 电表。"
+- id: ct_tip_8_10
+  translation: "提示:8-10kW 介于家用慢充与三相交流之间,需确认电表与车载充电机是否支持该功率档。"
+- id: ct_tip_7
+  translation: "提示:7kW 慢充几乎不损伤电池,适合日常家用;冬季低温充电时间可能延长 20-30%。"
+- id: ec_tab_appliance
+  translation: "按电器功率"
+- id: ec_tab_total
+  translation: "按总用电量"
+- id: ec_label_name
+  translation: "电器名称(可选)"
+- id: ec_placeholder_name
+  translation: "如:空调 / 冰箱 / 热水器"
+- id: ec_label_watt
+  translation: "额定功率 P (W)"
+- id: ec_label_hours
+  translation: "每天使用时长 (h)"
+- id: ec_checkbox_standby
+  translation: "包含待机功耗(电器功率的 5%)"
+- id: ec_label_monthly
+  translation: "月用电量 (kWh)"
+- id: ec_label_price
+  translation: "电价(¥ / kWh)"
+- id: ec_label_days
+  translation: "使用天数 / 周期"
+- id: ec_result_title
+  translation: "电费计算结果"
+- id: ec_result_daily_kwh
+  translation: "每天耗电"
+- id: ec_result_daily_cost
+  translation: "每天电费"
+- id: ec_result_period_cost
+  translation: "{days} 天电费(共 {kwh} kWh)"
+- id: ec_result_yearly_cost
+  translation: "年电费(估算)"
+- id: ec_result_household_pct
+  translation: "占家庭月支出比(假设 ¥3000 月收入)"
+- id: ec_result_co2
+  translation: "碳排放估算:"
+- id: ec_result_co2_note
+  translation: "每 kWh ≈ 0.785 kg CO₂,中国电网均值"
+- id: ec_tip_high_30
+  translation: "⚡ 该电器日耗电超过 30 kWh,建议:① 升级变频机型(可省 20-30%) ② 加装定时开关 ③ 检查是否长时间待机"
+- id: ec_tip_high_10
+  translation: "💡 大功率电器建议:① 错峰使用(谷电价时段) ② 配合智能插座定时关闭 ③ 定期除垢/清洁(电热水器可省 10%)"
+- id: ec_tip_medium
+  translation: "✓ 中等用电。建议养成随手关机的习惯,长期可省 5-8% 电费。"
+- id: ec_tip_low
+  translation: "✓ 低耗电器,正常使用即可。注意待机功耗约占 5%,拔插头可进一步省电。"
+- id: ec_tip_monthly_high
+  translation: "🏠 月用电偏高({kwh} kWh)。建议:① 排查待机功耗(可省 5-10%) ② 老旧空调/热水器升级换代 ③ 加装太阳能(中国户用回本 5-8 年)"
+- id: ec_tip_monthly_low
+  translation: "✓ 用电较低。如想进一步节能,可:① 改用 LED 照明 ② 空调温度调高 1°C(省 6-8%) ③ 热水器加装保温层"
+- id: ec_tip_monthly_normal
+  translation: "💡 普通家庭用电水平。建议夏季空调温度不低于 26°C,冬季电暖不高于 22°C,既省电又健康。"
+- id: tp_tab_A
+  translation: "① 三相有功功率"
+- id: tp_tab_B
+  translation: "② 视在/无功换算"
+- id: tp_tab_C
+  translation: "③ 功率因数补偿"
+- id: tp_label_u
+  translation: "线电压 U"
+- id: tp_label_i
+  translation: "线电流 I"
+- id: tp_label_cosA
+  translation: "功率因数 cosφ"
+- id: tp_label_pB
+  translation: "有功功率 P"
+- id: tp_label_cosB
+  translation: "功率因数 cosφ"
+- id: tp_label_pC
+  translation: "有功功率 P"
+- id: tp_label_cos1
+  translation: "补偿前 cosφ₁"
+- id: tp_label_cos2
+  translation: "补偿后 cosφ₂"
+- id: tp_result_title
+  translation: "计算结果"
+- id: tp_result_p
+  translation: "有功功率 P"
+- id: tp_result_s
+  translation: "视在功率 S"
+- id: tp_result_q
+  translation: "无功功率 Q"
+- id: tp_result_phi
+  translation: "相位角 φ"
+- id: tp_result_s_reduction
+  translation: "视在功率下降"
+- id: tp_result_qc
+  translation: "需补偿 Qc"
+- id: tp_js_title_A
+  translation: "三相功率 · U={U}V / I={I}A / cosφ={cos}"
+- id: tp_js_tip_low_pf
+  translation: "⚡ 功率因数过低(cosφ<{cos}),将受到供电公司力率电费罚款。建议加装 SVG/电容器无功补偿,目标提到 0.90 以上。"
+- id: tp_js_tip_med_pf
+  translation: "💡 功率因数偏低(cosφ={cos}),建议将 cosφ 补偿至 0.90~0.95,可减少线路损耗和变压器负载。"
+- id: tp_js_tip_good_pf
+  translation: "✓ 功率因数良好(cosφ={cos}),处于优质区间。无需补偿,注意过补偿导致无功反送。"
+- id: tp_js_warn_cos1
+  translation: "⚠ cosφ=1 为纯阻性负载,实际工业现场极罕见;若为补偿后数据则合理。"
+- id: tp_js_tip_cable
+  translation: "🔌 大电流建议:380V/{I}A 需配 5×{size}mm² 五芯铜电缆,断路器按 1.25 倍整定。"
+- id: tp_js_tip_cable_overflow
+  translation: "🔌 大电流建议:380V/{I}A 超过 315A 标准表上限,请咨询专业电气工程师选型电缆与断路器(通常 ≥150mm² + 中压配电)。"
+- id: tp_js_tip_q_ratio
+  translation: "⚡ 无功占比过高(Q/S={ratio}%),变压器和线路需按 S={S}kVA 配置而非 P={P}kW,容量需求大幅增加。"
+- id: tp_js_tip_s_more
+  translation: "💡 视在功率 S 比有功 P 多 {pct}%,建议无功补偿后选型可缩小。"
+- id: tp_js_tip_s_good
+  translation: "✓ 功率因数良好,S 与 P 接近,配电容量利用率高。"
+- id: tp_js_tip_no_needed
+  translation: "⚠ 目标 cosφ₂({cos2})不大于当前 cosφ₁({cos1}),不需要补偿电容。请调高 cosφ₂(例如 0.90~0.95)。"
+- id: tp_js_warn_over_comp
+  translation: '⚠ 目标 cosφ₂ 超过 0.98 容易出现"过补偿"(无功反送电网),导致力率电费罚款。建议目标 0.90~0.95 最经济。'
+- id: tp_js_tip_large_qc
+  translation: "🏭 大容量补偿({qc} kVAr),建议:① 分组自动投切(避免过补偿)② SVG 优先(响应快)③ 选用 480V 电容器组(避免 380V 直接补偿带来的谐波放大)。"
+- id: tp_js_tip_med_qc
+  translation: "⚙ 中容量补偿,推荐方案:① 优先 SVG(静止无功发生器,响应时间 <10ms)② 也可用晶闸管投切电容器(TSC)。"
+- id: tp_js_tip_small_qc
+  translation: "✓ 小容量补偿,可选用普通电容器组(接触器投切)即可,成本低、维护简单。"
+- id: tcs_tab_factor
+  translation: "① 需要系数法(主推,GB 50054 推荐)"
+- id: tcs_tab_total
+  translation: "② 按总功率法(快速估算)"
+- id: tcs_user_type_section
+  translation: "▶ 用户类型(决定同时系数 K_Σ)"
+- id: tcs_user_residential
+  translation: "住宅小区 (K_Σ=0.75)"
+- id: tcs_user_commercial
+  translation: "商业建筑 (K_Σ=0.85)"
+- id: tcs_user_industrial
+  translation: "工业厂房 (K_Σ=0.95)"
+- id: tcs_user_public
+  translation: "公共建筑 (K_Σ=0.85)"
+- id: tcs_user_custom
+  translation: "自填"
+- id: tcs_label_Ksigma
+  translation: "同时系数 K_Σ(自填)"
+- id: tcs_equip_section
+  translation: "▶ 设备分类输入(填 0 = 无该类负荷)"
+- id: tcs_label_p_lighting
+  translation: "① 照明设备 总功率 P₁"
+- id: tcs_label_kx_lighting
+  translation: "需要系数 K_x1"
+- id: tcs_label_cos_lighting
+  translation: "功率因数 cosφ₁"
+- id: tcs_label_p_motor
+  translation: "② 动力设备 总功率 P₂"
+- id: tcs_label_kx_motor
+  translation: "需要系数 K_x2"
+- id: tcs_label_cos_motor
+  translation: "功率因数 cosφ₂"
+- id: tcs_label_p_heating
+  translation: "③ 电热设备 总功率 P₃"
+- id: tcs_label_kx_heating
+  translation: "需要系数 K_x3"
+- id: tcs_label_cos_heating
+  translation: "功率因数 cosφ₃"
+- id: tcs_label_p_other
+  translation: "④ 其他设备 总功率 P₄"
+- id: tcs_label_kx_other
+  translation: "需要系数 K_x4"
+- id: tcs_label_cos_other
+  translation: "功率因数 cosφ₄"
+- id: tcs_preset_motor
+  translation: "📋 动力设备预设(点击自动填 P₂)"
+- id: tcs_preset_lighting
+  translation: "💡 照明设备预设(点击自动填 P₁)"
+- id: tcs_tx_section
+  translation: "▶ 变压器选型"
+- id: tcs_tx_type
+  translation: "变压器类型"
+- id: tcs_tx_oil
+  translation: "油浸 (η≈0.97)"
+- id: tcs_tx_dry
+  translation: "干式 (η≈0.96)"
+- id: tcs_tx_custom
+  translation: "自填"
+- id: tcs_label_eta
+  translation: "变压器效率 η(自填)"
+- id: tcs_label_kload
+  translation: "负载率 K_load"
+- id: tcs_label_km
+  translation: "裕度系数 K_m"
+- id: tcs_total_section
+  translation: "▶ 总功率输入"
+- id: tcs_label_total_p
+  translation: "总有功功率 P"
+- id: tcs_label_equip_type
+  translation: "设备类型"
+- id: tcs_equip_resistive
+  translation: "电阻性(cosφ≈1)"
+- id: tcs_equip_inductive
+  translation: "感性(cosφ<1)"
+- id: tcs_label_total_cos
+  translation: "总功率因数 cosφ"
+- id: tcs_preset_total
+  translation: "📋 总功率预设(常见场景)"
+- id: tcs_result_title
+  translation: "变压器容量选型结果"
+- id: tcs_result_pc
+  translation: "计算负荷 P_c"
+- id: tcs_result_sc
+  translation: "视在计算负荷 S_c"
+- id: tcs_result_sn_min
+  translation: "所需最小容量 S_N_min"
+- id: tcs_result_sn_std
+  translation: "推荐标准容量 S_N_std"
+- id: tcs_result_beta
+  translation: "实际负载率 β"
+- id: tcs_result_beta_low
+  translation: "低负载警告"
+- id: tcs_result_beta_below
+  translation: "偏低负载"
+- id: tcs_result_beta_good
+  translation: "经济运行区间 ✅"
+- id: tcs_result_beta_full
+  translation: "满负载附近"
+- id: tcs_result_beta_over
+  translation: "过载警告"
+- id: tcs_coeff_section
+  translation: "修正系数明细(GB 50054-2011)"
+- id: tcs_coeff_kx_avg
+  translation: "加权需要系数 K_x_avg"
+- id: tcs_coeff_ksigma
+  translation: "同时系数 K_Σ"
+- id: tcs_coeff_cos_avg
+  translation: "加权功率因数 cosφ_avg"
+- id: tcs_coeff_eta
+  translation: "变压器效率 η"
+- id: tcs_coeff_kload
+  translation: "负载率 K_load"
+- id: tcs_coeff_km
+  translation: "裕度系数 K_m"
+- id: tcs_select_model
+  translation: "选型推荐"
+- id: tcs_js_standard_title
+  translation: "📋 国标依据"
+- id: tcs_js_disclaimer_title
+  translation: "⚠ 免责声明"
+- id: tcs_js_warn_no_power
+  translation: "请至少输入一类设备功率"
+- id: tcs_js_warn_ksigma
+  translation: "请填写有效的 K_Σ 同时系数"
+- id: tcs_js_warn_eta
+  translation: "请填写有效的变压器效率 η(0 < η < 1)"
+- id: tcs_js_warn_kload
+  translation: "请填写有效的负载率 K_load"
+- id: tcs_js_warn_km
+  translation: "裕度系数 K_m 必须 ≥ 1,工程不可小于 1"
+- id: tcs_js_tip_beta_low
+  translation: "⚠ 实际负载率 < 50%:变压器长期低负载运行,效率低、空载损耗占比大。建议选更小容量(R10 最小 30 kVA)或复核负荷计算"
+- id: tcs_js_tip_beta_below
+  translation: "ℹ 实际负载率 50%~75%:偏低,可接受,长期低负载电价不经济"
+- id: tcs_js_tip_beta_good
+  translation: "✅ 实际负载率 {beta}%:在 GB 50052-2009 §6.0.7 推荐的经济运行区间 75%~85% 内"
+- id: tcs_js_tip_beta_full
+  translation: "⚠ 实际负载率 85%~100%:满负载附近,可接受但无备用,峰值可能过载"
+- id: tcs_js_tip_beta_over
+  translation: "⚠ 实际负载率 > 100%:过载,标准容量不足,选下一档"
+- id: tcs_js_tip_motor_big
+  translation: "ℹ 含大功率动力设备(单台 ≥ 30kW):需另核电动机启动压降,GB 50052-2009 §6.0.4"
+- id: tcs_js_tip_big_tx
+  translation: "ℹ 推荐容量 ≥ 1250 kVA:GB 50052-2009 §6.0.5 建议单台 ≤ 1250 kVA,长期应考虑 2 台并列"
+- id: tcs_js_warn_over_2500
+  translation: "⚠ 所需容量超过单台 R10 上限 2500 kVA,建议 2 台并列(GB 50052 §6.0.5)"
+- id: tcs_js_tip_cos_method
+  translation: 'ℹ 加权 cosφ 按"计算负荷"(K_x 加权后)再加权,符合 GB 50054-2011 §3.4.5 标准做法'
+- id: tcs_js_tip_total_method
+  translation: "ℹ 按总功率法为简化算法,适用施工图设计阶段 / 单台大功率设备 / 工厂总负荷"
+- id: tcs_js_tip_km_high
+  translation: "ℹ K_m > 1.25:高可靠场景(数据中心 / 医院)推荐配置"
+- id: cp_preset_7kw
+  translation: "家用 7kW"
+- id: cp_preset_11kw
+  translation: "三相 11kW"
+- id: cp_preset_22kw
+  translation: "三相 22kW"
+- id: cp_preset_43kw
+  translation: "三相 43kW"
+- id: cp_preset_30kw
+  translation: "30kW (380V/49A)"
+- id: cp_preset_60kw
+  translation: "60kW (380V/100A)"
+- id: cp_preset_80kw
+  translation: "80kW (380V/130A)"
+- id: cp_preset_100kw
+  translation: "100kW (380V/165A)"
+- id: cp_preset_120kw
+  translation: "120kW (380V/200A)"
+- id: cp_preset_160kw
+  translation: "160kW (380V/260A)"
+- id: cp_preset_240kw
+  translation: "240kW (380V/392A)"
+- id: cp_preset_400kw
+  translation: "400kW (380V/660A)"
+- id: cp_preset_480kw
+  translation: "480kW (380V/784A)"
+- id: cp_preset_43kw_title
+  translation: "按 cosΦ=0.98 实际计算约 40.5kW,行业俗称 43kW"
+- id: cp_preset_30kw_title
+  translation: "输入侧额定 49A ≈ 30kW 输出标称(AC/DC 效率 ~95%,留 1.25 倍配电余量)"
+- id: cp_preset_60kw_title
+  translation: "输入侧额定 100A ≈ 60kW 输出标称(AC/DC 效率 ~95%,留 1.25 倍配电余量)"
+- id: cp_preset_80kw_title
+  translation: "输入侧额定 130A ≈ 80kW 输出标称(AC/DC 效率 ~95%,留 1.25 倍配电余量)"
+- id: cp_preset_100kw_title
+  translation: "输入侧额定 165A ≈ 100kW 输出标称(AC/DC 效率 ~95%,留 1.25 倍配电余量)"
+- id: cp_preset_120kw_title
+  translation: "输入侧额定 200A ≈ 120kW 输出标称(AC/DC 效率 ~95%,留 1.25 倍配电余量)"
+- id: cp_preset_160kw_title
+  translation: "输入侧额定 260A ≈ 160kW 输出标称(AC/DC 效率 ~95%,留 1.25 倍配电余量)"
+- id: cp_preset_240kw_title
+  translation: "输入侧额定 392A ≈ 240kW 输出标称(AC/DC 效率 ~95%,接近 380V 直供上限)"
+- id: cp_preset_400kw_title
+  translation: "输入侧额定 660A ≈ 400kW 输出标称,通常需 690V 或 10kV 中压配电"
+- id: cp_preset_480kw_title
+  translation: "输入侧额定 784A ≈ 480kW 输出标称,通常需 690V 或 10kV 中压配电 + 液冷终端"
+- id: ct_preset_7kw
+  translation: "家用慢充"
+- id: ct_preset_11kw
+  translation: "三相交流"
+- id: ct_preset_22kw
+  translation: "双枪交流"
+- id: ct_preset_43kw
+  translation: "工业交流"
+- id: ct_preset_30kw
+  translation: "直流一体"
+- id: ct_preset_60kw
+  translation: "直流快充"
+- id: ct_preset_80kw
+  translation: "公交快充"
+- id: ct_preset_100kw
+  translation: "大功率直流"
+- id: ct_preset_120kw
+  translation: "商用快充"
+- id: ct_preset_160kw
+  translation: "双枪快充"
+- id: ct_preset_240kw
+  translation: "超充"
+- id: ct_preset_400kw
+  translation: "高速超充"
+- id: ct_preset_480kw
+  translation: "液冷超充"
+- id: ec_preset_led60w
+  translation: "LED 灯泡 60W"
+- id: ec_preset_fridge150w
+  translation: "冰箱 150W"
+- id: ec_preset_ac2000w
+  translation: "空调 2000W"
+- id: ec_preset_waterheater2200w
+  translation: "电热水器 2200W"
+- id: ec_preset_instantfaucet3000w
+  translation: "即热式水龙头 3000W"
+- id: ec_preset_desktop500w
+  translation: "台式电脑 500W"
+- id: ec_preset_solo100
+  translation: "独居 100 kWh/月"
+- id: ec_preset_normal300
+  translation: "普通家庭 300 kWh/月"
+- id: ec_preset_large600
+  translation: "多电器家庭 600 kWh/月"
+- id: ec_preset_heavy1000
+  translation: "大功率家庭 1000 kWh/月"
+- id: ec_preset_price_residential
+  translation: "居民 0.528"
+- id: ec_preset_price_commercial
+  translation: "商用电 0.6"
+- id: ec_preset_price_peak
+  translation: "高峰电价 1.2"
+- id: ec_result_period_cost_default
+  translation: "月电费(按 30 天)"
+- id: tcs_preset_motor_1
+  translation: "7.5kW × 3 电动机"
+- id: tcs_preset_motor_2
+  translation: "11kW × 2 电动机"
+- id: tcs_preset_motor_3
+  translation: "22kW × 1 电动机"
+- id: tcs_preset_motor_4
+  translation: "50kW × 1 电动机"
+- id: tcs_preset_motor_5
+  translation: "100kW 混合动力"
+- id: tcs_preset_lighting_1
+  translation: "50m² 住宅"
+- id: tcs_preset_lighting_2
+  translation: "200m² 商铺"
+- id: tcs_preset_lighting_3
+  translation: "1000m² 厂房"
+- id: tcs_preset_lighting_4
+  translation: "5000m² 商场"
+- id: tcs_preset_total_1
+  translation: "50 kW 小型作坊"
+- id: tcs_preset_total_2
+  translation: "200 kW 中型工厂"
+- id: tcs_preset_total_3
+  translation: "500 kW 大型工厂"
+- id: tcs_preset_total_4
+  translation: "1000 kW 园区总配"
+- id: tcs_preset_total_5
+  translation: "2000 kW 数据中心"
+- id: tcs_std_gb50052
+  translation: "GB 50052-2009《供配电系统设计规范》§6.0.3(变压器容量选择)/ §6.0.4(留裕度)/ §6.0.5(单台 ≤ 1250 kVA)/ §6.0.7(负载率 ≤ 85%)"
+- id: tcs_std_gb50054
+  translation: "GB 50054-2011《低压配电设计规范》§3.4(负荷计算)+ 附录 B(需要系数、同时系数)"
+- id: tcs_std_gbt17468
+  translation: "GB/T 17468-2019《电力变压器选用导则》§5.1(容量优先数系 R10)"
+- id: tcs_std_gb20052
+  translation: "GB 20052-2020《三相配电变压器能效限定值及能效等级》"
+- id: tcs_std_gb51348
+  translation: "GB 51348-2019《民用建筑电气设计标准》§3.5(负荷计算 + cosφ)"
+- id: tcs_std_gbt10228
+  translation: "GB/T 10228-2015《干式电力变压器技术参数和要求》"
+- id: tcs_disc_1
+  translation: "本工具基于 GB 50052-2009 / GB/T 17468-2019 标准简化实现,选型结果仅供设计参考。"
+- id: tcs_disc_2
+  translation: "正式施工图设计应以国家标准化管理委员会发布的现行版本为准,由注册电气工程师审核。"
+- id: tcs_disc_3
+  translation: "单台大功率电动机(≥ 30kW)需另核启动压降,本工具不涵盖启动校验。"
+- id: tcs_disc_4
+  translation: "并列运行 / 短路电流 / 电压降 / 经济电流密度法选型不在本工具范围内。"
+- id: tcs_disc_5
+  translation: "特殊场景(化工防腐 / 爆炸危险 / 海上风电 / 地铁)需参考专项标准。"
