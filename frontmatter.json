@@ -5,5 +5,8 @@
       "title": "content",
       "path": "[[workspace]]/content"
     }
-  ]
+  ],
+  "frontMatter.framework.id": "hugo",
+  "frontMatter.preview.server": "hugo server",
+  "frontMatter.preview.port": 1313
 }
