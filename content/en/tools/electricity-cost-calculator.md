@@ -6,6 +6,26 @@ categories:
   - "Electricity Cost Estimation"
   - "Energy-Saving Tools"
   - "Household Essentials"
+
+
+images:
+  - "/images/tools/electricity-cost-calculator.svg"
+tags:
+  - "electricity cost"
+  - "tiered pricing"
+  - "kWh"
+  - "home appliances"
+  - "LED"
+  - "air conditioner"
+  - "electric water heater"
+  - "CO₂ emission"
+keywords:
+  - "electricity cost calculator"
+  - "home electricity cost"
+  - "monthly kWh"
+  - "tiered electricity pricing"
+  - "energy savings"
+  - "carbon footprint"
 layout: "page"
 translationKey: "electricity_cost_calculator"
 ---
@@ -109,3 +129,9 @@ If on a peak/valley electricity rate (nighttime ¥0.30/kWh): **¥67/month** (sav
   ]
 }
 </script>
+
+
+## References
+
+- EIA Residential Energy Consumption Survey (RECS)
+- EPA Carbon Footprint Calculator Methodology

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg7" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#eff6ff"/>
+      <stop offset="100%" style="stop-color:#dbeafe"/>
+    </linearGradient>
+    <linearGradient id="blueGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2563eb"/>
+      <stop offset="100%" style="stop-color:#1d4ed8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg7)"/>
+
+  <!-- Grid -->
+  <g stroke="#2563eb" stroke-width="0.5" opacity="0.1">
+    <line x1="0" y1="157" x2="1200" y2="157"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="473" x2="1200" y2="473"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+
+  <!-- Transformer core (EI core, center) -->
+  <!-- E part -->
+  <rect x="120" y="180" width="200" height="300" rx="8" fill="#2563eb" opacity="0.1" stroke="#2563eb" stroke-width="3"/>
+  <!-- E vertical bars -->
+  <rect x="120" y="180" width="60" height="300" rx="4" fill="#2563eb" opacity="0.15"/>
+  <rect x="280" y="180" width="60" height="300" rx="4" fill="#2563eb" opacity="0.15"/>
+  <!-- I part (bottom) -->
+  <rect x="120" y="450" width="200" height="30" rx="4" fill="#2563eb" opacity="0.2" stroke="#2563eb" stroke-width="2"/>
+
+  <!-- Primary winding (left leg) -->
+  <rect x="130" y="200" width="50" height="260" rx="6" fill="none" stroke="#2563eb" stroke-width="4"/>
+  <line x1="130" y1="220" x2="180" y2="220" stroke="#2563eb" stroke-width="2"/>
+  <line x1="130" y1="240" x2="180" y2="240" stroke="#2563eb" stroke-width="2"/>
+  <line x1="130" y1="260" x2="180" y2="260" stroke="#2563eb" stroke-width="2"/>
+  <line x1="130" y1="280" x2="180" y2="280" stroke="#2563eb" stroke-width="2"/>
+  <line x1="130" y1="300" x2="180" y2="300" stroke="#2563eb" stroke-width="2"/>
+  <line x1="130" y1="320" x2="180" y2="320" stroke="#2563eb" stroke-width="2"/>
+  <line x1="130" y1="340" x2="180" y2="340" stroke="#2563eb" stroke-width="2"/>
+  <line x1="130" y1="360" x2="180" y2="360" stroke="#2563eb" stroke-width="2"/>
+  <line x1="130" y1="380" x2="180" y2="380" stroke="#2563eb" stroke-width="2"/>
+  <line x1="130" y1="400" x2="180" y2="400" stroke="#2563eb" stroke-width="2"/>
+  <line x1="130" y1="420" x2="180" y2="420" stroke="#2563eb" stroke-width="2"/>
+  <line x1="130" y1="440" x2="180" y2="440" stroke="#2563eb" stroke-width="2"/>
+  <!-- Primary label -->
+  <text x="155" y="500" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" fill="#2563eb" font-weight="bold">Pri: 10kV</text>
+
+  <!-- Secondary winding (right leg) -->
+  <rect x="270" y="200" width="50" height="260" rx="6" fill="none" stroke="#1d4ed8" stroke-width="4"/>
+  <line x1="270" y1="220" x2="320" y2="220" stroke="#1d4ed8" stroke-width="2"/>
+  <line x1="270" y1="240" x2="320" y2="240" stroke="#1d4ed8" stroke-width="2"/>
+  <line x1="270" y1="260" x2="320" y2="260" stroke="#1d4ed8" stroke-width="2"/>
+  <line x1="270" y1="280" x2="320" y2="280" stroke="#1d4ed8" stroke-width="2"/>
+  <line x1="270" y1="300" x2="320" y2="300" stroke="#1d4ed8" stroke-width="2"/>
+  <line x1="270" y1="320" x2="320" y2="320" stroke="#1d4ed8" stroke-width="2"/>
+  <line x1="270" y1="340" x2="320" y2="340" stroke="#1d4ed8" stroke-width="2"/>
+  <line x1="270" y1="360" x2="320" y2="360" stroke="#1d4ed8" stroke-width="2"/>
+  <line x1="270" y1="380" x2="320" y2="380" stroke="#1d4ed8" stroke-width="2"/>
+  <line x1="270" y1="400" x2="320" y2="400" stroke="#1d4ed8" stroke-width="2"/>
+  <line x1="270" y1="420" x2="320" y2="420" stroke="#1d4ed8" stroke-width="2"/>
+  <line x1="270" y1="440" x2="320" y2="440" stroke="#1d4ed8" stroke-width="2"/>
+  <!-- Secondary label -->
+  <text x="295" y="500" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" fill="#1d4ed8" font-weight="bold">Sec: 400V</text>
+
+  <!-- Transformer kVA plate (right) -->
+  <rect x="480" y="180" width="280" height="200" rx="16" fill="white" stroke="url(#blueGrad2)" stroke-width="4"/>
+  <text x="620" y="218" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="20" fill="#1e3a8a" font-weight="bold">变压器铭牌</text>
+  <line x1="500" y1="230" x2="740" y2="230" stroke="#2563eb" stroke-width="1" opacity="0.3"/>
+  <g font-family="Inter, sans-serif" font-size="16" fill="#1e3a8a">
+    <text x="500" y="260">额定容量: </text><text x="640" y="260" font-weight="bold" fill="#2563eb">315 kVA</text>
+    <text x="500" y="290">一次电压: </text><text x="640" y="290">10 kV</text>
+    <text x="500" y="320">二次电压: </text><text x="640" y="320">400V / 230V</text>
+    <text x="500" y="350">阻抗电压: </text><text x="640" y="350">4.5%</text>
+    <text x="500" y="380">连接组别: </text><text x="640" y="380">Dyn11</text>
+  </g>
+
+  <!-- kVA rating scale (bottom right) -->
+  <rect x="480" y="410" width="280" height="130" rx="16" fill="white" stroke="url(#blueGrad2)" stroke-width="4"/>
+  <text x="620" y="445" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16" fill="#1e3a8a" font-weight="bold">常用变压器容量档位</text>
+  <g font-family="Inter, monospace" font-size="15" fill="#2563eb">
+    <text x="500" y="475">30kVA</text>
+    <text x="570" y="475">50kVA</text>
+    <text x="640" y="475">100kVA</text>
+    <text x="710" y="475">200kVA</text>
+  </g>
+  <g font-family="Inter, monospace" font-size="15" fill="#1d4ed8">
+    <text x="500" y="510">315kVA</text>
+    <text x="570" y="510">400kVA</text>
+    <text x="640" y="510">500kVA</text>
+    <text x="710" y="510">630kVA</text>
+  </g>
+
+  <!-- Formula box (bottom) -->
+  <rect x="80" y="545" width="700" height="60" rx="10" fill="#2563eb" opacity="0.1"/>
+  <rect x="80" y="545" width="700" height="60" rx="10" fill="none" stroke="#2563eb" stroke-width="2"/>
+  <text x="430" y="588" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Inter, Roboto, sans-serif" font-size="36" fill="#1e3a8a" font-weight="bold">kVA = kW / cosφ</text>
+
+  <!-- Chinese title -->
+  <text x="880" y="100" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="48" fill="#1e3a8a" font-weight="bold">变压器容量选择</text>
+  <!-- English title -->
+  <text x="880" y="135" text-anchor="middle" font-family="Inter, Roboto, sans-serif" font-size="20" fill="#2563eb" letter-spacing="2">Transformer Capacity Selection</text>
+</svg>

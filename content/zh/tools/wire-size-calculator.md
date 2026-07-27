@@ -5,6 +5,25 @@ categories:
   - "电气工具"
   - "电线选型"
   - "NEC 310 规范"
+images:
+  - "/images/tools/wire-size-calculator.svg"
+tags:
+  - "线径"
+  - "AWG"
+  - "kcmil"
+  - "压降"
+  - "NEC 310.16"
+  - "OCPD"
+  - "110V"
+  - "220V"
+keywords:
+  - "电线选型"
+  - "导线截面积"
+  - "AWG规格"
+  - "压降校验"
+  - "NEC 310.16"
+  - "OCPD配合"
+  - "电流载流量"
 translationKey: "wire_size_calculator"
 ---
 
@@ -248,3 +267,12 @@ NEC 240.4(B) 规定:只有在导体载流量不对应标准 OCPD 规格 **且** 
   ]
 }
 </script>
+
+
+## 参考标准
+
+- GB/T 4706.1-2005 家用和类似用途电器的安全 通用要求
+- NEC Table 310.16 Ampacity of Copper Conductors
+
+images:
+  - "/images/tools/wire-size-calculator.svg"

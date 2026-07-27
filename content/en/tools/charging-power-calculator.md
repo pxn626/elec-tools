@@ -5,6 +5,28 @@ categories:
   - "EV Charger Tools"
   - "Electrical Calculators"
   - "Engineering Tools"
+
+
+images:
+  - "/images/tools/charging-power-calculator.svg"
+tags:
+  - "EV charger"
+  - "three-phase"
+  - "power factor"
+  - "cosφ"
+  - "P=√3UI"
+  - "7kW"
+  - "11kW"
+  - "22kW"
+  - "GB/T 20234"
+keywords:
+  - "EV charger power calculator"
+  - "charger sizing"
+  - "three-phase"
+  - "power factor"
+  - "cosφ"
+  - "7kW home charger"
+  - "22kW dual-gun"
 layout: "page"
 translationKey: "charging_power_calculator"
 ---
@@ -81,3 +103,9 @@ The power factor is the ratio of active power to apparent power, **cosΦ = P / S
   ]
 }
 </script>
+
+
+## References
+
+- GB/T 20234.3-2015 Connection Set for Conductive Charging of EVs Part 3: DC Charging Coupler
+- NB/T 33001-2018 Specification for Off-board Conductive EV Charger

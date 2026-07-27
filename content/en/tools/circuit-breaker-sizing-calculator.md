@@ -7,6 +7,9 @@ categories:
   - "NEC 240"
   - "OCPD Sizing"
   - "Breaker Selection"
+
+images:
+  - "/images/tools/circuit-breaker-sizing-calculator.svg"
 tags:
   - "circuit breaker calculator"
   - "breaker sizing"
@@ -17,6 +20,15 @@ tags:
   - "OCPD"
   - "motor breaker"
   - "EV charger breaker"
+  - "subpanel feeder"
+
+keywords:
+  - "circuit breaker sizing"
+  - "OCPD calculator"
+  - "NEC 240.6"
+  - "125% continuous load"
+  - "EV charger breaker"
+  - "motor branch circuit"
   - "subpanel feeder"
 translationKey: "circuit_breaker_sizing_calculator"
 ---

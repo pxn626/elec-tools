@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fffbeb"/>
+      <stop offset="100%" style="stop-color:#fef3c7"/>
+    </linearGradient>
+    <linearGradient id="orangeGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#d97706"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg5)"/>
+
+  <!-- Grid -->
+  <g stroke="#f59e0b" stroke-width="0.5" opacity="0.1">
+    <line x1="0" y1="157" x2="1200" y2="157"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="473" x2="1200" y2="473"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+
+  <!-- Cable cross-sections (showing AWG sizes) -->
+  <!-- Cable 1: large -->
+  <circle cx="200" cy="250" r="80" fill="none" stroke="#f59e0b" stroke-width="5"/>
+  <circle cx="200" cy="250" r="65" fill="#f59e0b" opacity="0.15"/>
+  <circle cx="200" cy="250" r="50" fill="#f59e0b" opacity="0.25"/>
+  <circle cx="200" cy="250" r="35" fill="#f59e0b" opacity="0.4"/>
+  <circle cx="200" cy="250" r="20" fill="#f59e0b" opacity="0.6"/>
+  <text x="200" y="345" text-anchor="middle" font-family="Inter, monospace" font-size="16" fill="#d97706" font-weight="bold">AWG 10</text>
+  <text x="200" y="365" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#d97706">5.26 mm²</text>
+
+  <!-- Cable 2: medium -->
+  <circle cx="200" cy="450" r="55" fill="none" stroke="#f59e0b" stroke-width="4"/>
+  <circle cx="200" cy="450" r="42" fill="#f59e0b" opacity="0.2"/>
+  <circle cx="200" cy="450" r="28" fill="#f59e0b" opacity="0.35"/>
+  <circle cx="200" cy="450" r="15" fill="#f59e0b" opacity="0.5"/>
+  <text x="200" y="520" text-anchor="middle" font-family="Inter, monospace" font-size="14" fill="#d97706" font-weight="bold">AWG 12</text>
+  <text x="200" y="538" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#d97706">3.31 mm²</text>
+
+  <!-- Cable 3: small -->
+  <circle cx="360" cy="250" r="38" fill="none" stroke="#f59e0b" stroke-width="3"/>
+  <circle cx="360" cy="250" r="28" fill="#f59e0b" opacity="0.2"/>
+  <circle cx="360" cy="250" r="18" fill="#f59e0b" opacity="0.4"/>
+  <circle cx="360" cy="250" r="10" fill="#f59e0b" opacity="0.6"/>
+  <text x="360" y="300" text-anchor="middle" font-family="Inter, monospace" font-size="13" fill="#d97706" font-weight="bold">AWG 14</text>
+  <text x="360" y="316" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#d97706">2.08 mm²</text>
+
+  <!-- Cable 4: very small -->
+  <circle cx="360" cy="430" r="25" fill="none" stroke="#f59e0b" stroke-width="3"/>
+  <circle cx="360" cy="430" r="18" fill="#f59e0b" opacity="0.25"/>
+  <circle cx="360" cy="430" r="11" fill="#f59e0b" opacity="0.4"/>
+  <text x="360" y="468" text-anchor="middle" font-family="Inter, monospace" font-size="12" fill="#d97706" font-weight="bold">AWG 16</text>
+  <text x="360" y="484" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#d97706">1.31 mm²</text>
+
+  <!-- Stripes across cable labels to show comparison -->
+  <line x1="260" y1="240" x2="300" y2="240" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"/>
+  <line x1="260" y1="440" x2="300" y2="440" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"/>
+
+  <!-- AWG size comparison table (right side) -->
+  <rect x="480" y="130" width="300" height="420" rx="16" fill="white" stroke="url(#orangeGrad2)" stroke-width="4"/>
+  <text x="630" y="168" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="18" fill="#92400e" font-weight="bold">AWG 规格对照表</text>
+  <line x1="500" y1="182" x2="760" y2="182" stroke="#f59e0b" stroke-width="1" opacity="0.3"/>
+  <!-- Table header -->
+  <rect x="500" y="188" width="260" height="30" rx="4" fill="#f59e0b" opacity="0.15"/>
+  <text x="540" y="208" font-family="Inter, sans-serif" font-size="13" fill="#92400e" font-weight="bold">AWG</text>
+  <text x="610" y="208" font-family="Inter, sans-serif" font-size="13" fill="#92400e" font-weight="bold">mm²</text>
+  <text x="680" y="208" font-family="Inter, sans-serif" font-size="13" fill="#92400e" font-weight="bold">mm</text>
+  <text x="740" y="208" font-family="Inter, sans-serif" font-size="13" fill="#92400e" font-weight="bold">A</text>
+  <g font-family="Inter, monospace" font-size="14" fill="#78350f">
+    <text x="540" y="240">10</text><text x="610" y="240">5.26</text><text x="680" y="240">2.59</text><text x="740" y="240">30</text>
+    <text x="540" y="270">12</text><text x="610" y="270">3.31</text><text x="680" y="270">2.05</text><text x="740" y="270">20</text>
+    <text x="540" y="300">14</text><text x="610" y="300">2.08</text><text x="680" y="300">1.63</text><text x="740" y="300">15</text>
+    <text x="540" y="330">16</text><text x="610" y="330">1.31</text><text x="680" y="330">1.29</text><text x="740" y="330">10</text>
+    <text x="540" y="360">18</text><text x="610" y="360">0.82</text><text x="680" y="360">1.02</text><text x="740" y="360">7</text>
+    <text x="540" y="390">20</text><text x="610" y="390">0.52</text><text x="680" y="390">0.81</text><text x="740" y="390">5</text>
+    <text x="540" y="420">22</text><text x="610" y="420">0.32</text><text x="680" y="420">0.64</text><text x="740" y="420">3</text>
+  </g>
+  <!-- Alternating rows -->
+  <rect x="500" y="218" width="260" height="28" rx="2" fill="#f59e0b" opacity="0.04"/>
+  <rect x="500" y="246" width="260" height="28" rx="2" fill="#f59e0b" opacity="0.04"/>
+  <rect x="500" y="274" width="260" height="28" rx="2" fill="#f59e0b" opacity="0.04"/>
+  <rect x="500" y="302" width="260" height="28" rx="2" fill="#f59e0b" opacity="0.04"/>
+  <rect x="500" y="330" width="260" height="28" rx="2" fill="#f59e0b" opacity="0.04"/>
+  <rect x="500" y="358" width="260" height="28" rx="2" fill="#f59e0b" opacity="0.04"/>
+  <rect x="500" y="386" width="260" height="28" rx="2" fill="#f59e0b" opacity="0.04"/>
+
+  <!-- Formula box (bottom) -->
+  <rect x="80" y="545" width="700" height="60" rx="10" fill="#f59e0b" opacity="0.12"/>
+  <rect x="80" y="545" width="700" height="60" rx="10" fill="none" stroke="#f59e0b" stroke-width="2"/>
+  <text x="430" y="588" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Inter, Roboto, sans-serif" font-size="36" fill="#92400e" font-weight="bold">A = I / (k × ΔV)</text>
+
+  <!-- Chinese title -->
+  <text x="880" y="100" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="48" fill="#92400e" font-weight="bold">线径选型计算器</text>
+  <!-- English title -->
+  <text x="880" y="135" text-anchor="middle" font-family="Inter, Roboto, sans-serif" font-size="20" fill="#d97706" letter-spacing="2">Wire Size Calculator</text>
+
+  <!-- Voltage drop note -->
+  <text x="880" y="180" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#d97706">ΔV &lt; 3% (照明) / &lt; 5% (电机)</text>
+</svg>

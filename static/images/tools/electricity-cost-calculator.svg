@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg8" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc"/>
+      <stop offset="100%" style="stop-color:#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="slateGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#64748b"/>
+      <stop offset="100%" style="stop-color:#475569"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg8)"/>
+
+  <!-- Grid -->
+  <g stroke="#64748b" stroke-width="0.5" opacity="0.1">
+    <line x1="0" y1="157" x2="1200" y2="157"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="473" x2="1200" y2="473"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+
+  <!-- Electricity meter (left) -->
+  <!-- Meter body -->
+  <rect x="80" y="160" width="260" height="360" rx="20" fill="white" stroke="url(#slateGrad)" stroke-width="5"/>
+  <!-- Meter brand area -->
+  <rect x="100" y="180" width="220" height="50" rx="8" fill="#f1f5f9" stroke="#64748b" stroke-width="2"/>
+  <text x="210" y="212" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" fill="#475569" font-weight="bold" letter-spacing="2">ELECTRICITY METER</text>
+  <!-- Display screen -->
+  <rect x="110" y="250" width="200" height="90" rx="8" fill="#0f172a"/>
+  <text x="210" y="285" text-anchor="middle" font-family="Inter, monospace" font-size="28" fill="#22c55e" font-weight="bold">1876.4</text>
+  <text x="210" y="315" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#64748b">kWh</text>
+  <!-- Rotating disc -->
+  <circle cx="210" cy="400" r="55" fill="#f8fafc" stroke="url(#slateGrad)" stroke-width="3"/>
+  <circle cx="210" cy="400" r="42" fill="none" stroke="#64748b" stroke-width="1" opacity="0.3"/>
+  <!-- Disc markings (spokes) -->
+  <g stroke="#64748b" stroke-width="2" opacity="0.4">
+    <line x1="210" y1="358" x2="210" y2="442"/>
+    <line x1="168" y1="400" x2="252" y2="400"/>
+    <line x1="180" y1="370" x2="240" y2="430"/>
+    <line x1="240" y1="370" x2="180" y2="430"/>
+  </g>
+  <!-- Disc center -->
+  <circle cx="210" cy="400" r="8" fill="#64748b"/>
+  <!-- Red indicator LED -->
+  <circle cx="310" cy="260" r="10" fill="#ef4444"/>
+  <!-- Meter serial -->
+  <text x="210" y="480" text-anchor="middle" font-family="Inter, monospace" font-size="13" fill="#64748b">No. 202406001</text>
+  <!-- 220V/50Hz label -->
+  <text x="210" y="500" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#94a3b8">220V  50Hz  5(60)A</text>
+
+  <!-- Monthly bill card (center) -->
+  <rect x="400" y="160" width="360" height="360" rx="20" fill="white" stroke="url(#slateGrad)" stroke-width="4"/>
+  <!-- Bill header -->
+  <rect x="400" y="160" width="360" height="60" rx="20" fill="#475569"/>
+  <rect x="400" y="200" width="360" height="20" fill="#475569"/>
+  <text x="580" y="198" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="22" fill="white" font-weight="bold">月度电费账单</text>
+
+  <!-- Bill content -->
+  <g font-family="PingFang SC, Microsoft YaHei, Inter, sans-serif" font-size="16" fill="#334155">
+    <text x="420" y="260">本月用电量</text>
+    <text x="640" y="260" text-anchor="end" font-family="Inter, monospace" font-size="18" fill="#0f172a" font-weight="bold">487 kWh</text>
+    <text x="420" y="295">电价</text>
+    <text x="640" y="295" text-anchor="end" font-family="Inter, monospace" fill="#0f172a">¥0.56 / kWh</text>
+    <text x="420" y="330">基本电费</text>
+    <text x="640" y="330" text-anchor="end" font-family="Inter, monospace" fill="#0f172a">¥30.00</text>
+  </g>
+
+  <!-- Divider -->
+  <line x1="420" y1="350" x2="740" y2="350" stroke="#64748b" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- Total (prominent) -->
+  <text x="420" y="390" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="18" fill="#475569">应付总额</text>
+  <text x="640" y="390" text-anchor="end" font-family="Inter, monospace" font-size="28" fill="#dc2626" font-weight="bold">¥302.72</text>
+
+  <!-- kWh to ¥ chart (mini bar chart) -->
+  <text x="420" y="420" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="13" fill="#94a3b8">近6月用电趋势</text>
+  <g opacity="0.6">
+    <rect x="420" y="435" width="40" height="60" rx="4" fill="#64748b"/>
+    <rect x="470" y="425" width="40" height="70" rx="4" fill="#64748b"/>
+    <rect x="520" y="440" width="40" height="55" rx="4" fill="#64748b"/>
+    <rect x="570" y="420" width="40" height="75" rx="4" fill="#64748b"/>
+    <rect x="620" y="430" width="40" height="65" rx="4" fill="#64748b"/>
+    <rect x="670" y="418" width="40" height="77" rx="4" fill="#475569"/>
+  </g>
+  <g font-family="Inter, sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">
+    <text x="440" y="505">1月</text>
+    <text x="490" y="505">2月</text>
+    <text x="540" y="505">3月</text>
+    <text x="590" y="505">4月</text>
+    <text x="640" y="505">5月</text>
+    <text x="690" y="505">6月</text>
+  </g>
+
+  <!-- RMB symbol (right panel) -->
+  <text x="880" y="350" text-anchor="middle" font-family="Inter, sans-serif" font-size="200" fill="#64748b" font-weight="bold" opacity="0.12">¥</text>
+  <text x="880" y="420" text-anchor="middle" font-family="Inter, sans-serif" font-size="80" fill="#64748b" font-weight="bold" opacity="0.2">kWh</text>
+
+  <!-- Formula box (bottom) -->
+  <rect x="80" y="545" width="700" height="60" rx="10" fill="#64748b" opacity="0.1"/>
+  <rect x="80" y="545" width="700" height="60" rx="10" fill="none" stroke="#64748b" stroke-width="2"/>
+  <text x="430" y="588" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Inter, Roboto, sans-serif" font-size="36" fill="#334155" font-weight="bold">¥ = kWh × ¥/kWh</text>
+
+  <!-- Chinese title -->
+  <text x="880" y="100" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="48" fill="#334155" font-weight="bold">电费估算计算器</text>
+  <!-- English title -->
+  <text x="880" y="135" text-anchor="middle" font-family="Inter, Roboto, sans-serif" font-size="20" fill="#64748b" letter-spacing="2">Electricity Cost Estimator</text>
+</svg>

@@ -5,19 +5,26 @@ categories:
   - 电气工具
   - 变压器与配电
   - 工程速查
+
+images:
+  - "/images/tools/transformer-capacity-selection.svg"
+tags:
+  - "变压器"
+  - "kVA"
+  - "容量选择"
+  - "GB/T 17468"
+  - "R10优先数系"
+  - "电机启动"
+  - "短路阻抗"
+keywords:
+  - "变压器容量选择"
+  - "kVA选型"
+  - "变压器规格"
+  - "R10优先数系"
+  - "电机启动电流"
+  - "变压器负载率"
 layout: page
 translationKey: transformer_capacity_selection
-keywords:
-  - 变压器容量选择
-  - 变压器选型计算
-  - 变压器 kVA 计算
-  - 变压器容量计算公式
-  - 配电变压器选型
-  - 变压器负载率选择
-  - 变压器 R10 容量序列
-  - 变压器功率因数修正
-  - 变压器效率
-  - 变压器与 UPS 容量匹配
 date: 2026-07-19T00:00:00+00:00
 draft: false
 ---
@@ -384,3 +391,8 @@ GB/T 17468 R10 优先数系 **19 档**(单位 kVA):
   ]
 }
 </script>
+
+## 参考标准
+
+- GB/T 17468-2019 电力变压器选用导则
+- GB 20052-2020 电力变压器能效限定值及能效等级

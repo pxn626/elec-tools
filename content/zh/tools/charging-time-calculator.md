@@ -5,6 +5,26 @@ categories:
   - "充电桩工具"
   - "电池计算"
   - "车主必备"
+
+
+images:
+  - "/images/tools/charging-time-calculator.svg"
+tags:
+  - "充电桩"
+  - "电池容量"
+  - "kWh"
+  - "充电时长"
+  - "CCCV涓流"
+  - "GB/T 27930"
+  - "充电曲线"
+keywords:
+  - "充电时间计算器"
+  - "电动车充电桩"
+  - "电池充电"
+  - "kWh"
+  - "充电功率"
+  - "充电曲线"
+  - "GB/T 27930"
 layout: "page"
 translationKey: "charging_time_calculator"
 ---
@@ -82,3 +102,8 @@ CCCV 模型已是工程级近似,但实际还会受以下因素叠加影响:① 
   ]
 }
 </script>
+
+## 参考标准
+
+- GB/T 27930-2015 电动汽车非车载传导式充电机与电池管理系统之间的通信协议
+- GB/T 20234.2-2015 电动汽车传导充电用连接装置

@@ -6,6 +6,27 @@ categories:
   - "Three-Phase Power"
   - "Factory Essentials"
   - "Engineering Tools"
+
+
+images:
+  - "/images/tools/three-phase-power-calculator.svg"
+tags:
+  - "three-phase"
+  - "power factor"
+  - "cosφ"
+  - "reactive compensation"
+  - "kVAr"
+  - "power triangle"
+  - "GB/T 15543"
+  - "industrial distribution"
+keywords:
+  - "three-phase power calculator"
+  - "three-phase power"
+  - "active power"
+  - "reactive power"
+  - "apparent power"
+  - "PF compensation"
+  - "power factor penalty"
 layout: "page"
 translationKey: "three_phase_power_calculator"
 ---
@@ -175,3 +196,9 @@ Combined **annual savings ≈ ¥120,000–180,000**; compensation capacitor inve
   ]
 }
 </script>
+
+
+## References
+
+- GB/T 15543-2008 Power Quality Three-phase Voltage Unbalance
+- GB 50052-2009 Code for Design of Power Supply and Distribution Systems

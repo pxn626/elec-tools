@@ -5,16 +5,29 @@ categories:
   - "Electrical Tools"
   - "Cable & Installation"
   - "Engineering Quick Reference"
-layout: "page"
-translationKey: "cable_current_carrying_capacity_lookup"
+
+
+images:
+  - "/images/tools/cable-current-carrying-capacity-lookup.svg"
+tags:
+  - "cable ampacity"
+  - "current carrying capacity"
+  - "YJV cable"
+  - "conduit installation"
+  - "cable tray"
+  - "direct burial"
+  - "GB 50217"
+  - "derating factor"
 keywords:
   - "cable ampacity lookup"
-  - "YJV cable ampacity"
-  - "YJV22 cable ampacity table"
-  - "cable ampacity quick reference"
-  - "GB 50217 cable ampacity"
-  - "conduit cable ampacity"
-  - "cable ampacity correction factors"
+  - "cable sizing"
+  - "YJV cable"
+  - "conduit installation"
+  - "cable tray"
+  - "direct burial"
+  - "ampacity derating"
+layout: "page"
+translationKey: "cable_current_carrying_capacity_lookup"
 date: "2026-07-18T21:05:00+00:00"
 draft: false
 ---
@@ -446,3 +459,9 @@ This tool **does not provide** automatic cable sizing recommendations and **does
   ]
 }
 </script>
+
+
+## References
+
+- IEC 60364-5-52 Low-voltage Electrical Installations - Selection of Cables
+- NEC 310.15 Ampacities of Conductors

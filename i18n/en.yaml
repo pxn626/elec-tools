@@ -681,3 +681,408 @@
   translation: "Parallel operation / short-circuit current / voltage drop / economic current density sizing are outside this tool scope."
 - id: tcs_disc_5
   translation: "Special scenarios (chemical corrosion protection / explosion hazard / offshore wind / subway) require specialized standards."
+# ── CBS: Circuit Breaker Sizing ─────────────────────────────────────
+- id: cbs_preset_group_label
+  translation: "⚡ Quick Presets — Common NEC Services"
+- id: cbs_mode_resistive
+  translation: "⚡ Resistive / General Load"
+- id: cbs_mode_motor
+  translation: "⚙ Motor Branch Circuit (NEC 430)"
+- id: cbs_label_load_amps
+  translation: "Load Amps <span class=\"cbs-unit\">(A)</span>"
+- id: cbs_label_load_power
+  translation: "Load Power <span class=\"cbs-unit\">(kW, optional)</span>"
+- id: cbs_help_load_power
+  translation: "Leave blank if entering amps directly."
+- id: cbs_label_sys_voltage
+  translation: "System Voltage <span class=\"cbs-unit\">(V)</span>"
+- id: cbs_label_pf
+  translation: "Power Factor <span class=\"cbs-unit\">(cosφ)</span>"
+- id: cbs_help_pf
+  translation: "Resistive load = 1.0. Motor load = 0.85 typical."
+- id: cbs_checkbox_continuous
+  translation: "Continuous load <span style=\"color:#6b7280;font-weight:400;\">(NEC 210.20(A) — 125% rule)</span>"
+- id: cbs_help_continuous
+  translation: "Required for EV chargers, solar PV inverters, and any load expected to run > 3 hours."
+- id: cbs_label_motor_power
+  translation: "Motor Power <span class=\"cbs-unit\">(HP)</span>"
+- id: cbs_label_motor_design
+  translation: "NEMA/IEC Design Letter"
+- id: cbs_opt_design_b
+  translation: "B — Standard (most common, 250% FLA)"
+- id: cbs_opt_design_a
+  translation: "A — High torque, normal locked-rotor (250% FLA)"
+- id: cbs_opt_design_c
+  translation: "C — High starting torque (150% FLA)"
+- id: cbs_opt_design_e
+  translation: "E — IEC premium efficiency (150% FLA)"
+- id: cbs_opt_design_d
+  translation: "D — Very high locked-rotor (150% FLA)"
+- id: cbs_label_motor_voltage
+  translation: "Motor Voltage <span class=\"cbs-unit\">(V)</span>"
+- id: cbs_phase_1ph
+  translation: "1Φ Single-Phase"
+- id: cbs_phase_3ph
+  translation: "3Φ Three-Phase"
+- id: cbs_help_motor_fla
+  translation: "FLA is looked up from NEC Table 430.250 (3Φ) or 430.6 (1Φ). Per NEC 430.52, inverse-time breaker = 250% of FLA for Design A/B; 150% for Design C/E/D."
+- id: cbs_badge_exceed800
+  translation: "🔴 Exceeds 800 A — Use Parallel Conductors or MV"
+- id: cbs_badge_motor
+  translation: "🟡 NEC 430.52 × {pct}% Applied (Design {design})"
+- id: cbs_badge_roundup
+  translation: "🟢 NEC 240.4(B) Round-Up Applied — next-larger OCPD"
+- id: cbs_badge_compliant
+  translation: "🟢 NEC-Compliant — direct OCPD match"
+- id: cbs_result_ocpd
+  translation: "Recommended OCPD"
+- id: cbs_result_ocpd_unit
+  translation: "amperes"
+- id: cbs_result_run_amps
+  translation: "Running Amps"
+- id: cbs_result_design_amps
+  translation: "Design Amps"
+- id: cbs_notes_title
+  translation: "Calculation Details"
+- id: cbs_note_run_current
+  translation: "Run current"
+- id: cbs_note_nec125
+  translation: "NEC 210.20(A) 125% rule"
+- id: cbs_note_roundup
+  translation: "NEC 240.4(B) round-up"
+- id: cbs_note_std_rating
+  translation: "NEC 240.6(A) standard rating"
+- id: cbs_formula_placeholder
+  translation: "Enter load values to see the formula."
+- id: cbs_collapsible_ocpd_title
+  translation: "📊 NEC 240.6(A) Standard OCPD Sizes (click to expand)"
+- id: cbs_collapsible_fla_title
+  translation: "📊 NEC Table 430.250 — 3-Phase Motor FLA Reference (click to expand)"
+- id: cbs_th_std_ocpd
+  translation: "Standard OCPD (A)"
+- id: cbs_th_common_use
+  translation: "Common Use"
+- id: cbs_source_nfpa
+  translation: "Source: NFPA 70 — National Electrical Code 2023, Section 240.6(A)."
+- id: cbs_source_nfpa_table
+  translation: "Source: NFPA 70 — National Electrical Code 2023, Table 430.250 (3-phase induction motors, full-load amperes)."
+- id: cbs_disclaimer
+  translation: "⚠️ <strong>Reference only.</strong> OCPD sizing is NEC-aware but final conductor and breaker sizing must be verified by a licensed electrician and approved by your local Authority Having Jurisdiction (AHJ). Always follow the latest edition of NFPA 70 — National Electrical Code."
+- id: cbs_js_err_no_load
+  translation: "Enter load amps or load kW."
+- id: cbs_js_err_invalid_voltage
+  translation: "Invalid voltage."
+- id: cbs_js_err_fla_not_avail
+  translation: "Motor FLA not available for {v}V {p} — refer to NEC Table 430.250 / Table 430.6 directly."
+- id: cbs_js_fla_table
+  translation: "FLA (Table 430.250)"
+- id: cbs_js_multiplier
+  translation: "NEC 430.52 multiplier"
+- id: cbs_js_roundup
+  translation: "NEC 240.4(B) round-up"
+- id: cbs_js_roundup_yes
+  translation: "Yes → {ocpd}A (next std OCPD)"
+- id: cbs_js_roundup_no
+  translation: "No (already at std OCPD)"
+- id: cbs_js_run_current_kw
+  translation: "Run current (kW→A)"
+- id: cbs_js_run_current_input
+  translation: "Run current (input)"
+- id: cbs_js_cont_125
+  translation: "Yes ×1.25, continuous"
+- id: cbs_js_cont_no
+  translation: "Not applied (non-continuous)"
+- id: cbs_js_tip_exceed800
+  translation: "⚠️ <strong>Design amps exceed 800 A.</strong> Standard OCPD ladder caps at 800 A (NEC 240.6(A)). Use parallel conductors (NEC 310.10(H)), reduce voltage (step down to MV distribution), or use a service-entrance rated breaker series."
+- id: cbs_js_tip_motor
+  translation: "💡 <strong>NEC 430.52 motor path applied.</strong> Inverse-time breaker sized at {pct}% of FLA for Design {design}. Verify motor nameplate design letter and short-circuit current rating (SCCR) for the chosen breaker. Per NEC 430.52(C)(1) Exception 1, round-up to next std OCPD permitted when calculated value does not match a standard rating."
+- id: cbs_js_tip_cont_roundup
+  translation: "✓ <strong>Continuous load + NEC 240.4(B) round-up.</strong> Design amps = {run}A × 1.25 = {design}A. Next standard OCPD {ocpd}A protects the conductor per the round-up rule."
+- id: cbs_js_tip_cont_compliant
+  translation: "✓ <strong>Continuous load compliant (NEC 210.20(A) 125% rule).</strong> Design amps = {run}A × 1.25 = {design}A; OCPD {ocpd}A is a direct standard match. Pair the breaker with a conductor rated ≥{design}A (NEC 110.14(C), 75 °C column for circuits ≤100A)."
+- id: cbs_js_tip_roundup
+  translation: "✓ <strong>NEC 240.4(B) round-up applied.</strong> Conductor ampacity does not match any standard OCPD; next-larger {ocpd}A is permitted per NEC 240.4(B). Conductor must be sized for the actual load (not rounded up to OCPD)."
+- id: cbs_js_tip_compliant
+  translation: "✓ <strong>Fully NEC-compliant.</strong> OCPD {ocpd}A is a direct standard match (NEC 240.6(A)) for the design amps. Pair the conductor with the breaker per NEC 110.14(C) — 75 °C terminal column for circuits rated 100 A or less."
+- id: cbs_js_error
+  translation: "Error: {err}"
+# ── WS: Wire Size Calculator ────────────────────────────────────────
+- id: ws_preset_group_label
+  translation: "⚡ Quick Presets — One-Click Sizing"
+- id: ws_preset_ev40
+  translation: "EV L2 40A (continuous)"
+- id: ws_preset_ev48
+  translation: "EV L2 48A (continuous)"
+- id: ws_preset_ev50
+  translation: "EV L2 50A (continuous)"
+- id: ws_preset_sub50
+  translation: "50A Subpanel"
+- id: ws_preset_sub100
+  translation: "100A Subpanel"
+- id: ws_preset_svc200
+  translation: "200A Service"
+- id: ws_preset_dryer
+  translation: "30A Dryer"
+- id: ws_preset_range
+  translation: "40A Range"
+- id: ws_label_load_amps
+  translation: "Load Amps <span class=\"ws-unit\">(A)</span>"
+- id: ws_label_sys_voltage
+  translation: "System Voltage <span class=\"ws-unit\">(V)</span>"
+- id: ws_phase_1ph
+  translation: "1Φ Single-Phase"
+- id: ws_phase_3ph
+  translation: "3Φ Three-Phase"
+- id: ws_label_oneway_length
+  translation: "One-Way Length <span class=\"ws-unit\">(ft)</span>"
+- id: ws_label_wire_material
+  translation: "Wire Material"
+- id: ws_mat_copper
+  translation: "Copper (Cu)"
+- id: ws_mat_aluminum
+  translation: "Aluminum (Al)"
+- id: ws_label_ambient_temp
+  translation: "Ambient Temp <span class=\"ws-unit\">(°C)</span>"
+- id: ws_label_current_conductors
+  translation: "Current-Carrying Conductors"
+- id: ws_checkbox_continuous
+  translation: "Continuous load <span style=\"color:#6b7280;font-weight:400;\">(NEC 210.20(A) — 125% rule)</span>"
+- id: ws_help_continuous
+  translation: "Required for EV chargers, solar PV inverters, and any load expected to run > 3 hours."
+- id: ws_result_conductor
+  translation: "Conductor"
+- id: ws_result_breaker
+  translation: "Breaker (OCPD)"
+- id: ws_result_breaker_unit
+  translation: "amperes"
+- id: ws_result_vdrop
+  translation: "Voltage Drop"
+- id: ws_vdrop_green
+  translation: "✓ within 3% NEC limit"
+- id: ws_vdrop_yellow
+  translation: "⚠ within 5%, over 3%"
+- id: ws_vdrop_red
+  translation: "✗ exceeds 5% limit"
+- id: ws_notes_title
+  translation: "Calculation Details"
+- id: ws_note_design_amps
+  translation: "Design amps (NEC 125% if continuous)"
+- id: ws_note_base_ampacity
+  translation: "Base ampacity (NEC 310.16, 75°C)"
+- id: ws_note_temp_correction
+  translation: "Temperature correction (310.15(B)(1))"
+- id: ws_note_conduit_fill
+  translation: "Conduit-fill derating (310.15(C)(1))"
+- id: ws_note_final_ampacity
+  translation: "Final corrected ampacity"
+- id: ws_note_roundup
+  translation: "NEC 240.4(B) round-up applied"
+- id: ws_roundup_yes
+  translation: "Yes — bumped to match OCPD"
+- id: ws_formula_placeholder
+  translation: "Enter load values to see the formula."
+- id: ws_collapsible_31016_title
+  translation: "📊 NEC 310.16 Reference Table — 75°C Column (click to expand)"
+- id: ws_th_awg
+  translation: "AWG / kcmil"
+- id: ws_th_cu_amp
+  translation: "Copper (A)"
+- id: ws_th_al_amp
+  translation: "Aluminum (A)"
+- id: ws_th_cu_resistance
+  translation: "Ω/1000 ft (Cu)"
+- id: ws_source_nfpa_31016
+  translation: "Source: NFPA 70 — National Electrical Code 2023, Table 310.16 (75°C column, the inspector-favored terminal rating per NEC 110.14(C) for circuits rated 100 A or less)."
+- id: ws_disclaimer
+  translation: "⚠️ <strong>Reference only.</strong> Calculations are NEC-aware but final conductor sizing must be verified by a licensed electrician and approved by your local Authority Having Jurisdiction (AHJ). Always follow the latest edition of NFPA 70 — National Electrical Code."
+- id: ws_js_err_exceed_750kcmil
+  translation: "Required ampacity ({amp}A) exceeds 750 kcmil capacity. Consider parallel conductors (NEC 310.10(H))."
+- id: ws_js_err_cannot_meet
+  translation: "Cannot meet OCPD requirement within 750 kcmil — try parallel conductors or larger OCPD class."
+- id: ws_js_vdrop_green
+  translation: "🟢 NEC-Compliant — within 3% branch limit"
+- id: ws_js_vdrop_yellow
+  translation: "🟡 Marginal — exceeds 3% branch but within 5% feeder+branch"
+- id: ws_js_vdrop_red
+  translation: "🔴 V-Drop too high — exceeds 5% combined limit"
+- id: ws_js_tip_vdrop_red
+  translation: "⚠️ <strong>Voltage drop exceeds NEC 5% combined limit.</strong> Upsize one or two AWG sizes, shorten the run, or increase the system voltage (e.g. 240 → 480 V)."
+- id: ws_js_tip_vdrop_yellow
+  translation: "💡 <strong>Voltage drop is within 5% but exceeds the 3% branch-circuit recommendation.</strong> For motor loads or sensitive electronics, consider upsizing one AWG. Verify with your AHJ."
+- id: ws_js_tip_cont
+  translation: "✓ <strong>Continuous load compliant.</strong> NEC 210.20(A) 125% rule applied — conductor ampacity exceeds the OCPD rating per the strict-greater-than requirement for continuous loads."
+- id: ws_js_tip_roundup
+  translation: "✓ <strong>NEC 240.4(B) round-up applied.</strong> Conductor sized one step larger to match the next standard OCPD rating per the round-up rule."
+- id: ws_js_tip_compliant
+  translation: "✓ <strong>Fully NEC-compliant.</strong> Conductor ampacity ≥ OCPD, voltage drop within the 3% branch limit."
+- id: ws_js_error
+  translation: "Error: {err}"
+# ── VD: Voltage Drop Calculator ─────────────────────────────────────
+- id: vd_preset_group_label
+  translation: "⚡ Quick Presets — Common V-Drop Scenarios"
+- id: vd_preset_dryer
+  translation: "30A Dryer"
+- id: vd_preset_range
+  translation: "40A Range"
+- id: vd_preset_rv50
+  translation: "50A RV"
+- id: vd_preset_ev60
+  translation: "60A EV Charger"
+- id: vd_preset_sub100
+  translation: "100A Subpanel"
+- id: vd_preset_svc200
+  translation: "200A Service"
+- id: vd_preset_garage
+  translation: "Detached Garage 60A/200ft"
+- id: vd_preset_pv12
+  translation: "12V PV Solar"
+- id: vd_preset_pv24
+  translation: "24V PV Solar"
+- id: vd_preset_pv48
+  translation: "48V PV Battery"
+- id: vd_preset_wellpump
+  translation: "240V Well Pump"
+- id: vd_note_phase_1ph
+  translation: "1Φ Single-Phase (L + N)"
+- id: vd_note_phase_3ph
+  translation: "3Φ Three-Phase (√3 factor)"
+- id: vd_label_load_amps
+  translation: "Load Amps <span class=\"vd-unit\">(A)</span>"
+- id: vd_label_load_power
+  translation: "Load Power <span class=\"vd-unit\">(kW, optional)</span>"
+- id: vd_help_kw
+  translation: "Enter kW <em>or</em> amps — kW will be converted to amps via power factor."
+- id: vd_label_pf
+  translation: "Power Factor <span class=\"vd-unit\">(cosφ)</span>"
+- id: vd_help_pf
+  translation: "Default 0.95. Pure resistive = 1.0. Motor load = 0.85."
+- id: vd_label_sys_voltage
+  translation: "System Voltage <span class=\"vd-unit\">(V)</span>"
+- id: vd_phase_1ph
+  translation: "1Φ Single-Phase"
+- id: vd_phase_3ph
+  translation: "3Φ Three-Phase"
+- id: vd_label_oneway_length
+  translation: "One-Way Length <span class=\"vd-unit\">(ft)</span>"
+- id: vd_label_wire_material
+  translation: "Wire Material"
+- id: vd_mat_copper
+  translation: "Copper (Cu)"
+- id: vd_mat_aluminum
+  translation: "Aluminum (Al)"
+- id: vd_label_conductor_size
+  translation: "Conductor Size <span class=\"vd-unit\">(AWG / kcmil)</span>"
+- id: vd_label_temp_column
+  translation: "Temperature Column"
+- id: vd_temp_75c
+  translation: "75 °C"
+- id: vd_temp_90c
+  translation: "90 °C"
+- id: vd_help_temp_column
+  translation: "75 °C = standard branch (NEC 110.14(C)). 90 °C = PV wire / motor windings."
+- id: vd_checkbox_nec647
+  translation: "NEC 647 Sensitive Electronic Equipment <span style=\"color:#6b7280;font-weight:400;\">(3% branch + 6% combined)</span>"
+- id: vd_help_nec647
+  translation: "Enable for hospitals, data centers, recording studios, and other NEC 647 sensitive electronic equipment. Tighter V-drop limit (6% combined)."
+- id: vd_checkbox_awg_auto
+  translation: "Auto-select smallest compliant AWG <span style=\"color:#6b7280;font-weight:400;\">(ignore AWG dropdown)</span>"
+- id: vd_help_awg_auto
+  translation: "When enabled, the calculator finds the smallest AWG that meets the 3% branch limit for the given amps + length, instead of using the manually selected AWG."
+- id: vd_result_vdrop_v
+  translation: "Voltage Drop"
+- id: vd_result_vdrop_v_unit
+  translation: "volts"
+- id: vd_result_vdrop_pct
+  translation: "V-Drop %"
+- id: vd_result_conductor
+  translation: "Conductor"
+- id: vd_vdrop_green
+  translation: "✓ within 3% NEC limit"
+- id: vd_vdrop_yellow
+  translation: "⚠ within 5%, over 3%"
+- id: vd_vdrop_red
+  translation: "✗ exceeds 5% limit"
+- id: vd_notes_title
+  translation: "Calculation Details"
+- id: vd_note_run_current
+  translation: "Run current (I)"
+- id: vd_note_resistance
+  translation: "Conductor resistance (R) at <span id=\"vd-detail-temp\">75</span> °C"
+- id: vd_note_oneway_length
+  translation: "One-way length (L)"
+- id: vd_note_phase_config
+  translation: "Phase configuration"
+- id: vd_note_sys_voltage
+  translation: "System voltage"
+- id: vd_note_nec_limit
+  translation: "NEC limit (branch / combined)"
+- id: vd_note_auto_awg
+  translation: "Auto-AWG picked"
+- id: vd_formula_placeholder
+  translation: "Enter load values to see the formula."
+- id: vd_collapsible_resistance_title
+  translation: "📊 NEC Chapter 9 Table 9 — Ω/1000 ft at 75 °C & 90 °C (click to expand)"
+- id: vd_collapsible_compliance_title
+  translation: "📊 NEC 210.19(A) / 215.2(A) / 647 — V-Drop Compliance Reference (click to expand)"
+- id: vd_th_awg
+  translation: "AWG / kcmil"
+- id: vd_th_cu_ohm75
+  translation: "Cu Ω/1000ft @ 75 °C"
+- id: vd_th_cu_ohm90
+  translation: "Cu Ω/1000ft @ 90 °C"
+- id: vd_th_al_ohm75
+  translation: "Al Ω/1000ft @ 75 °C"
+- id: vd_th_al_ohm90
+  translation: "Al Ω/1000ft @ 90 °C"
+- id: vd_th_nec_article
+  translation: "NEC Article"
+- id: vd_th_branch_limit
+  translation: "Branch Limit"
+- id: vd_th_combined_limit
+  translation: "Combined Limit"
+- id: vd_th_scope
+  translation: "Scope"
+- id: vd_source_nfpa_table9
+  translation: "Source: NFPA 70 — National Electrical Code 2023, Chapter 9 Table 9 (DC resistance for uncoated copper & aluminum conductors, 75 °C and 90 °C columns)."
+- id: vd_source_nfpa_vdrop
+  translation: "Source: NFPA 70 — National Electrical Code 2023, Informational Notes 210.19(A) No. 4, 215.2(A) No. 3, and Article 647."
+- id: vd_disclaimer
+  translation: "⚠️ <strong>Reference only.</strong> V-drop calculations are NEC-aware but final conductor sizing must be verified by a licensed electrician and approved by your local Authority Having Jurisdiction (AHJ). This calculator ignores conductor reactance (X) which becomes significant for cables > 600 V or runs > 500 ft; for those applications consult IEEE Std 141 (Red Book) or a power-quality engineer."
+- id: vd_js_err_enter_values
+  translation: "Enter load amps, kW, or select a preset."
+- id: vd_js_err_exceed_750kcmil
+  translation: "Required V-drop < 3% exceeds 750 kcmil — use parallel conductors, higher voltage (e.g. 12 V → 48 V), or shorter run."
+- id: vd_js_err_awg_not_avail
+  translation: "AWG \"{awg}\" not available for {mat}."
+- id: vd_js_clear_result
+  translation: "⚠ Enter valid load values to compute V-drop."
+- id: vd_js_vdrop_green_nec647
+  translation: "🟢 NEC 647 Compliant — within 3% branch limit"
+- id: vd_js_vdrop_yellow_nec647
+  translation: "🟡 NEC 647 — within 6% combined, exceeds 3% branch"
+- id: vd_js_vdrop_red_nec647
+  translation: "🔴 NEC 647 — exceeds 6% combined limit"
+- id: vd_js_vdrop_green
+  translation: "🟢 NEC 210.19 / 215.2 Compliant — within 3% branch limit"
+- id: vd_js_vdrop_yellow
+  translation: "🟡 Within 5% combined, exceeds 3% branch — consider upsizing"
+- id: vd_js_vdrop_red
+  translation: "🔴 Exceeds 5% combined — upsize AWG, shorten run, or raise voltage"
+- id: vd_js_tip_nec647
+  translation: "ℹ <strong>NEC 647 mode active.</strong> 3% branch / 6% combined applied (instead of 3% / 5%) for sensitive electronic equipment per NFPA 70 Article 647."
+- id: vd_js_tip_auto_awg
+  translation: "✓ <strong>Smallest compliant AWG picked automatically.</strong> {awg} at {temp} °C — V-drop {pct}% ≤ 3% branch (NEC 210.19(A) IN No. 4)."
+- id: vd_js_tip_vdrop_red_lowv
+  translation: "⚠️ <strong>V-drop exceeds NEC 5% combined limit.</strong> For low-voltage DC, stepping up the battery voltage (12 V → 24 V → 48 V) quarters the current and halves / quarters V-drop. Otherwise upsize 1–2 AWG sizes or shorten the run."
+- id: vd_js_tip_vdrop_red
+  translation: "⚠️ <strong>V-drop exceeds NEC 5% combined limit.</strong> Upsize 1–2 AWG sizes, shorten the run, or raise the system voltage (e.g. 240 V → 480 V halves V-drop). Pair with the <a href=\"/tools/wire-size-calculator/\">wire size calculator</a> to confirm ampacity."
+- id: vd_js_tip_vdrop_yellow_al
+  translation: "💡 <strong>V-drop exceeds 3% branch but within 5% combined.</strong> Consider upsizing one AWG (Al has ~61% the conductivity of Cu — typically need 2 sizes larger for V-drop parity). Verify with your AHJ."
+- id: vd_js_tip_vdrop_yellow
+  translation: "💡 <strong>V-drop exceeds 3% branch but within 5% combined (NEC 215.2(A) IN No. 3).</strong> For motor loads or sensitive electronics, consider upsizing one AWG. Pair with the <a href=\"/tools/circuit-breaker-sizing-calculator/\">circuit breaker sizing calculator</a> for OCPD selection."
+- id: vd_js_tip_vdrop_green_lowv
+  translation: "✓ <strong>Fully NEC-compliant.</strong> V-drop within 3% branch (NEC 210.19(A) IN No. 4). {mat} conductor at {temp} °C. For long-run DC, consider parallel conductors if length must exceed 200 ft."
+- id: vd_js_tip_vdrop_green
+  translation: "✓ <strong>Fully NEC-compliant.</strong> V-drop within the 3% branch recommendation (NEC 210.19(A) IN No. 4) and 5% combined (NEC 215.2(A) IN No. 3). Pair the conductor with the breaker via the <a href=\"/tools/circuit-breaker-sizing-calculator/\">circuit breaker sizing calculator</a>."
+- id: vd_js_error
+  translation: "Error: {err}"

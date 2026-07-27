@@ -5,19 +5,27 @@ categories:
   - "Electrical Tools"
   - "Transformers & Distribution"
   - "Engineering Quick Reference"
-layout: "page"
-translationKey: "transformer_capacity_selection"
+
+
+images:
+  - "/images/tools/transformer-capacity-selection.svg"
+tags:
+  - "transformer"
+  - "kVA"
+  - "transformer sizing"
+  - "GB/T 17468"
+  - "R10 preferred numbers"
+  - "motor inrush"
+  - "short-circuit impedance"
 keywords:
   - "transformer capacity selection"
-  - "transformer sizing calculation"
-  - "transformer kVA calculation"
-  - "transformer capacity calculation formula"
-  - "distribution transformer sizing"
-  - "transformer load factor selection"
-  - "transformer R10 rating series"
-  - "transformer power factor correction"
-  - "transformer efficiency"
-  - "transformer and UPS capacity matching"
+  - "kVA sizing"
+  - "transformer rating"
+  - "R10 preferred numbers"
+  - "motor starting current"
+  - "transformer loading"
+layout: "page"
+translationKey: "transformer_capacity_selection"
 date: "2026-07-19T00:00:00+00:00"
 draft: false
 ---
@@ -384,3 +392,9 @@ Rule-of-thumb formula: **S_transformer ≥ S_UPS / 0.8**. Example: 100 kVA UPS r
   ]
 }
 </script>
+
+
+## References
+
+- GB/T 17468-2019 Guide for Selection of Power Transformers
+- IEEE C57.91 Guide for Loading Mineral-Oil-Immersed Transformers

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0fdf4"/>
+      <stop offset="100%" style="stop-color:#d1fae5"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#10b981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg1)"/>
+
+  <!-- Grid lines (subtle) -->
+  <g stroke="#10b981" stroke-width="0.5" opacity="0.1">
+    <line x1="0" y1="157" x2="1200" y2="157"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="473" x2="1200" y2="473"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+
+  <!-- Battery body -->
+  <rect x="140" y="200" width="280" height="400" rx="20" fill="none" stroke="url(#greenGrad)" stroke-width="6"/>
+  <!-- Battery cap -->
+  <rect x="230" y="170" width="100" height="40" rx="6" fill="#10b981"/>
+  <!-- Battery positive terminal -->
+  <rect x="250" y="155" width="60" height="20" rx="4" fill="#10b981"/>
+  <!-- Battery fill (charge level ~65%) -->
+  <rect x="150" y="350" width="260" height="240" rx="14" fill="#10b981" opacity="0.85"/>
+  <!-- Battery inner border -->
+  <rect x="150" y="350" width="260" height="240" rx="14" fill="none" stroke="#059669" stroke-width="2"/>
+
+  <!-- Lightning bolt on battery -->
+  <polygon points="280,360 260,450 290,450 265,540 320,420 290,420" fill="white" opacity="0.9"/>
+
+  <!-- Clock face (right side) -->
+  <circle cx="780" cy="340" r="180" fill="none" stroke="url(#greenGrad)" stroke-width="8"/>
+  <circle cx="780" cy="340" r="165" fill="#f0fdf4"/>
+  <!-- Clock center dot -->
+  <circle cx="780" cy="340" r="8" fill="#10b981"/>
+  <!-- Clock hour hand -->
+  <line x1="780" y1="340" x2="780" y2="230" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
+  <!-- Clock minute hand -->
+  <line x1="780" y1="340" x2="870" y2="300" stroke="#059669" stroke-width="5" stroke-linecap="round"/>
+  <!-- Clock hour markers -->
+  <g stroke="#10b981" stroke-width="4" stroke-linecap="round">
+    <line x1="780" y1="175" x2="780" y2="190"/>
+    <line x1="780" y1="490" x2="780" y2="505"/>
+    <line x1="605" y1="340" x2="620" y2="340"/>
+    <line x1="940" y1="340" x2="955" y2="340"/>
+  </g>
+  <!-- Small markers -->
+  <g stroke="#10b981" stroke-width="2" opacity="0.5">
+    <line x1="830" y1="182" x2="823" y2="195"/>
+    <line x1="730" y1="182" x2="737" y2="195"/>
+    <line x1="940" y1="220" x2="927" y2="227"/>
+    <line x1="620" y1="460" x2="633" y2="453"/>
+    <line x1="940" y1="460" x2="927" y2="453"/>
+    <line x1="620" y1="220" x2="633" y2="227"/>
+  </g>
+
+  <!-- Decorative: small battery icon top-right -->
+  <rect x="1000" y="80" width="120" height="70" rx="8" fill="none" stroke="#10b981" stroke-width="3" opacity="0.4"/>
+  <rect x="1030" y="68" width="60" height="16" rx="4" fill="#10b981" opacity="0.4"/>
+  <rect x="1008" y="88" width="104" height="54" rx="5" fill="#10b981" opacity="0.3"/>
+
+  <!-- Formula box (bottom) -->
+  <rect x="80" y="520" width="700" height="80" rx="12" fill="#10b981" opacity="0.12"/>
+  <rect x="80" y="520" width="700" height="80" rx="12" fill="none" stroke="#10b981" stroke-width="2"/>
+  <text x="430" y="575" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Inter, Roboto, sans-serif" font-size="36" fill="#065f46" font-weight="bold">T = (kWh × %) / (kW × η)</text>
+
+  <!-- Chinese title -->
+  <text x="880" y="100" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="48" fill="#065f46" font-weight="bold">充电时间计算器</text>
+  <!-- English title -->
+  <text x="880" y="135" text-anchor="middle" font-family="Inter, Roboto, sans-serif" font-size="20" fill="#059669" letter-spacing="2">Charging Time Calculator</text>
+
+  <!-- Decorative waveform line top -->
+  <path d="M0,60 Q100,30 200,60 Q300,90 400,60 Q500,30 600,60 Q700,90 800,60 Q900,30 1000,60 Q1100,90 1200,60" fill="none" stroke="#10b981" stroke-width="2" opacity="0.3"/>
+</svg>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fffbeb"/>
+      <stop offset="100%" style="stop-color:#fef3c7"/>
+    </linearGradient>
+    <linearGradient id="orangeGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#d97706"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg6)"/>
+
+  <!-- Grid -->
+  <g stroke="#f59e0b" stroke-width="0.5" opacity="0.1">
+    <line x1="0" y1="157" x2="1200" y2="157"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="473" x2="1200" y2="473"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+
+  <!-- Cable cross-section (left) -->
+  <!-- Outer jacket -->
+  <circle cx="200" cy="300" r="110" fill="#f59e0b" opacity="0.12" stroke="url(#orangeGrad3)" stroke-width="4"/>
+  <!-- Shield/braid -->
+  <circle cx="200" cy="300" r="88" fill="#f59e0b" opacity="0.1" stroke="#d97706" stroke-width="2" stroke-dasharray="6,4"/>
+  <!-- Insulation layer 1 -->
+  <circle cx="200" cy="300" r="72" fill="#f59e0b" opacity="0.15"/>
+  <!-- Conductor strands (illustrative) -->
+  <circle cx="200" cy="300" r="52" fill="#f59e0b" opacity="0.25"/>
+  <!-- Individual strands pattern -->
+  <circle cx="200" cy="260" r="10" fill="#f59e0b" opacity="0.5"/>
+  <circle cx="225" cy="275" r="10" fill="#f59e0b" opacity="0.5"/>
+  <circle cx="235" cy="305" r="10" fill="#f59e0b" opacity="0.5"/>
+  <circle cx="225" cy="335" r="10" fill="#f59e0b" opacity="0.5"/>
+  <circle cx="200" cy="348" r="10" fill="#f59e0b" opacity="0.5"/>
+  <circle cx="175" cy="335" r="10" fill="#f59e0b" opacity="0.5"/>
+  <circle cx="165" cy="305" r="10" fill="#f59e0b" opacity="0.5"/>
+  <circle cx="175" cy="275" r="10" fill="#f59e0b" opacity="0.5"/>
+  <circle cx="200" cy="300" r="15" fill="#f59e0b" opacity="0.6"/>
+  <!-- Cable label -->
+  <text x="200" y="430" text-anchor="middle" font-family="Inter, monospace" font-size="14" fill="#d97706" font-weight="bold">4×25mm²</text>
+  <text x="200" y="450" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#d97706">YJV22-0.6/1kV</text>
+
+  <!-- Temperature thermometer (center-right) -->
+  <rect x="450" y="180" width="40" height="300" rx="20" fill="white" stroke="url(#orangeGrad3)" stroke-width="4"/>
+  <!-- Thermometer bulb -->
+  <circle cx="470" cy="500" r="40" fill="#f59e0b" opacity="0.3" stroke="url(#orangeGrad3)" stroke-width="3"/>
+  <!-- Mercury column -->
+  <rect x="460" y="250" width="20" height="240" rx="10" fill="#f59e0b"/>
+  <!-- Scale marks -->
+  <g stroke="#d97706" stroke-width="2">
+    <line x1="495" y1="200" x2="515" y2="200"/>
+    <line x1="495" y1="260" x2="510" y2="260"/>
+    <line x1="495" y1="320" x2="515" y2="320"/>
+    <line x1="495" y1="380" x2="510" y2="380"/>
+    <line x1="495" y1="440" x2="515" y2="440"/>
+  </g>
+  <g font-family="Inter, sans-serif" font-size="13" fill="#d97706">
+    <text x="520" y="205">90°C</text>
+    <text x="520" y="265">70°C</text>
+    <text x="520" y="325">50°C</text>
+    <text x="520" y="385">30°C</text>
+    <text x="520" y="445">20°C</text>
+  </g>
+  <!-- Current label -->
+  <text x="470" y="565" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" fill="#d97706" font-weight="bold">I = 95A</text>
+  <text x="470" y="585" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="13" fill="#d97706">4×25mm² 载流量</text>
+
+  <!-- Formula box (bottom) -->
+  <rect x="80" y="545" width="700" height="60" rx="10" fill="#f59e0b" opacity="0.12"/>
+  <rect x="80" y="545" width="700" height="60" rx="10" fill="none" stroke="#f59e0b" stroke-width="2"/>
+  <text x="430" y="588" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Inter, Roboto, sans-serif" font-size="36" fill="#92400e" font-weight="bold">I = I₀ × K_θ × K_s × K_h</text>
+
+  <!-- Chinese title -->
+  <text x="880" y="100" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="48" fill="#92400e" font-weight="bold">电缆载流量查询</text>
+  <!-- English title -->
+  <text x="880" y="135" text-anchor="middle" font-family="Inter, Roboto, sans-serif" font-size="20" fill="#d97706" letter-spacing="2">Cable Ampacity Lookup</text>
+
+  <!-- Correction factor table (right) -->
+  <rect x="860" y="160" width="280" height="300" rx="16" fill="white" stroke="url(#orangeGrad3)" stroke-width="4"/>
+  <text x="1000" y="195" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="18" fill="#92400e" font-weight="bold">修正系数</text>
+  <line x1="880" y1="210" x2="1120" y2="210" stroke="#f59e0b" stroke-width="1" opacity="0.3"/>
+  <g font-family="PingFang SC, Microsoft YaHei, Inter, sans-serif" font-size="15" fill="#78350f">
+    <text x="890" y="245">K_θ</text><text x="960" y="245" font-family="Inter, monospace">温度修正</text>
+    <text x="890" y="275">K_s</text><text x="960" y="275" font-family="Inter, monospace">敷设方式</text>
+    <text x="890" y="305">K_h</text><text x="960" y="305" font-family="Inter, monospace">谐波修正</text>
+    <text x="890" y="335">K_d</text><text x="960" y="335" font-family="Inter, monospace">遮挡系数</text>
+  </g>
+  <line x1="880" y1="255" x2="1120" y2="255" stroke="#f59e0b" stroke-width="0.5" opacity="0.2"/>
+  <line x1="880" y1="285" x2="1120" y2="285" stroke="#f59e0b" stroke-width="0.5" opacity="0.2"/>
+  <line x1="880" y1="315" x2="1120" y2="315" stroke="#f59e0b" stroke-width="0.5" opacity="0.2"/>
+  <g font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#92400e" opacity="0.7">
+    <text x="890" y="370">基准: 30°C 环境</text>
+    <text x="890" y="400">铜芯 PVC/XLPE</text>
+  </g>
+</svg>

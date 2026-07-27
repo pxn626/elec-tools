@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fffbeb"/>
+      <stop offset="100%" style="stop-color:#fef3c7"/>
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#d97706"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg4)"/>
+
+  <!-- Grid -->
+  <g stroke="#f59e0b" stroke-width="0.5" opacity="0.1">
+    <line x1="0" y1="157" x2="1200" y2="157"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="473" x2="1200" y2="473"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+
+  <!-- Circuit breaker (large, left-center) -->
+  <!-- Breaker housing -->
+  <rect x="100" y="120" width="220" height="400" rx="20" fill="white" stroke="url(#orangeGrad)" stroke-width="5"/>
+  <!-- Toggle switch -->
+  <rect x="140" y="160" width="140" height="60" rx="10" fill="#f59e0b"/>
+  <rect x="195" y="145" width="30" height="30" rx="5" fill="#fef3c7"/>
+  <!-- ON label -->
+  <text x="210" y="200" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" fill="white" font-weight="bold">ON</text>
+  <!-- Rating label -->
+  <text x="210" y="280" text-anchor="middle" font-family="Inter, sans-serif" font-size="32" fill="#d97706" font-weight="bold">32A</text>
+  <!-- Brand label -->
+  <text x="210" y="310" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#f59e0b" letter-spacing="2">CIRCUIT BREAKER</text>
+  <!-- Terminals -->
+  <rect x="120" y="350" width="80" height="20" rx="4" fill="#f59e0b"/>
+  <rect x="120" y="380" width="80" height="20" rx="4" fill="#f59e0b"/>
+  <rect x="220" y="350" width="80" height="20" rx="4" fill="#f59e0b"/>
+  <rect x="220" y="380" width="80" height="20" rx="4" fill="#f59e0b"/>
+  <!-- Bus bar lines -->
+  <line x1="160" y1="400" x2="160" y2="480" stroke="#f59e0b" stroke-width="4"/>
+  <line x1="260" y1="400" x2="260" y2="480" stroke="#f59e0b" stroke-width="4"/>
+
+  <!-- Ammeter (right of breaker) -->
+  <circle cx="500" cy="300" r="110" fill="white" stroke="url(#orangeGrad)" stroke-width="5"/>
+  <circle cx="500" cy="300" r="95" fill="#fffbeb"/>
+  <!-- Ammeter scale marks -->
+  <g stroke="#f59e0b" stroke-width="2">
+    <line x1="500" y1="210" x2="500" y2="225"/>
+    <line x1="500" y1="390" x2="500" y2="405"/>
+    <line x1="405" y1="300" x2="420" y2="300"/>
+    <line x1="580" y1="300" x2="595" y2="300"/>
+    <line x1="433" y1="233" x2="443" y2="243"/>
+    <line x1="567" y1="233" x2="557" y2="243"/>
+    <line x1="433" y1="367" x2="443" y2="357"/>
+    <line x1="567" y1="367" x2="557" y2="357"/>
+  </g>
+  <!-- Ammeter needle -->
+  <line x1="500" y1="300" x2="560" y2="240" stroke="#d97706" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="500" cy="300" r="10" fill="#f59e0b"/>
+  <!-- Ammeter labels -->
+  <text x="500" y="215" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" fill="#d97706">40</text>
+  <text x="500" y="400" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" fill="#d97706">0</text>
+  <text x="408" y="305" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" fill="#d97706">20</text>
+  <text x="592" y="305" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" fill="#d97706">A</text>
+  <text x="500" y="335" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#d97706">AC</text>
+
+  <!-- Formula box (bottom) -->
+  <rect x="80" y="545" width="700" height="60" rx="10" fill="#f59e0b" opacity="0.12"/>
+  <rect x="80" y="545" width="700" height="60" rx="10" fill="none" stroke="#f59e0b" stroke-width="2"/>
+  <text x="430" y="588" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Inter, Roboto, sans-serif" font-size="36" fill="#92400e" font-weight="bold">OCPD = I_Load × 1.25</text>
+
+  <!-- Chinese title -->
+  <text x="880" y="100" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="48" fill="#92400e" font-weight="bold">断路器选型计算器</text>
+  <!-- English title -->
+  <text x="880" y="135" text-anchor="middle" font-family="Inter, Roboto, sans-serif" font-size="20" fill="#d97706" letter-spacing="2">Circuit Breaker Sizing</text>
+
+  <!-- Amperage table (right panel) -->
+  <rect x="860" y="160" width="280" height="300" rx="16" fill="white" stroke="url(#orangeGrad)" stroke-width="4"/>
+  <text x="1000" y="195" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="18" fill="#92400e" font-weight="bold">常用断路器规格</text>
+  <line x1="880" y1="210" x2="1120" y2="210" stroke="#f59e0b" stroke-width="1" opacity="0.3"/>
+  <g font-family="Inter, monospace" font-size="16" fill="#92400e">
+    <text x="900" y="245">1P - 10A</text>
+    <text x="1040" y="245">1P - 16A</text>
+    <text x="900" y="280">1P - 20A</text>
+    <text x="1040" y="280">1P - 25A</text>
+    <text x="900" y="315">1P - 32A</text>
+    <text x="1040" y="315">1P - 40A</text>
+    <text x="900" y="350">2P - 63A</text>
+    <text x="1040" y="350">3P - 100A</text>
+  </g>
+</svg>

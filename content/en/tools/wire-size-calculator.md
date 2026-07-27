@@ -6,6 +6,9 @@ categories:
   - "Electrical Tools"
   - "Wire Sizing"
   - "NEC 310"
+
+images:
+  - "/images/tools/wire-size-calculator.svg"
 tags:
   - "wire size calculator"
   - "AWG"
@@ -17,6 +20,15 @@ tags:
   - "EV charger"
   - "subpanel"
   - "solar PV"
+
+keywords:
+  - "wire size calculator"
+  - "conductor sizing"
+  - "AWG size"
+  - "voltage drop verification"
+  - "NEC 310.16"
+  - "OCPD coordination"
+  - "ampacity"
 translationKey: "wire_size_calculator"
 ---
 
