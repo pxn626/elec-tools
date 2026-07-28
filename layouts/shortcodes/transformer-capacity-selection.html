@@ -821,6 +821,8 @@
       if (tab === 'factor') calcFactorMethod();
       else if (tab === 'total') calcTotalPowerMethod();
     }
+    // 暴露到全局,供 HTML inline onclick="tcsCalc()" 调用
+    window.tcsCalc = tcsCalc;
 
     // ===========================================================
     // 6. 用户类型切换(自动填 K_Σ,同时显示自填框)

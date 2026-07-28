@@ -31,6 +31,8 @@ date: 2026-07-18T21:05:00+00:00
 draft: false
 ---
 
+{{< cable-current-carrying-capacity-lookup >}}
+
 # 电缆载流量查询 - YJV / YJV22 在线速查
 
 ## 引言

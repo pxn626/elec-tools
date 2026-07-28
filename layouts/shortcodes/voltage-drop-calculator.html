@@ -365,39 +365,39 @@
   <script>
   // ── i18n strings ─────────────────────────────────────────────────
   window._tVD = {
-    errEnter:       {{ T "vd_js_err_enter_values" | safeJS }},
-    errExceed:      {{ T "vd_js_err_exceed_750kcmil" | safeJS }},
-    errAwgNotAvail: {{ T "vd_js_err_awg_not_avail" | safeJS }},
-    clearResult:   {{ T "vd_js_clear_result" | safeJS }},
-    formulaPh:     {{ T "vd_formula_placeholder" | safeJS }},
-    notePhase1:     {{ T "vd_note_phase_1ph" | safeJS }},
-    notePhase3:     {{ T "vd_note_phase_3ph" | safeJS }},
-    matCu:          {{ T "vd_mat_copper" | safeJS }},
-    matAl:          {{ T "vd_mat_aluminum" | safeJS }},
+    errEnter:       {{ T "vd_js_err_enter_values" | jsonify }},
+    errExceed:      {{ T "vd_js_err_exceed_750kcmil" | jsonify }},
+    errAwgNotAvail: {{ T "vd_js_err_awg_not_avail" | jsonify }},
+    clearResult:   {{ T "vd_js_clear_result" | jsonify }},
+    formulaPh:     {{ T "vd_formula_placeholder" | jsonify }},
+    notePhase1:     {{ T "vd_note_phase_1ph" | jsonify }},
+    notePhase3:     {{ T "vd_note_phase_3ph" | jsonify }},
+    matCu:          {{ T "vd_mat_copper" | jsonify }},
+    matAl:          {{ T "vd_mat_aluminum" | jsonify }},
   };
   window._tVDbadge = {
-    gNec647: {{ T "vd_js_vdrop_green_nec647" | safeJS }},
-    yNec647: {{ T "vd_js_vdrop_yellow_nec647" | safeJS }},
-    rNec647: {{ T "vd_js_vdrop_red_nec647" | safeJS }},
-    g:       {{ T "vd_js_vdrop_green" | safeJS }},
-    y:       {{ T "vd_js_vdrop_yellow" | safeJS }},
-    r:       {{ T "vd_js_vdrop_red" | safeJS }},
+    gNec647: {{ T "vd_js_vdrop_green_nec647" | jsonify }},
+    yNec647: {{ T "vd_js_vdrop_yellow_nec647" | jsonify }},
+    rNec647: {{ T "vd_js_vdrop_red_nec647" | jsonify }},
+    g:       {{ T "vd_js_vdrop_green" | jsonify }},
+    y:       {{ T "vd_js_vdrop_yellow" | jsonify }},
+    r:       {{ T "vd_js_vdrop_red" | jsonify }},
   };
   window._tVDvdrop = {
-    g: {{ T "vd_vdrop_green" | safeJS }},
-    y: {{ T "vd_vdrop_yellow" | safeJS }},
-    r: {{ T "vd_vdrop_red" | safeJS }},
+    g: {{ T "vd_vdrop_green" | jsonify }},
+    y: {{ T "vd_vdrop_yellow" | jsonify }},
+    r: {{ T "vd_vdrop_red" | jsonify }},
   };
   window._tVDtip = {
-    nec647:        {{ T "vd_js_tip_nec647" | safeJS }},
-    autoAwg:       {{ T "vd_js_tip_auto_awg" | safeJS }},
-    vdropRedLowv:  {{ T "vd_js_tip_vdrop_red_lowv" | safeJS }},
-    vdropRed:      {{ T "vd_js_tip_vdrop_red" | safeJS }},
-    vdropYellowAl: {{ T "vd_js_tip_vdrop_yellow_al" | safeJS }},
-    vdropYellow:   {{ T "vd_js_tip_vdrop_yellow" | safeJS }},
-    vdropGreenLowv:{{ T "vd_js_tip_vdrop_green_lowv" | safeJS }},
-    vdropGreen:    {{ T "vd_js_tip_vdrop_green" | safeJS }},
-    error:         {{ T "vd_js_error" | safeJS }},
+    nec647:        {{ T "vd_js_tip_nec647" | jsonify }},
+    autoAwg:       {{ T "vd_js_tip_auto_awg" | jsonify }},
+    vdropRedLowv:  {{ T "vd_js_tip_vdrop_red_lowv" | jsonify }},
+    vdropRed:      {{ T "vd_js_tip_vdrop_red" | jsonify }},
+    vdropYellowAl: {{ T "vd_js_tip_vdrop_yellow_al" | jsonify }},
+    vdropYellow:   {{ T "vd_js_tip_vdrop_yellow" | jsonify }},
+    vdropGreenLowv:{{ T "vd_js_tip_vdrop_green_lowv" | jsonify }},
+    vdropGreen:    {{ T "vd_js_tip_vdrop_green" | jsonify }},
+    error:         {{ T "vd_js_error" | jsonify }},
   };
 
   (function(){
@@ -465,17 +465,17 @@
     // Preset definitions
     // ─────────────────────────────────────────────────────────────────
     var PRESETS = {
-      dryer:    { amps: 24,  volts: 240, phase: 1, length: 35,  material: 'copper', awg: '10 AWG',  temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_dryer" | safeJS }} },
-      range:    { amps: 33,  volts: 240, phase: 1, length: 35,  material: 'copper', awg: '8 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_range" | safeJS }} },
-      rv50:     { amps: 50,  volts: 240, phase: 1, length: 75,  material: 'copper', awg: '6 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_rv50" | safeJS }} },
-      ev60:     { amps: 60,  volts: 240, phase: 1, length: 100, material: 'copper', awg: '6 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_ev60" | safeJS }} },
-      sub100:   { amps: 100, volts: 240, phase: 1, length: 100, material: 'copper', awg: '3 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_sub100" | safeJS }} },
-      svc200:   { amps: 200, volts: 240, phase: 1, length: 75,  material: 'copper', awg: '3/0 AWG', temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_svc200" | safeJS }} },
-      garage:   { amps: 60,  volts: 240, phase: 1, length: 200, material: 'copper', awg: '6 AWG',   temp: '75C', necMode: 'standard', awgAuto: true,  label: {{ T "vd_preset_garage" | safeJS }} },
-      pv12:     { amps: 30,  volts: 12,  phase: 1, length: 100, material: 'copper', awg: '4/0 AWG', temp: '75C', necMode: 'standard', awgAuto: true,  label: {{ T "vd_preset_pv12" | safeJS }} },
-      pv24:     { amps: 30,  volts: 24,  phase: 1, length: 50,  material: 'copper', awg: '2 AWG',   temp: '75C', necMode: 'standard', awgAuto: true,  label: {{ T "vd_preset_pv24" | safeJS }} },
-      pv48:     { amps: 100, volts: 48,  phase: 1, length: 20,  material: 'copper', awg: '1/0 AWG', temp: '75C', necMode: 'standard', awgAuto: true,  label: {{ T "vd_preset_pv48" | safeJS }} },
-      wellpump: { amps: 10,  volts: 240, phase: 1, length: 250, material: 'copper', awg: '10 AWG',  temp: '75C', necMode: 'standard', awgAuto: true,  label: {{ T "vd_preset_wellpump" | safeJS }} }
+      dryer:    { amps: 24,  volts: 240, phase: 1, length: 35,  material: 'copper', awg: '10 AWG',  temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_dryer" | jsonify }} },
+      range:    { amps: 33,  volts: 240, phase: 1, length: 35,  material: 'copper', awg: '8 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_range" | jsonify }} },
+      rv50:     { amps: 50,  volts: 240, phase: 1, length: 75,  material: 'copper', awg: '6 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_rv50" | jsonify }} },
+      ev60:     { amps: 60,  volts: 240, phase: 1, length: 100, material: 'copper', awg: '6 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_ev60" | jsonify }} },
+      sub100:   { amps: 100, volts: 240, phase: 1, length: 100, material: 'copper', awg: '3 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_sub100" | jsonify }} },
+      svc200:   { amps: 200, volts: 240, phase: 1, length: 75,  material: 'copper', awg: '3/0 AWG', temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_svc200" | jsonify }} },
+      garage:   { amps: 60,  volts: 240, phase: 1, length: 200, material: 'copper', awg: '6 AWG',   temp: '75C', necMode: 'standard', awgAuto: true,  label: {{ T "vd_preset_garage" | jsonify }} },
+      pv12:     { amps: 30,  volts: 12,  phase: 1, length: 100, material: 'copper', awg: '4/0 AWG', temp: '75C', necMode: 'standard', awgAuto: true,  label: {{ T "vd_preset_pv12" | jsonify }} },
+      pv24:     { amps: 30,  volts: 24,  phase: 1, length: 50,  material: 'copper', awg: '2 AWG',   temp: '75C', necMode: 'standard', awgAuto: true,  label: {{ T "vd_preset_pv24" | jsonify }} },
+      pv48:     { amps: 100, volts: 48,  phase: 1, length: 20,  material: 'copper', awg: '1/0 AWG', temp: '75C', necMode: 'standard', awgAuto: true,  label: {{ T "vd_preset_pv48" | jsonify }} },
+      wellpump: { amps: 10,  volts: 240, phase: 1, length: 250, material: 'copper', awg: '10 AWG',  temp: '75C', necMode: 'standard', awgAuto: true,  label: {{ T "vd_preset_wellpump" | jsonify }} }
     };
 
     // ─────────────────────────────────────────────────────────────────

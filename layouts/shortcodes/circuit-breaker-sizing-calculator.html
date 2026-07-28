@@ -366,33 +366,33 @@
   <script>
   // ── i18n strings ─────────────────────────────────────────────────
   window._tCBS = {
-    errNoLoad:     {{ T "cbs_js_err_no_load" | safeJS }},
-    errInvalidV:  {{ T "cbs_js_err_invalid_voltage" | safeJS }},
-    errFlaNotAvail: {{ T "cbs_js_err_fla_not_avail" | safeJS }},
-    noteFLA:      {{ T "cbs_js_fla_table" | safeJS }},
-    noteRoundup:  {{ T "cbs_js_roundup" | safeJS }},
-    noteRoundupY: {{ T "cbs_js_roundup_yes" | safeJS }},
-    noteRoundupN: {{ T "cbs_js_roundup_no" | safeJS }},
-    noteRunKw:    {{ T "cbs_js_run_current_kw" | safeJS }},
-    noteRunIn:    {{ T "cbs_js_run_current_input" | safeJS }},
-    noteContY:    {{ T "cbs_js_cont_125" | safeJS }},
-    noteContN:    {{ T "cbs_js_cont_no" | safeJS }},
-    formulaPh:    {{ T "cbs_formula_placeholder" | safeJS }},
+    errNoLoad:     {{ T "cbs_js_err_no_load" | jsonify }},
+    errInvalidV:  {{ T "cbs_js_err_invalid_voltage" | jsonify }},
+    errFlaNotAvail: {{ T "cbs_js_err_fla_not_avail" | jsonify }},
+    noteFLA:      {{ T "cbs_js_fla_table" | jsonify }},
+    noteRoundup:  {{ T "cbs_js_roundup" | jsonify }},
+    noteRoundupY: {{ T "cbs_js_roundup_yes" | jsonify }},
+    noteRoundupN: {{ T "cbs_js_roundup_no" | jsonify }},
+    noteRunKw:    {{ T "cbs_js_run_current_kw" | jsonify }},
+    noteRunIn:    {{ T "cbs_js_run_current_input" | jsonify }},
+    noteContY:    {{ T "cbs_js_cont_125" | jsonify }},
+    noteContN:    {{ T "cbs_js_cont_no" | jsonify }},
+    formulaPh:    {{ T "cbs_formula_placeholder" | jsonify }},
   };
   window._tCBSbadge = {
-    exceed800: {{ T "cbs_badge_exceed800" | safeJS }},
-    motor:     {{ T "cbs_badge_motor" | safeJS }},
-    roundup:   {{ T "cbs_badge_roundup" | safeJS }},
-    compliant: {{ T "cbs_badge_compliant" | safeJS }},
+    exceed800: {{ T "cbs_badge_exceed800" | jsonify }},
+    motor:     {{ T "cbs_badge_motor" | jsonify }},
+    roundup:   {{ T "cbs_badge_roundup" | jsonify }},
+    compliant: {{ T "cbs_badge_compliant" | jsonify }},
   };
   window._tCBStip = {
-    exceed800:   {{ T "cbs_js_tip_exceed800" | safeJS }},
-    motor:       {{ T "cbs_js_tip_motor" | safeJS }},
-    contRoundup: {{ T "cbs_js_tip_cont_roundup" | safeJS }},
-    contCompliant:{{ T "cbs_js_tip_cont_compliant" | safeJS }},
-    roundup:     {{ T "cbs_js_tip_roundup" | safeJS }},
-    compliant:   {{ T "cbs_js_tip_compliant" | safeJS }},
-    error:       {{ T "cbs_js_error" | safeJS }},
+    exceed800:   {{ T "cbs_js_tip_exceed800" | jsonify }},
+    motor:       {{ T "cbs_js_tip_motor" | jsonify }},
+    contRoundup: {{ T "cbs_js_tip_cont_roundup" | jsonify }},
+    contCompliant:{{ T "cbs_js_tip_cont_compliant" | jsonify }},
+    roundup:     {{ T "cbs_js_tip_roundup" | jsonify }},
+    compliant:   {{ T "cbs_js_tip_compliant" | jsonify }},
+    error:       {{ T "cbs_js_error" | jsonify }},
   };
 
   (function(){
@@ -652,7 +652,7 @@
         document.getElementById('cbs-step2-row').style.display = 'flex';
         setText('cbs-step2-label', window._tCBS.noteRoundup);
         setText('cbs-step2-value', r.continuous ? window._tCBS.noteContY : window._tCBS.noteContN);
-        document.getElementByName('cbs-step3-row').style.display = 'flex';
+        document.getElementById('cbs-step3-row').style.display = 'flex';
         setText('cbs-step3-label', window._tCBS.noteRoundup);
         setText('cbs-step3-value', r.roundUpApplied ? window._tCBS.noteRoundupY.replace('{ocpd}', r.ocpd) : window._tCBS.noteRoundupN);
       }

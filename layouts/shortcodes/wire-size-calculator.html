@@ -284,20 +284,20 @@
   <script>
   // ── i18n strings ─────────────────────────────────────────────────
   window._tWS = {
-    errExceed:   {{ T "ws_js_err_exceed_750kcmil" | safeJS }},
-    errCannot:   {{ T "ws_js_err_cannot_meet" | safeJS }},
-    vdropGreen:  {{ T "ws_js_vdrop_green" | safeJS }},
-    vdropYellow: {{ T "ws_js_vdrop_yellow" | safeJS }},
-    vdropRed:    {{ T "ws_js_vdrop_red" | safeJS }},
-    formulaPh:   {{ T "ws_formula_placeholder" | safeJS }},
+    errExceed:   {{ T "ws_js_err_exceed_750kcmil" | jsonify }},
+    errCannot:   {{ T "ws_js_err_cannot_meet" | jsonify }},
+    vdropGreen:  {{ T "ws_js_vdrop_green" | jsonify }},
+    vdropYellow: {{ T "ws_js_vdrop_yellow" | jsonify }},
+    vdropRed:    {{ T "ws_js_vdrop_red" | jsonify }},
+    formulaPh:   {{ T "ws_formula_placeholder" | jsonify }},
   };
   window._tWStip = {
-    vdropRed:    {{ T "ws_js_tip_vdrop_red" | safeJS }},
-    vdropYellow: {{ T "ws_js_tip_vdrop_yellow" | safeJS }},
-    cont:        {{ T "ws_js_tip_cont" | safeJS }},
-    roundup:     {{ T "ws_js_tip_roundup" | safeJS }},
-    compliant:   {{ T "ws_js_tip_compliant" | safeJS }},
-    error:       {{ T "ws_js_error" | safeJS }},
+    vdropRed:    {{ T "ws_js_tip_vdrop_red" | jsonify }},
+    vdropYellow: {{ T "ws_js_tip_vdrop_yellow" | jsonify }},
+    cont:        {{ T "ws_js_tip_cont" | jsonify }},
+    roundup:     {{ T "ws_js_tip_roundup" | jsonify }},
+    compliant:   {{ T "ws_js_tip_compliant" | jsonify }},
+    error:       {{ T "ws_js_error" | jsonify }},
   };
 
   (function(){
@@ -388,14 +388,14 @@
     // Preset definitions
     // ─────────────────────────────────────────────────────────────────
     var PRESETS = {
-      ev40:   { amps: 40,  volts: 240, phase: 1, length: 50,  material: 'copper', temp: 30, conductors: '2-3', continuous: true,  label: {{ T "ws_preset_ev40" | safeJS }} },
-      ev48:   { amps: 48,  volts: 240, phase: 1, length: 50,  material: 'copper', temp: 30, conductors: '2-3', continuous: true,  label: {{ T "ws_preset_ev48" | safeJS }} },
-      ev50:   { amps: 50,  volts: 240, phase: 1, length: 50,  material: 'copper', temp: 30, conductors: '2-3', continuous: true,  label: {{ T "ws_preset_ev50" | safeJS }} },
-      sub50:  { amps: 50,  volts: 240, phase: 1, length: 75,  material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: {{ T "ws_preset_sub50" | safeJS }} },
-      sub100: { amps: 100, volts: 240, phase: 1, length: 100, material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: {{ T "ws_preset_sub100" | safeJS }} },
-      svc200: { amps: 200, volts: 240, phase: 1, length: 75,  material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: {{ T "ws_preset_svc200" | safeJS }} },
-      dryer:  { amps: 24,  volts: 240, phase: 1, length: 35,  material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: {{ T "ws_preset_dryer" | safeJS }} },
-      range:  { amps: 33,  volts: 240, phase: 1, length: 35,  material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: {{ T "ws_preset_range" | safeJS }} }
+      ev40:   { amps: 40,  volts: 240, phase: 1, length: 50,  material: 'copper', temp: 30, conductors: '2-3', continuous: true,  label: {{ T "ws_preset_ev40" | jsonify }} },
+      ev48:   { amps: 48,  volts: 240, phase: 1, length: 50,  material: 'copper', temp: 30, conductors: '2-3', continuous: true,  label: {{ T "ws_preset_ev48" | jsonify }} },
+      ev50:   { amps: 50,  volts: 240, phase: 1, length: 50,  material: 'copper', temp: 30, conductors: '2-3', continuous: true,  label: {{ T "ws_preset_ev50" | jsonify }} },
+      sub50:  { amps: 50,  volts: 240, phase: 1, length: 75,  material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: {{ T "ws_preset_sub50" | jsonify }} },
+      sub100: { amps: 100, volts: 240, phase: 1, length: 100, material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: {{ T "ws_preset_sub100" | jsonify }} },
+      svc200: { amps: 200, volts: 240, phase: 1, length: 75,  material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: {{ T "ws_preset_svc200" | jsonify }} },
+      dryer:  { amps: 24,  volts: 240, phase: 1, length: 35,  material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: {{ T "ws_preset_dryer" | jsonify }} },
+      range:  { amps: 33,  volts: 240, phase: 1, length: 35,  material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: {{ T "ws_preset_range" | jsonify }} }
     };
 
     // ─────────────────────────────────────────────────────────────────
@@ -611,9 +611,9 @@
       setText('ws-vdrop', fmt(r.vdropPct, 2) + '%');
 
       var vdropStatusText;
-      if (r.vdropPct <= 3) vdropStatusText = {{ T "ws_vdrop_green" | safeJS }};
-      else if (r.vdropPct <= 5) vdropStatusText = {{ T "ws_vdrop_yellow" | safeJS }};
-      else vdropStatusText = {{ T "ws_vdrop_red" | safeJS }};
+      if (r.vdropPct <= 3) vdropStatusText = {{ T "ws_vdrop_green" | jsonify }};
+      else if (r.vdropPct <= 5) vdropStatusText = {{ T "ws_vdrop_yellow" | jsonify }};
+      else vdropStatusText = {{ T "ws_vdrop_red" | jsonify }};
       setText('ws-vdrop-status', vdropStatusText);
 
       // Notes

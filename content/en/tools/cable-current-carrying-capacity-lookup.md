@@ -32,6 +32,8 @@ date: "2026-07-18T21:05:00+00:00"
 draft: false
 ---
 
+{{< cable-current-carrying-capacity-lookup >}}
+
 # Cable Current-Carrying Capacity Lookup — YJV / YJV22 Online Reference
 
 ## Introduction
