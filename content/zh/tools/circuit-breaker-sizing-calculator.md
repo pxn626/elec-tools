@@ -215,4 +215,132 @@ NEC 240.6(A) 列出全部 27 个 NEC 认可的 **标准 OCPD 额定值**: 15, 20
 
 ---
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "断路器选型计算器 — NEC 240 / 430 OCPD 速算",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "免费 NEC 合规断路器计算器。按 NEC 240.6(A) 标准额定值选型,自动应用 NEC 240.4(B) 升档逻辑 + NEC 210.20(A) 连续负载 125% 规则 + NEC 430.52 马达分支电路路径。EV、子配电盘、马达预设。无需注册。",
+  "url": "https://elec.webpenson.com/zh/tools/circuit-breaker-sizing-calculator/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "如何按 NEC 240 / 430 选型断路器",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "选预设或输入负载",
+      "text": "选预设(EV 充电桩 32/40/48 A、50 A 子配电盘、100 A 子配电盘、200 A 服务入口、烘手机、电烤箱、马达),或手动输入负载电流 A / 功率 kW。"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "设电压、相数与功率因数",
+      "text": "选系统电压(120/208/220/240/277/347/380/480/600 V)、相数(单相/三相)、功率因数(默认 0.95)。马达分支电路需输入 HP 与 NEMA/IEC 设计字母(A/B/C/E/D)。"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "读 OCPD 结果卡",
+      "text": "结果卡显示运行电流、设计电流(连续负载 ×1.25)、从 NEC 240.6(A) 推荐的标准 OCPD。合规徽章显示是否应用了 NEC 240.4(B) 升档逻辑或 NEC 430.52 马达倍数。"
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "50 A 负载要用多大的断路器?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "50 A 连续负载需 50 A 标准 OCPD + 载流量≥50 A 的导线(NEC 240.4);若为非连续负载(典型子配电盘馈线/RV 插座),配 6 AWG 铜(75°C 载流量 65 A)+ 50 A 断路器,直接匹配不需升档。50 A 连续负载按 NEC 210.20(A) 需 OCPD ≥ 125% × 50 = 62.5 A,升档至下一档标准 OCPD = 70 A(符合 NEC 240.4(B))。大多数 50 A 子配电盘为非连续负载,50 A 断路器正确,办理许可前需核实实际负载曲线。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "60 A 断路器能不能用在 50 A 电路上?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "可以,但仅在 NEC 240.4(B) 特定条件下。上一档标准 OCPD 规则允许在导线载流量不与任何标准 OCPD 对应时使用上一档(例如 6 AWG 铜 75°C 载流量 65 A,无 65 A 标准 OCPD,只有 50/60 A 括号它,可用 60 A)。如果导线载流量已经有直接匹配的标准 OCPD(50 A),用 60 A 属于超规格违规。连续负载仍需先按 NEC 210.20(A) × 1.25,50 A 连续负载仍需 70 A OCPD。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "NEC 240.4(B) 「升档」规则原文是什么?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "NEC 240.4(B) — 导线过电流保护 — 原文:当导线载流量不与标准安培额定值对应时,允许使用下一档更高标准的过电流保护装置保护导线。但下一档 OCPD 上限 800 A。实际应用:仅在导线载流量没有直接匹配的标准 OCPD 时,从 NEC 240.6(A) 升档至下一档。载流量 65 A(6 AWG / 75°C)→ 70 A OCPD。载流量 50 A → 50 A OCPD(直接匹配,不升档)。该规则是检验员最常提出异议的地方,办理许可前请与 AHJ 确认。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Level-2 EV 充电桩需要多大的断路器?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Level-2 EV 充电桩(NEC 625 + 210.20(A) — EV 充电为连续负载,定义运行 ≥ 3 小时):32 A 连续 → 40 A 断路器(32 × 1.25 = 40 A 直接匹配);40 A 连续 → 50 A 断路器;48 A 连续 → 60 A 断路器。配套导线请用导线选型计算器:60 A EV 充电桩通常需要 4 AWG 铜(75°C 载流量 85 A,但请核实充电桩铭牌与 AHJ 要求)。常见 11 kW Level-2 单元(Tesla、ChargePoint、JuiceBox)48 A 连续,使用本计算器的 60 A EV 充电桩预设一键出答案。实际需求请用 EV 充电功率计算器校验。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "马达分支电路怎么选断路器?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "马达分支电路 OCPD 选型遵循 NEC 430.52 — 与电阻负载完全不同。公式:OCPD ≥ FLA × 倍数,其中 FLA(满载电流)查 NEC Table 430.250(三相)或 Table 430.6(单相),倍数按 NEMA/IEC 设计字母:Design A 或 B(最常见)= 250% FLA;Design C 或 E = 150% FLA;Design D = 150% FLA(需对照厂家 OCPD list)。例:460 V 三相 25 HP Design B 马达 → FLA = 34 A → 34 × 2.5 = 85 A → 下一档标准 OCPD = 90 A。NEC 430.52(C)(1) 例外 1 允许升档至下一档标准 OCPD。马达馈线过电流保护另见 NEC 430.62。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "什么是 NEC 240.6(A)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "NEC 240.6(A) — 标准安培额定值 — 列出 NEC 认可的 27 个标准 OCPD 规格:15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 110, 125, 150, 175, 200, 225, 250, 300, 350, 400, 450, 500, 600, 700, 800 A。这些是许可图纸上唯一可指定的 OCPD 规格,任何其他值(如 55 A 断路器)为非标准,会被主管部门(AHJ)退回。本计算器始终从此表取值,并在负载超过 800 A 以下的最大直接匹配时应用 NEC 240.4(B) 升档逻辑。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "NEC 210.20(A) 与 215.3 有什么区别?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "NEC 210.20(A) 规范分支电路 OCPD 选型(单一负载回路,如 20 A 厨房插座、30 A 烘手机、60 A EV 充电桩);NEC 215.3 规范馈线 OCPD 选型(子配电盘馈线或服务入口导体,如 100 A 子配电盘馈线、200 A 服务入口)。两条都适用相同的 125% 连续负载规则:OCPD ≥ 1.25 × 满载电流。区别在于你要选哪条导线:分支电路导线按 NEC 310.16 + 110.14(C) 端子额定值;馈线导线按 NEC 215.2 + 220(馈线可应用需求系数)。单户住宅两边规则相同;商业/多户住宅差异主要在需求系数计算。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "按摩浴缸(Spa / Hot Tub)用多大的断路器?(NEC 680)",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "240 V 按摩浴缸典型铭牌 30 A 连续 → NEC 210.20(A) + 680 要求 OCPD ≥ 30 × 1.25 = 37.5 A → 下一档标准 OCPD = 40 A。导线 = 6 AWG 铜(75°C 载流量 65 A),配 40 A / 50 A GFCI 断路器(50 A 也常见于带较大加热器的按摩浴缸)。GFCI 保护要求见 NEC 680.44 — 必须是 GFCI 断路器(不仅是 GFCI 插座),用于 spa/hot tub 安装。请核实厂家安装手册,部分 240 V 按摩浴缸可达 50 A 连续,需 60 A 断路器 + 4 AWG 铜导线。"
+      }
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://elec.webpenson.com/" },
+    { "@type": "ListItem", "position": 2, "name": "工具", "item": "https://elec.webpenson.com/zh/tools/" },
+    { "@type": "ListItem", "position": 3, "name": "断路器选型计算器 — NEC 240 / 430 OCPD 速算", "item": "https://elec.webpenson.com/zh/tools/circuit-breaker-sizing-calculator/" }
+  ]
+}
+</script>
+
+---
+
 > ⚠️ **仅作参考。** 本计算器及其说明严格执行 2023 年 NFPA-70(美国国家电气规范)中的公式,仅供教学与参考使用。请在办理许可或合闸前,由 **持证电工** 与当地 **主管部门(AHJ)** 最终审定。各国/各地的法律采用与修订各不相同 — AHJ 的解释是安装是否合规的最终判定。所有计算 100% 在浏览器本地完成,负载数据不会离开设备。

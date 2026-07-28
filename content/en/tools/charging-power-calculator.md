@@ -92,6 +92,31 @@ The power factor is the ratio of active power to apparent power, **cosΦ = P / S
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "EV Charging Power Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free EV charging power calculator. Calculates single-phase / three-phase power draw (kW, A), estimates monthly electricity cost, and recommends cable + breaker sizes per NEC / GB/T standards. No signup required.",
+  "url": "https://elec.webpenson.com/en/tools/charging-power-calculator/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://elec.webpenson.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://elec.webpenson.com/tools/" },
+    { "@type": "ListItem", "position": 3, "name": "EV Charging Power Calculator", "item": "https://elec.webpenson.com/en/tools/charging-power-calculator/" }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {"@type": "Question", "name": "What is the EV charger power calculation formula?", "acceptedAnswer": {"@type": "Answer", "text": "Three-phase: P = √3 × U × I × cosΦ; single-phase: P = U × I × cosΦ. cosΦ is typically 0.95–1.0; for EV charging, use 0.98."}},

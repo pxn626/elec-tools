@@ -90,6 +90,31 @@ CCCV 模型已是工程级近似,但实际还会受以下因素叠加影响:① 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "电动车充电时间计算器",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "免费电动车充电时间计算器。根据电池容量(kWh)、充电功率(kW)、电网电压及充电损耗估算充满时间。支持主流电动车型号。无需注册。",
+  "url": "https://elec.webpenson.com/zh/tools/charging-time-calculator/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://elec.webpenson.com/" },
+    { "@type": "ListItem", "position": 2, "name": "工具", "item": "https://elec.webpenson.com/zh/tools/" },
+    { "@type": "ListItem", "position": 3, "name": "电动车充电时间计算器", "item": "https://elec.webpenson.com/zh/tools/charging-time-calculator/" }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {"@type": "Question", "name": "充电时间计算公式是什么?", "acceptedAnswer": {"@type": "Answer", "text": "充电时间(小时)= 电池容量(kWh) × 充电比例 ÷ 充电功率(kW) ÷ 充电效率。例:60kWh 从 20% 充到 80% 用 7kW 桩、效率 90%,约需 5.7 小时。"}},

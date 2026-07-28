@@ -118,6 +118,31 @@ translationKey: "electricity_cost_calculator"
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "电费计算器",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "免费电费计算器。根据功率(kW/kWh)和当地电价估算月/年电费。支持分时电价和需量电费估算。无需注册。",
+  "url": "https://elec.webpenson.com/zh/tools/electricity-cost-calculator/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://elec.webpenson.com/" },
+    { "@type": "ListItem", "position": 2, "name": "工具", "item": "https://elec.webpenson.com/zh/tools/" },
+    { "@type": "ListItem", "position": 3, "name": "电费计算器", "item": "https://elec.webpenson.com/zh/tools/electricity-cost-calculator/" }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {"@type": "Question", "name": "电费计算公式是什么?", "acceptedAnswer": {"@type": "Answer", "text": "日 kWh = 功率 W × 时长 h / 1000,日电费 = 日 kWh × 电价 ¥/kWh,月电费 = 日电费 × 30。本工具支持单台电器和月总用电量两种输入。"}},

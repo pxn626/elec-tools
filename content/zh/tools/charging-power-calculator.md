@@ -91,6 +91,31 @@ translationKey: charging_power_calculator
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "电动车充电功率计算器",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "免费电动车充电功率计算器。按单相/三相计算充电功率(kW、A),估算月电费,推荐导线与断路器规格(NEC / GB/T 标准)。无需注册。",
+  "url": "https://elec.webpenson.com/zh/tools/charging-power-calculator/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://elec.webpenson.com/" },
+    { "@type": "ListItem", "position": 2, "name": "工具", "item": "https://elec.webpenson.com/zh/tools/" },
+    { "@type": "ListItem", "position": 3, "name": "电动车充电功率计算器", "item": "https://elec.webpenson.com/zh/tools/charging-power-calculator/" }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {"@type": "Question", "name": "充电桩功率计算公式是什么?", "acceptedAnswer": {"@type": "Answer", "text": "三相:P = √3 × U × I × cosΦ;单相:P = U × I × cosΦ。cosΦ 一般取 0.95-1.0,电动车充电按 0.98 计算。"}},

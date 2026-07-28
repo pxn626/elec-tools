@@ -184,6 +184,31 @@ translationKey: "three_phase_power_calculator"
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "三相功率计算器",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "免费三相功率计算器。计算有功功率(P/kW)、无功功率(Q/kvar)、视在功率(S/kVA)及功率因数。支持平衡/不平衡负载。支持 GB/T 15543 和 NEC 标准。无需注册。",
+  "url": "https://elec.webpenson.com/zh/tools/three-phase-power-calculator/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://elec.webpenson.com/" },
+    { "@type": "ListItem", "position": 2, "name": "工具", "item": "https://elec.webpenson.com/zh/tools/" },
+    { "@type": "ListItem", "position": 3, "name": "三相功率计算器", "item": "https://elec.webpenson.com/zh/tools/three-phase-power-calculator/" }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {"@type": "Question", "name": "三相电功率公式是什么?P、Q、S 怎么算?", "acceptedAnswer": {"@type": "Answer", "text": "三相四线制公式:P = √3 × U × I × cosφ(有功 kW),Q = √3 × U × I × sinφ(无功 kvar),S = √3 × U × I(视在 kVA)。单相无 √3 因子,P = U × I × cosφ。例:380V/100A/cosφ 0.85 → P≈55.7kW、S≈65.6kVA、Q≈34.6kvar。参考 GB 50052-2009。"}},
