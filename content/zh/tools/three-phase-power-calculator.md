@@ -6,6 +6,27 @@ categories:
   - "三相电"
   - "工厂必备"
   - "工程师工具"
+
+
+images:
+  - "/images/tools/three-phase-power-calculator.svg"
+tags:
+  - "三相电"
+  - "功率因数"
+  - "cosφ"
+  - "无功补偿"
+  - "kVAr"
+  - "功率三角形"
+  - "GB/T 15543"
+  - "工厂配电"
+keywords:
+  - "三相电功率计算器"
+  - "三相功率"
+  - "有功功率"
+  - "无功功率"
+  - "视在功率"
+  - "功率因数补偿"
+  - "力调电费"
 layout: "page"
 translationKey: "three_phase_power_calculator"
 ---
@@ -175,3 +196,9 @@ translationKey: "three_phase_power_calculator"
   ]
 }
 </script>
+
+
+## 参考标准
+
+- GB/T 15543-2008 电能质量 三相电压不平衡
+- GB 50052-2009 供配电系统设计规范

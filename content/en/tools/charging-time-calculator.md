@@ -5,6 +5,26 @@ categories:
   - "EV Charger Tools"
   - "Battery Calculators"
   - "EV Owner Essentials"
+
+
+images:
+  - "/images/tools/charging-time-calculator.svg"
+tags:
+  - "EV charger"
+  - "battery capacity"
+  - "kWh"
+  - "charging duration"
+  - "CCCV trickle"
+  - "GB/T 27930"
+  - "charging curve"
+keywords:
+  - "charging time calculator"
+  - "EV charging"
+  - "battery charging"
+  - "kWh"
+  - "charging power"
+  - "charging curve"
+  - "GB/T 27930"
 layout: "page"
 translationKey: "charging_time_calculator"
 ---
@@ -82,3 +102,9 @@ Supports all EVs with GB/T interface, including Tesla Model 3/Y/S/X (adapter req
   ]
 }
 </script>
+
+
+## References
+
+- GB/T 27930-2015 Communication Protocol between Off-board Conductive Charger and BMS
+- GB/T 20234.2-2015 Connection Set for Conductive Charging of EVs

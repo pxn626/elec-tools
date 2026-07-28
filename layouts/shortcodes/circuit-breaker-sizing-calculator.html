@@ -119,7 +119,7 @@
   <div class="cbs-card">
     <!-- Presets -->
     <div class="cbs-preset-group">
-      <div class="cbs-preset-group-label">⚡ Quick Presets — Common NEC Services</div>
+      <div class="cbs-preset-group-label">{{ T "cbs_preset_group_label" }}</div>
       <div class="cbs-presets">
         <span class="cbs-preset" data-preset="ev32">EV L2 32A</span>
         <span class="cbs-preset" data-preset="ev40">EV L2 40A</span>
@@ -136,8 +136,8 @@
 
     <!-- Mode Tabs -->
     <div class="cbs-mode-tabs" role="tablist">
-      <div class="cbs-mode-tab active" data-mode="resistive" role="tab" aria-selected="true">⚡ Resistive / General Load</div>
-      <div class="cbs-mode-tab" data-mode="motor" role="tab" aria-selected="false">⚙ Motor Branch Circuit (NEC 430)</div>
+      <div class="cbs-mode-tab active" data-mode="resistive" role="tab" aria-selected="true">{{ T "cbs_mode_resistive" }}</div>
+      <div class="cbs-mode-tab" data-mode="motor" role="tab" aria-selected="false">{{ T "cbs_mode_motor" }}</div>
     </div>
 
     <div class="cbs-grid">
@@ -147,18 +147,18 @@
         <div class="cbs-panel active" data-panel="resistive">
           <div class="cbs-row">
             <div class="cbs-input-group">
-              <label for="cbs-amps">Load Amps <span class="cbs-unit">(A)</span></label>
+              <label for="cbs-amps">{{ T "cbs_label_load_amps" }}</label>
               <input type="number" id="cbs-amps" value="48" min="0.1" max="5000" step="0.1">
             </div>
             <div class="cbs-input-group">
-              <label for="cbs-kw">Load Power <span class="cbs-unit">(kW, optional)</span></label>
+              <label for="cbs-kw">{{ T "cbs_label_load_power" }}</label>
               <input type="number" id="cbs-kw" value="" min="0.1" max="2000" step="0.1">
-              <span class="cbs-help">Leave blank if entering amps directly.</span>
+              <span class="cbs-help">{{ T "cbs_help_load_power" }}</span>
             </div>
           </div>
 
           <div class="cbs-input-group">
-            <label for="cbs-volts">System Voltage <span class="cbs-unit">(V)</span></label>
+            <label for="cbs-volts">{{ T "cbs_label_sys_voltage" }}</label>
             <select id="cbs-volts">
               <option value="120">120 V</option>
               <option value="208">208 V</option>
@@ -175,48 +175,48 @@
           <div class="cbs-input-group">
             <label>Phase</label>
             <div class="cbs-toggle">
-              <button type="button" class="cbs-toggle-btn active" data-phase-resistive="1">1Φ Single-Phase</button>
-              <button type="button" class="cbs-toggle-btn" data-phase-resistive="3">3Φ Three-Phase</button>
+              <button type="button" class="cbs-toggle-btn active" data-phase-resistive="1">{{ T "cbs_phase_1ph" }}</button>
+              <button type="button" class="cbs-toggle-btn" data-phase-resistive="3">{{ T "cbs_phase_3ph" }}</button>
             </div>
           </div>
 
           <div class="cbs-row">
             <div class="cbs-input-group">
-              <label for="cbs-cosphi">Power Factor <span class="cbs-unit">(cosφ)</span></label>
+              <label for="cbs-cosphi">{{ T "cbs_label_pf" }}</label>
               <input type="number" id="cbs-cosphi" value="0.95" min="0.01" max="1.0" step="0.01">
-              <span class="cbs-help">Resistive load = 1.0. Motor load = 0.85 typical.</span>
+              <span class="cbs-help">{{ T "cbs_help_pf" }}</span>
             </div>
             <div class="cbs-input-group">
               <label class="cbs-checkbox" style="margin-top:24px;">
                 <input type="checkbox" id="cbs-continuous">
-                <span>Continuous load <span style="color:#6b7280;font-weight:400;">(NEC 210.20(A) — 125% rule)</span></span>
+                <span>{{ T "cbs_checkbox_continuous" }}</span>
               </label>
             </div>
           </div>
-          <div class="cbs-help" style="color:#6b7280;font-size:11px;margin-bottom:8px;">Required for EV chargers, solar PV inverters, and any load expected to run &gt; 3 hours.</div>
+          <div class="cbs-help" style="color:#6b7280;font-size:11px;margin-bottom:8px;">{{ T "cbs_help_continuous" }}</div>
         </div>
 
         <!-- Motor Panel -->
         <div class="cbs-panel" data-panel="motor">
           <div class="cbs-row">
             <div class="cbs-input-group">
-              <label for="cbs-motor-hp">Motor Power <span class="cbs-unit">(HP)</span></label>
+              <label for="cbs-motor-hp">{{ T "cbs_label_motor_power" }}</label>
               <input type="number" id="cbs-motor-hp" value="10" min="0.25" max="500" step="0.25">
             </div>
             <div class="cbs-input-group">
-              <label for="cbs-motor-design">NEMA/IEC Design Letter</label>
+              <label for="cbs-motor-design">{{ T "cbs_label_motor_design" }}</label>
               <select id="cbs-motor-design">
-                <option value="B" selected>B — Standard (most common, 250% FLA)</option>
-                <option value="A">A — High torque, normal locked-rotor (250% FLA)</option>
-                <option value="C">C — High starting torque (150% FLA)</option>
-                <option value="E">E — IEC premium efficiency (150% FLA)</option>
-                <option value="D">D — Very high locked-rotor (150% FLA)</option>
+                <option value="B" selected>{{ T "cbs_opt_design_b" }}</option>
+                <option value="A">{{ T "cbs_opt_design_a" }}</option>
+                <option value="C">{{ T "cbs_opt_design_c" }}</option>
+                <option value="E">{{ T "cbs_opt_design_e" }}</option>
+                <option value="D">{{ T "cbs_opt_design_d" }}</option>
               </select>
             </div>
           </div>
 
           <div class="cbs-input-group">
-            <label for="cbs-motor-volts">Motor Voltage <span class="cbs-unit">(V)</span></label>
+            <label for="cbs-motor-volts">{{ T "cbs_label_motor_voltage" }}</label>
             <select id="cbs-motor-volts">
               <option value="115">115 V</option>
               <option value="208">208 V</option>
@@ -234,14 +234,12 @@
           <div class="cbs-input-group">
             <label>Motor Phase</label>
             <div class="cbs-toggle">
-              <button type="button" class="cbs-toggle-btn" data-phase-motor="1">1Φ Single-Phase</button>
-              <button type="button" class="cbs-toggle-btn active" data-phase-motor="3">3Φ Three-Phase</button>
+              <button type="button" class="cbs-toggle-btn" data-phase-motor="1">{{ T "cbs_phase_1ph" }}</button>
+              <button type="button" class="cbs-toggle-btn active" data-phase-motor="3">{{ T "cbs_phase_3ph" }}</button>
             </div>
           </div>
 
-          <div class="cbs-help" style="color:#6b7280;font-size:11px;margin-top:4px;">
-            FLA is looked up from NEC Table 430.250 (3Φ) or 430.6 (1Φ). Per NEC 430.52, inverse-time breaker = 250% of FLA for Design A/B; 150% for Design C/E/D.
-          </div>
+          <div class="cbs-help" style="color:#6b7280;font-size:11px;margin-top:4px;">{{ T "cbs_help_motor_fla" }}</div>
         </div>
       </div>
 
@@ -250,51 +248,51 @@
         <div id="cbs-badge-container"></div>
         <div class="cbs-result-grid">
           <div class="cbs-result-cell cbs-cell-ocpd">
-            <div class="cbs-result-cell-label">Recommended OCPD</div>
+            <div class="cbs-result-cell-label">{{ T "cbs_result_ocpd" }}</div>
             <div class="cbs-result-cell-value" id="cbs-ocpd">—</div>
-            <div class="cbs-result-cell-unit">amperes</div>
+            <div class="cbs-result-cell-unit">{{ T "cbs_result_ocpd_unit" }}</div>
           </div>
           <div class="cbs-result-cell cbs-cell-run">
-            <div class="cbs-result-cell-label">Running Amps</div>
+            <div class="cbs-result-cell-label">{{ T "cbs_result_run_amps" }}</div>
             <div class="cbs-result-cell-value" id="cbs-runamps">—</div>
             <div class="cbs-result-cell-unit" id="cbs-runamps-unit">A</div>
           </div>
           <div class="cbs-result-cell cbs-cell-design">
-            <div class="cbs-result-cell-label">Design Amps</div>
+            <div class="cbs-result-cell-label">{{ T "cbs_result_design_amps" }}</div>
             <div class="cbs-result-cell-value" id="cbs-designamps">—</div>
             <div class="cbs-result-cell-unit" id="cbs-designamps-unit">A</div>
           </div>
         </div>
 
         <div class="cbs-notes" id="cbs-notes">
-          <h4>Calculation Details</h4>
+          <h4>{{ T "cbs_notes_title" }}</h4>
           <div class="cbs-note-row">
-            <span class="cbs-note-label" id="cbs-step1-label">Run current</span>
+            <span class="cbs-note-label" id="cbs-step1-label">{{ T "cbs_note_run_current" }}</span>
             <span class="cbs-note-value" id="cbs-step1-value">—</span>
           </div>
           <div class="cbs-note-row" id="cbs-step2-row">
-            <span class="cbs-note-label" id="cbs-step2-label">NEC 210.20(A) 125% rule</span>
+            <span class="cbs-note-label" id="cbs-step2-label">{{ T "cbs_note_nec125" }}</span>
             <span class="cbs-note-value" id="cbs-step2-value">—</span>
           </div>
           <div class="cbs-note-row" id="cbs-step3-row">
-            <span class="cbs-note-label" id="cbs-step3-label">NEC 240.4(B) round-up</span>
+            <span class="cbs-note-label" id="cbs-step3-label">{{ T "cbs_note_roundup" }}</span>
             <span class="cbs-note-value" id="cbs-step3-value">—</span>
           </div>
           <div class="cbs-note-row">
-            <span class="cbs-note-label">NEC 240.6(A) standard rating</span>
+            <span class="cbs-note-label">{{ T "cbs_note_std_rating" }}</span>
             <span class="cbs-note-value" id="cbs-standard">—</span>
           </div>
         </div>
 
-        <div class="cbs-formula" id="cbs-formula">Enter load values to see the formula.</div>
+        <div class="cbs-formula" id="cbs-formula">{{ T "cbs_formula_placeholder" }}</div>
 
         <div class="cbs-tip" id="cbs-tip" style="display:none;"></div>
 
         <details class="cbs-collapsible">
-          <summary>📊 NEC 240.6(A) Standard OCPD Sizes (click to expand)</summary>
+          <summary>{{ T "cbs_collapsible_ocpd_title" }}</summary>
           <table>
             <thead>
-              <tr><th>Standard OCPD (A)</th><th>Common Use</th></tr>
+              <tr><th>{{ T "cbs_th_std_ocpd" }}</th><th>{{ T "cbs_th_common_use" }}</th></tr>
             </thead>
             <tbody>
               <tr><td class="num">15</td><td>General lighting, 14 AWG</td></tr>
@@ -327,11 +325,11 @@
               <tr><td class="num">800</td><td>Industrial service</td></tr>
             </tbody>
           </table>
-          <div class="cbs-source">Source: NFPA 70 — National Electrical Code 2023, Section 240.6(A).</div>
+          <div class="cbs-source">{{ T "cbs_source_nfpa" }}</div>
         </details>
 
         <details class="cbs-collapsible">
-          <summary>📊 NEC Table 430.250 — 3-Phase Motor FLA Reference (click to expand)</summary>
+          <summary>{{ T "cbs_collapsible_fla_title" }}</summary>
           <table>
             <thead>
               <tr><th>HP</th><th class="num">208 V</th><th class="num">230 V</th><th class="num">460 V</th></tr>
@@ -357,17 +355,46 @@
               <tr><td>100</td><td class="num">273.0</td><td class="num">248.0</td><td class="num">124.0</td></tr>
             </tbody>
           </table>
-          <div class="cbs-source">Source: NFPA 70 — National Electrical Code 2023, Table 430.250 (3-phase induction motors, full-load amperes).</div>
+          <div class="cbs-source">{{ T "cbs_source_nfpa_table" }}</div>
         </details>
 
-        <div class="cbs-disclaimer">
-          ⚠️ <strong>Reference only.</strong> OCPD sizing is NEC-aware but final conductor and breaker sizing must be verified by a licensed electrician and approved by your local Authority Having Jurisdiction (AHJ). Always follow the latest edition of NFPA 70 — National Electrical Code.
-        </div>
+        <div class="cbs-disclaimer">{{ T "cbs_disclaimer" }}</div>
       </div>
     </div>
   </div>
 
   <script>
+  // ── i18n strings ─────────────────────────────────────────────────
+  window._tCBS = {
+    errNoLoad:     {{ T "cbs_js_err_no_load" | jsonify }},
+    errInvalidV:  {{ T "cbs_js_err_invalid_voltage" | jsonify }},
+    errFlaNotAvail: {{ T "cbs_js_err_fla_not_avail" | jsonify }},
+    noteFLA:      {{ T "cbs_js_fla_table" | jsonify }},
+    noteRoundup:  {{ T "cbs_js_roundup" | jsonify }},
+    noteRoundupY: {{ T "cbs_js_roundup_yes" | jsonify }},
+    noteRoundupN: {{ T "cbs_js_roundup_no" | jsonify }},
+    noteRunKw:    {{ T "cbs_js_run_current_kw" | jsonify }},
+    noteRunIn:    {{ T "cbs_js_run_current_input" | jsonify }},
+    noteContY:    {{ T "cbs_js_cont_125" | jsonify }},
+    noteContN:    {{ T "cbs_js_cont_no" | jsonify }},
+    formulaPh:    {{ T "cbs_formula_placeholder" | jsonify }},
+  };
+  window._tCBSbadge = {
+    exceed800: {{ T "cbs_badge_exceed800" | jsonify }},
+    motor:     {{ T "cbs_badge_motor" | jsonify }},
+    roundup:   {{ T "cbs_badge_roundup" | jsonify }},
+    compliant: {{ T "cbs_badge_compliant" | jsonify }},
+  };
+  window._tCBStip = {
+    exceed800:   {{ T "cbs_js_tip_exceed800" | jsonify }},
+    motor:       {{ T "cbs_js_tip_motor" | jsonify }},
+    contRoundup: {{ T "cbs_js_tip_cont_roundup" | jsonify }},
+    contCompliant:{{ T "cbs_js_tip_cont_compliant" | jsonify }},
+    roundup:     {{ T "cbs_js_tip_roundup" | jsonify }},
+    compliant:   {{ T "cbs_js_tip_compliant" | jsonify }},
+    error:       {{ T "cbs_js_error" | jsonify }},
+  };
+
   (function(){
     'use strict';
 
@@ -466,7 +493,7 @@
         // ─── MOTOR PATH (NEC 430) ───
         var fla = lookupMotorFLA(inputs.motorHp, inputs.voltage, inputs.phase);
         if (fla === null) {
-          return { error: 'Motor FLA not available for ' + inputs.voltage + 'V ' + (inputs.phase === 3 ? '3Φ' : '1Φ') + ' — refer to NEC Table 430.250 / Table 430.6 directly.' };
+          return { error: window._tCBS.errFlaNotAvail.replace('{v}', inputs.voltage).replace('{p}', inputs.phase === 3 ? '3Φ' : '1Φ') };
         }
         var multiplier = MOTOR_MULTIPLIER[inputs.motorDesign] || 2.50;
         var targetOCPD = fla * multiplier;
@@ -504,11 +531,11 @@
             amps = (inputs.loadKw * 1000) / (inputs.voltage * pf);
           }
         } else {
-          return { error: 'Enter load amps or load kW.' };
+          return { error: window._tCBS.errNoLoad };
         }
 
         if (inputs.voltage <= 0) {
-          return { error: 'Invalid voltage.' };
+          return { error: window._tCBS.errInvalidV };
         }
 
         // Apply NEC 210.20(A) 125% rule for continuous loads
@@ -569,7 +596,7 @@
         setText('cbs-step2-value', '—');
         setText('cbs-step3-value', '—');
         setText('cbs-standard', '—');
-        setText('cbs-formula', 'Error: ' + r.error);
+        setText('cbs-formula', window._tCBStip.error.replace('{err}', r.error));
         document.getElementById('cbs-tip').style.display = 'none';
         return;
       }
@@ -578,21 +605,16 @@
       var badgeState, badgeText;
       if (r.exceeds800) {
         badgeState = 'red';
-        badgeText = '🔴 Exceeds 800 A — Use Parallel Conductors or MV';
+        badgeText = window._tCBSbadge.exceed800;
       } else if (r.mode === 'motor') {
-        if (r.motorDesign === 'B' || r.motorDesign === 'A') {
-          badgeState = 'yellow';
-          badgeText = '🟡 NEC 430.52 × ' + (r.multiplier * 100).toFixed(0) + '% Applied (Design ' + r.motorDesign + ')';
-        } else {
-          badgeState = 'yellow';
-          badgeText = '🟡 NEC 430.52 × ' + (r.multiplier * 100).toFixed(0) + '% Applied (Design ' + r.motorDesign + ')';
-        }
+        badgeState = 'yellow';
+        badgeText = window._tCBSbadge.motor.replace('{pct}', (r.multiplier * 100).toFixed(0)).replace('{design}', r.motorDesign);
       } else if (r.roundUpApplied) {
         badgeState = 'green';
-        badgeText = '🟢 NEC 240.4(B) Round-Up Applied — next-larger OCPD';
+        badgeText = window._tCBSbadge.roundup;
       } else {
         badgeState = 'green';
-        badgeText = '🟢 NEC-Compliant — direct OCPD match';
+        badgeText = window._tCBSbadge.compliant;
       }
       setBadge(badgeState, badgeText);
 
@@ -611,28 +633,28 @@
 
       // ─── Notes ───
       if (r.mode === 'motor') {
-        setText('cbs-step1-label', 'FLA (Table 430.250)');
+        setText('cbs-step1-label', window._tCBS.noteFLA);
         setText('cbs-step1-value', fmt(r.runAmps, 1) + ' A at ' + r.motorHp + ' HP, ' + r.voltage + ' V ' + (r.phase === 3 ? '3Φ' : '1Φ'));
         document.getElementById('cbs-step2-row').style.display = 'flex';
-        setText('cbs-step2-label', 'NEC 430.52 multiplier');
+        setText('cbs-step2-label', window._tCBS.noteRoundup);
         setText('cbs-step2-value', fmt(r.targetOCPD, 1) + ' A (×' + (r.multiplier * 100).toFixed(0) + '%)');
         document.getElementById('cbs-step3-row').style.display = 'flex';
-        setText('cbs-step3-label', 'NEC 240.4(B) round-up');
-        setText('cbs-step3-value', r.roundUpApplied ? 'Yes → ' + r.ocpd + ' A (next std OCPD)' : 'No (already at std OCPD)');
+        setText('cbs-step3-label', window._tCBS.noteRoundup);
+        setText('cbs-step3-value', r.roundUpApplied ? window._tCBS.noteRoundupY.replace('{ocpd}', r.ocpd) : window._tCBS.noteRoundupN);
       } else {
         if (r.loadKw !== null) {
-          setText('cbs-step1-label', 'Run current (kW→A)');
+          setText('cbs-step1-label', window._tCBS.noteRunKw);
           setText('cbs-step1-value', fmt(r.runAmps, 1) + ' A (' + fmt(r.loadKw, 1) + ' kW @ ' + r.voltage + ' V ' + (r.phase === 3 ? '3Φ' : '1Φ') + ' cosφ=' + r.powerFactor.toFixed(2) + ')');
         } else {
-          setText('cbs-step1-label', 'Run current (input)');
+          setText('cbs-step1-label', window._tCBS.noteRunIn);
           setText('cbs-step1-value', fmt(r.runAmps, 1) + ' A at ' + r.voltage + ' V ' + (r.phase === 3 ? '3Φ' : '1Φ'));
         }
         document.getElementById('cbs-step2-row').style.display = 'flex';
-        setText('cbs-step2-label', 'NEC 210.20(A) 125% rule');
-        setText('cbs-step2-value', r.continuous ? fmt(r.designAmps, 1) + ' A (×1.25, continuous)' : 'Not applied (non-continuous)');
+        setText('cbs-step2-label', window._tCBS.noteRoundup);
+        setText('cbs-step2-value', r.continuous ? window._tCBS.noteContY : window._tCBS.noteContN);
         document.getElementById('cbs-step3-row').style.display = 'flex';
-        setText('cbs-step3-label', 'NEC 240.4(B) round-up');
-        setText('cbs-step3-value', r.roundUpApplied ? 'Yes → ' + r.ocpd + ' A (next std OCPD)' : 'No (design amps ≤ std OCPD)');
+        setText('cbs-step3-label', window._tCBS.noteRoundup);
+        setText('cbs-step3-value', r.roundUpApplied ? window._tCBS.noteRoundupY.replace('{ocpd}', r.ocpd) : window._tCBS.noteRoundupN);
       }
 
       // ─── Standard rating row ───
@@ -672,22 +694,22 @@
       var tipText = '';
       var tipClass = 'cbs-tip';
       if (r.exceeds800) {
-        tipText = '⚠️ <strong>Design amps exceed 800 A.</strong> Standard OCPD ladder caps at 800 A (NEC 240.6(A)). Use parallel conductors (NEC 310.10(H)), reduce voltage (step down to MV distribution), or use a service-entrance rated breaker series.';
+        tipText = window._tCBStip.exceed800;
         tipClass += ' cbs-tip-bad';
       } else if (r.mode === 'motor') {
-        tipText = '💡 <strong>NEC 430.52 motor path applied.</strong> Inverse-time breaker sized at ' + (r.multiplier * 100).toFixed(0) + '% of FLA for Design ' + r.motorDesign + '. Verify motor nameplate design letter and short-circuit current rating (SCCR) for the chosen breaker. Per NEC 430.52(C)(1) Exception 1, round-up to next std OCPD permitted when calculated value does not match a standard rating.';
+        tipText = window._tCBStip.motor.replace('{pct}', (r.multiplier * 100).toFixed(0)).replace('{design}', r.motorDesign);
         tipClass += ' cbs-tip-warn';
       } else if (r.continuous && r.roundUpApplied) {
-        tipText = '✓ <strong>Continuous load + NEC 240.4(B) round-up.</strong> Design amps = ' + fmt(r.runAmps, 1) + ' A × 1.25 = ' + fmt(r.designAmps, 1) + ' A. Next standard OCPD ' + r.ocpd + ' A protects the conductor per the round-up rule. For EV chargers (NEC 625) and continuous loads, the OCPD must handle 125% of the load for >3 hours of operation.';
+        tipText = window._tCBStip.contRoundup.replace('{run}', fmt(r.runAmps, 1)).replace('{design}', fmt(r.designAmps, 1)).replace('{ocpd}', r.ocpd);
         tipClass += ' cbs-tip-good';
       } else if (r.continuous) {
-        tipText = '✓ <strong>Continuous load compliant (NEC 210.20(A) 125% rule).</strong> Design amps = ' + fmt(r.runAmps, 1) + ' A × 1.25 = ' + fmt(r.designAmps, 1) + ' A; OCPD ' + r.ocpd + ' A is a direct standard match. Pair the breaker with a conductor rated ≥' + fmt(r.designAmps, 1) + ' A (NEC 110.14(C), 75 °C column for circuits ≤100 A).';
+        tipText = window._tCBStip.contCompliant.replace('{run}', fmt(r.runAmps, 1)).replace('{design}', fmt(r.designAmps, 1)).replace('{ocpd}', r.ocpd);
         tipClass += ' cbs-tip-good';
       } else if (r.roundUpApplied) {
-        tipText = '✓ <strong>NEC 240.4(B) round-up applied.</strong> Conductor ampacity does not match any standard OCPD; next-larger ' + r.ocpd + ' A is permitted per NEC 240.4(B). Conductor must be sized for the actual load (not rounded up to OCPD).';
+        tipText = window._tCBStip.roundup.replace('{ocpd}', r.ocpd);
         tipClass += ' cbs-tip-good';
       } else {
-        tipText = '✓ <strong>Fully NEC-compliant.</strong> OCPD ' + r.ocpd + ' A is a direct standard match (NEC 240.6(A)) for the design amps. Pair the conductor with the breaker per NEC 110.14(C) — 75 °C terminal column for circuits rated 100 A or less.';
+        tipText = window._tCBStip.compliant.replace('{ocpd}', r.ocpd);
         tipClass += ' cbs-tip-good';
       }
       tipEl.className = tipClass;

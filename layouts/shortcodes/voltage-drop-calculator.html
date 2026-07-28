@@ -112,7 +112,7 @@
   <div class="vd-card">
     <!-- Presets -->
     <div class="vd-preset-group">
-      <div class="vd-preset-group-label">⚡ Quick Presets — Common V-Drop Scenarios</div>
+      <div class="vd-preset-group-label">{{ T "vd_preset_group_label" }}</div>
       <div class="vd-presets">
         <span class="vd-preset" data-preset="dryer">30A Dryer</span>
         <span class="vd-preset" data-preset="range">40A Range</span>
@@ -133,28 +133,28 @@
       <div>
         <div class="vd-row">
           <div class="vd-input-group">
-            <label for="vd-amps">Load Amps <span class="vd-unit">(A)</span></label>
+            <label for="vd-amps">{{ T "vd_label_load_amps" }}</label>
             <input type="number" id="vd-amps" value="50" min="0.1" max="2000" step="0.1">
           </div>
           <div class="vd-input-group">
-            <label for="vd-kw">Load Power <span class="vd-unit">(kW, optional)</span></label>
+            <label for="vd-kw">{{ T "vd_label_load_power" }}</label>
             <input type="number" id="vd-kw" value="" min="0.1" max="2000" step="0.1" placeholder="e.g. 11">
-            <span class="vd-help">Enter kW <em>or</em> amps — kW will be converted to amps via power factor.</span>
+            <span class="vd-help">{{ T "vd_help_kw" }}</span>
           </div>
         </div>
 
         <div class="vd-row" id="vd-cosphi-row" style="display:none;">
           <div class="vd-input-group">
-            <label for="vd-cosphi">Power Factor <span class="vd-unit">(cosφ)</span></label>
+            <label for="vd-cosphi">{{ T "vd_label_pf" }}</label>
             <input type="number" id="vd-cosphi" value="0.95" min="0.01" max="1.0" step="0.01">
-            <span class="vd-help">Default 0.95. Pure resistive = 1.0. Motor load = 0.85.</span>
+            <span class="vd-help">{{ T "vd_help_pf" }}</span>
           </div>
           <div></div>
         </div>
 
         <div class="vd-row">
           <div class="vd-input-group">
-            <label for="vd-volts">System Voltage <span class="vd-unit">(V)</span></label>
+            <label for="vd-volts">{{ T "vd_label_sys_voltage" }}</label>
             <select id="vd-volts">
               <option value="12">12 V DC</option>
               <option value="24">24 V DC</option>
@@ -173,29 +173,29 @@
           <div class="vd-input-group">
             <label>Phase</label>
             <div class="vd-toggle">
-              <button type="button" class="vd-toggle-btn active" data-phase="1">1Φ Single-Phase</button>
-              <button type="button" class="vd-toggle-btn" data-phase="3">3Φ Three-Phase</button>
+              <button type="button" class="vd-toggle-btn active" data-phase="1">{{ T "vd_phase_1ph" }}</button>
+              <button type="button" class="vd-toggle-btn" data-phase="3">{{ T "vd_phase_3ph" }}</button>
             </div>
           </div>
         </div>
 
         <div class="vd-row">
           <div class="vd-input-group">
-            <label for="vd-length">One-Way Length <span class="vd-unit">(ft)</span></label>
+            <label for="vd-length">{{ T "vd_label_oneway_length" }}</label>
             <input type="number" id="vd-length" value="75" min="1" max="5000" step="1">
           </div>
           <div class="vd-input-group">
-            <label>Wire Material</label>
+            <label>{{ T "vd_label_wire_material" }}</label>
             <div class="vd-toggle">
-              <button type="button" class="vd-toggle-btn active" data-mat="copper">Copper (Cu)</button>
-              <button type="button" class="vd-toggle-btn" data-mat="aluminum">Aluminum (Al)</button>
+              <button type="button" class="vd-toggle-btn active" data-mat="copper">{{ T "vd_mat_copper" }}</button>
+              <button type="button" class="vd-toggle-btn" data-mat="aluminum">{{ T "vd_mat_aluminum" }}</button>
             </div>
           </div>
         </div>
 
         <div class="vd-row">
           <div class="vd-input-group">
-            <label for="vd-awg">Conductor Size <span class="vd-unit">(AWG / kcmil)</span></label>
+            <label for="vd-awg">{{ T "vd_label_conductor_size" }}</label>
             <select id="vd-awg">
               <option value="14 AWG">14 AWG</option>
               <option value="12 AWG">12 AWG</option>
@@ -220,29 +220,29 @@
             </select>
           </div>
           <div class="vd-input-group">
-            <label>Temperature Column</label>
+            <label>{{ T "vd_label_temp_column" }}</label>
             <div class="vd-toggle">
-              <button type="button" class="vd-toggle-btn active" data-temp="75C">75 °C</button>
-              <button type="button" class="vd-toggle-btn" data-temp="90C">90 °C</button>
+              <button type="button" class="vd-toggle-btn active" data-temp="75C">{{ T "vd_temp_75c" }}</button>
+              <button type="button" class="vd-toggle-btn" data-temp="90C">{{ T "vd_temp_90c" }}</button>
             </div>
-            <span class="vd-help">75 °C = standard branch (NEC 110.14(C)). 90 °C = PV wire / motor windings.</span>
+            <span class="vd-help">{{ T "vd_help_temp_column" }}</span>
           </div>
         </div>
 
         <div class="vd-input-group">
           <label class="vd-checkbox">
             <input type="checkbox" id="vd-nec647">
-            <span>NEC 647 Sensitive Electronic Equipment <span style="color:#6b7280;font-weight:400;">(3% branch + 6% combined)</span></span>
+            <span>{{ T "vd_checkbox_nec647" }}</span>
           </label>
-          <div class="vd-help">Enable for hospitals, data centers, recording studios, and other NEC 647 sensitive electronic equipment. Tighter V-drop limit (6 % combined).</div>
+          <div class="vd-help">{{ T "vd_help_nec647" }}</div>
         </div>
 
         <div class="vd-input-group">
           <label class="vd-checkbox">
             <input type="checkbox" id="vd-awg-auto">
-            <span>Auto-select smallest compliant AWG <span style="color:#6b7280;font-weight:400;">(ignore AWG dropdown)</span></span>
+            <span>{{ T "vd_checkbox_awg_auto" }}</span>
           </label>
-          <div class="vd-help">When enabled, the calculator finds the smallest AWG that meets the 3 % branch limit for the given amps + length, instead of using the manually selected AWG.</div>
+          <div class="vd-help">{{ T "vd_help_awg_auto" }}</div>
         </div>
       </div>
 
@@ -251,69 +251,69 @@
         <div id="vd-badge-container"></div>
         <div class="vd-result-grid">
           <div class="vd-result-cell vd-cell-vdrop">
-            <div class="vd-result-cell-label">Voltage Drop</div>
+            <div class="vd-result-cell-label">{{ T "vd_result_vdrop_v" }}</div>
             <div class="vd-result-cell-value" id="vd-vdrop-v">—</div>
-            <div class="vd-result-cell-unit">volts</div>
+            <div class="vd-result-cell-unit">{{ T "vd_result_vdrop_v_unit" }}</div>
           </div>
           <div class="vd-result-cell vd-cell-pct">
-            <div class="vd-result-cell-label">V-Drop %</div>
+            <div class="vd-result-cell-label">{{ T "vd_result_vdrop_pct" }}</div>
             <div class="vd-result-cell-value" id="vd-vdrop-pct">—</div>
             <div class="vd-result-cell-unit" id="vd-vdrop-status">—</div>
           </div>
           <div class="vd-result-cell vd-cell-awg">
-            <div class="vd-result-cell-label">Conductor</div>
+            <div class="vd-result-cell-label">{{ T "vd_result_conductor" }}</div>
             <div class="vd-result-cell-value" id="vd-result-awg">—</div>
             <div class="vd-result-cell-unit" id="vd-result-awg-unit">—</div>
           </div>
         </div>
 
         <div class="vd-notes" id="vd-notes">
-          <h4>Calculation Details</h4>
+          <h4>{{ T "vd_notes_title" }}</h4>
           <div class="vd-note-row">
-            <span class="vd-note-label">Run current (I)</span>
+            <span class="vd-note-label">{{ T "vd_note_run_current" }}</span>
             <span class="vd-note-value" id="vd-detail-amps">—</span>
           </div>
           <div class="vd-note-row">
-            <span class="vd-note-label">Conductor resistance (R) at <span id="vd-detail-temp">75</span> °C</span>
+            <span class="vd-note-label">{{ T "vd_note_resistance" }}</span>
             <span class="vd-note-value" id="vd-detail-r">—</span>
           </div>
           <div class="vd-note-row">
-            <span class="vd-note-label">One-way length (L)</span>
+            <span class="vd-note-label">{{ T "vd_note_oneway_length" }}</span>
             <span class="vd-note-value" id="vd-detail-length">—</span>
           </div>
           <div class="vd-note-row">
-            <span class="vd-note-label">Phase configuration</span>
+            <span class="vd-note-label">{{ T "vd_note_phase_config" }}</span>
             <span class="vd-note-value" id="vd-detail-phase">—</span>
           </div>
           <div class="vd-note-row">
-            <span class="vd-note-label">System voltage</span>
+            <span class="vd-note-label">{{ T "vd_note_sys_voltage" }}</span>
             <span class="vd-note-value" id="vd-detail-voltage">—</span>
           </div>
           <div class="vd-note-row">
-            <span class="vd-note-label">NEC limit (branch / combined)</span>
+            <span class="vd-note-label">{{ T "vd_note_nec_limit" }}</span>
             <span class="vd-note-value" id="vd-detail-limit">—</span>
           </div>
           <div class="vd-note-row" id="vd-auto-awg-row" style="display:none;">
-            <span class="vd-note-label">Auto-AWG picked</span>
+            <span class="vd-note-label">{{ T "vd_note_auto_awg" }}</span>
             <span class="vd-note-value" id="vd-detail-auto-awg">—</span>
           </div>
         </div>
 
-        <div class="vd-formula" id="vd-formula">Enter load values to see the formula.</div>
+        <div class="vd-formula" id="vd-formula">{{ T "vd_formula_placeholder" }}</div>
 
         <div class="vd-tip" id="vd-tip" style="display:none;"></div>
 
         <!-- 5. Collapsible reference tables -->
         <details class="vd-collapsible">
-          <summary>📊 NEC Chapter 9 Table 9 — Ω/1000 ft at 75 °C & 90 °C (click to expand)</summary>
+          <summary>{{ T "vd_collapsible_resistance_title" }}</summary>
           <table>
             <thead>
               <tr>
-                <th>AWG / kcmil</th>
-                <th class="num">Cu Ω/1000ft @ 75 °C</th>
-                <th class="num">Cu Ω/1000ft @ 90 °C</th>
-                <th class="num">Al Ω/1000ft @ 75 °C</th>
-                <th class="num">Al Ω/1000ft @ 90 °C</th>
+                <th>{{ T "vd_th_awg" }}</th>
+                <th class="num">{{ T "vd_th_cu_ohm75" }}</th>
+                <th class="num">{{ T "vd_th_cu_ohm90" }}</th>
+                <th class="num">{{ T "vd_th_al_ohm75" }}</th>
+                <th class="num">{{ T "vd_th_al_ohm90" }}</th>
               </tr>
             </thead>
             <tbody>
@@ -339,14 +339,14 @@
               <tr><td>750 kcmil</td><td class="num">0.0171</td><td class="num">0.0183</td><td class="num">0.0282</td><td class="num">0.0302</td></tr>
             </tbody>
           </table>
-          <div class="vd-source">Source: NFPA 70 — National Electrical Code 2023, Chapter 9 Table 9 (DC resistance for uncoated copper &amp; aluminum conductors, 75 °C and 90 °C columns).</div>
+          <div class="vd-source">{{ T "vd_source_nfpa_table9" }}</div>
         </details>
 
         <details class="vd-collapsible">
-          <summary>📊 NEC 210.19(A) / 215.2(A) / 647 — V-Drop Compliance Reference (click to expand)</summary>
+          <summary>{{ T "vd_collapsible_compliance_title" }}</summary>
           <table>
             <thead>
-              <tr><th>NEC Article</th><th>Branch Limit</th><th>Combined Limit</th><th>Scope</th></tr>
+              <tr><th>{{ T "vd_th_nec_article" }}</th><th>{{ T "vd_th_branch_limit" }}</th><th>{{ T "vd_th_combined_limit" }}</th><th>{{ T "vd_th_scope" }}</th></tr>
             </thead>
             <tbody>
               <tr><td>210.19(A) IN No. 4</td><td class="num">3 %</td><td class="num">5 %</td><td>Branch circuits (residential, commercial)</td></tr>
@@ -354,17 +354,52 @@
               <tr><td>647 (Sensitive Electronic Equipment)</td><td class="num">3 %</td><td class="num">6 %</td><td>Hospitals, data centers, recording studios</td></tr>
             </tbody>
           </table>
-          <div class="vd-source">Source: NFPA 70 — National Electrical Code 2023, Informational Notes 210.19(A) No. 4, 215.2(A) No. 3, and Article 647.</div>
+          <div class="vd-source">{{ T "vd_source_nfpa_vdrop" }}</div>
         </details>
 
-        <div class="vd-disclaimer">
-          ⚠️ <strong>Reference only.</strong> V-drop calculations are NEC-aware but final conductor sizing must be verified by a licensed electrician and approved by your local Authority Having Jurisdiction (AHJ). This calculator ignores conductor reactance (X) which becomes significant for cables &gt; 600 V or runs &gt; 500 ft; for those applications consult IEEE Std 141 (Red Book) or a power-quality engineer.
-        </div>
+        <div class="vd-disclaimer">{{ T "vd_disclaimer" }}</div>
       </div>
     </div>
   </div>
 
   <script>
+  // ── i18n strings ─────────────────────────────────────────────────
+  window._tVD = {
+    errEnter:       {{ T "vd_js_err_enter_values" | jsonify }},
+    errExceed:      {{ T "vd_js_err_exceed_750kcmil" | jsonify }},
+    errAwgNotAvail: {{ T "vd_js_err_awg_not_avail" | jsonify }},
+    clearResult:   {{ T "vd_js_clear_result" | jsonify }},
+    formulaPh:     {{ T "vd_formula_placeholder" | jsonify }},
+    notePhase1:     {{ T "vd_note_phase_1ph" | jsonify }},
+    notePhase3:     {{ T "vd_note_phase_3ph" | jsonify }},
+    matCu:          {{ T "vd_mat_copper" | jsonify }},
+    matAl:          {{ T "vd_mat_aluminum" | jsonify }},
+  };
+  window._tVDbadge = {
+    gNec647: {{ T "vd_js_vdrop_green_nec647" | jsonify }},
+    yNec647: {{ T "vd_js_vdrop_yellow_nec647" | jsonify }},
+    rNec647: {{ T "vd_js_vdrop_red_nec647" | jsonify }},
+    g:       {{ T "vd_js_vdrop_green" | jsonify }},
+    y:       {{ T "vd_js_vdrop_yellow" | jsonify }},
+    r:       {{ T "vd_js_vdrop_red" | jsonify }},
+  };
+  window._tVDvdrop = {
+    g: {{ T "vd_vdrop_green" | jsonify }},
+    y: {{ T "vd_vdrop_yellow" | jsonify }},
+    r: {{ T "vd_vdrop_red" | jsonify }},
+  };
+  window._tVDtip = {
+    nec647:        {{ T "vd_js_tip_nec647" | jsonify }},
+    autoAwg:       {{ T "vd_js_tip_auto_awg" | jsonify }},
+    vdropRedLowv:  {{ T "vd_js_tip_vdrop_red_lowv" | jsonify }},
+    vdropRed:      {{ T "vd_js_tip_vdrop_red" | jsonify }},
+    vdropYellowAl: {{ T "vd_js_tip_vdrop_yellow_al" | jsonify }},
+    vdropYellow:   {{ T "vd_js_tip_vdrop_yellow" | jsonify }},
+    vdropGreenLowv:{{ T "vd_js_tip_vdrop_green_lowv" | jsonify }},
+    vdropGreen:    {{ T "vd_js_tip_vdrop_green" | jsonify }},
+    error:         {{ T "vd_js_error" | jsonify }},
+  };
+
   (function(){
     'use strict';
 
@@ -430,17 +465,17 @@
     // Preset definitions
     // ─────────────────────────────────────────────────────────────────
     var PRESETS = {
-      dryer:    { amps: 24,  volts: 240, phase: 1, length: 35,  material: 'copper', awg: '10 AWG',  temp: '75C', necMode: 'standard', awgAuto: false, label: '30A Dryer' },
-      range:    { amps: 33,  volts: 240, phase: 1, length: 35,  material: 'copper', awg: '8 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: '40A Range' },
-      rv50:     { amps: 50,  volts: 240, phase: 1, length: 75,  material: 'copper', awg: '6 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: '50A RV' },
-      ev60:     { amps: 60,  volts: 240, phase: 1, length: 100, material: 'copper', awg: '6 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: '60A EV Charger' },
-      sub100:   { amps: 100, volts: 240, phase: 1, length: 100, material: 'copper', awg: '3 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: '100A Subpanel' },
-      svc200:   { amps: 200, volts: 240, phase: 1, length: 75,  material: 'copper', awg: '3/0 AWG', temp: '75C', necMode: 'standard', awgAuto: false, label: '200A Service' },
-      garage:   { amps: 60,  volts: 240, phase: 1, length: 200, material: 'copper', awg: '6 AWG',   temp: '75C', necMode: 'standard', awgAuto: true,  label: 'Detached Garage 60A/200ft' },
-      pv12:     { amps: 30,  volts: 12,  phase: 1, length: 100, material: 'copper', awg: '4/0 AWG', temp: '75C', necMode: 'standard', awgAuto: true,  label: '12V PV Solar' },
-      pv24:     { amps: 30,  volts: 24,  phase: 1, length: 50,  material: 'copper', awg: '2 AWG',   temp: '75C', necMode: 'standard', awgAuto: true,  label: '24V PV Solar' },
-      pv48:     { amps: 100, volts: 48,  phase: 1, length: 20,  material: 'copper', awg: '1/0 AWG', temp: '75C', necMode: 'standard', awgAuto: true,  label: '48V PV Battery' },
-      wellpump: { amps: 10,  volts: 240, phase: 1, length: 250, material: 'copper', awg: '10 AWG',  temp: '75C', necMode: 'standard', awgAuto: true,  label: '240V Well Pump' }
+      dryer:    { amps: 24,  volts: 240, phase: 1, length: 35,  material: 'copper', awg: '10 AWG',  temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_dryer" | jsonify }} },
+      range:    { amps: 33,  volts: 240, phase: 1, length: 35,  material: 'copper', awg: '8 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_range" | jsonify }} },
+      rv50:     { amps: 50,  volts: 240, phase: 1, length: 75,  material: 'copper', awg: '6 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_rv50" | jsonify }} },
+      ev60:     { amps: 60,  volts: 240, phase: 1, length: 100, material: 'copper', awg: '6 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_ev60" | jsonify }} },
+      sub100:   { amps: 100, volts: 240, phase: 1, length: 100, material: 'copper', awg: '3 AWG',   temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_sub100" | jsonify }} },
+      svc200:   { amps: 200, volts: 240, phase: 1, length: 75,  material: 'copper', awg: '3/0 AWG', temp: '75C', necMode: 'standard', awgAuto: false, label: {{ T "vd_preset_svc200" | jsonify }} },
+      garage:   { amps: 60,  volts: 240, phase: 1, length: 200, material: 'copper', awg: '6 AWG',   temp: '75C', necMode: 'standard', awgAuto: true,  label: {{ T "vd_preset_garage" | jsonify }} },
+      pv12:     { amps: 30,  volts: 12,  phase: 1, length: 100, material: 'copper', awg: '4/0 AWG', temp: '75C', necMode: 'standard', awgAuto: true,  label: {{ T "vd_preset_pv12" | jsonify }} },
+      pv24:     { amps: 30,  volts: 24,  phase: 1, length: 50,  material: 'copper', awg: '2 AWG',   temp: '75C', necMode: 'standard', awgAuto: true,  label: {{ T "vd_preset_pv24" | jsonify }} },
+      pv48:     { amps: 100, volts: 48,  phase: 1, length: 20,  material: 'copper', awg: '1/0 AWG', temp: '75C', necMode: 'standard', awgAuto: true,  label: {{ T "vd_preset_pv48" | jsonify }} },
+      wellpump: { amps: 10,  volts: 240, phase: 1, length: 250, material: 'copper', awg: '10 AWG',  temp: '75C', necMode: 'standard', awgAuto: true,  label: {{ T "vd_preset_wellpump" | jsonify }} }
     };
 
     // ─────────────────────────────────────────────────────────────────
@@ -512,7 +547,7 @@
         amps = kWtoAmps(inputs.loadKw, inputs.voltage, inputs.phase, inputs.cosphi);
         derivedFromKw = true;
       } else {
-        return { error: 'Enter load amps, kW, or select a preset.' };
+        return { error: window._tVD.errEnter };
       }
 
       // STEP 2: AWG-auto mode — pick smallest compliant AWG first
@@ -523,7 +558,7 @@
         var auto = findSmallestCompliantAWG(amps, inputs.voltage, inputs.phase, inputs.length, inputs.material, inputs.tempColumn);
         if (!auto) {
           return {
-            error: 'Required V-drop < 3 % exceeds 750 kcmil — use parallel conductors, higher voltage (e.g. 12 V → 48 V), or shorter run.',
+            error: window._tVD.errExceed,
             amps: amps
           };
         }
@@ -536,7 +571,7 @@
       var resistance = getResistance(chosenAwg, inputs.material, inputs.tempColumn);
       if (resistance === null) {
         return {
-          error: 'AWG "' + chosenAwg + '" not available for ' + inputs.material + '.',
+          error: window._tVD.errAwgNotAvail.replace('{awg}', chosenAwg).replace('{mat}', inputs.material === 'copper' ? window._tVD.matCu : window._tVD.matAl),
           amps: amps
         };
       }
@@ -604,7 +639,7 @@
     }
 
     function clearResult() {
-      setBadge('red', '⚠ Enter valid load values to compute V-drop.');
+      setBadge('red', window._tVD.clearResult);
       setText('vd-vdrop-v', '—');
       setText('vd-vdrop-pct', '—');
       setText('vd-vdrop-status', '—');
@@ -617,7 +652,7 @@
       setText('vd-detail-voltage', '—');
       setText('vd-detail-limit', '—');
       document.getElementById('vd-auto-awg-row').style.display = 'none';
-      setText('vd-formula', 'Enter load values to see the formula.');
+      setText('vd-formula', window._tVD.formulaPh);
       document.getElementById('vd-tip').style.display = 'none';
     }
 
@@ -636,7 +671,7 @@
         setText('vd-detail-voltage', '—');
         setText('vd-detail-limit', '—');
         document.getElementById('vd-auto-awg-row').style.display = 'none';
-        setText('vd-formula', 'Error: ' + r.error);
+        setText('vd-formula', window._tVDtip.error.replace('{err}', r.error));
         document.getElementById('vd-tip').style.display = 'none';
         return;
       }
@@ -646,24 +681,24 @@
       if (r.necMode === 'nec647') {
         if (r.vdropStatus === 'GREEN') {
           badgeState = 'green';
-          badgeText = '🟢 NEC 647 Compliant — within 3 % branch limit';
+          badgeText = window._tVDbadge.gNec647;
         } else if (r.vdropStatus === 'YELLOW') {
           badgeState = 'yellow';
-          badgeText = '🟡 NEC 647 — within 6 % combined, exceeds 3 % branch';
+          badgeText = window._tVDbadge.yNec647;
         } else {
           badgeState = 'red';
-          badgeText = '🔴 NEC 647 — exceeds 6 % combined limit';
+          badgeText = window._tVDbadge.rNec647;
         }
       } else {
         if (r.vdropStatus === 'GREEN') {
           badgeState = 'green';
-          badgeText = '🟢 NEC 210.19 / 215.2 Compliant — within 3 % branch limit';
+          badgeText = window._tVDbadge.g;
         } else if (r.vdropStatus === 'YELLOW') {
           badgeState = 'yellow';
-          badgeText = '🟡 Within 5 % combined, exceeds 3 % branch — consider upsizing';
+          badgeText = window._tVDbadge.y;
         } else {
           badgeState = 'red';
-          badgeText = '🔴 Exceeds 5 % combined — upsize AWG, shorten run, or raise voltage';
+          badgeText = window._tVDbadge.r;
         }
       }
       setBadge(badgeState, badgeText);
@@ -673,9 +708,9 @@
       setText('vd-vdrop-pct', fmt(r.vDropPct, 2) + '%');
 
       var vdropStatusText;
-      if (r.vdropStatus === 'GREEN') vdropStatusText = '✓ within 3 % NEC limit';
-      else if (r.vdropStatus === 'YELLOW') vdropStatusText = '⚠ within 5 %, over 3 %';
-      else vdropStatusText = '✗ exceeds 5 % limit';
+      if (r.vdropStatus === 'GREEN') vdropStatusText = window._tVDvdrop.g;
+      else if (r.vdropStatus === 'YELLOW') vdropStatusText = window._tVDvdrop.y;
+      else vdropStatusText = window._tVDvdrop.r;
       setText('vd-vdrop-status', vdropStatusText);
 
       // Conductor display — strip " AWG" / " kcmil" suffix to show as number+kcmil label
@@ -695,7 +730,7 @@
       setText('vd-detail-temp', tempLabel);
       setText('vd-detail-r', fmt(r.resistance, 4) + ' Ω / 1000 ft');
       setText('vd-detail-length', r.length + ' ft');
-      setText('vd-detail-phase', r.phase === 1 ? '1Φ Single-Phase (L + N)' : '3Φ Three-Phase (√3 factor)');
+      setText('vd-detail-phase', r.phase === 1 ? window._tVD.notePhase1 : window._tVD.notePhase3);
       setText('vd-detail-voltage', r.voltage + ' V');
       setText('vd-detail-limit', r.branchLimit + ' % / ' + r.combinedLimit + ' %' + (r.necMode === 'nec647' ? '  (NEC 647)' : ''));
 
@@ -723,35 +758,33 @@
       var tipEl = document.getElementById('vd-tip');
       var tipText = '';
       var tipClass = 'vd-tip';
-      var materialWord = (r.material === 'aluminum') ? 'Aluminum (Al)' : 'Copper (Cu)';
+      var materialWord = (r.material === 'aluminum') ? window._tVD.matAl : window._tVD.matCu;
 
       if (r.necMode === 'nec647') {
-        tipText = 'ℹ <strong>NEC 647 mode active.</strong> 3 % branch / 6 % combined applied (instead of 3 % / 5 %) for sensitive electronic equipment per NFPA 70 Article 647.';
+        tipText = window._tVDtip.nec647;
         tipClass += ' vd-tip-info';
       } else if (r.autoPicked) {
-        tipText = '✓ <strong>Smallest compliant AWG picked automatically.</strong> ' + r.awg + ' at ' + tempLabel + ' °C — V-drop ' + fmt(r.vDropPct, 2) + ' % ≤ 3 % branch (NEC 210.19(A) IN No. 4).';
+        tipText = window._tVDtip.autoAwg.replace('{awg}', r.awg).replace('{temp}', tempLabel).replace('{pct}', fmt(r.vDropPct, 2));
         tipClass += ' vd-tip-good';
       } else if (r.vdropStatus === 'RED') {
         if (r.voltage <= 48 && r.voltage >= 12) {
-          tipText = '⚠️ <strong>V-drop exceeds NEC 5 % combined limit.</strong> For low-voltage DC, stepping up the battery voltage (12 V → 24 V → 48 V) quarters the current and halves / quarters V-drop. Otherwise upsize 1–2 AWG sizes or shorten the run.';
+          tipText = window._tVDtip.vdropRedLowv;
         } else {
-          tipText = '⚠️ <strong>V-drop exceeds NEC 5 % combined limit.</strong> Upsize 1–2 AWG sizes, shorten the run, or raise the system voltage (e.g. 240 V → 480 V halves V-drop). Pair with the <a href="/tools/wire-size-calculator/">wire size calculator</a> to confirm ampacity.';
+          tipText = window._tVDtip.vdropRed;
         }
         tipClass += ' vd-tip-bad';
       } else if (r.vdropStatus === 'YELLOW') {
         if (r.material === 'aluminum') {
-          tipText = '💡 <strong>V-drop exceeds 3 % branch but within 5 % combined.</strong> Consider upsizing one AWG (Al has ~61 % the conductivity of Cu — typically need 2 sizes larger for V-drop parity). Verify with your AHJ.';
+          tipText = window._tVDtip.vdropYellowAl;
         } else {
-          tipText = '💡 <strong>V-drop exceeds 3 % branch but within 5 % combined (NEC 215.2(A) IN No. 3).</strong> For motor loads or sensitive electronics, consider upsizing one AWG. Pair with the <a href="/tools/circuit-breaker-sizing-calculator/">circuit breaker sizing calculator</a> for OCPD selection.';
-        }
+          tipText = window._tVDtip.vdropYellow;
         tipClass += ' vd-tip-warn';
       } else {
         // GREEN
         if (r.voltage <= 48 && r.voltage >= 12) {
-          tipText = '✓ <strong>Fully NEC-compliant.</strong> V-drop within 3 % branch (NEC 210.19(A) IN No. 4). ' + materialWord + ' conductor at ' + tempLabel + ' °C. For long-run DC, consider parallel conductors if length must exceed 200 ft.';
+          tipText = window._tVDtip.vdropGreenLowv.replace('{mat}', materialWord).replace('{temp}', tempLabel);
         } else {
-          tipText = '✓ <strong>Fully NEC-compliant.</strong> V-drop within the 3 % branch recommendation (NEC 210.19(A) IN No. 4) and 5 % combined (NEC 215.2(A) IN No. 3). Pair the conductor with the breaker via the <a href="/tools/circuit-breaker-sizing-calculator/">circuit breaker sizing calculator</a>.';
-        }
+          tipText = window._tVDtip.vdropGreen;
         tipClass += ' vd-tip-good';
       }
       tipEl.className = tipClass;

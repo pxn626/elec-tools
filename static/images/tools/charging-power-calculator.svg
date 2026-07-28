@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0fdf4"/>
+      <stop offset="100%" style="stop-color:#d1fae5"/>
+    </linearGradient>
+    <linearGradient id="greenGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#10b981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg2)"/>
+
+  <!-- Grid -->
+  <g stroke="#10b981" stroke-width="0.5" opacity="0.1">
+    <line x1="0" y1="157" x2="1200" y2="157"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="473" x2="1200" y2="473"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+
+  <!-- EV charger body (wall box style) -->
+  <rect x="80" y="150" width="200" height="360" rx="24" fill="white" stroke="url(#greenGrad2)" stroke-width="5"/>
+  <!-- Screen on charger -->
+  <rect x="110" y="175" width="140" height="90" rx="8" fill="#f0fdf4" stroke="#10b981" stroke-width="2"/>
+  <text x="180" y="220" text-anchor="middle" font-family="Inter, monospace" font-size="28" fill="#10b981" font-weight="bold">7.4 kW</text>
+  <text x="180" y="250" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#059669">AC</text>
+  <!-- Connector port -->
+  <rect x="150" y="280" width="60" height="20" rx="6" fill="#10b981"/>
+  <!-- Cable -->
+  <path d="M210,290 Q280,290 280,360 Q280,430 350,430 L450,430" fill="none" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
+  <!-- Nozzle/connector -->
+  <rect x="450" y="400" width="80" height="100" rx="12" fill="white" stroke="url(#greenGrad2)" stroke-width="4"/>
+  <circle cx="490" cy="430" r="20" fill="none" stroke="#10b981" stroke-width="3"/>
+  <circle cx="490" cy="430" r="8" fill="#10b981"/>
+  <!-- LED indicator dots on charger -->
+  <circle cx="130" cy="440" r="8" fill="#10b981"/>
+  <circle cx="155" cy="440" r="8" fill="#10b981" opacity="0.5"/>
+  <circle cx="180" cy="440" r="8" fill="#10b981" opacity="0.2"/>
+  <circle cx="205" cy="440" r="8" fill="#10b981" opacity="0.1"/>
+  <!-- Brand text on charger -->
+  <text x="180" y="480" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#059669" letter-spacing="3">EV CHARGER</text>
+
+  <!-- Three-phase waveform (center-right area) -->
+  <!-- Phase L1 -->
+  <path d="M550,520 C570,420 590,320 610,320 C630,320 650,420 670,520" fill="none" stroke="#10b981" stroke-width="3"/>
+  <!-- Phase L2 (120° offset) -->
+  <path d="M610,520 C630,420 650,320 670,320 C690,320 700,420 710,520" fill="none" stroke="#059669" stroke-width="3"/>
+  <!-- Phase L3 (240° offset) -->
+  <path d="M670,520 C690,420 710,320 730,320 C750,320 760,420 770,520" fill="none" stroke="#047857" stroke-width="3"/>
+
+  <!-- Waveform baseline -->
+  <line x1="540" y1="520" x2="780" y2="520" stroke="#10b981" stroke-width="1" opacity="0.4"/>
+
+  <!-- Formula box -->
+  <rect x="80" y="545" width="700" height="60" rx="10" fill="#10b981" opacity="0.12"/>
+  <rect x="80" y="545" width="700" height="60" rx="10" fill="none" stroke="#10b981" stroke-width="2"/>
+  <text x="430" y="588" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Inter, Roboto, sans-serif" font-size="36" fill="#065f46" font-weight="bold">P = √3 × U × I × cosφ</text>
+
+  <!-- Chinese title -->
+  <text x="880" y="100" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="48" fill="#065f46" font-weight="bold">充电桩功率计算器</text>
+  <!-- English title -->
+  <text x="880" y="135" text-anchor="middle" font-family="Inter, Roboto, sans-serif" font-size="20" fill="#059669" letter-spacing="2">Charging Power Calculator</text>
+
+  <!-- Unit labels on right panel -->
+  <g font-family="Inter, sans-serif" font-size="18" fill="#059669">
+    <text x="820" y="200" text-anchor="middle">U = 220V / 380V</text>
+    <text x="820" y="230" text-anchor="middle">I = 32A / 16A</text>
+    <text x="820" y="260" text-anchor="middle">cosφ = 0.95</text>
+  </g>
+
+  <!-- Decorative volt-amp icons -->
+  <g opacity="0.3">
+    <text x="900" y="400" font-family="Inter, sans-serif" font-size="80" fill="#10b981" font-weight="bold">V</text>
+    <text x="980" y="400" font-family="Inter, sans-serif" font-size="80" fill="#10b981" font-weight="bold">A</text>
+    <text x="1050" y="400" font-family="Inter, sans-serif" font-size="60" fill="#10b981" font-weight="bold">kW</text>
+  </g>
+</svg>

@@ -6,6 +6,26 @@ categories:
   - "电费估算"
   - "节能工具"
   - "家庭必备"
+
+
+images:
+  - "/images/tools/electricity-cost-calculator.svg"
+tags:
+  - "电费"
+  - "阶梯电价"
+  - "kWh"
+  - "家用电器"
+  - "LED"
+  - "空调"
+  - "电热水器"
+  - "CO₂排放"
+keywords:
+  - "电费计算器"
+  - "家用电器电费"
+  - "月用电量"
+  - "阶梯电价"
+  - "节能"
+  - "电费估算"
 layout: "page"
 translationKey: "electricity_cost_calculator"
 ---
@@ -109,3 +129,7 @@ translationKey: "electricity_cost_calculator"
   ]
 }
 </script>
+
+## 参考标准
+
+- GB/T 32151.1-2015 居民生活能耗计量与计算方法 第1部分:总则

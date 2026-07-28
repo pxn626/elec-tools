@@ -681,7 +681,411 @@
   translation: "并列运行 / 短路电流 / 电压降 / 经济电流密度法选型不在本工具范围内。"
 - id: tcs_disc_5
   translation: "特殊场景(化工防腐 / 爆炸危险 / 海上风电 / 地铁)需参考专项标准。"
-
+# ── CBS: Circuit Breaker Sizing ─────────────────────────────────────
+- id: cbs_preset_group_label
+  translation: "⚡ 快速预设 — 常见 NEC 配电规格"
+- id: cbs_mode_resistive
+  translation: "⚡ 阻性 / 一般负荷"
+- id: cbs_mode_motor
+  translation: "⚙ 电动机分支电路 (NEC 430)"
+- id: cbs_label_load_amps
+  translation: "负载电流 <span class=\"cbs-unit\">(A)</span>"
+- id: cbs_label_load_power
+  translation: "负载功率 <span class=\"cbs-unit\">(kW，选填)</span>"
+- id: cbs_help_load_power
+  translation: "直接输入电流时留空。"
+- id: cbs_label_sys_voltage
+  translation: "系统电压 <span class=\"cbs-unit\">(V)</span>"
+- id: cbs_label_pf
+  translation: "功率因数 <span class=\"cbs-unit\">(cosφ)</span>"
+- id: cbs_help_pf
+  translation: "阻性负荷 = 1.0；电动机负荷典型值 0.85。"
+- id: cbs_checkbox_continuous
+  translation: "连续负荷 <span style=\"color:#6b7280;font-weight:400;\">(NEC 210.20(A) — 125% 规则)</span>"
+- id: cbs_help_continuous
+  translation: "适用于 EV 充电桩、光伏逆变器及预期运行 > 3 小时的负荷。"
+- id: cbs_label_motor_power
+  translation: "电动机功率 <span class=\"cbs-unit\">(HP)</span>"
+- id: cbs_label_motor_design
+  translation: "NEMA/IEC 设计字母"
+- id: cbs_opt_design_b
+  translation: "B — 标准（最常见，250% FLA）"
+- id: cbs_opt_design_a
+  translation: "A — 高转矩，正常锁定转子（250% FLA）"
+- id: cbs_opt_design_c
+  translation: "C — 高启动转矩（150% FLA）"
+- id: cbs_opt_design_e
+  translation: "E — IEC 高效（150% FLA）"
+- id: cbs_opt_design_d
+  translation: "D — 极高锁定转子（150% FLA）"
+- id: cbs_label_motor_voltage
+  translation: "电动机电压 <span class=\"cbs-unit\">(V)</span>"
+- id: cbs_phase_1ph
+  translation: "1Φ 单相"
+- id: cbs_phase_3ph
+  translation: "3Φ 三相"
+- id: cbs_help_motor_fla
+  translation: "FLA 查自 NEC Table 430.250 (3Φ) 或 Table 430.6 (1Φ)。按 NEC 430.52，逆时限断路器 = FLA × 250%（A/B 型）或 ×150%（C/E/D 型）。"
+- id: cbs_badge_exceed800
+  translation: "🔴 超过 800A — 需使用并联导体或中压配电"
+- id: cbs_badge_motor
+  translation: "🟡 NEC 430.52 × {pct}% 已应用（设计 {design}）"
+- id: cbs_badge_roundup
+  translation: "🟢 NEC 240.4(B) 向上取整 — 下一档 OCPD"
+- id: cbs_badge_compliant
+  translation: "🟢 NEC 合规 — 直接匹配 OCPD"
+- id: cbs_result_ocpd
+  translation: "推荐 OCPD"
+- id: cbs_result_ocpd_unit
+  translation: "安培"
+- id: cbs_result_run_amps
+  translation: "运行电流"
+- id: cbs_result_design_amps
+  translation: "设计电流"
+- id: cbs_notes_title
+  translation: "计算明细"
+- id: cbs_note_run_current
+  translation: "运行电流"
+- id: cbs_note_nec125
+  translation: "NEC 210.20(A) 125% 规则"
+- id: cbs_note_roundup
+  translation: "NEC 240.4(B) 向上取整"
+- id: cbs_note_std_rating
+  translation: "NEC 240.6(A) 标准额定值"
+- id: cbs_formula_placeholder
+  translation: "输入负荷值以查看计算公式。"
+- id: cbs_collapsible_ocpd_title
+  translation: "📊 NEC 240.6(A) 标准 OCPD 规格（点击展开）"
+- id: cbs_collapsible_fla_title
+  translation: "📊 NEC Table 430.250 — 三相电动机 FLA 参考（点击展开）"
+- id: cbs_th_std_ocpd
+  translation: "标准 OCPD (A)"
+- id: cbs_th_common_use
+  translation: "常见用途"
+- id: cbs_source_nfpa
+  translation: "来源：NFPA 70 — 国家电气规范 2023 版，Section 240.6(A)。"
+- id: cbs_source_nfpa_table
+  translation: "来源：NFPA 70 — 国家电气规范 2023 版，Table 430.250（三相感应电动机满载电流）。"
+- id: cbs_disclaimer
+  translation: "⚠️ <strong>仅供参考。</strong> OCPD 选型遵循 NEC 规范，但最终导体和断路器规格必须由持证电工核实并经当地 AHJ 审批。始终遵循 NFPA 70 最新版本。"
+- id: cbs_js_err_no_load
+  translation: "请输入负载电流或负载 kW。"
+- id: cbs_js_err_invalid_voltage
+  translation: "电压无效。"
+- id: cbs_js_err_fla_not_avail
+  translation: "无法获取 {v}V {p} 的电动机 FLA — 请直接查阅 NEC Table 430.250 / Table 430.6。"
+- id: cbs_js_fla_table
+  translation: "FLA（Table 430.250）"
+- id: cbs_js_multiplier
+  translation: "NEC 430.52 乘数"
+- id: cbs_js_roundup
+  translation: "NEC 240.4(B) 向上取整"
+- id: cbs_js_roundup_yes
+  translation: "是 → {ocpd}A（下一档标准 OCPD）"
+- id: cbs_js_roundup_no
+  translation: "否（已在标准 OCPD）"
+- id: cbs_js_run_current_kw
+  translation: "运行电流（kW→A）"
+- id: cbs_js_run_current_input
+  translation: "运行电流（直接输入）"
+- id: cbs_js_cont_125
+  translation: "是 ×1.25，连续负荷"
+- id: cbs_js_cont_no
+  translation: "未应用（非连续负荷）"
+- id: cbs_js_tip_exceed800
+  translation: "⚠️ <strong>设计电流超过 800A。</strong> 标准 OCPD 上限为 800A（NEC 240.6(A)）。使用并联导体（NEC 310.10(H)）、降低电压（中压配电）或使用服务入口级断路器系列。"
+- id: cbs_js_tip_motor
+  translation: "💡 <strong>已应用 NEC 430.52 电动机路径。</strong> 逆时限断路器按 FLA × {pct}% 选型（设计 {design}）。验证电机铭牌设计字母和所选断路器的短路电流额定值（SCCR）。依据 NEC 430.52(C)(1) Exception 1，计算值不匹配标准额定值时允许向上取整。"
+- id: cbs_js_tip_cont_roundup
+  translation: "✓ <strong>连续负荷 + NEC 240.4(B) 向上取整。</strong> 设计电流 = {run}A × 1.25 = {design}A。下一档标准 OCPD {ocpd}A 按向上取整规则保护导体。"
+- id: cbs_js_tip_cont_compliant
+  translation: "✓ <strong>连续负荷合规（NEC 210.20(A) 125% 规则）。</strong> 设计电流 = {run}A × 1.25 = {design}A；OCPD {ocpd}A 为直接标准匹配。配线截面需 ≥{design}A（NEC 110.14(C)，≤100A 回路使用 75°C 栏）。"
+- id: cbs_js_tip_roundup
+  translation: "✓ <strong>NEC 240.4(B) 向上取整已应用。</strong> 导体载流量与任何标准 OCPD 均不匹配；允许使用下一档 {ocpd}A（NEC 240.4(B)）。导体必须按实际负荷（而非 OCPD 取整值）选型。"
+- id: cbs_js_tip_compliant
+  translation: "✓ <strong>完全 NEC 合规。</strong> OCPD {ocpd}A 为设计电流的直接标准匹配（NEC 240.6(A)）。按 NEC 110.14(C) 配线 — ≤100A 回路使用 75°C 端子栏。"
+- id: cbs_js_error
+  translation: "错误：{err}"
+# ── WS: Wire Size Calculator ────────────────────────────────────────
+- id: ws_preset_group_label
+  translation: "⚡ 快速预设 — 一键选型"
+- id: ws_preset_ev40
+  translation: "EV L2 40A（连续负荷）"
+- id: ws_preset_ev48
+  translation: "EV L2 48A（连续负荷）"
+- id: ws_preset_ev50
+  translation: "EV L2 50A（连续负荷）"
+- id: ws_preset_sub50
+  translation: "50A 分支配电盘"
+- id: ws_preset_sub100
+  translation: "100A 分支配电盘"
+- id: ws_preset_svc200
+  translation: "200A 进线配电"
+- id: ws_preset_dryer
+  translation: "30A 干衣机"
+- id: ws_preset_range
+  translation: "40A 烤箱"
+- id: ws_label_load_amps
+  translation: "负载电流 <span class=\"ws-unit\">(A)</span>"
+- id: ws_label_sys_voltage
+  translation: "系统电压 <span class=\"ws-unit\">(V)</span>"
+- id: ws_phase_1ph
+  translation: "1Φ 单相"
+- id: ws_phase_3ph
+  translation: "3Φ 三相"
+- id: ws_label_oneway_length
+  translation: "单程长度 <span class=\"ws-unit\">(ft)</span>"
+- id: ws_label_wire_material
+  translation: "导线材料"
+- id: ws_mat_copper
+  translation: "铜 (Cu)"
+- id: ws_mat_aluminum
+  translation: "铝 (Al)"
+- id: ws_label_ambient_temp
+  translation: "环境温度 <span class=\"ws-unit\">(°C)</span>"
+- id: ws_label_current_conductors
+  translation: "载流导体数"
+- id: ws_checkbox_continuous
+  translation: "连续负荷 <span style=\"color:#6b7280;font-weight:400;\">(NEC 210.20(A) — 125% 规则)</span>"
+- id: ws_help_continuous
+  translation: "适用于 EV 充电桩、光伏逆变器及预期运行 > 3 小时的负荷。"
+- id: ws_result_conductor
+  translation: "导体"
+- id: ws_result_breaker
+  translation: "断路器 (OCPD)"
+- id: ws_result_breaker_unit
+  translation: "安培"
+- id: ws_result_vdrop
+  translation: "电压降"
+- id: ws_vdrop_green
+  translation: "✓ 不超过 3% NEC 限值"
+- id: ws_vdrop_yellow
+  translation: "⚠ 不超过 5%，超过 3%"
+- id: ws_vdrop_red
+  translation: "✗ 超过 5% 限值"
+- id: ws_notes_title
+  translation: "计算明细"
+- id: ws_note_design_amps
+  translation: "设计电流（NEC 125% 连续负荷）"
+- id: ws_note_base_ampacity
+  translation: "基准载流量（NEC 310.16，75°C）"
+- id: ws_note_temp_correction
+  translation: "温度修正（310.15(B)(1)）"
+- id: ws_note_conduit_fill
+  translation: "管道填充降额（310.15(C)(1)）"
+- id: ws_note_final_ampacity
+  translation: "修正后载流量"
+- id: ws_note_roundup
+  translation: "NEC 240.4(B) 向上取整已应用"
+- id: ws_roundup_yes
+  translation: "是 — 升至匹配 OCPD"
+- id: ws_formula_placeholder
+  translation: "输入负荷值以查看计算公式。"
+- id: ws_collapsible_31016_title
+  translation: "📊 NEC 310.16 参考表 — 75°C 栏（点击展开）"
+- id: ws_th_awg
+  translation: "AWG / kcmil"
+- id: ws_th_cu_amp
+  translation: "铜载流量 (A)"
+- id: ws_th_al_amp
+  translation: "铝载流量 (A)"
+- id: ws_th_cu_resistance
+  translation: "Cu Ω/1000ft"
+- id: ws_source_nfpa_31016
+  translation: "来源：NFPA 70 — 国家电气规范 2023 版，Table 310.16（75°C 栏，NEC 110.14(C) 检算员偏好端子额定值，≤100A 回路适用）。"
+- id: ws_disclaimer
+  translation: "⚠️ <strong>仅供参考。</strong> 计算遵循 NEC 规范，但最终导体选型必须由持证电工核实并经当地 AHJ 审批。始终遵循 NFPA 70 最新版本。"
+- id: ws_js_err_exceed_750kcmil
+  translation: "所需载流量（{amp}A）超过 750kcmil 容量。请考虑并联导体（NEC 310.10(H)）。"
+- id: ws_js_err_cannot_meet
+  translation: "在 750kcmil 内无法满足 OCPD 要求 — 请尝试并联导体或更大 OCPD 级别。"
+- id: ws_js_vdrop_green
+  translation: "🟢 NEC 合规 — 不超过 3% 分支限值"
+- id: ws_js_vdrop_yellow
+  translation: "🟡 临界 — 超过 3% 分支但在 5% 干线+分支内"
+- id: ws_js_vdrop_red
+  translation: "🔴 电压降过高 — 超过 5% 组合限值"
+- id: ws_js_tip_vdrop_red
+  translation: "⚠️ <strong>电压降超过 NEC 5% 组合限值。</strong> 放大一至两个线号、缩短敷设长度或提高系统电压（如 240V → 480V）。"
+- id: ws_js_tip_vdrop_yellow
+  translation: "💡 <strong>电压降在 5% 内但超过 3% 分支建议值。</strong> 电动机负荷或敏感电子设备建议放大一个线号。与当地 AHJ 确认。"
+- id: ws_js_tip_cont
+  translation: "✓ <strong>连续负荷合规。</strong> NEC 210.20(A) 125% 规则已应用 — 导体载流量超过 OCPD 额定值，符合连续负荷严格大于要求。"
+- id: ws_js_tip_roundup
+  translation: "✓ <strong>NEC 240.4(B) 向上取整已应用。</strong> 导体放大一档以匹配下一标准 OCPD 额定值。"
+- id: ws_js_tip_compliant
+  translation: "✓ <strong>完全 NEC 合规。</strong> 导体载流量 ≥ OCPD，电压降在 3% 分支限值内。"
+- id: ws_js_error
+  translation: "错误：{err}"
+# ── VD: Voltage Drop Calculator ─────────────────────────────────────
+- id: vd_preset_group_label
+  translation: "⚡ 快速预设 — 常见压降场景"
+- id: vd_preset_dryer
+  translation: "30A 干衣机"
+- id: vd_preset_range
+  translation: "40A 烤箱"
+- id: vd_preset_rv50
+  translation: "50A 房车营地"
+- id: vd_preset_ev60
+  translation: "60A EV 充电桩"
+- id: vd_preset_sub100
+  translation: "100A 分支配电盘"
+- id: vd_preset_svc200
+  translation: "200A 进线配电"
+- id: vd_preset_garage
+  translation: "独立车库 60A/200ft"
+- id: vd_preset_pv12
+  translation: "12V 光伏太阳能"
+- id: vd_preset_pv24
+  translation: "24V 光伏太阳能"
+- id: vd_preset_pv48
+  translation: "48V 光伏储能"
+- id: vd_preset_wellpump
+  translation: "240V 深井泵"
+- id: vd_note_phase_1ph
+  translation: "1Φ 单相（L + N）"
+- id: vd_note_phase_3ph
+  translation: "3Φ 三相（√3 系数）"
+- id: vd_label_load_amps
+  translation: "负载电流 <span class=\"vd-unit\">(A)</span>"
+- id: vd_label_load_power
+  translation: "负载功率 <span class=\"vd-unit\">(kW，选填)</span>"
+- id: vd_help_kw
+  translation: "输入 kW <em>或</em> A — kW 将通过功率因数转换为电流。"
+- id: vd_label_pf
+  translation: "功率因数 <span class=\"vd-unit\">(cosφ)</span>"
+- id: vd_help_pf
+  translation: "默认 0.95。纯阻性 = 1.0。电动机负荷 = 0.85。"
+- id: vd_label_sys_voltage
+  translation: "系统电压 <span class=\"vd-unit\">(V)</span>"
+- id: vd_phase_1ph
+  translation: "1Φ 单相"
+- id: vd_phase_3ph
+  translation: "3Φ 三相"
+- id: vd_label_oneway_length
+  translation: "单程长度 <span class=\"vd-unit\">(ft)</span>"
+- id: vd_label_wire_material
+  translation: "导线材料"
+- id: vd_mat_copper
+  translation: "铜 (Cu)"
+- id: vd_mat_aluminum
+  translation: "铝 (Al)"
+- id: vd_label_conductor_size
+  translation: "导体规格 <span class=\"vd-unit\">(AWG / kcmil)</span>"
+- id: vd_label_temp_column
+  translation: "温度栏"
+- id: vd_temp_75c
+  translation: "75°C"
+- id: vd_temp_90c
+  translation: "90°C"
+- id: vd_help_temp_column
+  translation: "75°C = 标准分支（NEC 110.14(C)）。90°C = 光伏导线 / 电动机绕组。"
+- id: vd_checkbox_nec647
+  translation: "NEC 647 敏感电子设备 <span style=\"color:#6b7280;font-weight:400;\">(3% 分支 + 6% 组合)</span>"
+- id: vd_help_nec647
+  translation: "适用于医院、数据中心、录音棚及其他 NEC 647 敏感电子设备。更严格的压降限值（组合 6%）。"
+- id: vd_checkbox_awg_auto
+  translation: "自动选择最小合规 AWG <span style=\"color:#6b7280;font-weight:400;\">(忽略 AWG 下拉框)</span>"
+- id: vd_help_awg_auto
+  translation: "启用后，计算器自动找出满足给定电流+长度下 3% 分支限值的最小 AWG，而非使用手动选择的 AWG。"
+- id: vd_result_vdrop_v
+  translation: "电压降"
+- id: vd_result_vdrop_v_unit
+  translation: "伏特"
+- id: vd_result_vdrop_pct
+  translation: "压降 %"
+- id: vd_result_conductor
+  translation: "导体"
+- id: vd_vdrop_green
+  translation: "✓ 不超过 3% NEC 限值"
+- id: vd_vdrop_yellow
+  translation: "⚠ 不超过 5%，超过 3%"
+- id: vd_vdrop_red
+  translation: "✗ 超过 5% 限值"
+- id: vd_notes_title
+  translation: "计算明细"
+- id: vd_note_run_current
+  translation: "运行电流 (I)"
+- id: vd_note_resistance
+  translation: "导体电阻 (R) <span id=\"vd-detail-temp\">75</span>°C"
+- id: vd_note_oneway_length
+  translation: "单程长度 (L)"
+- id: vd_note_phase_config
+  translation: "相位配置"
+- id: vd_note_sys_voltage
+  translation: "系统电压"
+- id: vd_note_nec_limit
+  translation: "NEC 限值（分支 / 组合）"
+- id: vd_note_auto_awg
+  translation: "自动选 AWG"
+- id: vd_formula_placeholder
+  translation: "输入负荷值以查看计算公式。"
+- id: vd_collapsible_resistance_title
+  translation: "📊 NEC Chapter 9 Table 9 — Ω/1000ft @ 75°C 和 90°C（点击展开）"
+- id: vd_collapsible_compliance_title
+  translation: "📊 NEC 210.19(A) / 215.2(A) / 647 — 压降合规参考（点击展开）"
+- id: vd_th_awg
+  translation: "AWG / kcmil"
+- id: vd_th_cu_ohm75
+  translation: "Cu Ω/1000ft @ 75°C"
+- id: vd_th_cu_ohm90
+  translation: "Cu Ω/1000ft @ 90°C"
+- id: vd_th_al_ohm75
+  translation: "Al Ω/1000ft @ 75°C"
+- id: vd_th_al_ohm90
+  translation: "Al Ω/1000ft @ 90°C"
+- id: vd_th_nec_article
+  translation: "NEC 条款"
+- id: vd_th_branch_limit
+  translation: "分支限值"
+- id: vd_th_combined_limit
+  translation: "组合限值"
+- id: vd_th_scope
+  translation: "适用范围"
+- id: vd_source_nfpa_table9
+  translation: "来源：NFPA 70 — 国家电气规范 2023 版，Chapter 9 Table 9（裸铜和铝导体直流电阻，75°C 和 90°C 栏）。"
+- id: vd_source_nfpa_vdrop
+  translation: "来源：NFPA 70 — 国家电气规范 2023 版，Informational Notes 210.19(A) No. 4、215.2(A) No. 3 及 Article 647。"
+- id: vd_disclaimer
+  translation: "⚠️ <strong>仅供参考。</strong> 压降计算遵循 NEC 规范，但最终导体选型必须由持证电工核实并经当地 AHJ 审批。本计算器忽略导体电抗（X），在 >600V 或 >500ft 场合电抗显著，特殊情况请查阅 IEEE Std 141（红皮书）或咨询电能质量工程师。"
+- id: vd_js_err_enter_values
+  translation: "请输入负载电流、kW 或选择预设。"
+- id: vd_js_err_exceed_750kcmil
+  translation: "所需压降 < 3% 超出 750kcmil 范围 — 请使用并联导体、提高电压（如 12V → 48V）或缩短敷设长度。"
+- id: vd_js_err_awg_not_avail
+  translation: "AWG \"{awg}\" 不适用于 {mat}。"
+- id: vd_js_clear_result
+  translation: "⚠ 输入有效负荷值以计算压降。"
+- id: vd_js_vdrop_green_nec647
+  translation: "🟢 NEC 647 合规 — 不超过 3% 分支限值"
+- id: vd_js_vdrop_yellow_nec647
+  translation: "🟡 NEC 647 — 在 6% 组合内，超过 3% 分支"
+- id: vd_js_vdrop_red_nec647
+  translation: "🔴 NEC 647 — 超过 6% 组合限值"
+- id: vd_js_vdrop_green
+  translation: "🟢 NEC 210.19 / 215.2 合规 — 不超过 3% 分支限值"
+- id: vd_js_vdrop_yellow
+  translation: "🟡 在 5% 组合内，超过 3% 分支 — 考虑放大线号"
+- id: vd_js_vdrop_red
+  translation: "🔴 超过 5% 组合 — 放大 AWG、缩短长度或提高电压"
+- id: vd_js_tip_nec647
+  translation: "ℹ <strong>NEC 647 模式已启用。</strong> 已应用 3% 分支 / 6% 组合（代替 3% / 5%）用于敏感电子设备（NFPA 70 Article 647）。"
+- id: vd_js_tip_auto_awg
+  translation: "✓ <strong>已自动选择最小合规 AWG。</strong> {awg} @ {temp}°C — 压降 {pct}% ≤ 3% 分支（NEC 210.19(A) IN No. 4）。"
+- id: vd_js_tip_vdrop_red_lowv
+  translation: "⚠️ <strong>压降超过 NEC 5% 组合限值。</strong> 对于低压直流，将电池电压提升（12V → 24V → 48V）可将电流降至 1/4，使压降减半/减至 1/4。否则放大 1-2 个线号或缩短敷设长度。"
+- id: vd_js_tip_vdrop_red
+  translation: "⚠️ <strong>压降超过 NEC 5% 组合限值。</strong> 放大 1-2 个 AWG 线号、缩短敷设长度或提高系统电压（如 240V → 480V 可使压降减半）。配合 <a href=\"/tools/wire-size-calculator/\">线径计算器</a>确认载流量。"
+- id: vd_js_tip_vdrop_yellow_al
+  translation: "💡 <strong>压降超过 3% 分支但在 5% 组合内。</strong> 考虑放大一个 AWG（Al 的导电率约为 Cu 的 61% — 通常需大两个线号才能等效压降）。与当地 AHJ 确认。"
+- id: vd_js_tip_vdrop_yellow
+  translation: "💡 <strong>压降超过 3% 分支但在 5% 组合内（NEC 215.2(A) IN No. 3）。</strong> 电动机负荷或敏感电子设备建议放大一个 AWG。配合 <a href=\"/tools/circuit-breaker-sizing-calculator/\">断路器选型计算器</a>选 OCPD。"
+- id: vd_js_tip_vdrop_green_lowv
+  translation: "✓ <strong>完全 NEC 合规。</strong> 压降在 3% 分支限值内（NEC 210.19(A) IN No. 4）。{mat} 导体 @ {temp}°C。对于长距离直流，若长度必须超过 200ft 建议考虑并联导体。"
+- id: vd_js_tip_vdrop_green
+  translation: "✓ <strong>完全 NEC 合规。</strong> 压降在 3% 分支建议值（NEC 210.19(A) IN No. 4）和 5% 组合限值（NEC 215.2(A) IN No. 3）内。用 <a href=\"/tools/circuit-breaker-sizing-calculator/\">断路器选型计算器</a>配合导体与断路器选型。"
+- id: vd_js_error
+  translation: "错误：{err}"
 # conduit-fill-calculator (cf_* prefix, 25 keys incl. meta)
 - id: cf_page_title
   translation: "穿管填充率计算器 - NEC Chapter 9 / Annex C"

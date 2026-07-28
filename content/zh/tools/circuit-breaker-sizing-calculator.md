@@ -7,6 +7,9 @@ categories:
   - "NEC 240"
   - "OCPD 选型"
   - "断路器选型"
+
+images:
+  - "/images/tools/circuit-breaker-sizing-calculator.svg"
 tags:
   - "断路器计算器"
   - "OCPD"
@@ -16,6 +19,15 @@ tags:
   - "NEC 210.20(A)"
   - "马达断路器"
   - "电动车充电桩断路器"
+  - "子配电盘馈线"
+
+keywords:
+  - "断路器选型计算器"
+  - "OCPD选型"
+  - "NEC 240.6"
+  - "125%连续负载"
+  - "充电桩断路器"
+  - "马达断路器"
   - "子配电盘馈线"
 translationKey: "circuit_breaker_sizing_calculator"
 ---

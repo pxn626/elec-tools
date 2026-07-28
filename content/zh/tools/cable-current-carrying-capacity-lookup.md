@@ -5,19 +5,33 @@ categories:
   - 电气工具
   - 电缆与敷设
   - 工程速查
+
+images:
+  - "/images/tools/cable-current-carrying-capacity-lookup.svg"
+tags:
+  - "电缆"
+  - "载流量"
+  - "YJV"
+  - "穿管"
+  - "桥架"
+  - "土壤敷设"
+  - "GB 50217"
+  - "修正系数"
+keywords:
+  - "电缆载流量查询"
+  - "电缆选型"
+  - "YJV电缆"
+  - "穿管敷设"
+  - "桥架敷设"
+  - "土壤敷设"
+  - "载流量修正"
 layout: page
 translationKey: cable_current_carrying_capacity_lookup
-keywords:
-  - 电缆载流量查询
-  - YJV 电缆载流量
-  - YJV22 电缆载流量表
-  - 电缆载流量速查
-  - GB 50217 电缆载流量
-  - 穿管电缆载流量
-  - 电缆载流量修正系数
 date: 2026-07-18T21:05:00+00:00
 draft: false
 ---
+
+{{< cable-current-carrying-capacity-lookup >}}
 
 # 电缆载流量查询 - YJV / YJV22 在线速查
 
@@ -446,3 +460,8 @@ I_L ≤ I_z             (常规持续负载,推荐)
   ]
 }
 </script>
+
+## 参考标准
+
+- GB 50217-2018 电力工程电缆设计标准
+- GB/T 12706.1-2020 额定电压1kV到35kV挤包绝缘电力电缆及附件

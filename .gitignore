@@ -3,3 +3,8 @@ tmp/
 .DS_Store
 *.log
 .hugo_build.lock
+_scripts_tmp
+_test
+extract_scripts.js
+.gitignore
+check_scripts.js

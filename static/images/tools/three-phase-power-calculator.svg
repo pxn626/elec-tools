@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#eff6ff"/>
+      <stop offset="100%" style="stop-color:#dbeafe"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2563eb"/>
+      <stop offset="100%" style="stop-color:#1d4ed8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg3)"/>
+
+  <!-- Grid -->
+  <g stroke="#2563eb" stroke-width="0.5" opacity="0.1">
+    <line x1="0" y1="157" x2="1200" y2="157"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="473" x2="1200" y2="473"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+
+  <!-- Large three-phase sine waves (center) -->
+  <!-- Phase L1 - Blue -->
+  <path d="M50,380 C100,180 150,80 200,80 C250,80 300,280 350,380 C400,480 450,580 500,380" fill="none" stroke="#2563eb" stroke-width="5"/>
+  <!-- Phase L2 - Red/purple (120° shift) -->
+  <path d="M200,380 C250,580 300,580 350,380 C400,180 450,80 500,80 C550,80 600,280 650,380" fill="none" stroke="#7c3aed" stroke-width="5"/>
+  <!-- Phase L3 - Teal (240° shift) -->
+  <path d="M350,380 C400,280 450,180 500,80 C550,80 600,280 650,380 C700,480 750,580 800,380" fill="none" stroke="#0891b2" stroke-width="5"/>
+
+  <!-- Phase labels -->
+  <text x="100" y="140" font-family="Inter, sans-serif" font-size="22" fill="#2563eb" font-weight="bold">L1</text>
+  <text x="250" y="140" font-family="Inter, sans-serif" font-size="22" fill="#7c3aed" font-weight="bold">L2</text>
+  <text x="400" y="140" font-family="Inter, sans-serif" font-size="22" fill="#0891b2" font-weight="bold">L3</text>
+
+  <!-- Horizontal baseline -->
+  <line x1="40" y1="380" x2="820" y2="380" stroke="#2563eb" stroke-width="2" opacity="0.4"/>
+  <!-- 120° markers -->
+  <line x1="350" y1="360" x2="350" y2="400" stroke="#2563eb" stroke-width="2" opacity="0.4"/>
+  <line x1="500" y1="360" x2="500" y2="400" stroke="#2563eb" stroke-width="2" opacity="0.4"/>
+  <line x1="650" y1="360" x2="650" y2="400" stroke="#2563eb" stroke-width="2" opacity="0.4"/>
+
+  <!-- 120° arc indicator -->
+  <path d="M350,360 A30,30 0 0,1 350,420" fill="none" stroke="#2563eb" stroke-width="2" opacity="0.5"/>
+  <text x="335" y="400" font-family="Inter, sans-serif" font-size="14" fill="#2563eb" opacity="0.7">120°</text>
+
+  <!-- Power distribution box (right) -->
+  <rect x="860" y="160" width="280" height="320" rx="16" fill="white" stroke="url(#blueGrad)" stroke-width="4"/>
+  <text x="1000" y="205" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="20" fill="#1e40af" font-weight="bold">三相电参数</text>
+  <line x1="880" y1="220" x2="1120" y2="220" stroke="#2563eb" stroke-width="1" opacity="0.3"/>
+
+  <g font-family="Inter, sans-serif" font-size="18" fill="#1e3a8a">
+    <text x="900" y="260">L1: 220V</text>
+    <text x="1040" y="260">L2: 220V</text>
+    <text x="900" y="295">L3: 220V</text>
+    <text x="1040" y="295">N: 0V</text>
+    <text x="900" y="330">U_LL: 380V</text>
+    <text x="1040" y="330">cosφ: 0.85</text>
+    <text x="900" y="365">I: 32A</text>
+    <text x="1040" y="365">f: 50Hz</text>
+  </g>
+
+  <!-- Separator lines -->
+  <line x1="1020" y1="245" x2="1020" y2="380" stroke="#2563eb" stroke-width="1" opacity="0.2"/>
+
+  <!-- Formula box (bottom) -->
+  <rect x="80" y="545" width="700" height="60" rx="10" fill="#2563eb" opacity="0.1"/>
+  <rect x="80" y="545" width="700" height="60" rx="10" fill="none" stroke="#2563eb" stroke-width="2"/>
+  <text x="430" y="588" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Inter, Roboto, sans-serif" font-size="36" fill="#1e3a8a" font-weight="bold">P = √3 · U · I · cosφ</text>
+
+  <!-- Chinese title -->
+  <text x="880" y="100" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="48" fill="#1e3a8a" font-weight="bold">三相电功率计算器</text>
+  <!-- English title -->
+  <text x="880" y="135" text-anchor="middle" font-family="Inter, Roboto, sans-serif" font-size="20" fill="#2563eb" letter-spacing="2">Three-Phase Power Calculator</text>
+</svg>

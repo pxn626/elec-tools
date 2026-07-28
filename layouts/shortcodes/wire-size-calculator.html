@@ -105,7 +105,7 @@
   <div class="ws-card">
     <!-- Presets -->
     <div class="ws-preset-group">
-      <div class="ws-preset-group-label">⚡ Quick Presets — One-Click Sizing</div>
+      <div class="ws-preset-group-label">{{ T "ws_preset_group_label" }}</div>
       <div class="ws-presets">
         <span class="ws-preset" data-preset="ev40">EV Charger 40A (continuous)</span>
         <span class="ws-preset" data-preset="ev48">EV Charger 48A (continuous)</span>
@@ -123,11 +123,11 @@
       <div>
         <div class="ws-row">
           <div class="ws-input-group">
-            <label for="ws-amps">Load Amps <span class="ws-unit">(A)</span></label>
+            <label for="ws-amps">{{ T "ws_label_load_amps" }}</label>
             <input type="number" id="ws-amps" value="40" min="0.1" max="2000" step="0.1">
           </div>
           <div class="ws-input-group">
-            <label for="ws-volts">System Voltage <span class="ws-unit">(V)</span></label>
+            <label for="ws-volts">{{ T "ws_label_sys_voltage" }}</label>
             <select id="ws-volts">
               <option value="120">120 V</option>
               <option value="208">208 V</option>
@@ -144,32 +144,32 @@
         <div class="ws-input-group">
           <label>Phase</label>
           <div class="ws-toggle">
-            <button type="button" class="ws-toggle-btn active" data-phase="1">1Φ Single-Phase</button>
-            <button type="button" class="ws-toggle-btn" data-phase="3">3Φ Three-Phase</button>
+            <button type="button" class="ws-toggle-btn active" data-phase="1">{{ T "ws_phase_1ph" }}</button>
+            <button type="button" class="ws-toggle-btn" data-phase="3">{{ T "ws_phase_3ph" }}</button>
           </div>
         </div>
 
         <div class="ws-row">
           <div class="ws-input-group">
-            <label for="ws-length">One-Way Length <span class="ws-unit">(ft)</span></label>
+            <label for="ws-length">{{ T "ws_label_oneway_length" }}</label>
             <input type="number" id="ws-length" value="50" min="1" max="2000" step="1">
           </div>
           <div class="ws-input-group">
-            <label for="ws-material">Wire Material</label>
+            <label for="ws-material">{{ T "ws_label_wire_material" }}</label>
             <div class="ws-toggle">
-              <button type="button" class="ws-toggle-btn active" data-mat="copper">Copper (Cu)</button>
-              <button type="button" class="ws-toggle-btn" data-mat="aluminum">Aluminum (Al)</button>
+              <button type="button" class="ws-toggle-btn active" data-mat="copper">{{ T "ws_mat_copper" }}</button>
+              <button type="button" class="ws-toggle-btn" data-mat="aluminum">{{ T "ws_mat_aluminum" }}</button>
             </div>
           </div>
         </div>
 
         <div class="ws-row">
           <div class="ws-input-group">
-            <label for="ws-temp">Ambient Temp <span class="ws-unit">(°C)</span></label>
+            <label for="ws-temp">{{ T "ws_label_ambient_temp" }}</label>
             <input type="number" id="ws-temp" value="30" min="10" max="55" step="1">
           </div>
           <div class="ws-input-group">
-            <label for="ws-conductors">Current-Carrying Conductors</label>
+            <label for="ws-conductors">{{ T "ws_label_current_conductors" }}</label>
             <select id="ws-conductors">
               <option value="1">1</option>
               <option value="2-3" selected>2-3</option>
@@ -185,9 +185,9 @@
         <div class="ws-input-group">
           <label class="ws-checkbox">
             <input type="checkbox" id="ws-continuous">
-            <span>Continuous load <span style="color:#6b7280;font-weight:400;">(NEC 210.20(A) — 125% rule)</span></span>
+            <span>{{ T "ws_checkbox_continuous" }}</span>
           </label>
-          <div class="ws-help">Required for EV chargers, solar PV inverters, and any load expected to run &gt; 3 hours.</div>
+          <div class="ws-help">{{ T "ws_help_continuous" }}</div>
         </div>
       </div>
 
@@ -196,59 +196,59 @@
         <div id="ws-badge-container"></div>
         <div class="ws-result-grid">
           <div class="ws-result-cell">
-            <div class="ws-result-cell-label">Conductor</div>
+            <div class="ws-result-cell-label">{{ T "ws_result_conductor" }}</div>
             <div class="ws-result-cell-value" id="ws-awg">—</div>
             <div class="ws-result-cell-unit" id="ws-awg-unit">—</div>
           </div>
           <div class="ws-result-cell ws-cell-ocpd">
-            <div class="ws-result-cell-label">Breaker (OCPD)</div>
+            <div class="ws-result-cell-label">{{ T "ws_result_breaker" }}</div>
             <div class="ws-result-cell-value" id="ws-ocpd">—</div>
             <div class="ws-result-cell-unit">amperes</div>
           </div>
           <div class="ws-result-cell ws-cell-vdrop">
-            <div class="ws-result-cell-label">Voltage Drop</div>
+            <div class="ws-result-cell-label">{{ T "ws_result_vdrop" }}</div>
             <div class="ws-result-cell-value" id="ws-vdrop">—</div>
             <div class="ws-result-cell-unit" id="ws-vdrop-status">—</div>
           </div>
         </div>
 
         <div class="ws-notes" id="ws-notes">
-          <h4>Calculation Details</h4>
+          <h4>{{ T "ws_notes_title" }}</h4>
           <div class="ws-note-row">
-            <span class="ws-note-label">Design amps (NEC 125% if continuous)</span>
+            <span class="ws-note-label">{{ T "ws_note_design_amps" }}</span>
             <span class="ws-note-value" id="ws-design">—</span>
           </div>
           <div class="ws-note-row">
-            <span class="ws-note-label">Base ampacity (NEC 310.16, 75°C)</span>
+            <span class="ws-note-label">{{ T "ws_note_base_ampacity" }}</span>
             <span class="ws-note-value" id="ws-base">—</span>
           </div>
           <div class="ws-note-row">
-            <span class="ws-note-label">Temperature correction (310.15(B)(1))</span>
+            <span class="ws-note-label">{{ T "ws_note_temp_correction" }}</span>
             <span class="ws-note-value" id="ws-tfactor">—</span>
           </div>
           <div class="ws-note-row">
-            <span class="ws-note-label">Conduit-fill derating (310.15(C)(1))</span>
+            <span class="ws-note-label">{{ T "ws_note_conduit_fill" }}</span>
             <span class="ws-note-value" id="ws-cfactor">—</span>
           </div>
           <div class="ws-note-row">
-            <span class="ws-note-label">Final corrected ampacity</span>
+            <span class="ws-note-label">{{ T "ws_note_final_ampacity" }}</span>
             <span class="ws-note-value" id="ws-final">—</span>
           </div>
           <div class="ws-note-row" id="ws-roundup-row" style="display:none;">
-            <span class="ws-note-label">NEC 240.4(B) round-up applied</span>
-            <span class="ws-note-value">Yes — bumped to match OCPD</span>
+            <span class="ws-note-label">{{ T "ws_note_roundup" }}</span>
+            <span class="ws-note-value">{{ T "ws_roundup_yes" }}</span>
           </div>
         </div>
 
-        <div class="ws-formula" id="ws-formula">Enter load values to see the formula.</div>
+        <div class="ws-formula" id="ws-formula">{{ T "ws_formula_placeholder" }}</div>
 
         <div class="ws-tip" id="ws-tip" style="display:none;"></div>
 
         <details class="ws-collapsible">
-          <summary>📊 NEC 310.16 Reference Table — 75°C Column (click to expand)</summary>
+          <summary>{{ T "ws_collapsible_31016_title" }}</summary>
           <table>
             <thead>
-              <tr><th>AWG / kcmil</th><th class="num">Copper (A)</th><th class="num">Aluminum (A)</th><th class="num">Ω/1000 ft (Cu)</th></tr>
+              <tr><th>{{ T "ws_th_awg" }}</th><th class="num">{{ T "ws_th_cu_amp" }}</th><th class="num">{{ T "ws_th_al_amp" }}</th><th class="num">{{ T "ws_th_cu_resistance" }}</th></tr>
             </thead>
             <tbody>
               <tr><td>14 AWG</td><td class="num">20</td><td class="num">—</td><td class="num">3.14</td></tr>
@@ -273,17 +273,33 @@
               <tr><td>750 kcmil</td><td class="num">475</td><td class="num">385</td><td class="num">0.0171</td></tr>
             </tbody>
           </table>
-          <div class="ws-source">Source: NFPA 70 — National Electrical Code 2023, Table 310.16 (75°C column, the inspector-favored terminal rating per NEC 110.14(C) for circuits rated 100 A or less).</div>
+          <div class="ws-source">{{ T "ws_source_nfpa_31016" }}</div>
         </details>
 
-        <div class="ws-disclaimer">
-          ⚠️ <strong>Reference only.</strong> Calculations are NEC-aware but final conductor sizing must be verified by a licensed electrician and approved by your local Authority Having Jurisdiction (AHJ). Always follow the latest edition of NFPA 70 — National Electrical Code.
-        </div>
+        <div class="ws-disclaimer">{{ T "ws_disclaimer" }}</div>
       </div>
     </div>
   </div>
 
   <script>
+  // ── i18n strings ─────────────────────────────────────────────────
+  window._tWS = {
+    errExceed:   {{ T "ws_js_err_exceed_750kcmil" | jsonify }},
+    errCannot:   {{ T "ws_js_err_cannot_meet" | jsonify }},
+    vdropGreen:  {{ T "ws_js_vdrop_green" | jsonify }},
+    vdropYellow: {{ T "ws_js_vdrop_yellow" | jsonify }},
+    vdropRed:    {{ T "ws_js_vdrop_red" | jsonify }},
+    formulaPh:   {{ T "ws_formula_placeholder" | jsonify }},
+  };
+  window._tWStip = {
+    vdropRed:    {{ T "ws_js_tip_vdrop_red" | jsonify }},
+    vdropYellow: {{ T "ws_js_tip_vdrop_yellow" | jsonify }},
+    cont:        {{ T "ws_js_tip_cont" | jsonify }},
+    roundup:     {{ T "ws_js_tip_roundup" | jsonify }},
+    compliant:   {{ T "ws_js_tip_compliant" | jsonify }},
+    error:       {{ T "ws_js_error" | jsonify }},
+  };
+
   (function(){
     'use strict';
 
@@ -372,14 +388,14 @@
     // Preset definitions
     // ─────────────────────────────────────────────────────────────────
     var PRESETS = {
-      ev40:   { amps: 40, volts: 240, phase: 1, length: 50, material: 'copper', temp: 30, conductors: '2-3', continuous: true,  label: 'EV L2 40A' },
-      ev48:   { amps: 48, volts: 240, phase: 1, length: 50, material: 'copper', temp: 30, conductors: '2-3', continuous: true,  label: 'EV L2 48A' },
-      ev50:   { amps: 50, volts: 240, phase: 1, length: 50, material: 'copper', temp: 30, conductors: '2-3', continuous: true,  label: 'EV L2 50A' },
-      sub50:  { amps: 50, volts: 240, phase: 1, length: 75, material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: '50A Subpanel' },
-      sub100: { amps: 100, volts: 240, phase: 1, length: 100, material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: '100A Subpanel' },
-      svc200: { amps: 200, volts: 240, phase: 1, length: 75, material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: '200A Service' },
-      dryer:  { amps: 24, volts: 240, phase: 1, length: 35, material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: '30A Dryer' },
-      range:  { amps: 33, volts: 240, phase: 1, length: 35, material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: '40A Range' }
+      ev40:   { amps: 40,  volts: 240, phase: 1, length: 50,  material: 'copper', temp: 30, conductors: '2-3', continuous: true,  label: {{ T "ws_preset_ev40" | jsonify }} },
+      ev48:   { amps: 48,  volts: 240, phase: 1, length: 50,  material: 'copper', temp: 30, conductors: '2-3', continuous: true,  label: {{ T "ws_preset_ev48" | jsonify }} },
+      ev50:   { amps: 50,  volts: 240, phase: 1, length: 50,  material: 'copper', temp: 30, conductors: '2-3', continuous: true,  label: {{ T "ws_preset_ev50" | jsonify }} },
+      sub50:  { amps: 50,  volts: 240, phase: 1, length: 75,  material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: {{ T "ws_preset_sub50" | jsonify }} },
+      sub100: { amps: 100, volts: 240, phase: 1, length: 100, material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: {{ T "ws_preset_sub100" | jsonify }} },
+      svc200: { amps: 200, volts: 240, phase: 1, length: 75,  material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: {{ T "ws_preset_svc200" | jsonify }} },
+      dryer:  { amps: 24,  volts: 240, phase: 1, length: 35,  material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: {{ T "ws_preset_dryer" | jsonify }} },
+      range:  { amps: 33,  volts: 240, phase: 1, length: 35,  material: 'copper', temp: 30, conductors: '2-3', continuous: false, label: {{ T "ws_preset_range" | jsonify }} }
     };
 
     // ─────────────────────────────────────────────────────────────────
@@ -458,7 +474,7 @@
       var idx = findBaseAWG(table, aKey, designAmps);
       if (idx === -1) {
         return {
-          error: 'Required ampacity (' + designAmps.toFixed(1) + ' A) exceeds 750 kcmil capacity. Consider parallel conductors (NEC 310.10(H)).',
+          error: window._tWS.errExceed,
           designAmps: designAmps
         };
       }
@@ -490,7 +506,7 @@
       // If still not satisfied at the largest size, return error
       if (!compare(finalAmpacity, ocpd)) {
         return {
-          error: 'Cannot meet OCPD requirement within 750 kcmil — try parallel conductors or larger OCPD class.',
+          error: window._tWS.errCannot,
           designAmps: designAmps,
           ocpd: ocpd
         };
@@ -569,7 +585,7 @@
         setText('ws-cfactor', '—');
         setText('ws-final', '—');
         document.getElementById('ws-roundup-row').style.display = 'none';
-        setText('ws-formula', 'Error: ' + r.error);
+        setText('ws-formula', window._tWStip.error.replace('{err}', r.error));
         document.getElementById('ws-tip').style.display = 'none';
         return;
       }
@@ -578,13 +594,13 @@
       var badgeText, badgeState;
       if (r.vdropStatus === 'GREEN') {
         badgeState = 'green';
-        badgeText = '🟢 NEC-Compliant — within 3% branch limit';
+        badgeText = window._tWS.vdropGreen;
       } else if (r.vdropStatus === 'YELLOW') {
         badgeState = 'yellow';
-        badgeText = '🟡 Marginal — exceeds 3% branch but within 5% feeder+branch';
+        badgeText = window._tWS.vdropYellow;
       } else {
         badgeState = 'red';
-        badgeText = '🔴 V-Drop too high — exceeds 5% combined limit';
+        badgeText = window._tWS.vdropRed;
       }
       setBadge(badgeState, badgeText);
 
@@ -595,9 +611,9 @@
       setText('ws-vdrop', fmt(r.vdropPct, 2) + '%');
 
       var vdropStatusText;
-      if (r.vdropPct <= 3) vdropStatusText = '✓ within 3% NEC limit';
-      else if (r.vdropPct <= 5) vdropStatusText = '⚠ within 5%, over 3%';
-      else vdropStatusText = '✗ exceeds 5% limit';
+      if (r.vdropPct <= 3) vdropStatusText = {{ T "ws_vdrop_green" | jsonify }};
+      else if (r.vdropPct <= 5) vdropStatusText = {{ T "ws_vdrop_yellow" | jsonify }};
+      else vdropStatusText = {{ T "ws_vdrop_red" | jsonify }};
       setText('ws-vdrop-status', vdropStatusText);
 
       // Notes
@@ -626,18 +642,18 @@
       var tipText = '';
       var tipClass = 'ws-tip';
       if (r.vdropStatus === 'RED') {
-        tipText = '⚠️ <strong>Voltage drop exceeds NEC 5% combined limit.</strong> Upsize one or two AWG sizes, shorten the run, or increase the system voltage (e.g. 240 → 480 V).';
+        tipText = window._tWStip.vdropRed;
         tipClass += ' ws-tip-bad';
       } else if (r.vdropStatus === 'YELLOW') {
-        tipText = '💡 <strong>Voltage drop is within 5% but exceeds the 3% branch-circuit recommendation.</strong> For motor loads or sensitive electronics, consider upsizing one AWG. Verify with your AHJ.';
+        tipText = window._tWStip.vdropYellow;
       } else if (r.isCont) {
-        tipText = '✓ <strong>Continuous load compliant.</strong> NEC 210.20(A) 125% rule applied — conductor ampacity exceeds the OCPD rating per the strict-greater-than requirement for continuous loads.';
+        tipText = window._tWStip.cont;
         tipClass += ' ws-tip-good';
       } else if (r.roundUpApplied) {
-        tipText = '✓ <strong>NEC 240.4(B) round-up applied.</strong> Conductor sized one step larger to match the next standard OCPD rating per the round-up rule.';
+        tipText = window._tWStip.roundup;
         tipClass += ' ws-tip-good';
       } else {
-        tipText = '✓ <strong>Fully NEC-compliant.</strong> Conductor ampacity ≥ OCPD, voltage drop within the 3% branch limit.';
+        tipText = window._tWStip.compliant;
         tipClass += ' ws-tip-good';
       }
       tipEl.className = tipClass;
