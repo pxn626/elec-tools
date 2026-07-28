@@ -1,3 +1,22 @@
+<!--
+  ─────────────────────────────────────────────────────────────────
+  NEC Reference Data — Authority & Priority Rules (2026-07-28 阿南 拍板)
+  ─────────────────────────────────────────────────────────────────
+  永久红线(2026-07-28 阿南 directive):
+    1. NEC 2023 实物表(Chapter 9 Table 4/5、Annex C Table C.1 等)
+       是权威源 / source of truth。
+    2. 公式推算(area × fill_limit / wire_area → floor)仅作 sanity check
+       / 理论参考,不是生产数据。
+    3. 电工实际干活都是查 NEC 实物表,公式与表不一致时,以表为准。
+    4. 决策历史:
+         AV-1: 1/2" EMT × 12 AWG THHN = 9 wires  (NEC 2023 Annex C C.1)
+         AV-2: 3/4" EMT × 12 AWG THHN = 16 wires (NEC 2023 Annex C C.1)
+       完整记录见 /var/lib/openclaw/workspace/memory/state/loop/2026-07-28/
+                   av-1-av-2-decision-2026-07-28.md
+    5. 适用范围:所有 webpenson 电气工具(NEC 引用处)—— 公式与表冲突
+       默认以 NEC 表为准,无需再问阿南(永久规则)。
+  ─────────────────────────────────────────────────────────────────
+-->
 <div class="cf-tool-container" id="cf-tool">
   <style>
     /* ========================================================== */
@@ -245,6 +264,25 @@
   <script>
   (function() {
     "use strict";
+
+    // ─────────────────────────────────────────────────────────────────
+    // NEC Reference Data — Authority & Priority Rules
+    // ─────────────────────────────────────────────────────────────────
+    // 阿南 2026-07-28 拍板(永久规则):
+    //   1. NEC 2023 实物表(Chapter 9 Table 4/5、Annex C Table C.1 等)
+    //      是权威源 / source of truth。
+    //   2. 公式推算(area × fill_limit / wire_area → floor)仅作 sanity check
+    //      / 理论参考,不是生产数据。
+    //   3. 电工实际干活都是查 NEC 实物表,公式与表不一致时,以表为准。
+    //   4. 决策历史:
+    //        AV-1: 1/2" EMT × 12 AWG THHN = 9 wires  (NEC 2023 Annex C C.1)
+    //        AV-2: 3/4" EMT × 12 AWG THHN = 16 wires (NEC 2023 Annex C C.1)
+    //      完整记录见
+    //        /var/lib/openclaw/workspace/memory/state/loop/2026-07-28/
+    //        av-1-av-2-decision-2026-07-28.md
+    //   5. 适用范围:所有 webpenson 电气工具(NEC 引用处)
+    //      —— 公式与表冲突默认以 NEC 表为准,无需再问阿南(永久规则)。
+    // ─────────────────────────────────────────────────────────────────
 
     // ==========================================================
     // NEC Chapter 9 Table 4 — Conduit internal area (in²)
