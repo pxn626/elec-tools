@@ -275,7 +275,7 @@ A 240 V hot tub typically draws **30 A continuous** (per nameplate) → NEC 210.
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
+  "@type": "WebApplication",
   "name": "Circuit Breaker Size Calculator",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Web",

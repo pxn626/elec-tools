@@ -153,7 +153,7 @@ NEC 240.4(B) 规定:只有在导体载流量不对应标准 OCPD 规格 **且** 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
+  "@type": "WebApplication",
   "name": "Wire Size Calculator",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Web",

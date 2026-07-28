@@ -118,6 +118,31 @@ If on a peak/valley electricity rate (nighttime ¥0.30/kWh): **¥67/month** (sav
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Electricity Cost Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free electricity cost calculator. Estimates monthly / annual electricity bill from power (kW/kWh) and local utility rate. Supports time-of-use (TOU) tariffs and demand charge estimation. No signup required.",
+  "url": "https://elec.webpenson.com/en/tools/electricity-cost-calculator/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://elec.webpenson.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://elec.webpenson.com/tools/" },
+    { "@type": "ListItem", "position": 3, "name": "Electricity Cost Calculator", "item": "https://elec.webpenson.com/en/tools/electricity-cost-calculator/" }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {"@type": "Question", "name": "What is the electricity cost calculation formula?", "acceptedAnswer": {"@type": "Answer", "text": "Daily kWh = Wattage W × hours / 1000; daily cost = daily kWh × rate ¥/kWh; monthly cost = daily cost × 30. This tool supports both single-appliance and total monthly kWh inputs."}},

@@ -184,6 +184,31 @@ Combined **annual savings ≈ ¥120,000–180,000**; compensation capacitor inve
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Three-Phase Power Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free three-phase power calculator. Calculates active power (P/kW), reactive power (Q/kvar), apparent power (S/kVA), and power factor. Supports balanced and unbalanced loads. Supports GB/T 15543 and NEC standards. No signup required.",
+  "url": "https://elec.webpenson.com/en/tools/three-phase-power-calculator/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://elec.webpenson.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://elec.webpenson.com/tools/" },
+    { "@type": "ListItem", "position": 3, "name": "Three-Phase Power Calculator", "item": "https://elec.webpenson.com/en/tools/three-phase-power-calculator/" }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {"@type": "Question", "name": "What is the three-phase power formula? How to calculate P, Q, S?", "acceptedAnswer": {"@type": "Answer", "text": "Three-phase four-wire formulas: P = √3 × U × I × cosφ (active kW), Q = √3 × U × I × sinφ (reactive kvar), S = √3 × U × I (apparent kVA). Single-phase removes √3: P = U × I × cosφ. Example: 380V/100A/cosφ 0.85 → P≈55.7kW, S≈65.6kVA, Q≈34.6kvar. Reference GB 50052-2009."}},

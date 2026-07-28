@@ -90,6 +90,31 @@ Supports all EVs with GB/T interface, including Tesla Model 3/Y/S/X (adapter req
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "EV Charging Time Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free EV charging time calculator. Estimates full charge duration based on battery capacity (kWh), charger power (kW), grid voltage, and charging losses. Supports all major EV models. No signup required.",
+  "url": "https://elec.webpenson.com/en/tools/charging-time-calculator/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://elec.webpenson.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://elec.webpenson.com/tools/" },
+    { "@type": "ListItem", "position": 3, "name": "EV Charging Time Calculator", "item": "https://elec.webpenson.com/en/tools/charging-time-calculator/" }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {"@type": "Question", "name": "What is the charging time calculation formula?", "acceptedAnswer": {"@type": "Answer", "text": "Charging time (hours) = Battery capacity (kWh) × Charge ratio ÷ Charging power (kW) ÷ Charging efficiency. Example: 60kWh battery from 20% to 80% using 7kW charger at 90% efficiency requires approximately 5.7 hours."}},

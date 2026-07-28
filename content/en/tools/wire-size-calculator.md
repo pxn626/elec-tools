@@ -289,7 +289,7 @@ expect 4/0 AWG or larger on a 48 V bank pushing 100 A.
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
+  "@type": "WebApplication",
   "name": "Wire Size Calculator",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Web",
