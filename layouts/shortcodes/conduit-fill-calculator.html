@@ -1,0 +1,715 @@
+<div class="cf-tool-container" id="cf-tool">
+  <style>
+    /* ========================================================== */
+    /* Conduit Fill Calculator — Self-contained UI styles          */
+    /* CSS namespace: .cf-* (avoid cc-* collisions with cable-lookup) */
+    /* ========================================================== */
+    #cf-tool { max-width: 800px; margin: 24px auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; color:#1f2937; }
+    #cf-tool .cf-card { background:#fff; border-radius:12px; padding:24px; box-shadow:0 4px 6px rgba(0,0,0,.05); border:1px solid #e5e7eb; }
+    #cf-tool .cf-mode-tabs { display:flex; gap:4px; margin-bottom:18px; border-bottom:2px solid #e5e7eb; overflow-x:auto; flex-wrap:nowrap; }
+    #cf-tool .cf-tab { padding:10px 14px; cursor:pointer; font-weight:600; color:#6b7280; border-bottom:3px solid transparent; margin-bottom:-2px; transition:all .2s; font-size:14px; white-space:nowrap; }
+    #cf-tool .cf-tab.active { color:#2563eb; border-bottom-color:#2563eb; }
+    #cf-tool .cf-tab:hover:not(.active) { color:#374151; }
+    #cf-tool .cf-panel { display:none; }
+    #cf-tool .cf-panel.active { display:block; }
+    #cf-tool .cf-row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    #cf-tool .cf-row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+    #cf-tool .cf-input-group { margin-bottom:14px; }
+    #cf-tool label { display:block; font-weight:600; margin-bottom:6px; color:#1f2937; font-size:14px; }
+    #cf-tool label .cf-unit { font-weight:400; color:#6b7280; font-size:12px; margin-left:4px; }
+    #cf-tool input, #cf-tool select { width:100%; padding:9px 11px; border:1px solid #d1d5db; border-radius:8px; font-size:15px; box-sizing:border-box; background:#fff; }
+    #cf-tool input:focus, #cf-tool select:focus { outline:none; border-color:#2563eb; box-shadow:0 0 0 3px rgba(37,99,235,.1); }
+    #cf-tool .cf-checkbox-group label { font-weight:400; display:flex; align-items:center; gap:6px; cursor:pointer; }
+    #cf-tool .cf-checkbox-group input[type="checkbox"] { width:auto; margin:0; }
+    #cf-tool .cf-btn { background:#2563eb; color:#fff; border:none; padding:10px 18px; border-radius:8px; cursor:pointer; font-weight:600; font-size:14px; transition:background .2s; }
+    #cf-tool .cf-btn:hover { background:#1d4ed8; }
+    #cf-tool .cf-btn-secondary { background:#f3f4f6; color:#1f2937; border:1px solid #d1d5db; padding:8px 14px; border-radius:8px; cursor:pointer; font-weight:500; font-size:13px; }
+    #cf-tool .cf-btn-secondary:hover { background:#e5e7eb; }
+    #cf-tool .cf-presets { display:flex; gap:6px; flex-wrap:wrap; margin:10px 0 14px 0; }
+    #cf-tool .cf-preset { padding:6px 11px; background:#f3f4f6; border:1px solid #d1d5db; border-radius:6px; cursor:pointer; font-size:12px; transition:all .2s; user-select:none; }
+    #cf-tool .cf-preset:hover { background:#2563eb; color:#fff; border-color:#2563eb; }
+    #cf-tool .cf-result { background:#eff6ff; border:1px solid #93c5fd; border-radius:10px; padding:16px; margin-top:18px; display:none; }
+    #cf-tool .cf-result.active { display:block; }
+    #cf-tool .cf-result h3 { margin:0 0 12px 0; color:#1e40af; font-size:18px; }
+    #cf-tool .cf-r-row { display:flex; justify-content:space-between; padding:7px 0; border-bottom:1px dashed #93c5fd; align-items:baseline; gap:12px; }
+    #cf-tool .cf-r-row:last-child { border-bottom:none; }
+    #cf-tool .cf-r-row.highlight { background:#dbeafe; margin:4px -8px; padding:8px; border-radius:6px; border-bottom:none; }
+    #cf-tool .cf-r-label { color:#475569; font-size:14px; flex:1; }
+    #cf-tool .cf-r-val { font-weight:700; color:#1e3a8a; font-size:17px; font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap; }
+    #cf-tool .cf-r-row.highlight .cf-r-val { color:#1d4ed8; font-size:21px; }
+    #cf-tool .cf-tip { font-size:13px; color:#1e293b; margin-top:14px; padding:10px; background:#fef3c7; border-radius:6px; border-left:3px solid #f59e0b; }
+    #cf-tool .cf-warn { font-size:13px; color:#7f1d1d; margin-top:10px; padding:10px; background:#fee2e2; border-radius:6px; border-left:3px solid #dc2626; display:none; }
+    #cf-tool .cf-warn.active { display:block; }
+    #cf-tool .cf-formula { font-size:12px; color:#475569; margin-top:10px; padding:10px; background:#f8fafc; border-radius:6px; border-left:3px solid #94a3b8; font-family:"SF Mono", Monaco, Consolas, "Courier New", monospace; word-break:break-all; }
+    #cf-tool .cf-standard { font-size:13px; color:#334155; margin-top:14px; padding:12px; background:#f8fafc; border-radius:6px; border-left:3px solid #94a3b8; }
+    #cf-tool .cf-standard strong { color:#1e293b; }
+    #cf-tool .cf-disclaimer { font-size:12px; color:#64748b; margin-top:14px; padding:12px; background:#f1f5f9; border-radius:6px; border-left:3px solid #cbd5e1; line-height:1.6; }
+    #cf-tool .cf-disclaimer em { font-style:italic; }
+    /* Mixed-mode dynamic rows */
+    #cf-tool .cf-m-row { display:grid; grid-template-columns:1.4fr 1fr 0.7fr auto; gap:8px; margin-bottom:8px; align-items:end; }
+    #cf-tool .cf-m-row select, #cf-tool .cf-m-row input { padding:8px 10px; font-size:14px; }
+    #cf-tool .cf-m-del { background:#fee2e2; color:#991b1b; border:1px solid #fecaca; border-radius:6px; padding:8px 10px; cursor:pointer; font-weight:600; font-size:13px; }
+    #cf-tool .cf-m-del:hover { background:#fecaca; }
+    /* Dark mode */
+    @media (prefers-color-scheme: dark) {
+      #cf-tool .cf-card { background:#1e293b; border-color:#334155; }
+      #cf-tool label { color:#cbd5e1; }
+      #cf-tool label .cf-unit { color:#94a3b8; }
+      #cf-tool input, #cf-tool select { background:#0f172a; color:#e2e8f0; border-color:#334155; }
+      #cf-tool .cf-mode-tabs { border-bottom-color:#334155; }
+      #cf-tool .cf-tab { color:#94a3b8; }
+      #cf-tool .cf-tab.active { color:#60a5fa; border-bottom-color:#60a5fa; }
+      #cf-tool .cf-tab:hover:not(.active) { color:#e2e8f0; }
+      #cf-tool .cf-checkbox-group label { color:#cbd5e1; }
+      #cf-tool .cf-btn-secondary { background:#334155; border-color:#475569; color:#cbd5e1; }
+      #cf-tool .cf-btn-secondary:hover { background:#475569; }
+      #cf-tool .cf-preset { background:#334155; border-color:#475569; color:#cbd5e1; }
+      #cf-tool .cf-preset:hover { background:#2563eb; color:#fff; border-color:#2563eb; }
+      #cf-tool .cf-result { background:#0c1f3f; border-color:#1e3a8a; }
+      #cf-tool .cf-result h3 { color:#93c5fd; }
+      #cf-tool .cf-r-row { border-bottom-color:#1e3a8a; }
+      #cf-tool .cf-r-label { color:#cbd5e1; }
+      #cf-tool .cf-r-val { color:#93c5fd; }
+      #cf-tool .cf-r-row.highlight { background:#1e3a8a; }
+      #cf-tool .cf-r-row.highlight .cf-r-val { color:#dbeafe; }
+      #cf-tool .cf-tip { background:#422006; color:#fde68a; border-left-color:#f59e0b; }
+      #cf-tool .cf-warn { background:#450a0a; color:#fecaca; border-left-color:#dc2626; }
+      #cf-tool .cf-formula { background:#0f172a; color:#cbd5e1; border-left-color:#475569; }
+      #cf-tool .cf-standard { background:#0f172a; color:#cbd5e1; border-left-color:#475569; }
+      #cf-tool .cf-standard strong { color:#f1f5f9; }
+      #cf-tool .cf-disclaimer { background:#1f2937; color:#94a3b8; border-left-color:#475569; }
+      #cf-tool .cf-m-del { background:#450a0a; color:#fecaca; border-color:#7f1d1d; }
+      #cf-tool .cf-m-del:hover { background:#7f1d1d; }
+    }
+    @media (max-width:640px) {
+      #cf-tool .cf-row2, #cf-tool .cf-row3 { grid-template-columns:1fr; }
+      #cf-tool .cf-m-row { grid-template-columns:1fr; }
+      #cf-tool .cf-mode-tabs { overflow-x:auto; flex-wrap:nowrap; }
+      #cf-tool .cf-tab { white-space:nowrap; }
+    }
+  </style>
+
+  <div class="cf-card">
+
+    <!-- Tabs -->
+    <div class="cf-mode-tabs">
+      <div class="cf-tab active" data-mode="verify">Mode A — Verify</div>
+      <div class="cf-tab" data-mode="recommend">Mode B — Recommend</div>
+      <div class="cf-tab" data-mode="mixed">Mode C — Mixed</div>
+    </div>
+
+    <!-- Presets (shared across all tabs for quick fill) -->
+    <div class="cf-presets">
+      <span class="cf-preset" data-preset="ev-charger">⚡ EV Charger (NEMA 14-50)</span>
+      <span class="cf-preset" data-preset="solar-pv">☀️ Solar PV Combiner</span>
+      <span class="cf-preset" data-preset="garage-240v">🔌 Garage 240V Outlet</span>
+    </div>
+
+    <!-- =========================================================== -->
+    <!-- Mode A — Verify                                              -->
+    <!-- =========================================================== -->
+    <div class="cf-panel active" data-panel="verify">
+      <div class="cf-row2">
+        <div class="cf-input-group">
+          <label>Conduit Type</label>
+          <select id="cf-v-conduit-type"></select>
+        </div>
+        <div class="cf-input-group">
+          <label>Trade Size <span class="cf-unit">(in)</span></label>
+          <select id="cf-v-trade-size"></select>
+        </div>
+      </div>
+      <div class="cf-row2">
+        <div class="cf-input-group">
+          <label>Wire Type</label>
+          <select id="cf-v-wire-type"></select>
+        </div>
+        <div class="cf-input-group">
+          <label>Wire Size <span class="cf-unit">(AWG/kcmil)</span></label>
+          <select id="cf-v-wire-awg"></select>
+        </div>
+      </div>
+      <div class="cf-row2">
+        <div class="cf-input-group">
+          <label>Number of Conductors</label>
+          <input type="number" id="cf-v-count" min="1" max="50" step="1" value="3"/>
+        </div>
+        <div class="cf-input-group cf-checkbox-group" style="padding-top:30px">
+          <label>
+            <input type="checkbox" id="cf-v-nipple"/>
+            <span>Nipple (≤ 24")</span>
+          </label>
+        </div>
+      </div>
+      <button class="cf-btn" id="cf-v-calc">Calculate</button>
+
+      <div class="cf-result" id="cf-v-result">
+        <h3>Verification Result</h3>
+        <div class="cf-r-row"><span class="cf-r-label">Conduit internal area</span><span class="cf-r-val" id="cf-v-ca">—</span></div>
+        <div class="cf-r-row"><span class="cf-r-label">Per-conductor area</span><span class="cf-r-val" id="cf-v-wa">—</span></div>
+        <div class="cf-r-row"><span class="cf-r-label">Total wire area</span><span class="cf-r-val" id="cf-v-twa">—</span></div>
+        <div class="cf-r-row highlight"><span class="cf-r-label">Fill %</span><span class="cf-r-val" id="cf-v-fill">—</span></div>
+        <div class="cf-r-row"><span class="cf-r-label">NEC limit</span><span class="cf-r-val" id="cf-v-limit">—</span></div>
+        <div class="cf-r-row highlight"><span class="cf-r-label">Compliance</span><span class="cf-r-val" id="cf-v-comp">—</span></div>
+        <div class="cf-formula" id="cf-v-formula"></div>
+      </div>
+    </div>
+
+    <!-- =========================================================== -->
+    <!-- Mode B — Recommend                                           -->
+    <!-- =========================================================== -->
+    <div class="cf-panel" data-panel="recommend">
+      <div class="cf-row2">
+        <div class="cf-input-group">
+          <label>Conduit Type</label>
+          <select id="cf-r-conduit-type"></select>
+        </div>
+        <div class="cf-input-group">
+          <label>Wire Type</label>
+          <select id="cf-r-wire-type"></select>
+        </div>
+      </div>
+      <div class="cf-row2">
+        <div class="cf-input-group">
+          <label>Wire Size <span class="cf-unit">(AWG/kcmil)</span></label>
+          <select id="cf-r-wire-awg"></select>
+        </div>
+        <div class="cf-input-group">
+          <label>Number of Conductors</label>
+          <input type="number" id="cf-r-count" min="1" max="50" step="1" value="3"/>
+        </div>
+      </div>
+      <div class="cf-checkbox-group">
+        <label>
+          <input type="checkbox" id="cf-r-nipple"/>
+          <span>Nipple (≤ 24")</span>
+        </label>
+      </div>
+      <button class="cf-btn" id="cf-r-calc" style="margin-top:12px">Recommend</button>
+
+      <div class="cf-result" id="cf-r-result">
+        <h3>Recommended Conduit</h3>
+        <div class="cf-r-row highlight"><span class="cf-r-label">Minimum Trade Size</span><span class="cf-r-val" id="cf-r-min">—</span></div>
+        <div class="cf-r-row"><span class="cf-r-label">Fill at minimum size</span><span class="cf-r-val" id="cf-r-fill">—</span></div>
+        <div class="cf-r-row"><span class="cf-r-label">NEC limit</span><span class="cf-r-val" id="cf-r-limit">—</span></div>
+        <div class="cf-r-row highlight"><span class="cf-r-label">Compliance</span><span class="cf-r-val" id="cf-r-comp">—</span></div>
+        <div class="cf-tip" id="cf-r-tip" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- =========================================================== -->
+    <!-- Mode C — Mixed                                               -->
+    <!-- =========================================================== -->
+    <div class="cf-panel" data-panel="mixed">
+      <div class="cf-input-group">
+        <label>Conduit Type</label>
+        <select id="cf-m-conduit-type"></select>
+      </div>
+
+      <div class="cf-input-group cf-checkbox-group">
+        <label>
+          <input type="checkbox" id="cf-m-nipple"/>
+          <span>Nipple (≤ 24")</span>
+        </label>
+      </div>
+
+      <label style="margin-top:8px">Wire Groups</label>
+      <div id="cf-m-rows"></div>
+      <button class="cf-btn-secondary" id="cf-m-add" style="margin-top:6px">+ Add Wire Group</button>
+      <button class="cf-btn" id="cf-m-calc" style="margin-top:16px">Calculate Mixed Fill</button>
+
+      <div class="cf-result" id="cf-m-result">
+        <h3>Mixed-Size Calculation</h3>
+        <div class="cf-r-row"><span class="cf-r-label">Total conductor area</span><span class="cf-r-val" id="cf-m-twa">—</span></div>
+        <div class="cf-r-row"><span class="cf-r-label">Conduit area</span><span class="cf-r-val" id="cf-m-ca">—</span></div>
+        <div class="cf-r-row highlight"><span class="cf-r-label">Fill %</span><span class="cf-r-val" id="cf-m-fill">—</span></div>
+        <div class="cf-r-row"><span class="cf-r-label">NEC limit</span><span class="cf-r-val" id="cf-m-limit">—</span></div>
+        <div class="cf-r-row highlight"><span class="cf-r-label">Compliance</span><span class="cf-r-val" id="cf-m-comp">—</span></div>
+        <div class="cf-formula" id="cf-m-formula"></div>
+        <div class="cf-tip" id="cf-m-tip" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- Standard reference -->
+    <div class="cf-standard">
+      <strong>📋 Reference:</strong> Per <strong>NEC Chapter 9 Table 4</strong> (conduit internal area) and <strong>Annex C Tables C.1–C.12</strong> (number-of-conductors lookup). Fill limits (NEC Chapter 9 Note 1): <strong>60%</strong> for 1 conductor, <strong>53%</strong> for 2, <strong>40%</strong> for 3 or more. Per <strong>NEC 310.15(C)(3)</strong>, nipples ≤ 24 inches allow <strong>60%</strong> regardless of conductor count.
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="cf-disclaimer">
+      <em>Reference only — always verify with the current adopted <a href="https://www.nfpa.org/codes-and-standards/nfpa-70-standard-development/70" rel="nofollow noopener" target="_blank">NEC</a> edition and your local Authority Having Jurisdiction (AHJ). This tool does not replace professional engineering judgment or licensed electrician review.</em>
+    </div>
+
+  </div>
+
+  <script>
+  (function() {
+    "use strict";
+
+    // ==========================================================
+    // NEC Chapter 9 Table 4 — Conduit internal area (in²)
+    // Source: NFPA 70-2023, Chapter 9, Table 4
+    // ==========================================================
+    var NEC_CH9_TABLE_4 = {
+      "EMT":    {"1/2":0.304,"3/4":0.533,"1":0.864,"1-1/4":1.496,"1-1/2":2.036,"2":3.356,"2-1/2":5.858,"3":8.846,"4":14.754},
+      "PVC-40": {"1/2":0.285,"3/4":0.508,"1":0.832,"1-1/4":1.453,"1-1/2":1.986,"2":3.291,"2-1/2":5.788,"3":8.752,"4":14.595},
+      "PVC-80": {"1/2":0.246,"3/4":0.456,"1":0.770,"1-1/4":1.343,"1-1/2":1.857,"2":3.077,"2-1/2":5.421,"3":8.213,"4":13.703},
+      "RMC":    {"1/2":0.250,"3/4":0.450,"1":0.750,"1-1/4":1.330,"1-1/2":1.810,"2":3.000,"2-1/2":5.300,"3":8.020,"4":13.380},
+      "IMC":    {"1/2":0.275,"3/4":0.490,"1":0.825,"1-1/4":1.450,"1-1/2":1.970,"2":3.260,"2-1/2":5.740,"3":8.660,"4":14.450}
+    };
+
+    // ==========================================================
+    // NEC Chapter 9 Table 5 — Wire OD including insulation (in)
+    // Source: NFPA 70-2023, Chapter 9, Table 5
+    // NM-B / UF-B: cable overall OD (single cable, see Hint)
+    // ==========================================================
+    var NEC_CH9_TABLE_5 = {
+      "THHN/THWN-2": {"14":0.111,"12":0.130,"10":0.164,"8":0.218,"6":0.268,"4":0.342,"3":0.370,"2":0.407,"1":0.490,"1/0":0.535,"2/0":0.580,"3/0":0.630,"4/0":0.690,"250":0.760,"300":0.815,"350":0.865,"400":0.910,"500":0.995},
+      "XHHW/XHHW-2": {"14":0.133,"12":0.152,"10":0.176,"8":0.236,"6":0.289,"4":0.359,"3":0.388,"2":0.426,"1":0.513,"1/0":0.561,"2/0":0.608,"3/0":0.660,"4/0":0.722,"250":0.794,"300":0.852,"350":0.903,"400":0.949,"500":1.039},
+      "USE-2/RHH":   {"14":0.150,"12":0.169,"10":0.193,"8":0.252,"6":0.301,"4":0.376,"3":0.405,"2":0.444,"1":0.535,"1/0":0.582,"2/0":0.629,"3/0":0.682,"4/0":0.745,"250":0.819,"300":0.877,"350":0.930,"400":0.978,"500":1.068},
+      "NM-B":        {"14":0.330,"12":0.380,"10":0.470,"8":0.580,"6":0.720,"4":0.940,"2":1.180,"1":1.430},
+      "UF-B":        {"14":0.420,"12":0.470,"10":0.560,"8":0.670,"6":0.810,"4":1.030,"2":1.270}
+    };
+
+    // ==========================================================
+    // Fill limits per NEC Ch.9 Note 1 + NEC 310.15(C)(3)
+    // ==========================================================
+    function getFillLimit(count, isNipple) {
+      if (isNipple) return 0.60;
+      if (count === 1) return 0.60;
+      if (count === 2) return 0.53;
+      return 0.40;
+    }
+
+    // ==========================================================
+    // Self-test (5 assertions, see eng-plan §4.1)
+    // Pass: 22.4% / 13.1% / 26.2% / 60% / 0.164
+    // ==========================================================
+    (function selfTest() {
+      try {
+        var t1 = (9 * Math.PI / 4 * 0.130 * 0.130) / 0.533;
+        console.assert((t1 * 100).toFixed(1) === "22.4", "[t1] expected 22.4, got " + (t1*100).toFixed(1));
+        var t2 = (3 * Math.PI / 4 * 0.130 * 0.130) / 0.304;
+        console.assert((t2 * 100).toFixed(1) === "13.1", "[t2] expected 13.1, got " + (t2*100).toFixed(1));
+        var t3 = (6 * Math.PI / 4 * 0.130 * 0.130) / 0.304;
+        console.assert((t3 * 100).toFixed(1) === "26.2", "[t3] expected 26.2, got " + (t3*100).toFixed(1));
+        var t4 = 0.60;
+        console.assert(t4 === getFillLimit(3, true), "[t4] nipple 60%");
+        var t5 = NEC_CH9_TABLE_5["THHN/THWN-2"]["10"];
+        console.assert(t5 === 0.164, "[t5] THHN 10 AWG = 0.164 in");
+      } catch (e) { console.error("Conduit-fill calculator self-test failed:", e); }
+    })();
+
+    // ==========================================================
+    // Population helpers
+    // ==========================================================
+    var CONDUIT_TYPES = Object.keys(NEC_CH9_TABLE_4);
+    // Trade sizes listed in canonical ascending order — do NOT rely on Object.keys
+    // ordering, because JavaScript integer-like keys ("1", "2") sort before
+    // string-like keys ("1-1/4", "1/2", "2-1/2").
+    var TRADE_SIZES = ["1/2","3/4","1","1-1/4","1-1/2","2","2-1/2","3","4"];
+    var WIRE_TYPES = Object.keys(NEC_CH9_TABLE_5);
+    var ALL_AWG = ["14","12","10","8","6","4","3","2","1","1/0","2/0","3/0","4/0","250","300","350","400","500"];
+
+    function fillSelect(el, opts, all) {
+      el.innerHTML = "";
+      opts.forEach(function(o) {
+        var op = document.createElement("option");
+        op.value = o; op.textContent = all ? o : o;
+        el.appendChild(op);
+      });
+    }
+    function fillSelectObj(el, obj, valueKey) {
+      el.innerHTML = "";
+      Object.keys(obj).forEach(function(k) {
+        var op = document.createElement("option");
+        op.value = k;
+        op.textContent = k + (valueKey ? " (" + obj[k] + (valueKey.indexOf("AWG")>=0 ? ' in' : '') + ")" : "");
+        el.appendChild(op);
+      });
+    }
+    function fillAWGSelect(el, wireType) {
+      el.innerHTML = "";
+      var list = Object.keys(NEC_CH9_TABLE_5[wireType] || {});
+      list.forEach(function(a) {
+        var op = document.createElement("option");
+        op.value = a;
+        op.textContent = a + (NEC_CH9_TABLE_5[wireType][a] ? "  (" + NEC_CH9_TABLE_5[wireType][a] + ' in)' : '');
+        el.appendChild(op);
+      });
+    }
+
+    // Populate all selects on load
+    document.addEventListener("DOMContentLoaded", function() {
+      // Verify
+      fillSelect(document.getElementById("cf-v-conduit-type"), CONDUIT_TYPES);
+      fillSelect(document.getElementById("cf-v-trade-size"), TRADE_SIZES);
+      document.getElementById("cf-v-trade-size").value = "3/4";
+      fillSelect(document.getElementById("cf-v-wire-type"), WIRE_TYPES);
+      document.getElementById("cf-v-wire-type").value = "THHN/THWN-2";
+      fillAWGSelect(document.getElementById("cf-v-wire-awg"), "THHN/THWN-2");
+      document.getElementById("cf-v-wire-awg").value = "12";
+
+      // Recommend
+      fillSelect(document.getElementById("cf-r-conduit-type"), CONDUIT_TYPES);
+      fillSelect(document.getElementById("cf-r-wire-type"), WIRE_TYPES);
+      document.getElementById("cf-r-wire-type").value = "THHN/THWN-2";
+      fillAWGSelect(document.getElementById("cf-r-wire-awg"), "THHN/THWN-2");
+      document.getElementById("cf-r-wire-awg").value = "12";
+
+      // Mixed
+      fillSelect(document.getElementById("cf-m-conduit-type"), CONDUIT_TYPES);
+      addMixedRow(); // start with one row
+    });
+
+    // Wire type change → repopulate AWG
+    document.addEventListener("change", function(e) {
+      if (e.target.id === "cf-v-wire-type") {
+        fillAWGSelect(document.getElementById("cf-v-wire-awg"), e.target.value);
+      } else if (e.target.id === "cf-r-wire-type") {
+        fillAWGSelect(document.getElementById("cf-r-wire-awg"), e.target.value);
+      }
+    });
+
+    // ==========================================================
+    // Tab switching
+    // ==========================================================
+    var tabs = document.querySelectorAll("#cf-tool .cf-tab");
+    var panels = document.querySelectorAll("#cf-tool .cf-panel");
+    tabs.forEach(function(tab) {
+      tab.addEventListener("click", function() {
+        tabs.forEach(function(t) { t.classList.remove("active"); });
+        panels.forEach(function(p) { p.classList.remove("active"); });
+        tab.classList.add("active");
+        var mode = tab.getAttribute("data-mode");
+        var panel = document.querySelector('#cf-tool .cf-panel[data-panel="' + mode + '"]');
+        if (panel) panel.classList.add("active");
+      });
+    });
+
+    // ==========================================================
+    // Core algorithms
+    // ==========================================================
+    function wireArea(od) { return Math.PI / 4 * od * od; }
+
+    function modeVerify(conduitType, tradeSize, wireType, awg, count, isNipple) {
+      var conduitArea = NEC_CH9_TABLE_4[conduitType][tradeSize];
+      var wireOD = NEC_CH9_TABLE_5[wireType][awg];
+      var wArea = wireArea(wireOD);
+      var totalWireArea = wArea * count;
+      var fillPct = totalWireArea / conduitArea;
+      var limit = getFillLimit(count, isNipple);
+      return {
+        conduitArea: conduitArea,
+        wireOD: wireOD,
+        wireArea: wArea,
+        totalWireArea: totalWireArea,
+        fillPct: fillPct,
+        limit: limit,
+        compliant: fillPct <= limit,
+        isNipple: isNipple,
+        wireType: wireType,
+        awg: awg,
+        count: count,
+        conduitType: conduitType,
+        tradeSize: tradeSize
+      };
+    }
+
+    function modeRecommend(conduitType, wireType, awg, count, isNipple) {
+      var wireOD = NEC_CH9_TABLE_5[wireType][awg];
+      var wArea = wireArea(wireOD);
+      var totalWireArea = wArea * count;
+      var limit = getFillLimit(count, isNipple);
+      // IMPORTANT: iterate TRADE_SIZES (canonical order) not Object.keys()
+      // Object.keys would put "1" before "1/2" and "3/4" due to JS numeric key sorting.
+      var sizes = TRADE_SIZES.filter(function(s) { return NEC_CH9_TABLE_4[conduitType].hasOwnProperty(s); });
+      for (var i = 0; i < sizes.length; i++) {
+        var ts = sizes[i];
+        var ca = NEC_CH9_TABLE_4[conduitType][ts];
+        if (totalWireArea / ca <= limit) {
+          return {
+            recommended: ts,
+            conduitArea: ca,
+            fillPct: totalWireArea / ca,
+            limit: limit,
+            compliant: true,
+            wireType: wireType,
+            awg: awg,
+            count: count,
+            isNipple: isNipple
+          };
+        }
+      }
+      return {
+        recommended: null,
+        conduitArea: null,
+        fillPct: null,
+        limit: limit,
+        compliant: false,
+        error: "exceeds_4_inch",
+        wireType: wireType,
+        awg: awg,
+        count: count
+      };
+    }
+
+    function modeMixed(conduitType, tradeSize, rows, isNipple) {
+      var totalWireArea = 0, totalCount = 0;
+      var breakdown = [];
+      rows.forEach(function(r) {
+        var od = NEC_CH9_TABLE_5[r.wireType][r.awg];
+        var wa = wireArea(od);
+        totalWireArea += wa * r.count;
+        totalCount += r.count;
+        breakdown.push({ wireType: r.wireType, awg: r.awg, count: r.count, od: od, area: wa });
+      });
+      var limit = getFillLimit(totalCount, isNipple);
+      if (tradeSize) {
+        var ca = NEC_CH9_TABLE_4[conduitType][tradeSize];
+        var fillPct = totalWireArea / ca;
+        return {
+          conduitArea: ca,
+          totalWireArea: totalWireArea,
+          fillPct: fillPct,
+          limit: limit,
+          compliant: fillPct <= limit,
+          breakdown: breakdown,
+          totalCount: totalCount,
+          tradeSize: tradeSize
+        };
+      } else {
+        // Recommend smallest size — iterate TRADE_SIZES (canonical order)
+        var sizes = TRADE_SIZES.filter(function(s) { return NEC_CH9_TABLE_4[conduitType].hasOwnProperty(s); });
+        for (var i = 0; i < sizes.length; i++) {
+          var ts = sizes[i];
+          var cax = NEC_CH9_TABLE_4[conduitType][ts];
+          if (totalWireArea / cax <= limit) {
+            return {
+              conduitArea: cax,
+              recommended: ts,
+              totalWireArea: totalWireArea,
+              fillPct: totalWireArea / cax,
+              limit: limit,
+              compliant: true,
+              breakdown: breakdown,
+              totalCount: totalCount,
+              isNipple: isNipple
+            };
+          }
+        }
+        return {
+          conduitArea: null,
+          recommended: null,
+          totalWireArea: totalWireArea,
+          fillPct: null,
+          limit: limit,
+          compliant: false,
+          error: "exceeds_4_inch",
+          breakdown: breakdown,
+          totalCount: totalCount
+        };
+      }
+    }
+
+    // ==========================================================
+    // Mixed-mode row management
+    // ==========================================================
+    function addMixedRow(prefill) {
+      var container = document.getElementById("cf-m-rows");
+      var row = document.createElement("div");
+      row.className = "cf-m-row";
+      var wireSel = '<select class="cf-m-wire-type">';
+      WIRE_TYPES.forEach(function(w) { wireSel += '<option value="' + w + '">' + w + '</option>'; });
+      wireSel += '</select>';
+      row.innerHTML =
+        '<select class="cf-m-wire-type">' +
+        WIRE_TYPES.map(function(w){return '<option value="'+w+'">'+w+'</option>';}).join('') +
+        '</select>' +
+        '<select class="cf-m-wire-awg"></select>' +
+        '<input type="number" class="cf-m-count" min="1" max="50" step="1" value="1"/>' +
+        '<button class="cf-m-del" type="button">×</button>';
+      container.appendChild(row);
+
+      var wTypeSel = row.querySelector(".cf-m-wire-type");
+      var wAWGSel  = row.querySelector(".cf-m-wire-awg");
+      function refreshAWG() { fillAWGSelect(wAWGSel, wTypeSel.value); wAWGSel.value = wAWGSel.options[1] ? wAWGSel.options[1].value : wAWGSel.options[0].value; }
+      refreshAWG();
+      wTypeSel.addEventListener("change", refreshAWG);
+
+      row.querySelector(".cf-m-del").addEventListener("click", function() {
+        if (container.children.length > 1) row.remove();
+      });
+
+      if (prefill) {
+        wTypeSel.value = prefill.wireType || "THHN/THWN-2";
+        refreshAWG();
+        if (prefill.awg) wAWGSel.value = prefill.awg;
+        row.querySelector(".cf-m-count").value = prefill.count || 1;
+      }
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+      var addBtn = document.getElementById("cf-m-add");
+      if (addBtn) addBtn.addEventListener("click", function() { addMixedRow(); });
+    });
+
+    // ==========================================================
+    // Render helpers
+    // ==========================================================
+    function fmtPct(p) { return (p * 100).toFixed(1) + "%"; }
+    function fmtArea(a) { return (a == null ? "—" : a.toFixed(4) + " in²"); }
+    function fmtOD(o) { return o == null ? "—" : o.toFixed(3) + " in"; }
+
+    function showResult(id) {
+      document.getElementById(id).classList.add("active");
+    }
+
+    // ==========================================================
+    // Mode A — Verify handler
+    // ==========================================================
+    document.addEventListener("DOMContentLoaded", function() {
+      var btn = document.getElementById("cf-v-calc");
+      if (btn) btn.addEventListener("click", function() {
+        var conduitType = document.getElementById("cf-v-conduit-type").value;
+        var tradeSize = document.getElementById("cf-v-trade-size").value;
+        var wireType = document.getElementById("cf-v-wire-type").value;
+        var awg = document.getElementById("cf-v-wire-awg").value;
+        var count = parseInt(document.getElementById("cf-v-count").value, 10) || 1;
+        var isNipple = document.getElementById("cf-v-nipple").checked;
+        var r = modeVerify(conduitType, tradeSize, wireType, awg, count, isNipple);
+        document.getElementById("cf-v-ca").textContent = fmtArea(r.conduitArea);
+        document.getElementById("cf-v-wa").textContent = fmtArea(r.wireArea) + " (OD " + fmtOD(r.wireOD) + ")";
+        document.getElementById("cf-v-twa").textContent = fmtArea(r.totalWireArea);
+        document.getElementById("cf-v-fill").textContent = fmtPct(r.fillPct);
+        document.getElementById("cf-v-limit").textContent = (r.limit * 100).toFixed(0) + "%" + (r.isNipple ? " (nipple)" : "");
+        var compEl = document.getElementById("cf-v-comp");
+        compEl.innerHTML = r.compliant
+          ? '<span style="color:#16a34a">✓ Compliant per NEC</span>'
+          : '<span style="color:#dc2626">✗ Exceeds NEC limit</span>';
+        document.getElementById("cf-v-formula").innerHTML =
+          '<strong>Formula:</strong> fill% = (N × π/4 × OD²) / A_conduit = (' +
+          count + ' × π/4 × ' + r.wireOD.toFixed(3) + '²) / ' + r.conduitArea.toFixed(3) +
+          ' = ' + r.totalWireArea.toFixed(4) + ' / ' + r.conduitArea.toFixed(3) +
+          ' = <strong>' + fmtPct(r.fillPct) + '</strong>';
+        showResult("cf-v-result");
+      });
+    });
+
+    // ==========================================================
+    // Mode B — Recommend handler
+    // ==========================================================
+    document.addEventListener("DOMContentLoaded", function() {
+      var btn = document.getElementById("cf-r-calc");
+      if (btn) btn.addEventListener("click", function() {
+        var conduitType = document.getElementById("cf-r-conduit-type").value;
+        var wireType = document.getElementById("cf-r-wire-type").value;
+        var awg = document.getElementById("cf-r-wire-awg").value;
+        var count = parseInt(document.getElementById("cf-r-count").value, 10) || 1;
+        var isNipple = document.getElementById("cf-r-nipple").checked;
+        var r = modeRecommend(conduitType, wireType, awg, count, isNipple);
+        if (r.recommended) {
+          document.getElementById("cf-r-min").textContent = r.recommended + '"';
+          document.getElementById("cf-r-fill").textContent = fmtPct(r.fillPct);
+          document.getElementById("cf-r-limit").textContent = (r.limit * 100).toFixed(0) + "%" + (r.isNipple ? " (nipple)" : "");
+          document.getElementById("cf-r-comp").innerHTML = '<span style="color:#16a34a">✓ Compliant per NEC</span>';
+          var tip = document.getElementById("cf-r-tip");
+          tip.style.display = "block";
+          tip.innerHTML = '<strong>Tip:</strong> ' + count + ' × ' + awg + ' AWG ' + wireType + ' is also accommodated at any size larger than ' + r.recommended + '"; sizing up improves pulling-room and heat dissipation. <em>Skip if you don\'t anticipate future expansion.</em>';
+        } else if (r.error === "exceeds_4_inch") {
+          document.getElementById("cf-r-min").textContent = "— (overflow)";
+          document.getElementById("cf-r-fill").textContent = "—";
+          document.getElementById("cf-r-limit").textContent = (r.limit * 100).toFixed(0) + "%";
+          document.getElementById("cf-r-comp").innerHTML = '<span style="color:#dc2626">✗ Even 4" ' + conduitType + ' is insufficient — reduce conductor count or split runs.</span>';
+          var tip2 = document.getElementById("cf-r-tip");
+          tip2.style.display = "none";
+        }
+        showResult("cf-r-result");
+      });
+    });
+
+    // ==========================================================
+    // Mode C — Mixed handler
+    // ==========================================================
+    document.addEventListener("DOMContentLoaded", function() {
+      var btn = document.getElementById("cf-m-calc");
+      if (btn) btn.addEventListener("click", function() {
+        var conduitType = document.getElementById("cf-m-conduit-type").value;
+        var isNipple = document.getElementById("cf-m-nipple").checked;
+        var rows = [];
+        document.querySelectorAll("#cf-m-rows .cf-m-row").forEach(function(row) {
+          var wt = row.querySelector(".cf-m-wire-type").value;
+          var aw = row.querySelector(".cf-m-wire-awg").value;
+          var cn = parseInt(row.querySelector(".cf-m-count").value, 10) || 0;
+          if (cn > 0) rows.push({ wireType: wt, awg: aw, count: cn });
+        });
+        if (rows.length === 0) return;
+        var r = modeMixed(conduitType, null, rows, isNipple);
+        document.getElementById("cf-m-twa").textContent = fmtArea(r.totalWireArea);
+        if (r.recommended) {
+          document.getElementById("cf-m-ca").textContent = fmtArea(r.conduitArea) + " (" + r.recommended + '" ' + conduitType + ")";
+          document.getElementById("cf-m-fill").textContent = fmtPct(r.fillPct);
+          document.getElementById("cf-m-limit").textContent = (r.limit * 100).toFixed(0) + "%" + (r.isNipple ? " (nipple)" : "");
+          document.getElementById("cf-m-comp").innerHTML = '<span style="color:#16a34a">✓ Compliant per NEC at ' + r.recommended + '" ' + conduitType + '</span>';
+          document.getElementById("cf-m-formula").innerHTML =
+            '<strong>Formula:</strong> ' + rows.map(function(rr) { return rr.count + ' × π/4 × ' + NEC_CH9_TABLE_5[rr.wireType][rr.awg].toFixed(3) + '² (' + rr.wireType + ' ' + rr.awg + ' AWG)'; }).join(' + ') +
+            ' = ' + r.totalWireArea.toFixed(4) + ' in² total<br>' +
+            '<strong>Conduit (' + r.recommended + '" ' + conduitType + '):</strong> A = ' + r.conduitArea.toFixed(3) + ' in²<br>' +
+            '<strong>Fill %:</strong> ' + r.totalWireArea.toFixed(4) + ' / ' + r.conduitArea.toFixed(3) + ' = <strong>' + fmtPct(r.fillPct) + '</strong>';
+          var tip = document.getElementById("cf-m-tip");
+          tip.style.display = "block";
+          tip.innerHTML = '<strong>Tip:</strong> Mixed-wire configurations cannot be looked up in NEC Annex C — use this calculator (per NEC 310.15(C) and Chapter 9 Table 4).';
+        } else if (r.error === "exceeds_4_inch") {
+          document.getElementById("cf-m-ca").textContent = "— (no size fits)";
+          document.getElementById("cf-m-fill").textContent = "—";
+          document.getElementById("cf-m-limit").textContent = (r.limit * 100).toFixed(0) + "%";
+          document.getElementById("cf-m-comp").innerHTML = '<span style="color:#dc2626">✗ Even 4" ' + conduitType + ' is insufficient — reduce conductor count or split runs.</span>';
+          document.getElementById("cf-m-formula").innerHTML = "";
+          var tip2 = document.getElementById("cf-m-tip");
+          tip2.style.display = "none";
+        }
+        showResult("cf-m-result");
+      });
+    });
+
+    // ==========================================================
+    // Preset handlers
+    // ==========================================================
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll(".cf-preset").forEach(function(p) {
+        p.addEventListener("click", function() {
+          var key = p.getAttribute("data-preset");
+          // Switch to Mode C (mixed) for explicit multi-wire presets
+          document.querySelectorAll("#cf-tool .cf-tab").forEach(function(t) { t.classList.remove("active"); });
+          document.querySelectorAll("#cf-tool .cf-panel").forEach(function(p) { p.classList.remove("active"); });
+          var mixedTab = document.querySelector('#cf-tool .cf-tab[data-mode="mixed"]');
+          if (mixedTab) mixedTab.classList.add("active");
+          var mixedPanel = document.querySelector('#cf-tool .cf-panel[data-panel="mixed"]');
+          if (mixedPanel) mixedPanel.classList.add("active");
+
+          // Clear existing rows
+          var container = document.getElementById("cf-m-rows");
+          container.innerHTML = "";
+
+          if (key === "ev-charger") {
+            document.getElementById("cf-m-conduit-type").value = "EMT";
+            addMixedRow({ wireType: "THHN/THWN-2", awg: "6", count: 2 });
+            addMixedRow({ wireType: "THHN/THWN-2", awg: "10", count: 2 });
+          } else if (key === "solar-pv") {
+            document.getElementById("cf-m-conduit-type").value = "EMT";
+            addMixedRow({ wireType: "USE-2/RHH", awg: "10", count: 4 });
+          } else if (key === "garage-240v") {
+            document.getElementById("cf-m-conduit-type").value = "PVC-40";
+            addMixedRow({ wireType: "THHN/THWN-2", awg: "6", count: 2 });
+            addMixedRow({ wireType: "THHN/THWN-2", awg: "10", count: 1 });
+            addMixedRow({ wireType: "THHN/THWN-2", awg: "12", count: 1 });
+          }
+          // Auto-scroll to form
+          var target = document.getElementById("cf-tool");
+          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+    });
+
+  })();
+  </script>
+</div>

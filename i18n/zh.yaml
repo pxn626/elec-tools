@@ -681,3 +681,55 @@
   translation: "并列运行 / 短路电流 / 电压降 / 经济电流密度法选型不在本工具范围内。"
 - id: tcs_disc_5
   translation: "特殊场景(化工防腐 / 爆炸危险 / 海上风电 / 地铁)需参考专项标准。"
+
+# conduit-fill-calculator (cf_* prefix, 25 keys incl. meta)
+- id: cf_page_title
+  translation: "穿管填充率计算器 - NEC Chapter 9 / Annex C"
+- id: cf_page_desc
+  translation: "免费 NEC 穿管填充率计算器,输入线规(AWG)、wire type 和数量,得最小 ANSI 穿管 trade size 与填充率 %,符合 NEC Chapter 9 Table 4 和 Annex C。支持 EMT、PVC-40、PVC-80、RMC、IMC,纯前端无需注册。"
+- id: cf_tab_verify
+  translation: "模式 A - 校验"
+- id: cf_tab_recommend
+  translation: "模式 B - 推荐"
+- id: cf_tab_mixed
+  translation: "模式 C - 混线"
+- id: cf_label_conduit_type
+  translation: "穿管类型"
+- id: cf_label_trade_size
+  translation: "Trade Size (英寸)"
+- id: cf_label_wire_type
+  translation: "线缆类型"
+- id: cf_label_wire_awg
+  translation: "线规 (AWG/kcmil)"
+- id: cf_label_count
+  translation: "导体根数"
+- id: cf_label_nipple_24in
+  translation: "短管 (≤ 24\")"
+- id: cf_label_custom_od
+  translation: "自定义线径 OD (英寸)"
+- id: cf_btn_calc
+  translation: "计算"
+- id: cf_btn_add_wire
+  translation: "+ 添加线组"
+- id: cf_result_fill_pct
+  translation: "填充率 %"
+- id: cf_result_min_conduit
+  translation: "最小 Trade Size"
+- id: cf_result_compliance
+  translation: "合规判定"
+- id: cf_compliance_ok
+  translation: "✓ 合规 (符合 NEC)"
+- id: cf_compliance_over
+  translation: "✗ 超 NEC 上限"
+- id: cf_preset_ev
+  translation: "⚡ 充电桩 (NEMA 14-50)"
+- id: cf_preset_solar
+  translation: "☀️ 光伏组串汇流"
+- id: cf_preset_garage
+  translation: "🔌 车库 240V 插座"
+- id: cf_standard_title
+  translation: "📋 国标依据"
+- id: cf_standard_body
+  translation: "依据 <strong>NEC Chapter 9 Table 4</strong>(穿管截面积)和 <strong>Annex C</strong>(导线数量查询表)。填充率上限:3 根及以上 40%,2 根 53%,短管 (≤ 24\") 60%。"
+- id: cf_disclaimer_text
+  translation: "<em>仅作参考 — 实际施工请以当地采用的最新 <a href=\"https://www.nfpa.org/codes-and-standards/nfpa-70-standard-development/70\" rel=\"nofollow noopener\">NEC</a> 版本及地方 AHJ (Authority Having Jurisdiction) 规定为准。本工具不替代专业工程师或持证电工的审核。</em>"

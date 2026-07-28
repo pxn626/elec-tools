@@ -681,3 +681,55 @@
   translation: "Parallel operation / short-circuit current / voltage drop / economic current density sizing are outside this tool scope."
 - id: tcs_disc_5
   translation: "Special scenarios (chemical corrosion protection / explosion hazard / offshore wind / subway) require specialized standards."
+
+# conduit-fill-calculator (cf_* prefix, 25 keys incl. meta)
+- id: cf_page_title
+  translation: "Conduit Fill Calculator — NEC Chapter 9 / Annex C"
+- id: cf_page_desc
+  translation: "Free NEC-aware conduit fill calculator. Enter wire type, AWG, and count — get minimum conduit trade size and fill % per NEC Chapter 9 Table 4 and Annex C."
+- id: cf_tab_verify
+  translation: "Mode A — Verify"
+- id: cf_tab_recommend
+  translation: "Mode B — Recommend"
+- id: cf_tab_mixed
+  translation: "Mode C — Mixed"
+- id: cf_label_conduit_type
+  translation: "Conduit Type"
+- id: cf_label_trade_size
+  translation: "Trade Size (in)"
+- id: cf_label_wire_type
+  translation: "Wire Type"
+- id: cf_label_wire_awg
+  translation: "Wire Size (AWG/kcmil)"
+- id: cf_label_count
+  translation: "Number of Conductors"
+- id: cf_label_nipple_24in
+  translation: "Nipple (≤ 24\")"
+- id: cf_label_custom_od
+  translation: "Custom Wire OD (in)"
+- id: cf_btn_calc
+  translation: "Calculate"
+- id: cf_btn_add_wire
+  translation: "+ Add Wire Group"
+- id: cf_result_fill_pct
+  translation: "Fill %"
+- id: cf_result_min_conduit
+  translation: "Minimum Trade Size"
+- id: cf_result_compliance
+  translation: "Compliance"
+- id: cf_compliance_ok
+  translation: "✓ Compliant per NEC"
+- id: cf_compliance_over
+  translation: "✗ Exceeds NEC limit"
+- id: cf_preset_ev
+  translation: "⚡ EV Charger (NEMA 14-50)"
+- id: cf_preset_solar
+  translation: "☀️ Solar PV Combiner"
+- id: cf_preset_garage
+  translation: "🔌 Garage 240V Outlet"
+- id: cf_standard_title
+  translation: "📋 Reference"
+- id: cf_standard_body
+  translation: "Per <strong>NEC Chapter 9 Table 4</strong> (conduit area) and <strong>Annex C</strong> (number-of-conductors lookup). Fill limits: 40% for 3+ conductors, 53% for 2, 60% for nipples (≤ 24\")."
+- id: cf_disclaimer_text
+  translation: "<em>Reference only — always verify with the current adopted <a href=\"https://www.nfpa.org/codes-and-standards/nfpa-70-standard-development/70\" rel=\"nofollow noopener\">NEC</a> edition and your local Authority Having Jurisdiction (AHJ). This tool does not replace professional engineering judgment or licensed electrician review.</em>"
