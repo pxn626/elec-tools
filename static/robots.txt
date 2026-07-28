@@ -1,0 +1,17 @@
+# Robots.txt for elec.webpenson.com
+# 2026-07-28 by main agent (SEO audit)
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://elec.webpenson.com/sitemap.xml
+Sitemap: https://elec.webpenson.com/zh/sitemap.xml
+Sitemap: https://elec.webpenson.com/en/sitemap.xml
+
+# Block admin/internal paths (none currently, placeholder for future)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Crawl-delay (let Google/Bing decide)
+# Crawl-delay: 1
