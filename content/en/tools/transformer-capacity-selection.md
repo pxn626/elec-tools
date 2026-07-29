@@ -354,6 +354,8 @@ Rule-of-thumb formula: **S_transformer ≥ S_UPS / 0.8**. Example: 100 kVA UPS r
 - [EV Charger Power Calculator](/tools/charging-power-calculator/) — EV charging station transformer sizing scenario; 7kW / 11kW / 22kW charger quantities → transformer capacity
 - [Cable Current-Carrying Capacity Lookup](/tools/cable-current-carrying-capacity-lookup/) — Transformer low-voltage side outgoing cable sizing
 
+**Next step — pick the conductor.** Once you've sized the transformer to a kVA rating, the natural next workflow is to select the secondary-side cable. The companion [Wire Size Calculator](https://elec.webpenson.com/tools/wire-size-calculator/?utm_source=transformer-capacity&utm_medium=internal-link) returns the smallest NEC Table 310.16 compliant AWG/kcmil for any copper / aluminum branch, with NEC 310.15(B) temperature derating, NEC 310.15(C) conduit-fill correction, the matching OCPD per NEC 240.6(A), and the 3 % branch / 5 % combined voltage-drop check — so the kVA you just picked and the AWG you pick next stay coordinated instead of fighting each other.
+
 ---
 
 ## Disclaimer

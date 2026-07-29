@@ -353,6 +353,8 @@ GB/T 17468 R10 优先数系 **19 档**(单位 kVA):
 - [充电桩功率计算器](/tools/charging-power-calculator/) — 充电站变压器选型场景,7kW / 11kW / 22kW 桩数量 → 变压器容量
 - [电缆载流量查询](/tools/cable-current-carrying-capacity-lookup/) — 变压器低压侧出线电缆选型
 
+**下一步 — 选导线截面。** 变压器容量定下之后,顺理成章的下一步就是低压侧出线电缆选型。配套的 [导线截面计算器](https://elec.webpenson.com/tools/wire-size-calculator/?utm_source=transformer-capacity&utm_medium=internal-link) 一键给出最小 NEC Table 310.16 合规 AWG/kcmil,自动套用 NEC 310.15(B) 温升 + 310.15(C) 穿管降容,按 NEC 240.6(A) 给出匹配 OCPD 断路器,并校验 3% 支路 / 5% 总压降 —— 让你刚选好的 kVA 和下一步选的 AWG 自洽、不打架。
+
 ---
 
 ## 合规免责声明
