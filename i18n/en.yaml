@@ -383,6 +383,10 @@
   translation: "① Demand Factor Method (Recommended, GB 50054)"
 - id: tcs_tab_total
   translation: "② Total Power Method (Quick Estimate)"
+- id: tcs_tab_motor_start
+  translation: "③ Motor Starting Check (GB 50055)"
+- id: tcs_tab_harmonic
+  translation: "④ Harmonic Derating (K_h correction)"
 - id: tcs_user_type_section
   translation: "▶ User Type (determines Diversity Factor K_Σ)"
 - id: tcs_user_residential
@@ -457,6 +461,54 @@
   translation: "Total Power Factor cosφ"
 - id: tcs_preset_total
   translation: "📋 Total Power Presets (common scenarios)"
+# ──── Tab 3: Motor Starting Check (added) ────
+- id: tcs_motor_section
+  translation: "▶ Motor & Transformer Parameters"
+- id: tcs_label_un
+  translation: "Bus Rated Voltage U_n"
+- id: tcs_label_uk
+  translation: "Transformer Short-Circuit Impedance U_k%"
+- id: tcs_label_kst
+  translation: "Starting Current Multiple K_st"
+- id: tcs_label_p_motor_st
+  translation: "Worst-case Single Motor Capacity P_motor"
+- id: tcs_label_cos_motor_st
+  translation: "Motor Power Factor cosφ_m"
+- id: tcs_label_eta_motor
+  translation: "Motor Efficiency η_m"
+- id: tcs_start_method_section
+  translation: "▶ Starting Method"
+- id: tcs_start_dol
+  translation: "Direct-On-Line DOL (K_st=5~7)"
+- id: tcs_start_yd
+  translation: "Star-Delta Y-Δ (K_st=2~3)"
+- id: tcs_start_soft
+  translation: "Soft-Starter / VFD (K_st=1.0~1.5)"
+- id: tcs_start_custom
+  translation: "Custom K_st"
+- id: tcs_preset_motor_start
+  translation: "📋 Starting Check Presets (typical scenarios)"
+- id: tcs_result_sst
+  translation: "Starting Apparent Power S_st"
+- id: tcs_result_udrop
+  translation: "Bus Voltage Drop U_drop%"
+- id: tcs_result_uterminal
+  translation: "Terminal Voltage U_terminal / U_n"
+- id: tcs_result_upgrade
+  translation: "Upgrade Required"
+# ──── Tab 4: Harmonic Derating K_h (added) ────
+- id: tcs_harmonic_section
+  translation: "▶ Harmonic Source & Fundamental Capacity"
+- id: tcs_label_pulses
+  translation: "Rectifier Pulse Count"
+- id: tcs_label_thdi
+  translation: "Current THDi"
+- id: tcs_label_sdemand
+  translation: "Fundamental Required Capacity S_demand"
+- id: tcs_result_scorrected
+  translation: "Harmonic-Corrected Capacity S_corrected"
+- id: tcs_preset_harmonic
+  translation: "📋 Harmonic Scenario Presets"
 - id: tcs_result_title
   translation: "Transformer Capacity Selection Result"
 - id: tcs_result_pc

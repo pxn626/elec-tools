@@ -383,6 +383,10 @@
   translation: "① 需要系数法(主推,GB 50054 推荐)"
 - id: tcs_tab_total
   translation: "② 按总功率法(快速估算)"
+- id: tcs_tab_motor_start
+  translation: "③ 电动机启动校验 (GB 50055)"
+- id: tcs_tab_harmonic
+  translation: "④ 谐波降容 (K_h 修正)"
 - id: tcs_user_type_section
   translation: "▶ 用户类型(决定同时系数 K_Σ)"
 - id: tcs_user_residential
@@ -457,6 +461,54 @@
   translation: "总功率因数 cosφ"
 - id: tcs_preset_total
   translation: "📋 总功率预设(常见场景)"
+# ──── Tab 3: 电动机启动校验 (新增) ────
+- id: tcs_motor_section
+  translation: "▶ 电动机与变压器参数"
+- id: tcs_label_un
+  translation: "母线额定电压 U_n"
+- id: tcs_label_uk
+  translation: "变压器短路阻抗 U_k%"
+- id: tcs_label_kst
+  translation: "启动电流倍数 K_st"
+- id: tcs_label_p_motor_st
+  translation: "最不利单台电机容量 P_motor"
+- id: tcs_label_cos_motor_st
+  translation: "电机功率因数 cosφ_m"
+- id: tcs_label_eta_motor
+  translation: "电机效率 η_m"
+- id: tcs_start_method_section
+  translation: "▶ 启动方式"
+- id: tcs_start_dol
+  translation: "直接启动 DOL (K_st=5~7)"
+- id: tcs_start_yd
+  translation: "星-三角 Y-Δ (K_st=2~3)"
+- id: tcs_start_soft
+  translation: "软启动器 / 变频 (K_st=1.0~1.5)"
+- id: tcs_start_custom
+  translation: "自填 K_st"
+- id: tcs_preset_motor_start
+  translation: "📋 启动校验预设(典型场景)"
+- id: tcs_result_sst
+  translation: "启动视在功率 S_st"
+- id: tcs_result_udrop
+  translation: "母线压降 U_drop%"
+- id: tcs_result_uterminal
+  translation: "端子电压 U_terminal / U_n"
+- id: tcs_result_upgrade
+  translation: "是否需升档"
+# ──── Tab 4: 谐波降容 K_h (新增) ────
+- id: tcs_harmonic_section
+  translation: "▶ 谐波源与基波容量"
+- id: tcs_label_pulses
+  translation: "整流脉冲数"
+- id: tcs_label_thdi
+  translation: "电流谐波畸变率 THDi"
+- id: tcs_label_sdemand
+  translation: "基波需求容量 S_demand"
+- id: tcs_result_scorrected
+  translation: "谐波修正后容量 S_corrected"
+- id: tcs_preset_harmonic
+  translation: "📋 谐波场景预设"
 - id: tcs_result_title
   translation: "变压器容量选型结果"
 - id: tcs_result_pc

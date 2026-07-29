@@ -41,61 +41,49 @@ draft: false
 
 ---
 
-## Tool Features — 6 Sizing Modes
+## Tool Features — Implemented Sizing Modes
 
-### Single-Equipment Sizing (Most Common)
+### Tab ① Demand Factor Method (Recommended, GB 50054)
 
-**Applicable scenarios**: Single motor / heater bank / rectifier supply. Core formula: **S = P / (cosφ × η)**. **Typical users**: Design institute electrical discipline, factory single large equipment supply. Fewest inputs; engineers can calculate manually in 1 minute, but the tool delivers the result in 1 second.
-
-```
-Input: Equipment power P / Quantity / Power factor cosφ / Efficiency η
-Output: Required capacity S(kVA) / Recommended standard rating S_n / Load factor β / Sizing rationale
-```
-
-### Multi-Equipment Sizing (Diversity Factor)
-
-**Applicable scenarios**: Multiple pieces of equipment sharing one transformer, with loads not all running at full load simultaneously. Core formula: **S = ΣP × KΣ / (cosφ_avg × η)**, where cosφ_avg is load-weighted. **Typical users**: Factory workshop distribution, residential area substations, commercial complexes, hospital ICUs.
+**Applicable scenarios**: Multiple pieces of equipment sharing one transformer, with loads not all running at full load simultaneously. Core formula: **S = ΣP_i × K_xi × KΣ / (cosφ_avg × η)**, where cosφ_avg is calculated-load-weighted (GB 50054-2011 §3.4.5). **Typical users**: Factory workshop distribution, residential area substations, commercial complexes, hospital ICUs, design institute electrical discipline.
 
 ```
-Input: Multi-equipment power P_i / Quantity / Various cosφ_i / Diversity factor KΣ / Weighted formula K_xi
-Output: Required capacity S(kVA) / Recommended standard rating S_n / Load factor β / Sizing rationale
+Input: Multi-equipment power P_i / Demand factor K_xi / Various cosφ_i / Diversity factor KΣ / Transformer efficiency η / Margin K_m
+Output: Calculated load P_c / Apparent calculated load S_c / Required minimum capacity S_N_min / Recommended standard rating S_N_std / Actual load factor β_actual
 ```
 
-### Motor Load (Starting Current Correction)
+### Tab ② Total Power Method (Quick Estimate)
 
-**Applicable scenarios**: Transformers primarily supplying motors, with DOL / soft-start / VFD starting. Core formula: **S ≥ K_st × ΣP_motor / (cosφ × η)**, where K_st is the starting current multiple. The tool takes the most adverse starting combination's peak value, not a simple sum. **Typical users**: Motor-intensive workshops, water supply and drainage pump stations, fan and pump rooms.
-
-```
-Input: Total motor power ΣP_motor / Starting method (DOL/Y-Δ/soft-start) / Starting multiple K_st / cosφ / η
-Output: Starting-corrected S / Recommended standard rating S_n / Starting voltage drop U_drop% / Terminal voltage verification
-```
-
-### Load Factor Optimization (Economic Operation)
-
-**Applicable scenarios**: Multiple transformers in parallel / long-term near-full-load operation / data center 24h continuous power supply. Core formula: **S = P / (β_opt × cosφ × η)**, with β_opt taken as 0.7–0.85. **Basis**: Transformer efficiency curve peaks near β = 0.5–0.7; long-term full-load operation (β ≈ 1.0) causes copper loss to rise sharply.
+**Applicable scenarios**: Single motor / heater bank / rectifier supply / total load known. Core formula: **S = P / (cosφ × η) × K_m**. **Typical users**: Design institute electrical discipline, factory single large equipment supply, construction drawing design phase quick estimate.
 
 ```
-Input: Average load P_avg / Target load factor β_opt (0.7–0.85) / cosφ / η
-Output: Economic operation capacity S / Recommended standard rating S_n / Actual load factor β_actual
+Input: Total active power P / Equipment type / Total power factor cosφ / Transformer efficiency η / Margin K_m
+Output: Apparent power S / Required minimum capacity S_N_min / Recommended standard rating S_N_std / Actual load factor β_actual
 ```
 
-### R10 National Standard Rating Recommendation
+### Tab ③ Motor Starting Check (GB 50055 §3.3.4)
 
-**Applicable scenarios**: After calculating the required kVA, selecting the national standard rating. Core data: **GB/T 17468 R10 preferred number series** — 30 / 50 / 63 / 80 / 100 / 125 / 160 / 200 / 250 / 315 / 400 / 500 / 630 / 800 / 1000 / 1250 / 1600 / 2000 / 2500 kVA, 19 ratings. **Typical users**: All scenarios requiring calculation sheets and transformer nameplate procurement.
-
-```
-Input: Required capacity S_demand(kVA) / Expansion margin tier (default 15%)
-Output: R10 rating recommendation S_n / Actual load factor β_actual / Economic operation zone indicator
-```
-
-### UPS / Generator Coordination
-
-**Applicable scenarios**: Transformer downstream of UPS, or transformer + diesel generator standby. Core formulas: **S_transformer ≥ S_UPS / 0.8** and **S_generator ≈ S_transformer × 1.1–1.25**. Considering UPS input harmonics (6-pulse rectifier THDi ≈ 33%), the transformer also requires 10%–20% derating. **Typical users**: Data centers, hospitals, emergency power systems, bank disaster recovery centers.
+**Applicable scenarios**: Transformers primarily supplying motors, with DOL / soft-start / VFD starting. Core formula: **S_st = K_st × P_motor / (cosφ × η)**; transformer impedance voltage drop **U_drop% ≈ S_st / S_n × U_k%**; verify **U_terminal ≥ 85% × U_n** (frequent starting ≥ 90%). **Typical users**: Motor-intensive workshops, water supply and drainage pump stations, fan and pump rooms, compressor distribution.
 
 ```
-Input: UPS capacity S_UPS / Rectifier pulse count (6/12) / Generator step-load factor
-Output: Minimum transformer capacity S_T / Recommended generator capacity S_G / Harmonic derating corrected value
+Input: Worst-case single motor capacity P_motor / Starting method (DOL/Y-Δ/soft-start) / Starting multiple K_st / cosφ / η / Bus voltage U_n / Transformer short-circuit impedance U_k%
+Output: Starting apparent power S_st / Starting current I_st / Transformer impedance voltage drop U_drop% / Terminal voltage U_terminal/U_n / Recommended standard capacity S_n (R10 iterative)
 ```
+
+### Tab ④ Harmonic Derating K_h Correction (IEEE 519 / GB/T 14549)
+
+**Applicable scenarios**: Transformer supplying harmonic sources (6-pulse / 12-pulse rectifier, UPS, VFD clusters, large-scale LED). Core formula: **S_corrected = S_demand × K_h**; **6-pulse rectifier K_h ≈ 1.10–1.20** (THDi ≈ 33%); **12-pulse rectifier K_h ≈ 1.05–1.10** (THDi ≈ 10%). **Typical users**: Data centers (UPS), VFD-intensive workshops, electrolytic rectifier stations, large-scale LED lighting.
+
+```
+Input: Fundamental required capacity S_demand / Rectifier pulse count (6/12) / Current THDi
+Output: Harmonic derating factor K_h / Harmonic-corrected capacity S_corrected / Recommended standard rating S_N (R10 round-up)
+```
+
+**Not Yet Implemented** (planned for future versions):
+
+- Load Factor Optimization (Economic Operation): Multi-transformer parallel / data-center 24h continuous supply
+- Standalone R10 Rating Recommendation: Currently R10 is integrated into Tab ①/②/③/④ as the capacity output
+- Full UPS / Generator Coordination: Currently Tab ④ harmonic derating covers partial UPS scenarios
 
 ---
 
@@ -210,6 +198,22 @@ S(kVA) = P(kW) / (cosφ × η)
 
 **Example**: 100 kW motor load, cosφ = 0.85, η = 0.97 → S ≈ 100 / (0.85 × 0.97) ≈ **121 kVA** → round up to nearest R10 → **125 kVA**.
 
+### Margin K_m and Target Load Factor β_opt (Naming Fix 2026-07-29)
+
+In this tool:
+
+- **Margin K_m** (engineering experience 1.10–1.25, GB 50052 recommended) → directly multiplied with required capacity, retaining safety margin
+- **Target load factor β_opt** (0.70–0.85) → reference for "engineer's expected actual load factor"; **not participating in division calculation**
+- **Actual load factor β_actual** = S_c / S_N_std (real load factor after selecting R10 standard rating)
+
+```
+S_N_min = (S_c / η) × K_m            # Required minimum capacity
+S_N_std = selectStandardCapacity(S_N_min)  # Round up to nearest R10 rating
+β_actual = S_c / S_N_std              # Actual load factor (verify 0.7–0.85)
+```
+
+**Correction Note**: The old version used `S_N_min = (S_c / η) × (K_m / β_opt)`, which caused β_actual to deviate from the expected value (e.g., with β_opt=0.85, β_actual became 71%). The new version uses K_m only as a margin multiplier and β_opt only as a target reference — this way β_actual truly reflects the actual load factor after sizing.
+
 ### Multi-Equipment Diversity Factor
 
 ```
@@ -249,6 +253,21 @@ S_optimal = P_avg / (β_opt × cosφ × η)
 ```
 
 **Basis**: Transformer efficiency curve peaks near β = 0.5–0.7; long-term full-load operation (β ≈ 1.0) causes copper loss to increase sharply. Engineering convention: calculate at β = 0.85 during sizing, retaining 15% expansion margin.
+
+### Harmonic Derating K_h Correction
+
+```
+S_corrected(kVA) = S_demand(kVA) × K_h
+```
+
+- **S_demand** — Fundamental required capacity (kVA, excluding harmonic correction)
+- **K_h** — Harmonic derating factor (engineering range)
+  - **6-pulse rectifier** (THDi ≈ 33%): K_h ≈ 1.10–1.20 (10%–20% derating)
+  - **12-pulse rectifier** (THDi ≈ 10%): K_h ≈ 1.05–1.10 (5%–10% derating)
+
+**This tool's approximation**: K_h ≈ 1 + 0.50 × (THDi / 100), clamped to engineering range. Example: 6-pulse THDi=33% → K_h ≈ 1.165; S_demand=100 kVA → S_corrected = 116.5 kVA → R10 = 125 kVA.
+
+**Reference**: IEEE 519-2022 / GB/T 14549-1993 *Power Quality — Harmonics in Public Supply Networks* for harmonic current limits and transformer derating recommendations for different pulse rectifiers.
 
 ### Sizing Verification
 
@@ -348,6 +367,46 @@ Rule-of-thumb formula: **S_transformer ≥ S_UPS / 0.8**. Example: 100 kVA UPS r
 > 4. Verify manufacturer data sheets and energy efficiency grades before transformer procurement
 >
 > This tool **does not provide** automatic transformer model selection and **does not replace** professional engineering judgment. This tool assumes no liability for any engineering incidents resulting from the use of this tool's data.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://elec.webpenson.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://elec.webpenson.com/tools/" },
+    { "@type": "ListItem", "position": 3, "name": "Transformer Capacity Selection Calculator", "item": "https://elec.webpenson.com/tools/transformer-capacity-selection/" }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to size a transformer per GB/T 17468 R10 / GB 50054 / GB 50055",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Choose mode & enter load parameters",
+      "text": "Pick Tab ① Demand Factor Method (multi-equipment, diversity factor KΣ), Tab ② Total Power Method (single equipment / total load), Tab ③ Motor Starting Check (GB 50055 §3.3.4), or Tab ④ Harmonic Derating (K_h correction). Enter power kW, power factor cosφ, efficiency η, and other relevant parameters."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Read the transformer result card",
+      "text": "The result card shows required capacity S_demand, required minimum capacity S_N_min, recommended standard rating S_N_std (GB/T 17468 R10 preferred numbers, round-up), and actual load factor β_actual. Tab ③ additionally outputs starting voltage drop U_drop% and terminal voltage U_terminal/U_n (required ≥ 85%); Tab ④ additionally outputs harmonic derating factor K_h and corrected capacity."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Validate selection & finalize",
+      "text": "Verify β_actual falls within the 70%–85% economic operation zone (GB 50052 §6.0.7), confirm U_terminal meets the ≥ 85% terminal voltage requirement (motor scenarios), and confirm K_h-corrected harmonic losses are acceptable (UPS / VFD scenarios). When issuing calculation sheets and procurement lists, record the cited clauses from GB/T 17468-2019, GB 50054-2011, GB 50055-2011, and GB 1094.5-2024."
+    }
+  ]
+}
+</script>
 
 <script type="application/ld+json">
 {

@@ -87,12 +87,25 @@
       #tcs-tool .tcs-tab { white-space: nowrap; }
       #tcs-tool .tcs-radio-group { gap: 10px; }
     }
+    /* 打印优化 (P2-8): 隐藏 tab 切换器 / 保留公式链 */
+    @media print {
+      #tcs-tool .tcs-mode-tabs { display: none !important; }
+      #tcs-tool .tcs-panel { display: block !important; page-break-after: always; }
+      #tcs-tool .tcs-panel:last-of-type { page-break-after: auto; }
+      #tcs-tool .tcs-result { border: 1px solid #000; background: #fff !important; }
+      #tcs-tool .tcs-r-row, #tcs-tool .tcs-coeff-row { color: #000 !important; }
+      #tcs-tool .tcs-formula { font-size: 11px; background: #fff !important; color: #000 !important; border-left: 2px solid #000; }
+      #tcs-tool .tcs-tip, #tcs-tool .tcs-warn { background: #fff !important; color: #000 !important; }
+      #tcs-tool { box-shadow: none !important; }
+    }
   </style>
 
   <div class="tcs-card">
     <div class="tcs-mode-tabs">
       <div class="tcs-tab active" data-tab="factor">{{ T "tcs_tab_factor" }}</div>
       <div class="tcs-tab" data-tab="total">{{ T "tcs_tab_total" }}</div>
+      <div class="tcs-tab" data-tab="motor-start">{{ T "tcs_tab_motor_start" }}</div>
+      <div class="tcs-tab" data-tab="harmonic">{{ T "tcs_tab_harmonic" }}</div>
     </div>
 
     <!-- =========================================================== -->
@@ -227,7 +240,7 @@
       </div>
       <div class="tcs-row">
         <div class="tcs-input-group">
-          <label>{{ T "tcs_label_kload" }}<span class="tcs-unit">(经济区间 0.75~0.85)</span></label>
+          <label>{{ T "tcs_label_kload" }}<span class="tcs-unit" title="β_actual = S_c / S_N,工程目标 0.7~0.85;K_m 为裕度系数(工程经验 1.15~1.30)">目标负载率 β_opt (0.7~0.85)</span></label>
           <input type="number" id="tcs-kload" value="0.85" min="0.30" max="1.00" step="0.05" inputmode="decimal">
         </div>
         <div class="tcs-input-group">
@@ -292,12 +305,105 @@
       </div>
       <div class="tcs-row">
         <div class="tcs-input-group">
-          <label>{{ T "tcs_label_kload" }}<span class="tcs-unit">(经济区间 0.75~0.85)</span></label>
+          <label>{{ T "tcs_label_kload" }}<span class="tcs-unit">(目标负载率 β_opt = 0.70~0.85)</span></label>
           <input type="number" id="tcs-kload-2" value="0.85" min="0.30" max="1.00" step="0.05" inputmode="decimal">
         </div>
         <div class="tcs-input-group">
           <label>{{ T "tcs_label_km" }}<span class="tcs-unit">(GB 50052 推荐 1.10~1.25)</span></label>
           <input type="number" id="tcs-km-2" value="1.20" min="1.00" max="1.50" step="0.05" inputmode="decimal">
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================== -->
+    <!-- Tab 3: 电动机启动校验 (GB 50055 §3.3.4) -->
+    <!-- =========================================================== -->
+    <div class="tcs-panel" data-panel="motor-start">
+
+      <div class="tcs-section-title">{{ T "tcs_motor_section" }}</div>
+      <div class="tcs-row3">
+        <div class="tcs-input-group">
+          <label>{{ T "tcs_label_un" }}<span class="tcs-unit">(V,典型 380/400/690)</span></label>
+          <input type="number" id="tcs-un" value="400" min="100" max="35000" step="10" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group">
+          <label>{{ T "tcs_label_uk" }}<span class="tcs-unit">(%,典型 4~6,GB 1094.5)</span></label>
+          <input type="number" id="tcs-uk" value="4.0" min="2.0" max="12.0" step="0.5" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group">
+          <label>{{ T "tcs_label_p_motor_st" }}<span class="tcs-unit">(kW,最不利单台)</span></label>
+          <input type="number" id="tcs-motor-p" value="100" min="0.5" max="5000" step="0.5" inputmode="decimal">
+        </div>
+      </div>
+      <div class="tcs-row3">
+        <div class="tcs-input-group">
+          <label>{{ T "tcs_label_cos_motor_st" }}<span class="tcs-unit">(0.80~0.90,DOL 启动时取 0.35)</span></label>
+          <input type="number" id="tcs-motor-cos" value="0.85" min="0.30" max="0.95" step="0.01" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group">
+          <label>{{ T "tcs_label_eta_motor" }}<span class="tcs-unit">(0.92~0.97)</span></label>
+          <input type="number" id="tcs-motor-eta" value="0.97" min="0.80" max="0.99" step="0.005" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group">
+          <label>{{ T "tcs_label_kst" }}<span class="tcs-unit">(DOL 5~7,Y-Δ 2~3,软启 1~1.5)</span></label>
+          <input type="number" id="tcs-kst" value="6.0" min="1.0" max="10.0" step="0.5" inputmode="decimal">
+        </div>
+      </div>
+
+      <div class="tcs-section-title">{{ T "tcs_start_method_section" }}</div>
+      <div class="tcs-input-group">
+        <div class="tcs-radio-group">
+          <label><input type="radio" name="tcs-start-method" value="dol" checked onclick="tcsApplyStartMethod('dol')"> {{ T "tcs_start_dol" }}</label>
+          <label><input type="radio" name="tcs-start-method" value="yd" onclick="tcsApplyStartMethod('yd')"> {{ T "tcs_start_yd" }}</label>
+          <label><input type="radio" name="tcs-start-method" value="soft" onclick="tcsApplyStartMethod('soft')"> {{ T "tcs_start_soft" }}</label>
+          <label><input type="radio" name="tcs-start-method" value="custom" onclick="tcsApplyStartMethod('custom')"> {{ T "tcs_start_custom" }}</label>
+        </div>
+      </div>
+
+      <div class="tcs-input-group">
+        <label>{{ T "tcs_preset_motor_start" }}</label>
+        <div class="tcs-presets">
+          <span class="tcs-preset" onclick="tcsApplyMotorPreset(11, 6.0, 0.85, 0.95)">11 kW 小电机 DOL</span>
+          <span class="tcs-preset" onclick="tcsApplyMotorPreset(55, 6.5, 0.86, 0.96)">55 kW 风机 DOL</span>
+          <span class="tcs-preset" onclick="tcsApplyMotorPreset(132, 2.5, 0.86, 0.96)">132 kW 水泵 Y-Δ</span>
+          <span class="tcs-preset" onclick="tcsApplyMotorPreset(200, 1.2, 0.88, 0.97)">200 kW 压缩机软启</span>
+          <span class="tcs-preset" onclick="tcsApplyMotorPreset(315, 1.5, 0.89, 0.97)">315 kW 磨机 VFD</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================== -->
+    <!-- Tab 4: 谐波降容 K_h 修正 -->
+    <!-- =========================================================== -->
+    <div class="tcs-panel" data-panel="harmonic">
+
+      <div class="tcs-section-title">{{ T "tcs_harmonic_section" }}</div>
+      <div class="tcs-row3">
+        <div class="tcs-input-group">
+          <label>{{ T "tcs_label_sdemand" }}<span class="tcs-unit">(kVA,基波需求容量)</span></label>
+          <input type="number" id="tcs-sdemand" value="100" min="1" max="5000" step="1" inputmode="decimal">
+        </div>
+        <div class="tcs-input-group">
+          <label>{{ T "tcs_label_pulses" }}<span class="tcs-unit">(6 或 12)</span></label>
+          <div class="tcs-radio-group">
+            <label><input type="radio" name="tcs-pulses" value="6" checked onclick="tcsApplyPulses(6)"> 6 脉冲 (THDi≈33%)</label>
+            <label><input type="radio" name="tcs-pulses" value="12" onclick="tcsApplyPulses(12)"> 12 脉冲 (THDi≈10%)</label>
+          </div>
+        </div>
+        <div class="tcs-input-group">
+          <label>{{ T "tcs_label_thdi" }}<span class="tcs-unit">(%,10~50)</span></label>
+          <input type="number" id="tcs-thdi" value="33" min="1" max="60" step="1" inputmode="decimal">
+        </div>
+      </div>
+
+      <div class="tcs-input-group">
+        <label>{{ T "tcs_preset_harmonic" }}</label>
+        <div class="tcs-presets">
+          <span class="tcs-preset" onclick="tcsApplyHarmonicPreset(100, 6, 33)">100 kVA · 6 脉冲 (UPS 经典)</span>
+          <span class="tcs-preset" onclick="tcsApplyHarmonicPreset(100, 12, 10)">100 kVA · 12 脉冲 (数据中心)</span>
+          <span class="tcs-preset" onclick="tcsApplyHarmonicPreset(500, 6, 40)">500 kVA · 6 脉冲 (变频器群)</span>
+          <span class="tcs-preset" onclick="tcsApplyHarmonicPreset(800, 12, 8)">800 kVA · 12 脉冲 (整流 + 有源滤波)</span>
+          <span class="tcs-preset" onclick="tcsApplyHarmonicPreset(250, 6, 28)">250 kVA · 6 脉冲 (LED 大规模)</span>
         </div>
       </div>
     </div>
@@ -321,20 +427,22 @@
       <ul>
         <li>GB 50052-2009《供配电系统设计规范》§6.0.3(变压器容量选择)/ §6.0.4(留裕度)/ §6.0.5(单台 ≤ 1250 kVA)/ §6.0.7(负载率 ≤ 85%)</li>
         <li>GB 50054-2011《低压配电设计规范》§3.4(负荷计算)+ 附录 B(需要系数、同时系数)</li>
+        <li>GB 50055-2011《通用用电设备配电设计规范》§3.3.4(端子电压 ≥ 85% 额定值,启动压降)</li>
         <li>GB/T 17468-2019《电力变压器选用导则》§5.1(容量优先数系 R10)</li>
+        <li>GB 1094.5-2024《电力变压器 第 5 部分:承受短路的能力》(短路阻抗 U_k% 来源)</li>
         <li>GB 20052-2020《三相配电变压器能效限定值及能效等级》</li>
         <li>GB 51348-2019《民用建筑电气设计标准》§3.5(负荷计算 + cosφ)</li>
         <li>GB/T 10228-2015《干式电力变压器技术参数和要求》</li>
+        <li>IEEE 519-2022 / GB/T 14549-1993《电能质量 公用电网谐波》(THDi 评估参考)</li>
       </ul>
     </div>
 
     <div class="tcs-disclaimer">
       <p>{{ T "tcs_js_disclaimer_title" }}</p>
       <ul>
-        <li>本工具基于 GB 50052-2009 / GB/T 17468-2019 标准简化实现,选型结果仅供设计参考。</li>
+        <li>本工具基于 GB 50052-2009 / GB 50054-2011 / GB 50055-2011 / GB/T 17468-2019 / GB 1094.5-2024 标准简化实现,选型结果仅供设计参考。</li>
         <li>正式施工图设计应以<strong>国家标准化管理委员会发布的现行版本</strong>为准,由注册电气工程师审核。</li>
-        <li>单台大功率电动机(≥ 30kW)需另核启动压降,本工具不涵盖启动校验。</li>
-        <li>并列运行 / 短路电流 / 电压降 / 经济电流密度法选型不在本工具范围内。</li>
+        <li>本工具现已覆盖 <strong>电动机启动校验(GB 50055)</strong> 与 <strong>谐波降容(K_h)</strong> 两种典型场景,但并列运行 / 短路电流 / 电压降 / 经济电流密度法选型不在本工具范围内。</li>
         <li>特殊场景(化工防腐 / 爆炸危险 / 海上风电 / 地铁)需参考专项标准。</li>
       </ul>
     </div>
@@ -506,9 +614,9 @@
         warns.push('请填写有效的变压器效率 η(0 < η < 1)');
       }
 
+      // [v2026-07-29 P0-2] K_load 仅为目标负载率参考,不再 fatal 阻断
       if (Kload === null || Kload <= 0) {
-        fatal = true;
-        warns.push('请填写有效的负载率 K_load');
+        Kload = 0.85; // 缺失时默认值
       }
 
       if (Km === null || Km < 1) {
@@ -550,13 +658,15 @@
       // 4) S_c = P_c / cosφ_avg
       var S_c = P_c / cos_avg;
 
-      // 5) S_N_min = (S_c / η) × (K_m / K_load)
-      var S_N_min = (S_c / eta) * (Km / Kload);
+      // 5) S_N_min = (S_c / η) × K_m
+      //    [v2026-07-29 P0-2 命名修复] 原 (K_m / K_load) 会让 β_actual 偏离目标负载率;
+      //    现改为只用 K_m 留裕度,K_load 作为"目标负载率"参考(不参与计算)
+      var S_N_min = (S_c / eta) * Km;
 
       // 6) S_N_std = 就近选大 R10 系列
       var S_N_std = selectStandardCapacity(S_N_min);
 
-      // 7) β_actual = S_c / S_N_std
+      // 7) β_actual = S_c / S_N_std(实际负载率,工程目标 0.7~0.85)
       var beta = S_c / S_N_std;
 
       // 加权 K_x_avg(供明细)
@@ -587,7 +697,7 @@
         coeffRow('同时系数 K_Σ', fmt(Ksigma, 3), KsigmaNote),
         coeffRow('加权功率因数 cosφ_avg', fmt(cos_avg, 3)),
         coeffRow('变压器效率 η', fmt(eta, 3), txType === 'dry' ? '干式 SCB10' : (txType === 'oil' ? '油浸 S11' : '自填')),
-        coeffRow('负载率 K_load', fmt(Kload, 3), '目标'),
+        coeffRow('目标负载率 β_opt', fmt(Kload, 3), '仅参考,不参与计算'),
         coeffRow('裕度系数 K_m', fmt(Km, 3))
       ];
       bodyHtml += coeffSection('📊 修正系数明细(GB 50054-2011)', coeffRows);
@@ -614,11 +724,11 @@
       formulaStr += 'cosφ_avg = Σ(P_i × K_xi × cosφ_i) / P_c_pre = ' + cos_num.toFixed(3) + ' / ' + P_c_pre.toFixed(2) + ' = ' + cos_avg.toFixed(3) + '\n';
       formulaStr += 'P_c = P_c_pre × K_Σ = ' + P_c_pre.toFixed(2) + ' × ' + Ksigma.toFixed(3) + ' = ' + P_c.toFixed(2) + ' kW\n';
       formulaStr += 'S_c = P_c / cosφ_avg = ' + P_c.toFixed(2) + ' / ' + cos_avg.toFixed(3) + ' = ' + S_c.toFixed(2) + ' kVA\n';
-      formulaStr += 'S_N_min = (S_c / η) × (K_m / K_load)\n';
-      formulaStr += '       = (' + S_c.toFixed(2) + ' / ' + eta.toFixed(3) + ') × (' + Km.toFixed(3) + ' / ' + Kload.toFixed(3) + ')\n';
-      formulaStr += '       = ' + (S_c / eta).toFixed(2) + ' × ' + (Km / Kload).toFixed(3) + ' = ' + S_N_min.toFixed(2) + ' kVA\n';
+      formulaStr += 'S_N_min = (S_c / η) × K_m\n';
+      formulaStr += '       = (' + S_c.toFixed(2) + ' / ' + eta.toFixed(3) + ') × ' + Km.toFixed(3) + '\n';
+      formulaStr += '       = ' + (S_c / eta).toFixed(2) + ' × ' + Km.toFixed(3) + ' = ' + S_N_min.toFixed(2) + ' kVA\n';
       formulaStr += 'S_N_std = selectStandardCapacity(' + S_N_min.toFixed(2) + ') = ' + S_N_std + ' kVA (R10 就近选大)\n';
-      formulaStr += 'β_actual = S_c / S_N_std = ' + S_c.toFixed(2) + ' / ' + S_N_std + ' = ' + (beta * 100).toFixed(2) + '%';
+      formulaStr += 'β_actual = S_c / S_N_std = ' + S_c.toFixed(2) + ' / ' + S_N_std + ' = ' + (beta * 100).toFixed(2) + '%  (目标: ' + (Kload * 100).toFixed(0) + '%)';
       f.textContent = formulaStr;
 
       // 提示
@@ -697,9 +807,9 @@
         fatal = true;
         warns.push('请填写有效的变压器效率 η(0 < η < 1)');
       }
+      // [v2026-07-29 P0-2] K_load 仅为目标负载率参考,不再 fatal 阻断
       if (Kload === null || Kload <= 0) {
-        fatal = true;
-        warns.push('请填写有效的负载率 K_load');
+        Kload = 0.85; // 缺失时默认值
       }
       if (Km === null || Km < 1) {
         fatal = true;
@@ -716,8 +826,8 @@
       // === 主公式 ===
       // S = P / cosφ
       var S = P / cos;
-      // S_N_min = S × K_m / (η × K_load)
-      var S_N_min = (S * Km) / (eta * Kload);
+      // [v2026-07-29 P0-2 命名修复] K_load 不再参与除法计算,仅作为目标负载率参考
+      var S_N_min = (S * Km) / eta;
       var S_N_std = selectStandardCapacity(S_N_min);
       var beta = S / S_N_std;
 
@@ -735,7 +845,7 @@
         coeffRow('总有功功率 P', fmt(P, 2) + ' kW'),
         coeffRow('总功率因数 cosφ', fmt(cos, 3), typeLabel),
         coeffRow('变压器效率 η', fmt(eta, 3), txType === 'dry' ? '干式 SCB10' : (txType === 'oil' ? '油浸 S11' : '自填')),
-        coeffRow('负载率 K_load', fmt(Kload, 3), '目标'),
+        coeffRow('目标负载率 β_opt', fmt(Kload, 3), '仅参考,不参与计算'),
         coeffRow('裕度系数 K_m', fmt(Km, 3))
       ];
       bodyHtml += coeffSection('📊 修正系数明细(GB 50052-2009 §6.0.3)', coeffRows);
@@ -755,11 +865,11 @@
       // 综合公式
       var formulaStr = '─── Tab 2:按总功率法(GB 50052-2009 §6.0.3)───\n';
       formulaStr += 'S = P / cosφ = ' + P.toFixed(2) + ' / ' + cos.toFixed(3) + ' = ' + S.toFixed(2) + ' kVA\n';
-      formulaStr += 'S_N_min = S × K_m / (η × K_load)\n';
-      formulaStr += '       = ' + S.toFixed(2) + ' × ' + Km.toFixed(3) + ' / (' + eta.toFixed(3) + ' × ' + Kload.toFixed(3) + ')\n';
-      formulaStr += '       = ' + (S * Km).toFixed(2) + ' / ' + (eta * Kload).toFixed(3) + ' = ' + S_N_min.toFixed(2) + ' kVA\n';
+      formulaStr += 'S_N_min = (S × K_m) / η\n';
+      formulaStr += '       = (' + S.toFixed(2) + ' × ' + Km.toFixed(3) + ') / ' + eta.toFixed(3) + '\n';
+      formulaStr += '       = ' + (S * Km).toFixed(2) + ' / ' + eta.toFixed(3) + ' = ' + S_N_min.toFixed(2) + ' kVA\n';
       formulaStr += 'S_N_std = selectStandardCapacity(' + S_N_min.toFixed(2) + ') = ' + S_N_std + ' kVA (R10 就近选大)\n';
-      formulaStr += 'β_actual = S / S_N_std = ' + S.toFixed(2) + ' / ' + S_N_std + ' = ' + (beta * 100).toFixed(2) + '%';
+      formulaStr += 'β_actual = S / S_N_std = ' + S.toFixed(2) + ' / ' + S_N_std + ' = ' + (beta * 100).toFixed(2) + '%  (目标: ' + (Kload * 100).toFixed(0) + '%)';
       f.textContent = formulaStr;
 
       var tips = [];
@@ -805,6 +915,270 @@
     }
 
     // ===========================================================
+    // 4b. 主计算 - Tab 3:电动机启动校验 (GB 50055-2011 §3.3.4)
+    //    要求: U_terminal / U_n ≥ 85%,即 U_drop% ≤ 15%
+    //    简化公式 (GB 50055 §6.0.2 / 工程手册):
+    //      S_st = K_st × P_motor / (cosφ_m × η_m)
+    //      U_drop% ≈ S_st / S_n × U_k%
+    // ===========================================================
+
+    function calcMotorStart() {
+      var r = $('tcs-result');
+      var w = $('tcs-warn');
+      var t = $('tcs-tip');
+      var f = $('tcs-formula');
+      var body = $('tcs-result-body');
+      var titleEl = $('tcs-result-title');
+
+      var U_n = numVal('tcs-un');
+      var U_k = numVal('tcs-uk');
+      var P_motor = numVal('tcs-motor-p');
+      var cos_m = numVal('tcs-motor-cos');
+      var eta_m = numVal('tcs-motor-eta');
+      var K_st = numVal('tcs-kst');
+      var startMethod = checkedRadio('tcs-start-method');
+
+      var warns = [];
+      var fatal = false;
+
+      if (U_n === null || U_n <= 0) { fatal = true; warns.push('请填写母线额定电压 U_n(> 0)'); }
+      if (U_k === null || U_k <= 0) { fatal = true; warns.push('请填写变压器短路阻抗 U_k%(> 0)'); }
+      if (P_motor === null || P_motor <= 0) { fatal = true; warns.push('请填写电机容量 P_motor(> 0)'); }
+      if (cos_m === null || cos_m <= 0) { fatal = true; warns.push('请填写电机功率因数 cosφ_m(0 < cosφ_m ≤ 1)'); }
+      if (eta_m === null || eta_m <= 0) { fatal = true; warns.push('请填写电机效率 η_m(0 < η_m < 1)'); }
+      if (K_st === null || K_st < 1) { fatal = true; warns.push('请填写启动电流倍数 K_st(≥ 1)'); }
+
+      if (fatal) {
+        r.classList.remove('active');
+        w.classList.add('active');
+        w.innerHTML = '⚠ ' + warns.join('<br>⚠ ');
+        return;
+      }
+
+      // === 主公式 ===
+      // 启动视在功率 (kVA) — 简化形式 (GB 50055 §6.0.2 + 工程手册)
+      var S_st = (K_st * P_motor) / (cos_m * eta_m);
+      // 启动电流 (A)
+      var I_st = (S_st * 1000) / (Math.sqrt(3) * U_n);
+
+      // === 迭代:找出满足 U_drop% ≤ 15% 的最小标准容量 ===
+      // 从 S_st 开始,依次试 R10 容量,直到 U_drop% ≤ 15%
+      var candidates = R10_SERIES.filter(function(v) { return v >= S_st * 0.5; });
+      var S_n_recommended = 2500; // fallback
+      var U_drop_min_pct = 999;
+      for (var i = 0; i < candidates.length; i++) {
+        var S_n = candidates[i];
+        var U_drop_pct = (S_st / S_n) * U_k;
+        if (U_drop_pct <= 15.0) {
+          S_n_recommended = S_n;
+          U_drop_min_pct = U_drop_pct;
+          break;
+        }
+      }
+      // 如果 R10 最小档仍 > 15%,则选最小档作为推荐,提示需特殊设计
+      if (U_drop_min_pct > 15.0) {
+        S_n_recommended = candidates[0] || 30;
+        U_drop_min_pct = (S_st / S_n_recommended) * U_k;
+      }
+      var U_terminal_pct = 100 - U_drop_min_pct;
+
+      // === 渲染 ===
+      var methodLabel = startMethod === 'dol' ? 'DOL' : (startMethod === 'yd' ? 'Y-Δ' : (startMethod === 'soft' ? '软启/VFD' : '自填'));
+      titleEl.textContent = '电动机启动校验 · ' + methodLabel + ' · P_motor=' + P_motor + ' kW';
+
+      var bodyHtml = '';
+      bodyHtml += rowHtml('启动视在功率 S_st', fmt(S_st, 2), ' kVA', true, 'K_st × P_motor / (cosφ × η)');
+      bodyHtml += rowHtml('启动电流 I_st', fmt(I_st, 1), ' A', false, '√3·U·I');
+      bodyHtml += rowHtml('变压器阻抗压降 U_drop%', fmt(U_drop_min_pct, 2), ' %', false, 'S_st / S_n × U_k%');
+      bodyHtml += rowHtml('端子电压 U_terminal / U_n', fmt(U_terminal_pct, 2), ' %', U_terminal_pct >= 85, 'GB 50055 §3.3.4 ≥ 85%');
+      bodyHtml += rowHtml('★ 推荐变压器容量 S_n', fmt(S_n_recommended, 0), ' kVA', true, 'GB/T 17468 R10');
+
+      // 系数明细
+      var coeffRows = [
+        coeffRow('电机容量 P_motor', fmt(P_motor, 2) + ' kW'),
+        coeffRow('电机功率因数 cosφ_m', fmt(cos_m, 3)),
+        coeffRow('电机效率 η_m', fmt(eta_m, 3)),
+        coeffRow('启动电流倍数 K_st', fmt(K_st, 2), methodLabel),
+        coeffRow('变压器短路阻抗 U_k%', fmt(U_k, 2) + ' %', 'GB 1094.5-2024'),
+        coeffRow('母线额定电压 U_n', fmt(U_n, 0) + ' V')
+      ];
+      bodyHtml += coeffSection('📊 启动校验参数(GB 50055-2011 §3.3.4)', coeffRows);
+
+      var verdict = U_terminal_pct >= 85
+        ? '✅ 端子电压满足 GB 50055 §3.3.4 (≥ 85%)要求'
+        : '⚠️ 端子电压低于 GB 50055 §3.3.4 (≥ 85%)要求,需采取降压启动或升档';
+      bodyHtml += '<div class="tcs-coeff-section">' +
+                  '<div class="tcs-coeff-section-title">💡 校验结论</div>' +
+                  '<div style="font-size:13px; color:#475569;">' + verdict + '</div>' +
+                  '</div>';
+
+      body.innerHTML = bodyHtml;
+
+      // 公式链
+      var formulaStr = '─── Tab 3:电动机启动校验 (GB 50055 §3.3.4)───\n';
+      formulaStr += 'S_st = K_st × P_motor / (cosφ_m × η_m)\n';
+      formulaStr += '    = ' + K_st.toFixed(2) + ' × ' + P_motor.toFixed(2) + ' / (' + cos_m.toFixed(3) + ' × ' + eta_m.toFixed(3) + ')\n';
+      formulaStr += '    = ' + K_st.toFixed(2) + ' × ' + P_motor.toFixed(2) + ' / ' + (cos_m * eta_m).toFixed(3) + '\n';
+      formulaStr += '    = ' + S_st.toFixed(2) + ' kVA\n';
+      formulaStr += 'I_st = S_st / (√3 × U_n) = ' + S_st.toFixed(2) + ' × 1000 / (1.732 × ' + U_n.toFixed(0) + ') = ' + I_st.toFixed(1) + ' A\n';
+      formulaStr += 'U_drop% = S_st / S_n × U_k% (迭代选 S_n)\n';
+      formulaStr += '       = ' + S_st.toFixed(2) + ' / ' + S_n_recommended + ' × ' + U_k.toFixed(2) + '%\n';
+      formulaStr += '       = ' + U_drop_min_pct.toFixed(2) + '%\n';
+      formulaStr += 'U_terminal / U_n = 100% - U_drop% = ' + U_terminal_pct.toFixed(2) + '%  (要求 ≥ 85%)';
+      f.textContent = formulaStr;
+
+      // 提示
+      var tips = [];
+      tips.push('ℹ 校验依据 GB 50055-2011《通用用电设备配电设计规范》§3.3.4:频繁启动电机端子电压 ≥ 90% U_n,不频繁启动 ≥ 85% U_n');
+      if (U_terminal_pct >= 90) {
+        tips.push('✅ 端子电压 ' + U_terminal_pct.toFixed(1) + '%:满足频繁启动场景要求,无需降压启动');
+      } else if (U_terminal_pct >= 85) {
+        tips.push('✅ 端子电压 ' + U_terminal_pct.toFixed(1) + '%:满足不频繁启动场景要求');
+      } else {
+        tips.push('⚠️ 端子电压仅 ' + U_terminal_pct.toFixed(1) + '%:低于 GB 50055 要求,考虑改用 Y-Δ 或软启');
+      }
+      if (K_st >= 5 && startMethod === 'dol') {
+        tips.push('ℹ DOL 启动冲击大:对于重要负载,建议改用 Y-Δ (K_st≈2~3) 或软启 (K_st≈1~1.5)');
+      }
+      tips.push('ℹ U_k% 越低,启动压降越小,但变压器成本越高;常用 4%~6% 平衡点,见 GB 1094.5-2024');
+
+      t.style.display = 'block';
+      t.innerHTML = tips.join('<br>');
+
+      if (warns.length > 0) {
+        w.classList.add('active');
+        w.innerHTML = '⚠ ' + warns.join('<br>⚠ ');
+      } else {
+        w.classList.remove('active');
+      }
+
+      r.classList.add('active');
+    }
+
+    // ===========================================================
+    // 4c. 主计算 - Tab 4:谐波降容 K_h 修正
+    //    依据:IEEE 519-2022 / GB/T 14549-1993 / 工程手册
+    //    6 脉冲整流 (THDi≈33%): K_h ≈ 1.10~1.20
+    //    12 脉冲整流 (THDi≈10%): K_h ≈ 1.05~1.10
+    // ===========================================================
+
+    function calcHarmonic() {
+      var r = $('tcs-result');
+      var w = $('tcs-warn');
+      var t = $('tcs-tip');
+      var f = $('tcs-formula');
+      var body = $('tcs-result-body');
+      var titleEl = $('tcs-result-title');
+
+      var S_demand = numVal('tcs-sdemand');
+      var pulses = parseInt(checkedRadio('tcs-pulses'), 10);
+      var THDi = numVal('tcs-thdi');
+
+      var warns = [];
+      var fatal = false;
+
+      if (S_demand === null || S_demand <= 0) { fatal = true; warns.push('请填写基波需求容量 S_demand(> 0)'); }
+      if (pulses === null || (pulses !== 6 && pulses !== 12)) { fatal = true; warns.push('请选脈冲数 (6 或 12)'); }
+      if (THDi === null || THDi < 0) { fatal = true; warns.push('请填写 THDi (≥ 0)'); }
+
+      if (fatal) {
+        r.classList.remove('active');
+        w.classList.add('active');
+        w.innerHTML = '⚠ ' + warns.join('<br>⚠ ');
+        return;
+      }
+
+      // === K_h 计算 ===
+      // 工程取值 (IEEE 519 / 工程手册):
+      //   6 脉冲 (THDi≈33%): K_h ≈ 1.10~1.20 (降容 10%~20%)
+      //   12 脉冲 (THDi≈10%): K_h ≈ 1.05~1.10 (降容 5%~10%)
+      // 线性近似: K_h ≈ 1 + α × (THDi/100)
+      //   α = 0.50 → THDi=33% 时 K_h≈1.165(落在 6 脉冲区间)
+      //   α = 0.50 → THDi=10% 时 K_h≈1.05 (落在 12 脉冲区间)
+      var thdi_norm = THDi / 100;
+      var K_h_dyn = 1 + 0.50 * thdi_norm;
+      // 钳制到工程区间
+      if (pulses === 6) {
+        K_h_dyn = Math.min(Math.max(K_h_dyn, 1.05), 1.20);
+      } else if (pulses === 12) {
+        K_h_dyn = Math.min(Math.max(K_h_dyn, 1.02), 1.10);
+      }
+
+      var S_corrected = S_demand * K_h_dyn;
+      var S_N_std = selectStandardCapacity(S_corrected);
+
+      // === 渲染 ===
+      var pulseLabel = pulses === 6 ? '6 脉冲' : '12 脉冲';
+      titleEl.textContent = '谐波降容校验 · ' + pulseLabel + ' · THDi=' + THDi + '%';
+
+      var bodyHtml = '';
+      bodyHtml += rowHtml('基波需求容量 S_demand', fmt(S_demand, 2), ' kVA');
+      bodyHtml += rowHtml('谐波降容系数 K_h', fmt(K_h_dyn, 3), '', true, pulseLabel);
+      bodyHtml += rowHtml('谐波修正后 S_corrected', fmt(S_corrected, 2), ' kVA', true, 'S_demand × K_h');
+      bodyHtml += rowHtml('★ 推荐变压器容量 S_N', fmt(S_N_std, 0), ' kVA', true, 'GB/T 17468 R10');
+
+      // 系数明细
+      var coeffRows = [
+        coeffRow('整流脉冲数', pulses + ' 脉冲'),
+        coeffRow('电流谐波畸变率 THDi', fmt(THDi, 2) + ' %'),
+        coeffRow('谐波降容系数 K_h', fmt(K_h_dyn, 3), '工程范围:6 脉冲 1.10~1.20;12 脉冲 1.05~1.10'),
+        coeffRow('基波需求容量 S_demand', fmt(S_demand, 2) + ' kVA'),
+        coeffRow('谐波修正后容量 S_corrected', fmt(S_corrected, 2) + ' kVA')
+      ];
+      bodyHtml += coeffSection('📊 谐波降容参数(IEEE 519 / GB/T 14549)', coeffRows);
+
+      var k_h_text = pulses === 6
+        ? '6 脉冲整流 (THDi≈33%) — K_h 取 1.10~1.20 (降容 10%~20%)'
+        : '12 脉冲整流 (THDi≈10%) — K_h 取 1.05~1.10 (降容 5%~10%)';
+      bodyHtml += '<div class="tcs-coeff-section">' +
+                  '<div class="tcs-coeff-section-title">💡 谐波场景说明</div>' +
+                  '<div style="font-size:13px; color:#475569;">' + k_h_text + '</div>' +
+                  '</div>';
+
+      body.innerHTML = bodyHtml;
+
+      // 公式链
+      var formulaStr = '─── Tab 4:谐波降容 K_h 修正 (IEEE 519 / GB/T 14549)───\n';
+      formulaStr += '输入参数:\n';
+      formulaStr += '  脈冲数 = ' + pulses + ', THDi = ' + THDi.toFixed(2) + '%\n';
+      formulaStr += '线性近似 K_h ≈ 1 + α × (THDi/100), α=0.50\n';
+      formulaStr += '           = 1 + 0.50 × ' + thdi_norm.toFixed(3) + ' = ' + (1 + 0.50 * thdi_norm).toFixed(3) + '\n';
+      formulaStr += '           = ' + K_h_dyn.toFixed(3) + ' (钳制到 6 脉冲 [1.05,1.20] / 12 脉冲 [1.02,1.10])\n';
+      formulaStr += 'S_corrected = S_demand × K_h = ' + S_demand.toFixed(2) + ' × ' + K_h_dyn.toFixed(3) + ' = ' + S_corrected.toFixed(2) + ' kVA\n';
+      formulaStr += 'S_N = selectStandardCapacity(' + S_corrected.toFixed(2) + ') = ' + S_N_std + ' kVA (R10 就近选大)';
+      f.textContent = formulaStr;
+
+      // 提示
+      var tips = [];
+      tips.push('ℹ 谐波参考:6 脉冲整流 THDi≈33% (UPS/变频器常见);12 脉冲 THDi≈10% (数据中心/大功率整流)');
+      if (pulses === 6 && THDi >= 30) {
+        tips.push('⚠ 6 脈冲 + 高 THDi:建议加有源滤波器 (APF) 或改用 12 脈冲,可将 K_h 降回 1.05~1.10');
+      }
+      if (pulses === 12 && THDi > 12) {
+        tips.push('⚠ 12 脈冲但 THDi 偏高 (>12%):检查移相变压器是否平衡,或负载不平衡度');
+      }
+      if (K_h_dyn >= 1.18) {
+        tips.push('⚠ K_h ≥ 1.18:谐波降容较大,需要考虑谐波损耗导致的额外温升,选择 K 级绝缘或降容使用');
+      } else if (K_h_dyn <= 1.08) {
+        tips.push('✅ K_h 较小:谐波影响轻微,标准变压器可满足');
+      } else {
+        tips.push('ℹ K_h 中等 (1.08~1.18):常规谐波场景,选择标准变压器即可');
+      }
+
+      t.style.display = 'block';
+      t.innerHTML = tips.join('<br>');
+
+      if (warns.length > 0) {
+        w.classList.add('active');
+        w.innerHTML = '⚠ ' + warns.join('<br>⚠ ');
+      } else {
+        w.classList.remove('active');
+      }
+
+      r.classList.add('active');
+    }
+
+    // ===========================================================
     // 5. Tab 切换
     // ===========================================================
 
@@ -820,6 +1194,8 @@
       var tab = activeTab.dataset.tab;
       if (tab === 'factor') calcFactorMethod();
       else if (tab === 'total') calcTotalPowerMethod();
+      else if (tab === 'motor-start') calcMotorStart();
+      else if (tab === 'harmonic') calcHarmonic();
     }
     // 暴露到全局,供 HTML inline onclick="tcsCalc()" 调用
     window.tcsCalc = tcsCalc;
@@ -877,6 +1253,52 @@
       }
     };
 
+    // Tab 3: 启动方式选择 (联动 K_st 默认值)
+    window.tcsApplyStartMethod = function(method) {
+      var el = $('tcs-kst');
+      if (!el) return;
+      if (method === 'dol') el.value = 6.0;
+      else if (method === 'yd') el.value = 2.5;
+      else if (method === 'soft') el.value = 1.2;
+      // 'custom' 让用户自填
+      tcsCalc();
+    };
+
+    // Tab 3: 启动校验预设
+    window.tcsApplyMotorPreset = function(p, kst, cos, eta) {
+      var elP = $('tcs-motor-p');
+      var elKst = $('tcs-kst');
+      var elCos = $('tcs-motor-cos');
+      var elEta = $('tcs-motor-eta');
+      if (elP) elP.value = p;
+      if (elKst) elKst.value = kst;
+      if (elCos) elCos.value = cos;
+      if (elEta) elEta.value = eta;
+      tcsCalc();
+    };
+
+    // Tab 4: 脈冲数选择 (联动 THDi 默认值)
+    window.tcsApplyPulses = function(pulses) {
+      var el = $('tcs-thdi');
+      if (!el) return;
+      el.value = (pulses === 6) ? 33 : 10;
+      tcsCalc();
+    };
+
+    // Tab 4: 谐波场景预设
+    window.tcsApplyHarmonicPreset = function(sDemand, pulses, thdi) {
+      var elS = $('tcs-sdemand');
+      var elT = $('tcs-thdi');
+      // 选中脈冲 radio
+      var radios = document.getElementsByName('tcs-pulses');
+      for (var i = 0; i < radios.length; i++) {
+        radios[i].checked = (parseInt(radios[i].value, 10) === pulses);
+      }
+      if (elS) elS.value = sDemand;
+      if (elT) elT.value = thdi;
+      tcsCalc();
+    };
+
     // ===========================================================
     // 9. 事件绑定
     // ===========================================================
@@ -921,6 +1343,42 @@
 
       // radio groups(Tab 2)
       ['tcs-total-type','tcs-tx-type-2'
+      ].forEach(function(name) {
+        var els = document.getElementsByName(name);
+        for (var i = 0; i < els.length; i++) {
+          els[i].addEventListener('change', tcsCalc);
+        }
+      });
+
+      // Tab 3 inputs (电动机启动校验)
+      ['tcs-un','tcs-uk','tcs-motor-p','tcs-motor-cos','tcs-motor-eta','tcs-kst'
+      ].forEach(function(id) {
+        var el = $(id);
+        if (!el) return;
+        el.addEventListener('input', tcsCalc);
+        el.addEventListener('change', tcsCalc);
+      });
+
+      // radio groups(Tab 3)
+      ['tcs-start-method'
+      ].forEach(function(name) {
+        var els = document.getElementsByName(name);
+        for (var i = 0; i < els.length; i++) {
+          els[i].addEventListener('change', tcsCalc);
+        }
+      });
+
+      // Tab 4 inputs (谐波降容)
+      ['tcs-sdemand','tcs-thdi'
+      ].forEach(function(id) {
+        var el = $(id);
+        if (!el) return;
+        el.addEventListener('input', tcsCalc);
+        el.addEventListener('change', tcsCalc);
+      });
+
+      // radio groups(Tab 4)
+      ['tcs-pulses'
       ].forEach(function(name) {
         var els = document.getElementsByName(name);
         for (var i = 0; i < els.length; i++) {
