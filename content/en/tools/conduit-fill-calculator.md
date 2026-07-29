@@ -36,7 +36,7 @@ keywords:
 layout: "page"
 translationKey: "conduit_fill_calculator"
 date: "2026-07-28T04:00:00+00:00"
-draft: false
+draft: true
 ---
 
 # Conduit Fill Calculator — NEC Chapter 9 / Annex C Online Tool

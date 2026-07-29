@@ -17,10 +17,6 @@ layout: "page"
 ### 配电设计
 
 - [三相电功率计算器](/tools/three-phase-power-calculator/) — 输入线电压 U、线电流 I、功率因数 cosφ,秒算有功 P / 视在 S / 无功 Q,并推荐补偿到 0.95 所需电容容量。
-- [断路器选型计算器](/tools/circuit-breaker-sizing-calculator/) — 按 NEC 240/430/210.20(A) 与 GB 10963 选 OCPD,支持充电桩 / 电机 / 子配电 3 类负载。
-- [线径选型计算器](/tools/wire-size-calculator/) — 按 NEC 310.16 AWG/kcmil 选线 + 压降校验 + 配套 OCPD 推荐。
-- [电缆载流量查询](/tools/cable-current-carrying-capacity-lookup/) — YJV/YJV22/VV 国标电缆,5 种敷设方式,GB 50217 修正系数。
-- [变压器容量选择](/tools/transformer-capacity-selection/) — kVA 选型,按 GB/T 17468 R10 优先数系,单设备 / 多设备 / 电机启动 3 种模式。
 - [电费估算计算器](/tools/electricity-cost-calculator/) — 电器功率 + 日使用时长(或月总用电量) + 电价,速算日 / 月 / 年电费与 CO₂ 排放。
 
 ---

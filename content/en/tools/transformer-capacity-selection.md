@@ -27,7 +27,7 @@ keywords:
 layout: "page"
 translationKey: "transformer_capacity_selection"
 date: "2026-07-19T00:00:00+00:00"
-draft: false
+draft: true
 ---
 
 {{< transformer-capacity-selection >}}

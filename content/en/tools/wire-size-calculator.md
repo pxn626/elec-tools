@@ -30,6 +30,7 @@ keywords:
   - "OCPD coordination"
   - "ampacity"
 translationKey: "wire_size_calculator"
+draft: true
 ---
 
 {{< wire-size-calculator >}}

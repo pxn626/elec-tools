@@ -14,10 +14,6 @@ All calculators run **100% client-side** — your data never leaves your browser
 
 ### Power Distribution & Engineering
 - [Three-Phase Power Calculator](/tools/three-phase-power-calculator/) — Line voltage/current/power factor → active/apparent/reactive power + PF compensation.
-- [Circuit Breaker Size Calculator](/tools/circuit-breaker-sizing-calculator/) — NEC 240/430 OCPD sizing with EV charger, motor, and subpanel presets.
-- [Wire Size Calculator](/tools/wire-size-calculator/) — NEC 310.16 AWG/kcmil + voltage drop verification + next-standard OCPD.
-- [Cable Ampacity Lookup](/tools/cable-current-carrying-capacity-lookup/) — YJV/YJV22/VV lookup covering 5 installation methods per GB 50217.
-- [Transformer Capacity Selection](/tools/transformer-capacity-selection/) — kVA sizing per GB/T 17468 R10, single/multi-device + motor inrush modes.
 - [Electricity Cost Estimator](/tools/electricity-cost-calculator/) — Appliance wattage + daily hours + rate → daily/monthly/annual cost + carbon estimate.
 
 ---

@@ -31,6 +31,7 @@ keywords:
   - "motor branch circuit"
   - "subpanel feeder"
 translationKey: "circuit_breaker_sizing_calculator"
+draft: true
 ---
 
 {{< circuit-breaker-sizing-calculator >}}
