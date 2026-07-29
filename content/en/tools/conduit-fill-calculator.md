@@ -1,6 +1,6 @@
 ---
 title: "Conduit Fill Calculator — NEC Chapter 9 / Annex C Online Tool"
-description: "Free NEC-aware conduit fill calculator. Enter wire type, AWG, and count — get minimum conduit trade size and fill % per NEC Chapter 9 Table 4 and Annex C. EMT, PVC, RMC, IMC. No signup, runs in browser."
+description: "Free NEC conduit fill calculator. Enter wire type, AWG, and count — get minimum conduit trade size and fill % per NEC Chapter 9 Table 4 and Annex C. EMT, PVC, RMC, IMC."
 categories:
   - "Electrical Tools"
   - "NEC Chapter 9"
@@ -27,6 +27,12 @@ keywords:
   - "Chapter 9 Table 4"
   - "Annex C"
   - "raceway fill"
+  - "conduit fill chart"
+  - "THHN wire conduit size"
+  - "how many wires in 3/4 emt"
+  - "mixed wire sizes in conduit"
+  - "conduit fill for EV charger"
+  - "conduit fill for solar PV"
 layout: "page"
 translationKey: "conduit_fill_calculator"
 date: "2026-07-28T04:00:00+00:00"
@@ -34,6 +40,8 @@ draft: false
 ---
 
 # Conduit Fill Calculator — NEC Chapter 9 / Annex C Online Tool
+
+{{< conduit-fill-calculator >}}
 
 ## TL;DR
 
@@ -219,6 +227,20 @@ Click a preset chip to automatically fill the Mode C form with a real-world conf
 - Limit (9 conductors) = 40%
 - Compliance: ✓ **Well within limits, typical multi-circuit run.** Annex C Table C.1 maximum for 12 AWG THHN in 3/4" EMT = **16 wires** (the 3/4" EMT can accept up to 16 wires of this size before bumping to 1" EMT). This configuration uses 9 wires at 22.4% — comfortable margin for future circuit additions.
 
+### Example 2b — Critical Annex C Sanity Check: 16 × 12 AWG THHN in 3/4" EMT
+
+**Inputs:** Conduit = EMT 3/4"; Wire = THHN 12 AWG; Count = 16 (NEC Annex C Table C.1 maximum for this combination).
+
+**Calculation:**
+- 12 AWG THHN area = 0.01327 in² per conductor (same as Example 1 & 2)
+- 3/4" EMT internal area = 0.533 in²
+- Total wire area = 16 × 0.01327 = 0.21232 in²
+- Fill % = 0.21232 / 0.533 = **39.83%**
+- Limit (16 conductors) = 40%
+- Compliance: ✓ **Just under the 40% limit — this is the Annex C Table C.1 boundary case (AV-2 directive: 3/4" EMT × 12 AWG THHN = 16 wires).** Pushing to 17 wires in the same 3/4" EMT would exceed 40% (17 × 0.01327 / 0.533 = **42.32%**, ✗ over limit) — at that point size up to 1" EMT.
+
+This pairs with Example 2 (9 wires in 3/4" EMT, 22.40% — comfortable margin) to bracket the Annex C Table C.1 boundary for 12 AWG THHN: Example 2 sits comfortably inside the limit; Example 2b sits exactly at the boundary.
+
 ### Example 3 — 4 × 6 AWG XHHW in 3/4" PVC-40 → upgrade to 1" PVC-40
 
 **Inputs:** Conduit = PVC-40 3/4"; Wire = XHHW 6 AWG; Count = 4 (sub-panel feeder or 50 A circuit).
@@ -312,7 +334,7 @@ Per NEC Chapter 9 Table 4 and Note 1, conduit fill is limited by conductor count
 
 ### How many 12 AWG THHN wires can fit in 3/4" EMT?
 
-Per the formula `⌊0.40 × 0.533 / 0.01327⌋ = 16`, the **Annex C Table C.1 maximum is 16 wires of 12 AWG THHN in 3/4" EMT**. Example with 9 wires: 9 × π/4 × 0.130² = 0.1194 in² total wire area. Conduit internal area for 3/4" EMT = 0.533 in². Fill % = 0.1194 / 0.533 = **22.40%** — well below the 40% limit for 3+ conductors. To push to the maximum (16 wires), fill becomes 9 × 0.01327 × 2 / 0.533 / 1.778 = **39.83%** (just under the limit). Once you exceed 16 wires, switch to 1" EMT (internal area 0.864 in², fill drops to 24.55% at 17 wires).
+Per the formula `⌊0.40 × 0.533 / 0.01327⌋ = 16`, the **Annex C Table C.1 maximum is 16 wires of 12 AWG THHN in 3/4" EMT**. Example with 9 wires: 9 × π/4 × 0.130² = 0.1194 in² total wire area. Conduit internal area for 3/4" EMT = 0.533 in². Fill % = 0.1194 / 0.533 = **22.40%** — well below the 40% limit for 3+ conductors. To push to the maximum (16 wires), fill becomes 16 × 0.01327 / 0.533 = **39.83%** (just under the limit). Once you exceed 16 wires, switch to 1" EMT (internal area 0.864 in², fill drops to 24.55% at 17 wires).
 
 ### Do I count the ground wire in conduit fill?
 
@@ -406,7 +428,7 @@ Calculation method is **identical** — same NEC Chapter 9 Table 4 fill limits (
       "name": "How many 12 AWG THHN wires can fit in 3/4 inch EMT?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Per the formula floor(0.40 × 0.533 / 0.01327) = 16, the Annex C Table C.1 maximum is 16 wires of 12 AWG THHN in 3/4 inch EMT. Example with 9 wires: 9 × π/4 × 0.130² = 0.1194 in² total wire area. Conduit internal area for 3/4 inch EMT = 0.533 in². Fill % = 0.1194 / 0.533 = 22.40% — well below the 40% limit for 3+ conductors. To push to the maximum (16 wires), fill becomes 39.83%. Once you exceed 16 wires, switch to 1 inch EMT (internal area 0.864 in², fill drops to 24.55% at 17 wires)."
+        "text": "Per the formula floor(0.40 × 0.533 / 0.01327) = 16, the Annex C Table C.1 maximum is 16 wires of 12 AWG THHN in 3/4 inch EMT. Example with 9 wires: 9 × π/4 × 0.130² = 0.1194 in² total wire area. Conduit internal area for 3/4 inch EMT = 0.533 in². Fill % = 0.1194 / 0.533 = 22.40% — well below the 40% limit for 3+ conductors. To push to the maximum (16 wires), fill becomes 16 × 0.01327 / 0.533 = 39.83%. Once you exceed 16 wires, switch to 1 inch EMT (internal area 0.864 in², fill drops to 24.55% at 17 wires)."
       }
     },
     {
