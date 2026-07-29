@@ -392,6 +392,18 @@ This tool **does not provide** automatic cable sizing recommendations and **does
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://elec.webpenson.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://elec.webpenson.com/tools/" },
+    { "@type": "ListItem", "position": 3, "name": "Cable Ampacity Lookup", "item": "https://elec.webpenson.com/tools/cable-current-carrying-capacity-lookup/" }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {

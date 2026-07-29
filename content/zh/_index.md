@@ -48,3 +48,17 @@ layout: "page"
   }
 }
 </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "webpenson",
+  "url": "https://elec.webpenson.com/",
+  "logo": "https://elec.webpenson.com/logo.png",
+  "description": "免费在线电气工具箱 — 充电桩、电池与配电计算工具。100% 纯前端运行,数据零上传。基于 NEC、GB/T 与 IEC 标准开发。",
+  "sameAs": [
+    "https://github.com/pxn626"
+  ]
+}
+</script>
