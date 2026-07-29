@@ -44,3 +44,17 @@ All calculators run **100% client-side** — your data never leaves your browser
   }
 }
 </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "webpenson",
+  "url": "https://elec.webpenson.com/",
+  "logo": "https://elec.webpenson.com/logo.png",
+  "description": "Free online electrical toolbox — EV charging, battery, and power-distribution calculators. 100% client-side, zero data upload. Built on NEC, GB/T, and IEC standards.",
+  "sameAs": [
+    "https://github.com/pxn626"
+  ]
+}
+</script>
