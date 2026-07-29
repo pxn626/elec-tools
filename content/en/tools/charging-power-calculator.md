@@ -1,34 +1,33 @@
 ---
-title: "EV Charger Power Calculator — Sizing & Three-Phase Power"
-description: "Free online EV charger power calculator. Enter voltage V, current A, and power factor cosΦ to calculate active power kW, reactive power kVar, and apparent power kVA. Supports single-phase 220V and three-phase 380V, assisting with charger sizing."
+title: EV Charger Power Calculator — Sizing & Three-Phase Power
+description: Free online EV charger power calculator. Enter voltage V, current A, and power factor cosΦ to calculate active power kW, reactive power kVar, and apparent power kVA. Supports single-phase 220V and three-phase 380V, assisting with charger sizing.
 categories:
-  - "EV Charger Tools"
-  - "Electrical Calculators"
-  - "Engineering Tools"
-
-
+  - EV Charger Tools
+  - Electrical Calculators
+  - Engineering Tools
 images:
-  - "/images/tools/charging-power-calculator.svg"
+  - /images/tools/charging-power-calculator.svg
 tags:
-  - "EV charger"
-  - "three-phase"
-  - "power factor"
-  - "cosφ"
-  - "P=√3UI"
-  - "7kW"
-  - "11kW"
-  - "22kW"
-  - "GB/T 20234"
+  - EV charger
+  - three-phase
+  - power factor
+  - cosφ
+  - P=√3UI
+  - 7kW
+  - 11kW
+  - 22kW
+  - GB/T 20234
 keywords:
-  - "EV charger power calculator"
-  - "charger sizing"
-  - "three-phase"
-  - "power factor"
-  - "cosφ"
-  - "7kW home charger"
-  - "22kW dual-gun"
-layout: "page"
-translationKey: "charging_power_calculator"
+  - EV charger power calculator
+  - charger sizing
+  - three-phase
+  - power factor
+  - cosφ
+  - 7kW home charger
+  - 22kW dual-gun
+layout: page
+translationKey: charging_power_calculator
+draft: false
 ---
 
 {{< charging-power-calculator >}}

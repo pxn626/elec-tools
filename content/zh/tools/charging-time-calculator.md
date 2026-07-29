@@ -1,32 +1,31 @@
 ---
-title: "充电时间计算器 — 电动车 / 充电桩充满耗时在线估算"
-description: "免费在线充电时间计算器,输入电池容量 kWh、充电功率 kW 和效率,即可算出 0-100% / 50% / 80% 充电时长,覆盖 13 个充电桩预设(7/11/22/43kW 交流 + 30/60/80/100/120/160/240/400/480kW 直流)。"
+title: 充电时间计算器 — 电动车 / 充电桩充满耗时在线估算
+description: 免费在线充电时间计算器,输入电池容量 kWh、充电功率 kW 和效率,即可算出 0-100% / 50% / 80% 充电时长,覆盖 13 个充电桩预设(7/11/22/43kW 交流 + 30/60/80/100/120/160/240/400/480kW 直流)。
 categories:
-  - "充电桩工具"
-  - "电池计算"
-  - "车主必备"
-
-
+  - 充电桩工具
+  - 电池计算
+  - 车主必备
 images:
-  - "/images/tools/charging-time-calculator.svg"
+  - /images/tools/charging-time-calculator.svg
 tags:
-  - "充电桩"
-  - "电池容量"
-  - "kWh"
-  - "充电时长"
-  - "CCCV涓流"
-  - "GB/T 27930"
-  - "充电曲线"
+  - 充电桩
+  - 电池容量
+  - kWh
+  - 充电时长
+  - CCCV涓流
+  - GB/T 27930
+  - 充电曲线
 keywords:
-  - "充电时间计算器"
-  - "电动车充电桩"
-  - "电池充电"
-  - "kWh"
-  - "充电功率"
-  - "充电曲线"
-  - "GB/T 27930"
-layout: "page"
-translationKey: "charging_time_calculator"
+  - 充电时间计算器
+  - 电动车充电桩
+  - 电池充电
+  - kWh
+  - 充电功率
+  - 充电曲线
+  - GB/T 27930
+layout: page
+translationKey: charging_time_calculator
+draft: false
 ---
 
 {{< charging-time-calculator >}}

@@ -1,34 +1,33 @@
 ---
-title: "三相电功率计算器 — 有功 / 视在 / 无功与功率因数在线速算"
-description: "在线三相电功率与功率因数计算器,输入线电压 V、线电流 A、功率因数 cosφ,即可算出有功功率 P(kW)、视在功率 S(kVA)、无功功率 Q(kvar),支持单位切换(W↔kW、VAr↔kVAr),并推荐补偿到 0.95 所需的无功补偿电容容量。面向工厂配电、电机选型、变压器容量核实与力调电费核算。"
+title: 三相电功率计算器 — 有功 / 视在 / 无功与功率因数在线速算
+description: 在线三相电功率与功率因数计算器,输入线电压 V、线电流 A、功率因数 cosφ,即可算出有功功率 P(kW)、视在功率 S(kVA)、无功功率 Q(kvar),支持单位切换(W↔kW、VAr↔kVAr),并推荐补偿到 0.95 所需的无功补偿电容容量。面向工厂配电、电机选型、变压器容量核实与力调电费核算。
 categories:
-  - "电气计算"
-  - "三相电"
-  - "工厂必备"
-  - "工程师工具"
-
-
+  - 电气计算
+  - 三相电
+  - 工厂必备
+  - 工程师工具
 images:
-  - "/images/tools/three-phase-power-calculator.svg"
+  - /images/tools/three-phase-power-calculator.svg
 tags:
-  - "三相电"
-  - "功率因数"
-  - "cosφ"
-  - "无功补偿"
-  - "kVAr"
-  - "功率三角形"
-  - "GB/T 15543"
-  - "工厂配电"
+  - 三相电
+  - 功率因数
+  - cosφ
+  - 无功补偿
+  - kVAr
+  - 功率三角形
+  - GB/T 15543
+  - 工厂配电
 keywords:
-  - "三相电功率计算器"
-  - "三相功率"
-  - "有功功率"
-  - "无功功率"
-  - "视在功率"
-  - "功率因数补偿"
-  - "力调电费"
-layout: "page"
-translationKey: "three_phase_power_calculator"
+  - 三相电功率计算器
+  - 三相功率
+  - 有功功率
+  - 无功功率
+  - 视在功率
+  - 功率因数补偿
+  - 力调电费
+layout: page
+translationKey: three_phase_power_calculator
+draft: false
 ---
 
 {{< three-phase-power-calculator >}}

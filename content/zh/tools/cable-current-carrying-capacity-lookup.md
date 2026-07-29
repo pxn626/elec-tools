@@ -1,34 +1,33 @@
 ---
-title: "电缆载流量查询 - YJV / YJV22 / VV 在线速查工具"
-description: "在线电缆载流量查询工具,支持 YJV / YJLV / VV / VLV / BVR / BLVR 等型号,覆盖明敷、穿管、桥架、直埋、管道 5 种敷设方式,自动套用 GB 50217 温度、并列、海拔修正系数,工程设计 / 现场施工 / 工厂电气维护都能直接用。"
+title: 电缆载流量查询 - YJV / YJV22 / VV 在线速查工具
+description: 在线电缆载流量查询工具,支持 YJV / YJLV / VV / VLV / BVR / BLVR 等型号,覆盖明敷、穿管、桥架、直埋、管道 5 种敷设方式,自动套用 GB 50217 温度、并列、海拔修正系数,工程设计 / 现场施工 / 工厂电气维护都能直接用。
 categories:
   - 电气工具
   - 电缆与敷设
   - 工程速查
-
 images:
-  - "/images/tools/cable-current-carrying-capacity-lookup.svg"
+  - /images/tools/cable-current-carrying-capacity-lookup.svg
 tags:
-  - "电缆"
-  - "载流量"
-  - "YJV"
-  - "穿管"
-  - "桥架"
-  - "土壤敷设"
-  - "GB 50217"
-  - "修正系数"
+  - 电缆
+  - 载流量
+  - YJV
+  - 穿管
+  - 桥架
+  - 土壤敷设
+  - GB 50217
+  - 修正系数
 keywords:
-  - "电缆载流量查询"
-  - "电缆选型"
-  - "YJV电缆"
-  - "穿管敷设"
-  - "桥架敷设"
-  - "土壤敷设"
-  - "载流量修正"
+  - 电缆载流量查询
+  - 电缆选型
+  - YJV电缆
+  - 穿管敷设
+  - 桥架敷设
+  - 土壤敷设
+  - 载流量修正
 layout: page
 translationKey: cable_current_carrying_capacity_lookup
 date: 2026-07-18T21:05:00+00:00
-draft: false
+draft: true
 ---
 
 {{< cable-current-carrying-capacity-lookup >}}

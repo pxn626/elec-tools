@@ -1,8 +1,9 @@
 ---
-translationKey: "about"
-title: "关于电气工具箱"
-description: "关于电气工具箱 — 免费在线电气计算工具集，面向电气工程师与电动车车主"
-layout: "page"
+translationKey: about
+title: 关于电气工具箱
+description: 关于电气工具箱 — 免费在线电气计算工具集，面向电气工程师与电动车车主
+layout: page
+draft: false
 ---
 
 ## 关于本站
@@ -40,4 +41,4 @@ layout: "page"
 
 ---
 
-> **数据隐私承诺**：本站不使用 Cookie、不采集用户数据、不接入任何第三方分析服务。你的配电参数永远留在你的浏览器里。
+> **数据隐私承诺**：本站不使用 Cookie、不采集用户数据。你的配电参数永远留在你的浏览器里。

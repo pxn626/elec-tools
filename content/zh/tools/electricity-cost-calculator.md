@@ -1,33 +1,32 @@
 ---
-title: "电费估算计算器 — 家用电器日 / 月 / 年电费在线速算"
-description: "免费在线电费估算计算器,输入电器功率 W 与日使用时长(或月总用电量 kWh)与电价 ¥/kWh,即可算出日 / 月 / 年电费,内置 LED / 冰箱 / 空调 / 热水器等家电预设,辅助家庭节能。"
+title: 电费估算计算器 — 家用电器日 / 月 / 年电费在线速算
+description: 免费在线电费估算计算器,输入电器功率 W 与日使用时长(或月总用电量 kWh)与电价 ¥/kWh,即可算出日 / 月 / 年电费,内置 LED / 冰箱 / 空调 / 热水器等家电预设,辅助家庭节能。
 categories:
-  - "电气计算"
-  - "电费估算"
-  - "节能工具"
-  - "家庭必备"
-
-
+  - 电气计算
+  - 电费估算
+  - 节能工具
+  - 家庭必备
 images:
-  - "/images/tools/electricity-cost-calculator.svg"
+  - /images/tools/electricity-cost-calculator.svg
 tags:
-  - "电费"
-  - "阶梯电价"
-  - "kWh"
-  - "家用电器"
-  - "LED"
-  - "空调"
-  - "电热水器"
-  - "CO₂排放"
+  - 电费
+  - 阶梯电价
+  - kWh
+  - 家用电器
+  - LED
+  - 空调
+  - 电热水器
+  - CO₂排放
 keywords:
-  - "电费计算器"
-  - "家用电器电费"
-  - "月用电量"
-  - "阶梯电价"
-  - "节能"
-  - "电费估算"
-layout: "page"
-translationKey: "electricity_cost_calculator"
+  - 电费计算器
+  - 家用电器电费
+  - 月用电量
+  - 阶梯电价
+  - 节能
+  - 电费估算
+layout: page
+translationKey: electricity_cost_calculator
+draft: false
 ---
 
 {{< electricity-cost-calculator >}}

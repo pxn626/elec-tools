@@ -5,29 +5,29 @@ categories:
   - 充电桩工具
   - 电气计算
   - 工程师工具
-
 images:
-  - "/images/tools/charging-power-calculator.svg"
+  - /images/tools/charging-power-calculator.svg
 tags:
-  - "充电桩"
-  - "三相电"
-  - "功率因数"
-  - "cosφ"
-  - "P=√3UI"
-  - "7kW"
-  - "11kW"
-  - "22kW"
-  - "GB/T 20234"
+  - 充电桩
+  - 三相电
+  - 功率因数
+  - cosφ
+  - P=√3UI
+  - 7kW
+  - 11kW
+  - 22kW
+  - GB/T 20234
 keywords:
-  - "充电桩功率计算器"
-  - "充电桩选型"
-  - "三相电"
-  - "功率因数"
-  - "cosφ"
-  - "7kW家用桩"
-  - "22kW双枪"
+  - 充电桩功率计算器
+  - 充电桩选型
+  - 三相电
+  - 功率因数
+  - cosφ
+  - 7kW家用桩
+  - 22kW双枪
 layout: page
 translationKey: charging_power_calculator
+draft: false
 ---
 
 {{< charging-power-calculator >}}

@@ -1,34 +1,33 @@
 ---
-title: "Three-Phase Power Calculator — Active / Apparent / Reactive Power & Power Factor"
-description: "Online three-phase power and power factor calculator. Enter line voltage V, line current A, and power factor cosφ to calculate active power P(kW), apparent power S(kVA), and reactive power Q(kvar). Supports unit switching (W↔kW, VAr↔kVAr) and recommends reactive power compensation capacitors to correct to 0.95. For factory distribution, motor sizing, transformer capacity verification, and reactive power penalty calculations."
+title: Three-Phase Power Calculator — Active / Apparent / Reactive Power & Power Factor
+description: Online three-phase power and power factor calculator. Enter line voltage V, line current A, and power factor cosφ to calculate active power P(kW), apparent power S(kVA), and reactive power Q(kvar). Supports unit switching (W↔kW, VAr↔kVAr) and recommends reactive power compensation capacitors to correct to 0.95. For factory distribution, motor sizing, transformer capacity verification, and reactive power penalty calculations.
 categories:
-  - "Electrical Calculators"
-  - "Three-Phase Power"
-  - "Factory Essentials"
-  - "Engineering Tools"
-
-
+  - Electrical Calculators
+  - Three-Phase Power
+  - Factory Essentials
+  - Engineering Tools
 images:
-  - "/images/tools/three-phase-power-calculator.svg"
+  - /images/tools/three-phase-power-calculator.svg
 tags:
-  - "three-phase"
-  - "power factor"
-  - "cosφ"
-  - "reactive compensation"
-  - "kVAr"
-  - "power triangle"
-  - "GB/T 15543"
-  - "industrial distribution"
+  - three-phase
+  - power factor
+  - cosφ
+  - reactive compensation
+  - kVAr
+  - power triangle
+  - GB/T 15543
+  - industrial distribution
 keywords:
-  - "three-phase power calculator"
-  - "three-phase power"
-  - "active power"
-  - "reactive power"
-  - "apparent power"
-  - "PF compensation"
-  - "power factor penalty"
-layout: "page"
-translationKey: "three_phase_power_calculator"
+  - three-phase power calculator
+  - three-phase power
+  - active power
+  - reactive power
+  - apparent power
+  - PF compensation
+  - power factor penalty
+layout: page
+translationKey: three_phase_power_calculator
+draft: false
 ---
 
 {{< three-phase-power-calculator >}}

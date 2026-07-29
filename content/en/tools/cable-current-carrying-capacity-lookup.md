@@ -1,35 +1,33 @@
 ---
-title: "Cable Current-Carrying Capacity Lookup — YJV / YJV22 / VV Online Reference Tool"
+title: Cable Current-Carrying Capacity Lookup — YJV / YJV22 / VV Online Reference Tool
 description: "Online cable ampacity lookup tool supporting YJV / YJLV / VV / VLV / BVR / BLVR and other cable types. Covers 5 installation methods: free-air, conduit, tray, direct burial, and duct. Automatically applies GB 50217 temperature, grouping, and altitude correction factors. For electrical engineering design, on-site construction, and factory maintenance."
 categories:
-  - "Electrical Tools"
-  - "Cable & Installation"
-  - "Engineering Quick Reference"
-
-
+  - Electrical Tools
+  - Cable & Installation
+  - Engineering Quick Reference
 images:
-  - "/images/tools/cable-current-carrying-capacity-lookup.svg"
+  - /images/tools/cable-current-carrying-capacity-lookup.svg
 tags:
-  - "cable ampacity"
-  - "current carrying capacity"
-  - "YJV cable"
-  - "conduit installation"
-  - "cable tray"
-  - "direct burial"
-  - "GB 50217"
-  - "derating factor"
+  - cable ampacity
+  - current carrying capacity
+  - YJV cable
+  - conduit installation
+  - cable tray
+  - direct burial
+  - GB 50217
+  - derating factor
 keywords:
-  - "cable ampacity lookup"
-  - "cable sizing"
-  - "YJV cable"
-  - "conduit installation"
-  - "cable tray"
-  - "direct burial"
-  - "ampacity derating"
-layout: "page"
-translationKey: "cable_current_carrying_capacity_lookup"
-date: "2026-07-18T21:05:00+00:00"
-draft: false
+  - cable ampacity lookup
+  - cable sizing
+  - YJV cable
+  - conduit installation
+  - cable tray
+  - direct burial
+  - ampacity derating
+layout: page
+translationKey: cable_current_carrying_capacity_lookup
+date: 2026-07-18T21:05:00+00:00
+draft: true
 ---
 
 {{< cable-current-carrying-capacity-lookup >}}

@@ -1,8 +1,9 @@
 ---
-translationKey: "about"
-title: "About Electrical Toolbox"
-description: "About Electrical Toolbox — free online electrical calculation tools for engineers and EV owners"
-layout: "page"
+translationKey: about
+title: About Electrical Toolbox
+description: About Electrical Toolbox — free online electrical calculation tools for engineers and EV owners
+layout: page
+draft: false
 ---
 
 ## About This Site
@@ -40,4 +41,4 @@ For tool suggestions, standards updates, or bug reports, please open a GitHub Is
 
 ---
 
-> **Privacy Commitment**: This site uses no cookies, collects no user data, and integrates no third-party analytics. Your electrical parameters stay in your browser.
+> **Privacy Commitment**: This site uses no cookies, collects no user data. Your electrical parameters stay in your browser.

@@ -1,33 +1,32 @@
 ---
-title: "Electricity Cost Calculator — Household Appliance Daily / Monthly / Annual Cost Estimator"
-description: "Free online electricity cost estimator. Enter appliance wattage W and daily usage hours (or monthly kWh) plus electricity rate ¥/kWh to calculate daily/monthly/annual costs. Includes presets for LED lights, refrigerators, air conditioners, and water heaters. Assists with household energy savings."
+title: Electricity Cost Calculator — Household Appliance Daily / Monthly / Annual Cost Estimator
+description: Free online electricity cost estimator. Enter appliance wattage W and daily usage hours (or monthly kWh) plus electricity rate ¥/kWh to calculate daily/monthly/annual costs. Includes presets for LED lights, refrigerators, air conditioners, and water heaters. Assists with household energy savings.
 categories:
-  - "Electrical Calculators"
-  - "Electricity Cost Estimation"
-  - "Energy-Saving Tools"
-  - "Household Essentials"
-
-
+  - Electrical Calculators
+  - Electricity Cost Estimation
+  - Energy-Saving Tools
+  - Household Essentials
 images:
-  - "/images/tools/electricity-cost-calculator.svg"
+  - /images/tools/electricity-cost-calculator.svg
 tags:
-  - "electricity cost"
-  - "tiered pricing"
-  - "kWh"
-  - "home appliances"
-  - "LED"
-  - "air conditioner"
-  - "electric water heater"
-  - "CO₂ emission"
+  - electricity cost
+  - tiered pricing
+  - kWh
+  - home appliances
+  - LED
+  - air conditioner
+  - electric water heater
+  - CO₂ emission
 keywords:
-  - "electricity cost calculator"
-  - "home electricity cost"
-  - "monthly kWh"
-  - "tiered electricity pricing"
-  - "energy savings"
-  - "carbon footprint"
-layout: "page"
-translationKey: "electricity_cost_calculator"
+  - electricity cost calculator
+  - home electricity cost
+  - monthly kWh
+  - tiered electricity pricing
+  - energy savings
+  - carbon footprint
+layout: page
+translationKey: electricity_cost_calculator
+draft: false
 ---
 
 {{< electricity-cost-calculator >}}

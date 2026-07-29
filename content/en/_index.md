@@ -1,7 +1,8 @@
 ---
-title: "Electrical Toolbox — Free Online Electrical Calculators"
+title: Electrical Toolbox — Free Online Electrical Calculators
 description: "Free online electrical tools: EV charging time, charging power, three-phase power, breaker sizing, wire sizing, cable ampacity, transformer selection, electricity cost. 100% client-side, zero data upload."
-layout: "page"
+layout: page
+draft: false
 ---
 
 ## Essential Tools for Electrical Engineers & EV Owners

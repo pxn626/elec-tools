@@ -1,32 +1,31 @@
 ---
-title: "Charging Time Calculator — EV & EV Charger Full-Charge Duration Estimator"
-description: "Free online charging time calculator. Enter battery capacity kWh, charging power kW, and efficiency to estimate 0–100% / 50–80% / 0–80% charging duration. Covers 13 EV charger presets (7/11/22/43kW AC + 30/60/80/100/120/160/240/400/480kW DC)."
+title: Charging Time Calculator — EV & EV Charger Full-Charge Duration Estimator
+description: Free online charging time calculator. Enter battery capacity kWh, charging power kW, and efficiency to estimate 0–100% / 50–80% / 0–80% charging duration. Covers 13 EV charger presets (7/11/22/43kW AC + 30/60/80/100/120/160/240/400/480kW DC).
 categories:
-  - "EV Charger Tools"
-  - "Battery Calculators"
-  - "EV Owner Essentials"
-
-
+  - EV Charger Tools
+  - Battery Calculators
+  - EV Owner Essentials
 images:
-  - "/images/tools/charging-time-calculator.svg"
+  - /images/tools/charging-time-calculator.svg
 tags:
-  - "EV charger"
-  - "battery capacity"
-  - "kWh"
-  - "charging duration"
-  - "CCCV trickle"
-  - "GB/T 27930"
-  - "charging curve"
+  - EV charger
+  - battery capacity
+  - kWh
+  - charging duration
+  - CCCV trickle
+  - GB/T 27930
+  - charging curve
 keywords:
-  - "charging time calculator"
-  - "EV charging"
-  - "battery charging"
-  - "kWh"
-  - "charging power"
-  - "charging curve"
-  - "GB/T 27930"
-layout: "page"
-translationKey: "charging_time_calculator"
+  - charging time calculator
+  - EV charging
+  - battery charging
+  - kWh
+  - charging power
+  - charging curve
+  - GB/T 27930
+layout: page
+translationKey: charging_time_calculator
+draft: false
 ---
 
 {{< charging-time-calculator >}}
