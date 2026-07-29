@@ -168,6 +168,7 @@
         <div class="cf-r-row"><span class="cf-r-label">Per-conductor area</span><span class="cf-r-val" id="cf-v-wa">—</span></div>
         <div class="cf-r-row"><span class="cf-r-label">Total wire area</span><span class="cf-r-val" id="cf-v-twa">—</span></div>
         <div class="cf-r-row highlight"><span class="cf-r-label">Fill %</span><span class="cf-r-val" id="cf-v-fill">—</span></div>
+        <div class="cf-warn" id="cf-v-warn" style="display:none">⚠ Fill is close to NEC limit (≥ 35%). Consider upsizing one trade for better heat dissipation and pulling margin.</div>
         <div class="cf-r-row"><span class="cf-r-label">NEC limit</span><span class="cf-r-val" id="cf-v-limit">—</span></div>
         <div class="cf-r-row highlight"><span class="cf-r-label">Compliance</span><span class="cf-r-val" id="cf-v-comp">—</span></div>
         <div class="cf-formula" id="cf-v-formula"></div>
@@ -210,6 +211,7 @@
         <h3>Recommended Conduit</h3>
         <div class="cf-r-row highlight"><span class="cf-r-label">Minimum Trade Size</span><span class="cf-r-val" id="cf-r-min">—</span></div>
         <div class="cf-r-row"><span class="cf-r-label">Fill at minimum size</span><span class="cf-r-val" id="cf-r-fill">—</span></div>
+        <div class="cf-warn" id="cf-r-warn" style="display:none">⚠ Fill is close to NEC limit (≥ 35%). Consider upsizing one trade for better heat dissipation and pulling margin.</div>
         <div class="cf-r-row"><span class="cf-r-label">NEC limit</span><span class="cf-r-val" id="cf-r-limit">—</span></div>
         <div class="cf-r-row highlight"><span class="cf-r-label">Compliance</span><span class="cf-r-val" id="cf-r-comp">—</span></div>
         <div class="cf-tip" id="cf-r-tip" style="display:none"></div>
@@ -242,6 +244,7 @@
         <div class="cf-r-row"><span class="cf-r-label">Total conductor area</span><span class="cf-r-val" id="cf-m-twa">—</span></div>
         <div class="cf-r-row"><span class="cf-r-label">Conduit area</span><span class="cf-r-val" id="cf-m-ca">—</span></div>
         <div class="cf-r-row highlight"><span class="cf-r-label">Fill %</span><span class="cf-r-val" id="cf-m-fill">—</span></div>
+        <div class="cf-warn" id="cf-m-warn" style="display:none">⚠ Fill is close to NEC limit (≥ 35%). Consider upsizing one trade for better heat dissipation and pulling margin.</div>
         <div class="cf-r-row"><span class="cf-r-label">NEC limit</span><span class="cf-r-val" id="cf-m-limit">—</span></div>
         <div class="cf-r-row highlight"><span class="cf-r-label">Compliance</span><span class="cf-r-val" id="cf-m-comp">—</span></div>
         <div class="cf-formula" id="cf-m-formula"></div>
@@ -619,6 +622,8 @@
         document.getElementById("cf-v-wa").textContent = fmtArea(r.wireArea) + " (OD " + fmtOD(r.wireOD) + ")";
         document.getElementById("cf-v-twa").textContent = fmtArea(r.totalWireArea);
         document.getElementById("cf-v-fill").textContent = fmtPct(r.fillPct);
+        var vWarn = document.getElementById("cf-v-warn");
+        if (r.fillPct >= 0.35) { vWarn.style.display = "block"; } else { vWarn.style.display = "none"; }
         document.getElementById("cf-v-limit").textContent = (r.limit * 100).toFixed(0) + "%" + (r.isNipple ? " (nipple)" : "");
         var compEl = document.getElementById("cf-v-comp");
         compEl.innerHTML = r.compliant
@@ -648,6 +653,8 @@
         if (r.recommended) {
           document.getElementById("cf-r-min").textContent = r.recommended + '"';
           document.getElementById("cf-r-fill").textContent = fmtPct(r.fillPct);
+          var rWarn = document.getElementById("cf-r-warn");
+          if (r.fillPct >= 0.35) { rWarn.style.display = "block"; } else { rWarn.style.display = "none"; }
           document.getElementById("cf-r-limit").textContent = (r.limit * 100).toFixed(0) + "%" + (r.isNipple ? " (nipple)" : "");
           document.getElementById("cf-r-comp").innerHTML = '<span style="color:#16a34a">✓ Compliant per NEC</span>';
           var tip = document.getElementById("cf-r-tip");
@@ -686,6 +693,8 @@
         if (r.recommended) {
           document.getElementById("cf-m-ca").textContent = fmtArea(r.conduitArea) + " (" + r.recommended + '" ' + conduitType + ")";
           document.getElementById("cf-m-fill").textContent = fmtPct(r.fillPct);
+          var mWarn = document.getElementById("cf-m-warn");
+          if (r.fillPct >= 0.35) { mWarn.style.display = "block"; } else { mWarn.style.display = "none"; }
           document.getElementById("cf-m-limit").textContent = (r.limit * 100).toFixed(0) + "%" + (r.isNipple ? " (nipple)" : "");
           document.getElementById("cf-m-comp").innerHTML = '<span style="color:#16a34a">✓ Compliant per NEC at ' + r.recommended + '" ' + conduitType + '</span>';
           document.getElementById("cf-m-formula").innerHTML =
