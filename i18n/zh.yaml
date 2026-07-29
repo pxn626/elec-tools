@@ -1189,3 +1189,16 @@
   translation: "依据 <strong>NEC Chapter 9 Table 4</strong>(穿管截面积)和 <strong>Annex C</strong>(导线数量查询表)。填充率上限:3 根及以上 40%,2 根 53%,短管 (≤ 24\") 60%。"
 - id: cf_disclaimer_text
   translation: "<em>仅作参考 — 实际施工请以当地采用的最新 <a href=\"https://www.nfpa.org/codes-and-standards/nfpa-70-standard-development/70\" rel=\"nofollow noopener\">NEC</a> 版本及地方 AHJ (Authority Having Jurisdiction) 规定为准。本工具不替代专业工程师或持证电工的审核。</em>"
+# Transformer Capacity Selection — quick-wins 2026-07-29
+- id: tcs_summary_label
+  translation: "📐 3 秒看懂变压器容量公式"
+- id: tcs_summary_formula
+  translation: "S_N ≥ (S_c × K_m) / η, 其中 S_c = P / (η × cosφ), 谐波修正 K_h(6 脉冲 1.05-1.20,12 脉冲 1.02-1.10)"
+- id: tcs_related_title
+  translation: "🔗 下一步 — 选导线截面"
+- id: tcs_related_wire_title
+  translation: "导线截面计算器 (NEC 310.16 AWG/kcmil)"
+- id: tcs_related_wire_desc
+  translation: "变压器容量确定后,下一步就是低压侧出线电缆选型。配套的导线截面计算器一键给出最小 NEC Table 310.16 合规 AWG/kcmil,自带 NEC 310.15(B) 温升 + 穿管降容、配套 OCPD 断路器、以及 3% 支路 / 5% 总压降校验,全部一次给。"
+- id: tcs_related_wire_cta
+  translation: "打开导线截面计算器 →"

@@ -1189,3 +1189,16 @@
   translation: "Per <strong>NEC Chapter 9 Table 4</strong> (conduit area) and <strong>Annex C</strong> (number-of-conductors lookup). Fill limits: 40% for 3+ conductors, 53% for 2, 60% for nipples (≤ 24\")."
 - id: cf_disclaimer_text
   translation: "<em>Reference only — always verify with the current adopted <a href=\"https://www.nfpa.org/codes-and-standards/nfpa-70-standard-development/70\" rel=\"nofollow noopener\">NEC</a> edition and your local Authority Having Jurisdiction (AHJ). This tool does not replace professional engineering judgment or licensed electrician review.</em>"
+# Transformer Capacity Selection — quick-wins 2026-07-29
+- id: tcs_summary_label
+  translation: "📐 Sizing in 3 Seconds"
+- id: tcs_summary_formula
+  translation: "S_N ≥ (S_c × K_m) / η, where S_c = P / (η × cosφ), corrected by K_h for harmonics (6-pulse 1.05-1.20, 12-pulse 1.02-1.10)"
+- id: tcs_related_title
+  translation: "🔗 Next Step — Pick the Conductor"
+- id: tcs_related_wire_title
+  translation: "Wire Size Calculator (NEC 310.16 AWG/kcmil)"
+- id: tcs_related_wire_desc
+  translation: "Once you've sized the transformer to kVA, the next step is selecting the right secondary-side conductor. The companion Wire Size Calculator returns the smallest NEC Table 310.16 compliant AWG/kcmil with NEC 310.15(B) temperature + conduit-fill derating, the matching OCPD size, and the 3% branch / 5% combined voltage-drop check — all in one screen."
+- id: tcs_related_wire_cta
+  translation: "Open Wire Size Calculator →"
