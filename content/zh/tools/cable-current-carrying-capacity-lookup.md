@@ -28,7 +28,7 @@ keywords:
 layout: page
 translationKey: cable_current_carrying_capacity_lookup
 date: 2026-07-18T21:05:00+00:00
-draft: false
+draft: true
 ---
 
 {{< cable-current-carrying-capacity-lookup >}}
